@@ -11,28 +11,26 @@ using RFE_SerialTest;
 
 namespace RFE_SerialTest
 {
-    public partial class applicationMainForm : Form
+    public partial class MainForm : Form
     {
         RFExplorer gRFE;
-        SerialCommunications gSerialPort;
-        public applicationMainForm()
+        
+        
+
+        public MainForm()
         {
             InitializeComponent();
 
             gRFE = new RFExplorer();
-            gSerialPort = new SerialCommunications();
-
         }
 
         private void buttonFindPorts_Click(object sender, EventArgs e)
         {
             bool bStatus;
-            bStatus = gSerialPort.FindSerialPorts();
 
-            if (gSerialPort.ComPortName != null)
-            {
-                labelRFEComPort.Text = String.Concat(gSerialPort.ComPortName);
-            }
+            gRFE.Initialize();
+
+            
         }
     }
 }

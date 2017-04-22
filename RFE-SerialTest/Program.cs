@@ -16,7 +16,7 @@ namespace RFE_SerialTest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new applicationMainForm());
+            Application.Run(new MainForm());
         }
     }
 }

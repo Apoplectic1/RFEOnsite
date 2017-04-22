@@ -2,7 +2,7 @@
 
 namespace RFE_SerialTest
 {
-    partial class applicationMainForm : Form
+    partial class MainForm : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace RFE_SerialTest
         private void InitializeComponent()
         {
             this.buttonFindCOMPorts = new System.Windows.Forms.Button();
-            this.labelRFEComPort = new System.Windows.Forms.Label();
+            labelRFEComPort = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonFindCOMPorts
@@ -46,19 +46,19 @@ namespace RFE_SerialTest
             // 
             // labelRFEComPort
             // 
-            this.labelRFEComPort.AutoSize = true;
-            this.labelRFEComPort.Location = new System.Drawing.Point(128, 17);
-            this.labelRFEComPort.Name = "labelRFEComPort";
-            this.labelRFEComPort.Size = new System.Drawing.Size(108, 13);
-            this.labelRFEComPort.TabIndex = 1;
-            this.labelRFEComPort.Text = "RF Explorer Com Port";
+            labelRFEComPort.AutoSize = false;
+            labelRFEComPort.Location = new System.Drawing.Point(128, 17);
+            labelRFEComPort.Name = "labelRFEComPort";
+            labelRFEComPort.Size = new System.Drawing.Size(108, 13);
+            labelRFEComPort.TabIndex = 1;
+            labelRFEComPort.Text = "RF Explorer Com Port";
             // 
             // applicationMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.labelRFEComPort);
+            this.Controls.Add(labelRFEComPort);
             this.Controls.Add(this.buttonFindCOMPorts);
             this.Name = "applicationMainForm";
             this.Text = "RFE Serial Port Test";
@@ -69,8 +69,9 @@ namespace RFE_SerialTest
 
         #endregion
 
-        private System.Windows.Forms.Button buttonFindCOMPorts;
-        private Label labelRFEComPort;
+        private Button buttonFindCOMPorts;
+        private static Label labelRFEComPort;
+        public static string ComPortLabel { get { return labelRFEComPort.Text; } set { labelRFEComPort.Text = value; } }
     }
 }
 
