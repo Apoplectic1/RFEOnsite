@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RFExplorerCommunicator;
 using static RFExplorerCommunicator.RFExplorer;
 
 namespace RFE_SerialTest
@@ -19,45 +20,55 @@ namespace RFE_SerialTest
         volatile bool   mbRunReceiveThread;                 //Run thread (true) or temporarily stop it (false)
         SerialCommunications mSerialPort;
         
-       
+
+
         public RFExplorer ()
         {
             mSerialPort = new SerialCommunications();
 
             mReceiveThreadDataArray = new Queue();
         }
-        
 
-        public bool Initialize()
+        public void UpdateUI(IProgress<string> progress)
         {
-            bool bStatus;
-
-            bStatus = mSerialPort.FindSerialPorts();
-
-            if (mSerialPort.ComPortName != null)
-            {
-                MainForm.ComPortLabel = String.Concat(mSerialPort.ComPortName);
-            }
-
-            mSerialPort.ConnectPort();
-
-            // Start listening to data from the RF Explorer
-            mbRunReceiveThread = true;
-            ThreadStart threadDelegate = new ThreadStart(ReceiveThreadfunc);
-            mReceiveThread = new Thread(threadDelegate);
-            mReceiveThread.Start();
-
-            return true;
+            progress.Report(mSerialPort.ConnectedPortName);
         }
 
-        private void ReceiveThreadfunc()
+        public void Initialize(IProgress<string> progress)
+        {
+            mSerialPort.FindSerialPorts();
+           
+            mSerialPort.ConnectPort();
+
+            progress.Report(mSerialPort.ConnectedPortName);
+
+        }
+
+        public void Configuration(IProgress<RFEConfiguration> progress)
+        {
+            //Start listening to data from the RF Explorer
+            mbRunReceiveThread = true;
+            //ThreadStart threadDelegate = new ThreadStart(ReceiveThreadfunc);
+            //mReceiveThread = new Thread(threadDelegate);
+            //mReceiveThread.Start();
+
+            Thread mReceiveThread = new Thread(() => ReceiveThreadfunc(progress));
+            mReceiveThread.Start();
+
+            
+        }
+
+
+        RFEConfiguration objNewConfiguration = null;
+
+        private void ReceiveThreadfunc(IProgress<RFEConfiguration> progress)
         {
             SerialPort testPort = new SerialPort();
             bool temp = testPort.IsOpen;
 
             //this is the object used to keep current configuration data
             RFEConfiguration objCurrentConfiguration = null;
-            RFEConfiguration objNewConfiguration = null;
+            
 
             while (mbRunReceiveThread)
             {
@@ -107,15 +118,14 @@ namespace RFE_SerialTest
                                 string sLeftOver = strReceived.Substring(nEndPos + 2);
                                 strReceived = sLeftOver;
                                 
-                                if ((sNewLine.Length > 5) &&
-                                        (sNewLine.StartsWith("#C2-F:") || sNewLine.StartsWith("#C2-f:") ||
-                                        (sNewLine.StartsWith("#C3-") && (sNewLine[4] != 'M')) || sNewLine.StartsWith("#C4-F:"))
-                                    )
+                                if ((sNewLine.Length > 5) && (sNewLine.StartsWith("#C2-F:")))
                                 {
                                     //Standard configuration expected
                                     objNewConfiguration = new RFEConfiguration();
                                     if (objNewConfiguration.ProcessReceivedString(sNewLine))
                                     {
+                                        progress.Report(objNewConfiguration);
+
                                         objCurrentConfiguration = new RFEConfiguration(objNewConfiguration);
                                         Monitor.Enter(mReceiveThreadDataArray);
                                         mReceiveThreadDataArray.Enqueue(objNewConfiguration);

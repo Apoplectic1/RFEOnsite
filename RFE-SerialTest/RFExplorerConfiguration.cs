@@ -1,8 +1,6 @@
 ﻿
+using RFE_SerialTest;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RFExplorerCommunicator
 {
@@ -76,18 +74,6 @@ namespace RFExplorerCommunicator
             public eCalculator eCalculator;
             public UInt32 nBaudrate;
             public float fThresholdDBM;
-
-            public bool bRFEGenHighPowerSwitch;
-            public byte nRFEGenPowerLevel;
-            public double fRFEGenCWFreqMHZ;
-            public UInt16 nRFEGenSweepWaitMS;
-            public bool bRFEGenPowerON;
-
-            public bool bRFEGenStartHighPowerSwitch;
-            public bool bRFEGenStopHighPowerSwitch;
-            public byte nRFEGenStartPowerLevel;
-            public byte nRFEGenStopPowerLevel;
-            public UInt16 nRFGenSweepPowerSteps;
  
             public RFEConfiguration()
             {
@@ -106,7 +92,6 @@ namespace RFExplorerCommunicator
                 nBaudrate = 0;
                 eModulation = eModulation.MODULATION_NONE;
                 fThresholdDBM = 0.0f;
-
                 eCalculator = eCalculator.UNKNOWN;
             }
 
@@ -132,7 +117,8 @@ namespace RFExplorerCommunicator
 
             public bool ProcessReceivedString(string sLine)
             {
-                bool bOk = true;
+                
+            bool bOk = true;
 
                 try
                 {

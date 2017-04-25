@@ -15,13 +15,14 @@ namespace RFE_SerialTest
     {
         private static string[] mEnumeratedComPortNames;
         private static string[] mConnectedPorts;
+        private string mConnectedPort;
         private SerialPort mSerialPort;
         private bool mRFEConnected;
 
         public string[] ComPortName { get { return mConnectedPorts; } }
         public bool RFEConnected { get { return mRFEConnected; } }
         public SerialPort Port { get { return mSerialPort; } set { mSerialPort = value; } }
-
+        public string ConnectedPortName { get { return mConnectedPort; } }
         private static bool IsConnectedPort(string sPortName)
         {
             foreach (string sPort in mEnumeratedComPortNames)
@@ -104,9 +105,11 @@ namespace RFE_SerialTest
 
             if (mConnectedPorts != null)
             {
+                mConnectedPort = String.Concat(mConnectedPorts);
                 return true;
             }
 
+            mConnectedPort = "";
             return false;
         }
 
