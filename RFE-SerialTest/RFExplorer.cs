@@ -58,6 +58,22 @@ namespace RFE_SerialTest
             
         }
 
+        public void SetConfiguration(double startMHz, double stopMHz, int amplitudeTop = 0, int amplitudeBottom = -110)
+        {
+            string start;
+            string stop;
+            string top;
+            string bottom;
+
+
+            start = Convert.ToInt32(Convert.ToDecimal(startMHz * 1000.0)).ToString("0000000");
+            stop  = Convert.ToInt32(Convert.ToDecimal(stopMHz  * 1000.0)).ToString("0000000");
+            top = Convert.ToInt32(Convert.ToDecimal(amplitudeTop * 1000.0)).ToString("0000");
+            bottom = Convert.ToInt32(Convert.ToDecimal(amplitudeBottom * 1000.0)).ToString("0000");
+
+            mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + ",-110");
+        }
+
 
         RFEConfiguration objNewConfiguration = null;
 

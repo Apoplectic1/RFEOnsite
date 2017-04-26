@@ -27,14 +27,12 @@ namespace RFE_SerialTest
         public void config(RFEConfiguration config)
         {
             double stopMHz;
-            double resolutionBandWidth;
-            double steps;
 
             textBoxStartFrequency.Text = config.fStartMHZ.ToString();
             stopMHz = (config.fStepMHZ * 112.0) + config.fStartMHZ;
             textBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
-            labelRBWKhz.Text = Math.Round(config.fRBWKHZ, 2).ToString() + " KHz";
-            label3.Text = Math.Round(config.fStepMHZ, 2).ToString() + " MHz";
+            textBox1.Text = Math.Round(config.fRBWKHZ, 2).ToString();
+            textBox2.Text = Math.Round(config.fStepMHZ, 4).ToString();
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -59,6 +57,20 @@ namespace RFE_SerialTest
             gRFE.Configuration(configurationUpdate);
 
         }
-        
+
+        private void buttonSetConfiguration_Click(object sender, EventArgs e)
+        {
+            string startMHz;
+            string stopMHz;
+            string rbwKHz;
+            string stepMHZ;
+
+            startMHz = textBoxStartFrequency.Text;
+            stopMHz  = textBoxStopFrequency.Text;
+            rbwKHz = textBox1.Text;
+            stepMHZ = textBox2.Text;
+
+            gRFE.SetConfiguration(Convert.ToDouble(startMHz), Convert.ToDouble(stopMHz));
+        }
     }
 }
