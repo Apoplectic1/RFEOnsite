@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using RFExplorerCommunicator;
 using static RFExplorerCommunicator.RFExplorer;
 
-namespace RFE_SerialTest
+namespace RFEOnsite
 {
 
     public partial class RFExplorer

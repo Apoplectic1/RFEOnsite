@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RFE_SerialTest;
+using RFEOnsite;
 using static RFExplorerCommunicator.RFExplorer;
 
-namespace RFE_SerialTest
+namespace RFEOnsite
 {
     public partial class MainForm : Form
     {

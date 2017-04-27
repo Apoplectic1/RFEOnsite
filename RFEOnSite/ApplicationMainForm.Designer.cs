@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using static RFExplorerCommunicator.RFExplorer;
 
-namespace RFE_SerialTest
+namespace RFEOnsite
 {
     partial class MainForm : Form
     {

@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RFE_SerialTest
+namespace RFEOnsite
 {
     public class SerialCommunications
     {

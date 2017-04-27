@@ -1,5 +1,5 @@
 ﻿
-using RFE_SerialTest;
+using RFEOnSite;
 using System;
 
 namespace RFExplorerCommunicator
