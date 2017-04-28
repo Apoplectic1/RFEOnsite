@@ -31,8 +31,11 @@ namespace RFEOnsite
             textBoxStartFrequency.Text = config.fStartMHZ.ToString();
             stopMHz = (config.fStepMHZ * 112.0) + config.fStartMHZ;
             textBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
-            textBox1.Text = Math.Round(config.fRBWKHZ, 2).ToString();
-            textBox2.Text = Math.Round(config.fStepMHZ, 4).ToString();
+            textBoxRBW.Text = Math.Round(config.fRBWKHZ, 2).ToString();
+            textBoxStepSize.Text = Math.Round(config.fStepMHZ * 1000.0, 2).ToString();
+            label4.Text = config.mMainModel.ToString();
+            label5.Text = config.mExpansionModel.ToString();
+            label7.Text = config.mFirmwareVersion;
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -67,10 +70,20 @@ namespace RFEOnsite
 
             startMHz = textBoxStartFrequency.Text;
             stopMHz  = textBoxStopFrequency.Text;
-            rbwKHz = textBox1.Text;
-            stepMHZ = textBox2.Text;
+            rbwKHz = textBoxRBW.Text;
+            stepMHZ = textBoxStepSize.Text;
 
             gRFE.SetConfiguration(Convert.ToDouble(startMHz), Convert.ToDouble(stopMHz));
+        }
+
+        private void comboBoxProgramMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonSetConfiguration.Focus();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

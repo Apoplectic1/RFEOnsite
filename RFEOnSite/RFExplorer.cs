@@ -15,18 +15,19 @@ namespace RFEOnsite
 
     public partial class RFExplorer
     {
-        Queue           mReceiveThreadDataArray;
-        Thread          mReceiveThread;                     //Thread to process received RS232 activity
-        volatile bool   mbRunReceiveThread;                 //Run thread (true) or temporarily stop it (false)
+        Queue mReceiveThreadDataArray;
+        //        Thread mReceiveThread;                     //Thread to process received RS232 activity
+        volatile bool mbRunReceiveThread;                 //Run thread (true) or temporarily stop it (false)
         SerialCommunications mSerialPort;
-        
+        RFEConfiguration mRFEConfiguration;
 
 
-        public RFExplorer ()
+        public RFExplorer()
         {
             mSerialPort = new SerialCommunications();
 
             mReceiveThreadDataArray = new Queue();
+            mRFEConfiguration = new RFEConfiguration();
         }
 
         public void UpdateUI(IProgress<string> progress)
@@ -37,7 +38,7 @@ namespace RFEOnsite
         public void Initialize(IProgress<string> progress)
         {
             mSerialPort.FindSerialPorts();
-           
+
             mSerialPort.ConnectPort();
 
             progress.Report(mSerialPort.ConnectedPortName);
@@ -55,7 +56,7 @@ namespace RFEOnsite
             Thread mReceiveThread = new Thread(() => ReceiveThreadfunc(progress));
             mReceiveThread.Start();
 
-            
+
         }
 
         public void SetConfiguration(double startMHz, double stopMHz, int amplitudeTop = 0, int amplitudeBottom = -110)
@@ -67,28 +68,35 @@ namespace RFEOnsite
 
 
             start = Convert.ToInt32(Convert.ToDecimal(startMHz * 1000.0)).ToString("0000000");
-            stop  = Convert.ToInt32(Convert.ToDecimal(stopMHz  * 1000.0)).ToString("0000000");
+            stop = Convert.ToInt32(Convert.ToDecimal(stopMHz * 1000.0)).ToString("0000000");
             top = Convert.ToInt32(Convert.ToDecimal(amplitudeTop * 1000.0)).ToString("0000");
             bottom = Convert.ToInt32(Convert.ToDecimal(amplitudeBottom * 1000.0)).ToString("0000");
 
+            mReceiveThreadDataArray.Clear();
+
+            if (startMHz >= 4850)
+            {
+                mSerialPort.SendCommand("CM\x0");
+            }
+            else
+            {
+                mSerialPort.SendCommand("CM\x1");
+            }
+
             mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + ",-110");
+
         }
 
 
-        RFEConfiguration objNewConfiguration = null;
+        //        RFEConfiguration objNewConfiguration = new RFEConfiguration();
+        
 
         private void ReceiveThreadfunc(IProgress<RFEConfiguration> progress)
         {
-            SerialPort testPort = new SerialPort();
-            bool temp = testPort.IsOpen;
-
-            //this is the object used to keep current configuration data
-            RFEConfiguration objCurrentConfiguration = null;
-            
-
             while (mbRunReceiveThread)
             {
-                string strReceived = "";
+                string sReceived = "";
+
                 while (mSerialPort.RFEConnected && mbRunReceiveThread)
                 {
                     string sNewText = "";
@@ -103,71 +111,52 @@ namespace RFEOnsite
                     }
                     catch (IOException) { }
                     catch (TimeoutException) { }
-                    catch (Exception obExeption)
+                    catch (Exception obExeption) { }
+                    finally
                     {
-                        Monitor.Enter(mReceiveThreadDataArray);
-                        mReceiveThreadDataArray.Enqueue(obExeption);
-                        Monitor.Exit(mReceiveThreadDataArray);
+                        Monitor.Exit(mSerialPort);
                     }
-                    finally { Monitor.Exit(mSerialPort); }
 
                     if (sNewText.Length > 0)
                     {
-                        strReceived += sNewText;
+                        sReceived += sNewText;
                         sNewText = "";
                     }
 
-                    if (strReceived.Length > 66 * 1024)
+                    if (sReceived.Length > 66 * 1024)
                     {
                         //Safety code, some error prevented the string from being processed in several loop cycles. Reset it.
-                        strReceived = "";
+                        sReceived = "";
                     }
 
-                    if (strReceived.Length > 0)
+                    if (sReceived.Length > 0)
                     {
-                        if (strReceived[0] == '#')
-                        {
-                            int nEndPos = strReceived.IndexOf("\r\n");
-                            if (nEndPos >= 0)
-                            {
-                                string sNewLine = strReceived.Substring(0, nEndPos);
-                                string sLeftOver = strReceived.Substring(nEndPos + 2);
-                                strReceived = sLeftOver;
-                                
-                                if ((sNewLine.Length > 5) && (sNewLine.StartsWith("#C2-F:")))
-                                {
-                                    //Standard configuration expected
-                                    objNewConfiguration = new RFEConfiguration();
-                                    if (objNewConfiguration.ProcessReceivedString(sNewLine))
-                                    {
-                                        progress.Report(objNewConfiguration);
+                        string sNewLine;
+                        string sLeftOver;
 
-                                        objCurrentConfiguration = new RFEConfiguration(objNewConfiguration);
-                                        Monitor.Enter(mReceiveThreadDataArray);
-                                        mReceiveThreadDataArray.Enqueue(objNewConfiguration);
-                                        Monitor.Exit(mReceiveThreadDataArray);
-                                    }
-                                }
-                                else
-                                {
-                                    Monitor.Enter(mReceiveThreadDataArray);
-                                    mReceiveThreadDataArray.Enqueue(sNewLine);
-                                    Monitor.Exit(mReceiveThreadDataArray);
-                                }
-                            }
-                        }
-                        else
+                        int nEndPos = sReceived.IndexOf("\r\n");
+                        if (nEndPos >= 0)
                         {
-                            int nEndPos = strReceived.IndexOf("\r\n");
-                            if (nEndPos >= 0)
+                            sNewLine = sReceived.Substring(0, nEndPos);
+                            sLeftOver = sReceived.Substring(nEndPos + 2);
+                            sReceived = sLeftOver;
+
+                            if ((sNewLine.StartsWith("#Sn")) && (sNewLine.Length == 19))
                             {
-                                string sNewLine = strReceived.Substring(0, nEndPos);
-                                string sLeftOver = strReceived.Substring(nEndPos + 2);
-                                strReceived = sLeftOver;
-                                Monitor.Enter(mReceiveThreadDataArray);
-                                mReceiveThreadDataArray.Enqueue(sNewLine);
-                                Monitor.Exit(mReceiveThreadDataArray);
+                                mRFEConfiguration.ParseSerialNumber(sNewLine);
                             }
+
+                                if ((sNewLine.StartsWith("#C2-M:")) && (sNewLine.Length == 19))
+                            {
+                                mRFEConfiguration.ParseCurrentSetup(sNewLine);
+                            }
+                                // Look for Configuration string 
+                                if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
+                            {
+                                mRFEConfiguration.ParseConfigurationString(sNewLine);
+                                //progress.Report(mRFEConfiguration);
+                            }
+                            progress.Report(mRFEConfiguration);
                         }
                     }
 
