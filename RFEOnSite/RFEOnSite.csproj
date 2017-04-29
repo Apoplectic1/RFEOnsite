@@ -55,6 +55,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,11 +73,12 @@
     <Compile Include="ApplicationMainForm.Designer.cs">
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chart.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RFExplorer.cs" />
-    <Compile Include="RFExplorerConfiguration.cs" />
-    <Compile Include="Serial.Communications.cs" />
+    <Compile Include="Explorer.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Serial.cs" />
     <EmbeddedResource Include="ApplicationMainForm.resx">
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
     </EmbeddedResource>

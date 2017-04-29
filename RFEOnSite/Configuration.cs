@@ -57,23 +57,23 @@ namespace RFEOnsite
         };
         public class RFEConfiguration
         {
-            public double fStartMHZ;
-            public double fStepMHZ;
-            public double fAmplitudeTopDBM;
-            public double fAmplitudeBottomDBM;
             public UInt16 nFreqSpectrumSteps;
             public bool bExpansionBoardActive;
-            public eMode eMode;
-            public double fMinFreqMHZ;
+            public double fAmplitudeBottomDBM;
+            public double fAmplitudeTopDBM;
             public double fMaxFreqMHZ;
             public double fMaxSpanMHZ;
+            public double fMinFreqMHZ;
             public double fRBWKHZ;
-            public float fOffset_dB;
+            public double fStartMHZ;
+            public double fStepMHZ;
             public eCalculator eCalculator;
-            public string mSerialNumber;
-            public eModel mMainModel;
+            public eMode eMode;
             public eModel mExpansionModel;
+            public eModel mMainModel;
+            public float fOffset_dB;
             public string mFirmwareVersion;
+            public string mSerialNumber;
 
 
             public RFEConfiguration()

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnsite
 {
@@ -30,6 +31,8 @@ namespace RFEOnsite
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonFindCOMPorts = new System.Windows.Forms.Button();
             this.labelRFEComPort = new System.Windows.Forms.Label();
             this.labelStartFrequency = new System.Windows.Forms.Label();
@@ -58,25 +61,36 @@ namespace RFEOnsite
             this.buttonSetConfiguration = new System.Windows.Forms.Button();
             this.comboBoxProgramMode = new System.Windows.Forms.ComboBox();
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.labelFirmware = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelFoundModel = new System.Windows.Forms.Label();
+            this.labelFoundDevice = new System.Windows.Forms.Label();
             this.buttonStartSweeps = new System.Windows.Forms.Button();
             this.labelStartSweeps = new System.Windows.Forms.Label();
             this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.SweepPanel = new System.Windows.Forms.Panel();
+            this.ConfigurationPanel = new System.Windows.Forms.Panel();
+            this.ConnectionPanel = new System.Windows.Forms.Panel();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.ChartPanel = new System.Windows.Forms.Panel();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelModel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.SweepPanel.SuspendLayout();
+            this.ConfigurationPanel.SuspendLayout();
+            this.ConnectionPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.ChartPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonFindCOMPorts
@@ -194,7 +208,7 @@ namespace RFEOnsite
             this.groupBox1.Controls.Add(this.labelRBW);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(372, 186);
+            this.groupBox1.Size = new System.Drawing.Size(366, 186);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Current Configuration";
@@ -356,63 +370,64 @@ namespace RFEOnsite
             // 
             // groupBoxSerialConnection
             // 
-            this.groupBoxSerialConnection.Controls.Add(this.label7);
+            this.groupBoxSerialConnection.Controls.Add(this.labelModel);
+            this.groupBoxSerialConnection.Controls.Add(this.label3);
+            this.groupBoxSerialConnection.Controls.Add(this.labelFirmware);
             this.groupBoxSerialConnection.Controls.Add(this.label6);
-            this.groupBoxSerialConnection.Controls.Add(this.label5);
+            this.groupBoxSerialConnection.Controls.Add(this.labelFoundModel);
             this.groupBoxSerialConnection.Controls.Add(this.comboBoxProgramMode);
-            this.groupBoxSerialConnection.Controls.Add(this.label4);
+            this.groupBoxSerialConnection.Controls.Add(this.labelFoundDevice);
             this.groupBoxSerialConnection.Controls.Add(this.buttonFindCOMPorts);
             this.groupBoxSerialConnection.Controls.Add(this.labelRFEComPort);
             this.groupBoxSerialConnection.Location = new System.Drawing.Point(3, 4);
             this.groupBoxSerialConnection.Name = "groupBoxSerialConnection";
-            this.groupBoxSerialConnection.Size = new System.Drawing.Size(372, 110);
+            this.groupBoxSerialConnection.Size = new System.Drawing.Size(366, 110);
             this.groupBoxSerialConnection.TabIndex = 12;
             this.groupBoxSerialConnection.TabStop = false;
             this.groupBoxSerialConnection.Text = "RF Explorer Connection";
+            this.groupBoxSerialConnection.Enter += new System.EventHandler(this.groupBoxSerialConnection_Enter);
             // 
-            // label7
+            // labelFirmware
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(278, 20);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "label7";
+            this.labelFirmware.AutoSize = true;
+            this.labelFirmware.Location = new System.Drawing.Point(284, 20);
+            this.labelFirmware.Name = "labelFirmware";
+            this.labelFirmware.Size = new System.Drawing.Size(0, 13);
+            this.labelFirmware.TabIndex = 5;
+            this.labelFirmware.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(228, 20);
+            this.label6.Location = new System.Drawing.Point(200, 20);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Firmware";
+            this.label6.Text = "Firmware:";
             // 
-            // label5
+            // labelFoundModel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(225, 68);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "label5";
+            this.labelFoundModel.AutoSize = true;
+            this.labelFoundModel.Location = new System.Drawing.Point(284, 68);
+            this.labelFoundModel.Name = "labelFoundModel";
+            this.labelFoundModel.Size = new System.Drawing.Size(0, 13);
+            this.labelFoundModel.TabIndex = 3;
             // 
-            // label4
+            // labelFoundDevice
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(225, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "label4";
+            this.labelFoundDevice.AutoSize = true;
+            this.labelFoundDevice.Location = new System.Drawing.Point(284, 42);
+            this.labelFoundDevice.Name = "labelFoundDevice";
+            this.labelFoundDevice.Size = new System.Drawing.Size(0, 13);
+            this.labelFoundDevice.TabIndex = 2;
             // 
             // buttonStartSweeps
             // 
-            this.buttonStartSweeps.Location = new System.Drawing.Point(10, 53);
+            this.buttonStartSweeps.Location = new System.Drawing.Point(15, 53);
             this.buttonStartSweeps.Name = "buttonStartSweeps";
-            this.buttonStartSweeps.Size = new System.Drawing.Size(226, 23);
+            this.buttonStartSweeps.Size = new System.Drawing.Size(155, 23);
             this.buttonStartSweeps.TabIndex = 13;
-            this.buttonStartSweeps.Text = "Start Sweep";
+            this.buttonStartSweeps.Text = "Capture";
             this.buttonStartSweeps.UseVisualStyleBackColor = true;
             this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartWeeps_Click);
             // 
@@ -447,64 +462,157 @@ namespace RFEOnsite
             0,
             0,
             0});
-            
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.progressBar1);
             this.groupBox2.Controls.Add(this.labelStartSweeps);
             this.groupBox2.Controls.Add(this.buttonStartSweeps);
             this.groupBox2.Controls.Add(this.numericUpDownSweeps);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(372, 125);
+            this.groupBox2.Size = new System.Drawing.Size(366, 125);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sweep Control";
-
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(190, 56);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(87, 17);
+            this.checkBox1.TabIndex = 17;
+            this.checkBox1.Text = "Sweep Chart";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 87);
+            this.progressBar1.Location = new System.Drawing.Point(15, 87);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(226, 23);
+            this.progressBar1.Size = new System.Drawing.Size(343, 23);
             this.progressBar1.TabIndex = 16;
-
             // 
-            // panel1
+            // SweepPanel
             // 
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Location = new System.Drawing.Point(14, 333);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(411, 132);
-            this.panel1.TabIndex = 17;
-
+            this.SweepPanel.Controls.Add(this.groupBox2);
+            this.SweepPanel.Location = new System.Drawing.Point(14, 333);
+            this.SweepPanel.Name = "SweepPanel";
+            this.SweepPanel.Size = new System.Drawing.Size(376, 132);
+            this.SweepPanel.TabIndex = 17;
             // 
-            // panel2
+            // ConfigurationPanel
             // 
-            this.panel2.Controls.Add(this.groupBox1);
-            this.panel2.Location = new System.Drawing.Point(14, 133);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(411, 192);
-            this.panel2.TabIndex = 18;
-
+            this.ConfigurationPanel.Controls.Add(this.groupBox1);
+            this.ConfigurationPanel.Location = new System.Drawing.Point(14, 133);
+            this.ConfigurationPanel.Name = "ConfigurationPanel";
+            this.ConfigurationPanel.Size = new System.Drawing.Size(376, 192);
+            this.ConfigurationPanel.TabIndex = 18;
             // 
-            // panel3
+            // ConnectionPanel
             // 
-            this.panel3.Controls.Add(this.groupBoxSerialConnection);
-            this.panel3.Location = new System.Drawing.Point(14, 8);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(411, 117);
-            this.panel3.TabIndex = 19;
+            this.ConnectionPanel.Controls.Add(this.groupBoxSerialConnection);
+            this.ConnectionPanel.Location = new System.Drawing.Point(14, 8);
+            this.ConnectionPanel.Name = "ConnectionPanel";
+            this.ConnectionPanel.Size = new System.Drawing.Size(376, 117);
+            this.ConnectionPanel.TabIndex = 22;
+            // 
+            // chart1
+            // 
+            chartArea2.Name = "ChartArea1";
+           
+            this.chart1.ChartAreas.Add(chartArea2);
+            this.chart1.Location = new System.Drawing.Point(12, 24);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(344, 377);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
+            // ChartPanel
+            // 
+            this.ChartPanel.Controls.Add(this.checkBox4);
+            this.ChartPanel.Controls.Add(this.checkBox3);
+            this.ChartPanel.Controls.Add(this.checkBox2);
+            this.ChartPanel.Controls.Add(this.chart1);
+            this.ChartPanel.Controls.Add(this.groupBox3);
+            this.ChartPanel.Location = new System.Drawing.Point(399, 8);
+            this.ChartPanel.Name = "ChartPanel";
+            this.ChartPanel.Size = new System.Drawing.Size(368, 457);
+            this.ChartPanel.TabIndex = 21;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(57, 420);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(74, 17);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Real Time";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(168, 420);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(66, 17);
+            this.checkBox3.TabIndex = 2;
+            this.checkBox3.Text = "Average";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(271, 420);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(76, 17);
+            this.checkBox4.TabIndex = 3;
+            this.checkBox4.Text = "Peak Hold";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(4, 5);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(361, 448);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Charting";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(210, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Device:";
+            // 
+            // labelModel
+            // 
+            this.labelModel.AutoSize = true;
+            this.labelModel.Location = new System.Drawing.Point(210, 67);
+            this.labelModel.Name = "labelModel";
+            this.labelModel.Size = new System.Drawing.Size(39, 13);
+            this.labelModel.TabIndex = 13;
+            this.labelModel.Text = "Model:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 492);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(775, 475);
+            this.Controls.Add(this.ChartPanel);
+            this.Controls.Add(this.ConnectionPanel);
+            this.Controls.Add(this.ConfigurationPanel);
+            this.Controls.Add(this.SweepPanel);
             this.Name = "MainForm";
             this.Text = "OnSite";
             this.groupBox1.ResumeLayout(false);
@@ -514,57 +622,66 @@ namespace RFEOnsite
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
+            this.SweepPanel.ResumeLayout(false);
+            this.ConfigurationPanel.ResumeLayout(false);
+            this.ConnectionPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.ChartPanel.ResumeLayout(false);
+            this.ChartPanel.PerformLayout();
             this.ResumeLayout(false);
+
     }
-
-        private Button buttonFindCOMPorts;
-        private Label labelRFEComPort;
-        private Label labelStartFrequency;
-        private TextBox textBoxStartFrequency;
-
-
-
         #endregion
 
+        private Button buttonFindCOMPorts;
+        private Button buttonSetConfiguration;
+        private Button buttonStartSweeps;
+        private ComboBox comboBoxProgramMode;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private GroupBox groupBoxSerialConnection;
+        private Label label10;
+        private Label label11;
         private Label label1;
+        private Label label2;
+        private Label labelFoundDevice;
+        private Label labelFoundModel;
+        private Label label6;
+        private Label labelFirmware;
+        private Label label8;
+        private Label label9;
+        private Label labelFrequencyStep;
         private Label labelRBW;
         private Label labelRBWKhz;
-        private TextBox textBoxStopFrequency;
-        private Label label2;
-        private Label labelFrequencyStep;
-        private GroupBox groupBox1;
-        private RadioButton radioButtonSize;
-        private RadioButton radioButtonRBW;
-        private RadioButton radioButtonStop;
-        private RadioButton radioButtonStart;
-        private Button buttonSetConfiguration;
-        private TextBox textBoxStepSize;
-        private TextBox textBoxRBW;
-        private Label labelStopMHz;
+        private Label labelRFEComPort;
+        private Label labelStartFrequency;
         private Label labelStartMHz;
-        private ComboBox comboBoxProgramMode;
-        private GroupBox groupBoxSerialConnection;
-        private Button buttonStartSweeps;
         private Label labelStartSweeps;
+        private Label labelStopMHz;
         private NumericUpDown numericUpDownSweeps;
-        private GroupBox groupBox2;
-        private Panel panel1;
-        private Label label5;
-        private Label label4;
-        private Panel panel2;
-        private Panel panel3;
-        private Label label7;
-        private Label label6;
-        private Label label11;
-        private TextBox textBox2;
-        private Label label10;
-        private Label label9;
-        private TextBox textBox1;
-        private Label label8;
+        private Panel SweepPanel;
+        private Panel ConfigurationPanel;
+        private Panel ConnectionPanel;
         private ProgressBar progressBar1;
+        private RadioButton radioButtonRBW;
+        private RadioButton radioButtonSize;
+        private RadioButton radioButtonStart;
+        private RadioButton radioButtonStop;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBoxRBW;
+        private TextBox textBoxStartFrequency;
+        private TextBox textBoxStepSize;
+        private TextBox textBoxStopFrequency;
+        private CheckBox checkBox1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private Panel ChartPanel;
+        private CheckBox checkBox4;
+        private CheckBox checkBox3;
+        private CheckBox checkBox2;
+        private GroupBox groupBox3;
+        private Label label3;
+        private Label labelModel;
     }
 }
 

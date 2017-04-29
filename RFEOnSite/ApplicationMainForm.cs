@@ -26,9 +26,9 @@ namespace RFEOnsite
             textBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
             textBoxRBW.Text = Math.Round(config.fRBWKHZ, 2).ToString();
             textBoxStepSize.Text = Math.Round(config.fStepMHZ * 1000.0, 2).ToString();
-            label4.Text = config.mMainModel.ToString();
-            label5.Text = config.mExpansionModel.ToString();
-            label7.Text = config.mFirmwareVersion;
+            labelFoundDevice.Text = config.mMainModel.ToString();
+            labelFoundModel.Text = config.mExpansionModel.ToString();
+            labelFirmware.Text = config.mFirmwareVersion;
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -50,7 +50,6 @@ namespace RFEOnsite
             var configurationUpdate = new Progress<RFEConfiguration>(RFE => config(RFE));
 
             gRFE.Configuration(configurationUpdate);
-
         }
 
         private void buttonSetConfiguration_Click(object sender, EventArgs e)
@@ -70,7 +69,7 @@ namespace RFEOnsite
 
         private void comboBoxProgramMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonSetConfiguration.Focus();
+            //buttonSetConfiguration.Focus();
         }
         
         private void buttonStartWeeps_Click(object sender, EventArgs e)
@@ -89,7 +88,10 @@ namespace RFEOnsite
             gRFE.SetConfiguration(Convert.ToDouble(startMHz), Convert.ToDouble(stopMHz));
 
             gRFE.Capture = true;
-            
+        }
+
+        private void groupBoxSerialConnection_Enter(object sender, EventArgs e)
+        {
 
         }
     }

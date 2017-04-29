@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RFE_OnSite;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -9,13 +10,17 @@ namespace RFEOnsite
     public partial class RFExplorer
     {
         private Queue<string> mReceivedData;
-        volatile private bool mbRunReceiveThread;                 //Run thread (true) or temporarily stop it (false)
-        private SerialCommunications mSerialPort;
         private RFEConfiguration mRFEConfiguration;
+        private SerialCommunications mSerialPort;
+        private Thread mReceiveThread;
         private bool mCapture = false;
         private bool mConfigured = false;
         private int nSweepCount;
-        private Thread mReceiveThread;
+        volatile private bool mbRunReceiveThread;
+
+        private Charts mChart;
+
+       
 
         public int SweepCount { get { return nSweepCount; } set { nSweepCount = value; } }
         public Queue<string> SweepData { get { return mReceivedData; } }
@@ -26,10 +31,11 @@ namespace RFEOnsite
         public RFExplorer()
         {
             mSerialPort = new SerialCommunications();
-
             mReceivedData = new Queue<string>();
             mRFEConfiguration = new RFEConfiguration();
             nSweepCount = 0;
+
+            mChart = new Charts();
         }
 
         public void UpdateUI(IProgress<string> progress)
@@ -65,10 +71,10 @@ namespace RFEOnsite
             mCapture = false;
             mConfigured = false;
 
-            start = Convert.ToInt32(Convert.ToDecimal(startMHz * 1000.0)).ToString("0000000");
-            stop = Convert.ToInt32(Convert.ToDecimal(stopMHz * 1000.0)).ToString("0000000");
-            top = Convert.ToInt32(Convert.ToDecimal(amplitudeTop * 1000.0)).ToString("0000");
-            bottom = Convert.ToInt32(Convert.ToDecimal(amplitudeBottom * 1000.0)).ToString("0000");
+            start = (startMHz * 1000.0).ToString("0000000"); 
+            stop = (stopMHz * 1000.0).ToString("0000000");
+            top = (amplitudeTop * 1000.0).ToString("0000"); 
+            bottom = (amplitudeBottom * 1000.0).ToString("0000");  
 
             mReceivedData.Clear();
 
@@ -81,7 +87,7 @@ namespace RFEOnsite
                 mSerialPort.SendCommand("CM\x1");
             }
 
-            mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + ",-110");
+            mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + "," + bottom);
 
             mConfigured = true;
         }
