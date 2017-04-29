@@ -1,9 +1,6 @@
-﻿
-using RFEOnSite;
-using System;
-using static RFExplorerCommunicator.RFExplorer;
+﻿using System;
 
-namespace RFExplorerCommunicator
+namespace RFEOnsite
 {
     public partial class RFExplorer
     {
@@ -159,8 +156,19 @@ namespace RFExplorerCommunicator
                 return true;
             }
 
-            public bool ParseSweepData(string sLine)
+            public bool ParseSweepData()
             {
+                double[] frequencyHeader = new double[nFreqSpectrumSteps];
+
+                for(int step = 0; step < nFreqSpectrumSteps; step++)
+                {
+                    frequencyHeader[step] = fStartMHZ + (step * fStepMHZ);
+                }
+
+
+                //gRFE.
+
+                
                 return true;
             }
 

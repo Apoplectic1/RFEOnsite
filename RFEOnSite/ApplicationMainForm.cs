@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RFEOnsite;
-using static RFExplorerCommunicator.RFExplorer;
+using static RFEOnsite.RFExplorer;
 
 namespace RFEOnsite
 {
@@ -54,7 +47,6 @@ namespace RFEOnsite
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
 
-
             var configurationUpdate = new Progress<RFEConfiguration>(RFE => config(RFE));
 
             gRFE.Configuration(configurationUpdate);
@@ -80,9 +72,24 @@ namespace RFEOnsite
         {
             buttonSetConfiguration.Focus();
         }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        
+        private void buttonStartWeeps_Click(object sender, EventArgs e)
         {
+            string startMHz;
+            string stopMHz;
+            string rbwKHz;
+            string stepMHZ;
+
+            startMHz = textBoxStartFrequency.Text;
+            stopMHz = textBoxStopFrequency.Text;
+            rbwKHz = textBoxRBW.Text;
+            stepMHZ = textBoxStepSize.Text;
+
+            gRFE.SweepCount = (int)numericUpDownSweeps.Value;
+            gRFE.SetConfiguration(Convert.ToDouble(startMHz), Convert.ToDouble(stopMHz));
+
+            gRFE.Capture = true;
+            
 
         }
     }

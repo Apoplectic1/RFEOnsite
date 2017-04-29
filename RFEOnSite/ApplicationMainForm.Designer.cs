@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using static RFExplorerCommunicator.RFExplorer;
+﻿using System.Windows.Forms;
 
 namespace RFEOnsite
 {
@@ -64,10 +62,11 @@ namespace RFEOnsite
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.buttonStartSweeps = new System.Windows.Forms.Button();
+            this.labelStartSweeps = new System.Windows.Forms.Label();
             this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -349,7 +348,7 @@ namespace RFEOnsite
             this.comboBoxProgramMode.Items.AddRange(new object[] {
             "Direct Control",
             "Survey Mode"});
-            this.comboBoxProgramMode.Location = new System.Drawing.Point(325, 385);
+            this.comboBoxProgramMode.Location = new System.Drawing.Point(65, 68);
             this.comboBoxProgramMode.Name = "comboBoxProgramMode";
             this.comboBoxProgramMode.Size = new System.Drawing.Size(100, 21);
             this.comboBoxProgramMode.TabIndex = 11;
@@ -360,12 +359,13 @@ namespace RFEOnsite
             this.groupBoxSerialConnection.Controls.Add(this.label7);
             this.groupBoxSerialConnection.Controls.Add(this.label6);
             this.groupBoxSerialConnection.Controls.Add(this.label5);
+            this.groupBoxSerialConnection.Controls.Add(this.comboBoxProgramMode);
             this.groupBoxSerialConnection.Controls.Add(this.label4);
             this.groupBoxSerialConnection.Controls.Add(this.buttonFindCOMPorts);
             this.groupBoxSerialConnection.Controls.Add(this.labelRFEComPort);
             this.groupBoxSerialConnection.Location = new System.Drawing.Point(3, 4);
             this.groupBoxSerialConnection.Name = "groupBoxSerialConnection";
-            this.groupBoxSerialConnection.Size = new System.Drawing.Size(386, 110);
+            this.groupBoxSerialConnection.Size = new System.Drawing.Size(372, 110);
             this.groupBoxSerialConnection.TabIndex = 12;
             this.groupBoxSerialConnection.TabStop = false;
             this.groupBoxSerialConnection.Text = "RF Explorer Connection";
@@ -406,27 +406,28 @@ namespace RFEOnsite
             this.label4.TabIndex = 2;
             this.label4.Text = "label4";
             // 
-            // button1
+            // buttonStartSweeps
             // 
-            this.button1.Location = new System.Drawing.Point(10, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Start Sweep";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonStartSweeps.Location = new System.Drawing.Point(10, 53);
+            this.buttonStartSweeps.Name = "buttonStartSweeps";
+            this.buttonStartSweeps.Size = new System.Drawing.Size(226, 23);
+            this.buttonStartSweeps.TabIndex = 13;
+            this.buttonStartSweeps.Text = "Start Sweep";
+            this.buttonStartSweeps.UseVisualStyleBackColor = true;
+            this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartWeeps_Click);
             // 
-            // label3
+            // labelStartSweeps
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Sweeps";
+            this.labelStartSweeps.AutoSize = true;
+            this.labelStartSweeps.Location = new System.Drawing.Point(14, 29);
+            this.labelStartSweeps.Name = "labelStartSweeps";
+            this.labelStartSweeps.Size = new System.Drawing.Size(45, 13);
+            this.labelStartSweeps.TabIndex = 14;
+            this.labelStartSweeps.Text = "Sweeps";
             // 
             // numericUpDownSweeps
             // 
-            this.numericUpDownSweeps.Location = new System.Drawing.Point(57, 25);
+            this.numericUpDownSweeps.Location = new System.Drawing.Point(65, 25);
             this.numericUpDownSweeps.Maximum = new decimal(new int[] {
             200,
             0,
@@ -446,27 +447,38 @@ namespace RFEOnsite
             0,
             0,
             0});
-            this.numericUpDownSweeps.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.progressBar1);
+            this.groupBox2.Controls.Add(this.labelStartSweeps);
+            this.groupBox2.Controls.Add(this.buttonStartSweeps);
             this.groupBox2.Controls.Add(this.numericUpDownSweeps);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(260, 125);
+            this.groupBox2.Size = new System.Drawing.Size(372, 125);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sweep Control";
+
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(10, 87);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(226, 23);
+            this.progressBar1.TabIndex = 16;
+
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Location = new System.Drawing.Point(14, 333);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 132);
+            this.panel1.Size = new System.Drawing.Size(411, 132);
             this.panel1.TabIndex = 17;
+
             // 
             // panel2
             // 
@@ -475,6 +487,7 @@ namespace RFEOnsite
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(411, 192);
             this.panel2.TabIndex = 18;
+
             // 
             // panel3
             // 
@@ -488,11 +501,10 @@ namespace RFEOnsite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 492);
+            this.ClientSize = new System.Drawing.Size(402, 492);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.comboBoxProgramMode);
             this.Name = "MainForm";
             this.Text = "OnSite";
             this.groupBox1.ResumeLayout(false);
@@ -506,8 +518,8 @@ namespace RFEOnsite
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
-
     }
+
         private Button buttonFindCOMPorts;
         private Label labelRFEComPort;
         private Label labelStartFrequency;
@@ -535,8 +547,8 @@ namespace RFEOnsite
         private Label labelStartMHz;
         private ComboBox comboBoxProgramMode;
         private GroupBox groupBoxSerialConnection;
-        private Button button1;
-        private Label label3;
+        private Button buttonStartSweeps;
+        private Label labelStartSweeps;
         private NumericUpDown numericUpDownSweeps;
         private GroupBox groupBox2;
         private Panel panel1;
@@ -552,6 +564,7 @@ namespace RFEOnsite
         private Label label9;
         private TextBox textBox1;
         private Label label8;
+        private ProgressBar progressBar1;
     }
 }
 
