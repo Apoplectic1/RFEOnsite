@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace RFE_OnSite
+namespace RFEOnSite
 {
-    class Charts
+
+    public class Charts
     {
         private AntiAliasingStyles mAntiAliasingStyles;
         private Chart mChart;
@@ -38,36 +39,106 @@ namespace RFE_OnSite
         private double pointMaxY;
         private double pointMinY;
 
+        
+        public int MaxY { get { return mMaxY; } set { mMaxY = value; } }
+        public int MinY { get { return mMinY; } set { mMinY = value; } }
+        public int MaxX { get { return mMaxX; } set { mMaxX = value; } }
+        public int MinX { get { return mMinX; } set { mMinX = value; } }
+
+        public Chart Chart { get { return mChart; } }
+        
+
         public Charts()
         {
             mAntiAliasingStyles = AntiAliasingStyles.All;
-            mBackColor = "#f0f0f0";
-            mForeColor = "#ffffff";
-            mHeight = 450;
-            mMaxX = -1;
+            mBackColor = "#e0e0e0";
+            mForeColor = "#f0f0f0";
+            mHeight = 375;
+            mMaxX = 2800;
             mMaxY = -25;
-            mMinX = -1;
-            mMinY = -105;
-            mTickIntervalX = 10;
-            mTickIntervalY = 5;
+            mMinX = 0;
+            mMinY = -100;
+            mTickIntervalX = 200;
+            mTickIntervalY = 10;
             mTitle = string.Empty;
             mChartFont = "Arial";
-            mTitleX = "Set Title";
+            mTitleX = "MHz";
             mTitleY = "dBm";
             mWidth = 570;
-            mTitleFontSize = 30F;
+            mTitleFontSize = 10F;
             mShowMarkers = true;
             mBand = string.Empty;
-            //    IEnumerable<Strips> mStripList = Strips.GetStrips();
+            mTitle = "Spectum";
+
+            mChart = new Chart();
+        }
+         
+        public void BuildChart()
+        {
+            
+            mChart.BackColor = System.Drawing.ColorTranslator.FromHtml(mBackColor);
+            mChart.ChartAreas.Add("");
+            mChart.ChartAreas[0].AxisX.Interval = mTickIntervalX;
+            mChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
+            mChart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
+            mChart.ChartAreas[0].AxisX.Maximum = mMaxX;
+            mChart.ChartAreas[0].AxisX.Minimum = mMinX;
+            mChart.ChartAreas[0].AxisX.RoundAxisValues();
+            mChart.ChartAreas[0].AxisX.Title = mTitleX;
+            mChart.ChartAreas[0].AxisX.TitleFont = new System.Drawing.Font(mChartFont, 10F);
+
+            mChart.ChartAreas[0].AxisY.Interval = mTickIntervalY;
+            mChart.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
+            mChart.ChartAreas[0].AxisY.RoundAxisValues();
+            //mChart.ChartAreas[0].AxisY.Title = mTitleY;
+            //mChart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
+            mChart.ChartAreas[0].AxisY.Maximum = mMaxY;
+            mChart.ChartAreas[0].AxisY.Minimum = mMinY;
+
+
+            mChart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
+            mChart.Titles.Add(mTitle);
+            mChart.Titles[0].Font = new System.Drawing.Font(mChartFont, mTitleFontSize);
+   
+            mChart.Palette = ChartColorPalette.Bright;
         }
 
-        private void MakeChart(DataTable dataTable)
+        public void ReplaceSeries(Queue<string> sweepData)
+        {
+            Series sweepSeries = new Series
+            {
+                Name = "Test",
+                IsVisibleInLegend = false,
+                ChartType = SeriesChartType.Spline
+            };
+
+            mChart.Series.Clear();
+
+            mChart.Series.Add(sweepSeries);
+
+            //foreach(string sweep in sweepData)
+            //{
+
+            //   for(int index = 0; index < 112; index++ )
+            //    {
+            //        double dBm = -Convert.ToDouble(Convert.ToUInt16(sweep[index + 3])) / 2.0;
+
+            //        sweepSeries.Points.AddXY(xAxis[index], dBm);
+            //    }
+            //}
+
+
+            sweepSeries.Points.AddXY(700, -80);
+            sweepSeries.Points.AddXY(750, -40);
+            sweepSeries.Points.AddXY(800, -30);
+        }
+
+
+        public void MakeChart(DataTable dataTable)
         {
             MarkerStyle markers = new MarkerStyle();
 
             markers = (mShowMarkers) ? MarkerStyle.Circle : MarkerStyle.None;
-
-            mChart = new Chart();
 
             // Set Chart Properties
             mChart.AntiAliasing = mAntiAliasingStyles;

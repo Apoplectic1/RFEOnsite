@@ -1,4 +1,4 @@
-﻿using RFE_OnSite;
+﻿using RFEOnSite;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ namespace RFEOnsite
 
     public partial class RFExplorer
     {
-        private Queue<string> mReceivedData;
+        private static Queue<string> mReceivedData;
         private RFEConfiguration mRFEConfiguration;
         private SerialCommunications mSerialPort;
         private Thread mReceiveThread;
@@ -18,14 +18,15 @@ namespace RFEOnsite
         private int nSweepCount;
         volatile private bool mbRunReceiveThread;
 
-        private Charts mChart;
+        private static Charts mChart;
 
-       
+
 
         public int SweepCount { get { return nSweepCount; } set { nSweepCount = value; } }
         public Queue<string> SweepData { get { return mReceivedData; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
 
+        public Queue<string> ReceivedData { get { return mReceivedData; } }
 
 
         public RFExplorer()
@@ -71,10 +72,10 @@ namespace RFEOnsite
             mCapture = false;
             mConfigured = false;
 
-            start = (startMHz * 1000.0).ToString("0000000"); 
+            start = (startMHz * 1000.0).ToString("0000000");
             stop = (stopMHz * 1000.0).ToString("0000000");
-            top = (amplitudeTop * 1000.0).ToString("0000"); 
-            bottom = (amplitudeBottom * 1000.0).ToString("0000");  
+            top = (amplitudeTop * 1000.0).ToString("0000");
+            bottom = (amplitudeBottom * 1000.0).ToString("0000");
 
             mReceivedData.Clear();
 
@@ -175,10 +176,9 @@ namespace RFEOnsite
                             if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                             {
                                 mRFEConfiguration.ParseConfigurationString(sNewLine);
+                                progress.Report(mRFEConfiguration);
                                 mConfigured = true;
                             }
-
-                            progress.Report(mRFEConfiguration);
                         }
                     }
 

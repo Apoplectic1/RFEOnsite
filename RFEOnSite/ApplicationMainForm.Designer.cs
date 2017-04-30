@@ -31,8 +31,6 @@ namespace RFEOnsite
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonFindCOMPorts = new System.Windows.Forms.Button();
             this.labelRFEComPort = new System.Windows.Forms.Label();
             this.labelStartFrequency = new System.Windows.Forms.Label();
@@ -61,6 +59,8 @@ namespace RFEOnsite
             this.buttonSetConfiguration = new System.Windows.Forms.Button();
             this.comboBoxProgramMode = new System.Windows.Forms.ComboBox();
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
+            this.labelModel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.labelFirmware = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.labelFoundModel = new System.Windows.Forms.Label();
@@ -74,14 +74,12 @@ namespace RFEOnsite
             this.SweepPanel = new System.Windows.Forms.Panel();
             this.ConfigurationPanel = new System.Windows.Forms.Panel();
             this.ConnectionPanel = new System.Windows.Forms.Panel();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ChartPanel = new System.Windows.Forms.Panel();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelModel = new System.Windows.Forms.Label();
+            this.checkBoxChartPeakHold = new System.Windows.Forms.CheckBox();
+            this.checkBoxChartAverage = new System.Windows.Forms.CheckBox();
+            this.checkBoxChartRealTime = new System.Windows.Forms.CheckBox();
+            this.groupBoxChart = new System.Windows.Forms.GroupBox();
+            this.panelChart = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
@@ -89,8 +87,8 @@ namespace RFEOnsite
             this.SweepPanel.SuspendLayout();
             this.ConfigurationPanel.SuspendLayout();
             this.ConnectionPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.ChartPanel.SuspendLayout();
+            this.groupBoxChart.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonFindCOMPorts
@@ -385,7 +383,24 @@ namespace RFEOnsite
             this.groupBoxSerialConnection.TabIndex = 12;
             this.groupBoxSerialConnection.TabStop = false;
             this.groupBoxSerialConnection.Text = "RF Explorer Connection";
-            this.groupBoxSerialConnection.Enter += new System.EventHandler(this.groupBoxSerialConnection_Enter);
+            // 
+            // labelModel
+            // 
+            this.labelModel.AutoSize = true;
+            this.labelModel.Location = new System.Drawing.Point(213, 67);
+            this.labelModel.Name = "labelModel";
+            this.labelModel.Size = new System.Drawing.Size(39, 13);
+            this.labelModel.TabIndex = 13;
+            this.labelModel.Text = "Model:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(208, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Device:";
             // 
             // labelFirmware
             // 
@@ -518,91 +533,65 @@ namespace RFEOnsite
             this.ConnectionPanel.Size = new System.Drawing.Size(376, 117);
             this.ConnectionPanel.TabIndex = 22;
             // 
-            // chart1
-            // 
-            chartArea2.Name = "ChartArea1";
-           
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.Location = new System.Drawing.Point(12, 24);
-            this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(344, 377);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            // 
             // ChartPanel
             // 
-            this.ChartPanel.Controls.Add(this.checkBox4);
-            this.ChartPanel.Controls.Add(this.checkBox3);
-            this.ChartPanel.Controls.Add(this.checkBox2);
-            this.ChartPanel.Controls.Add(this.chart1);
-            this.ChartPanel.Controls.Add(this.groupBox3);
+            this.ChartPanel.Controls.Add(this.checkBoxChartPeakHold);
+            this.ChartPanel.Controls.Add(this.checkBoxChartAverage);
+            this.ChartPanel.Controls.Add(this.checkBoxChartRealTime);
+            this.ChartPanel.Controls.Add(this.groupBoxChart);
             this.ChartPanel.Location = new System.Drawing.Point(399, 8);
             this.ChartPanel.Name = "ChartPanel";
             this.ChartPanel.Size = new System.Drawing.Size(368, 457);
             this.ChartPanel.TabIndex = 21;
             // 
-            // checkBox2
+            // checkBoxChartPeakHold
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(57, 420);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(74, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Real Time";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBoxChartPeakHold.AutoSize = true;
+            this.checkBoxChartPeakHold.Location = new System.Drawing.Point(271, 420);
+            this.checkBoxChartPeakHold.Name = "checkBoxChartPeakHold";
+            this.checkBoxChartPeakHold.Size = new System.Drawing.Size(76, 17);
+            this.checkBoxChartPeakHold.TabIndex = 3;
+            this.checkBoxChartPeakHold.Text = "Peak Hold";
+            this.checkBoxChartPeakHold.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // checkBoxChartAverage
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(168, 420);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(66, 17);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Average";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxChartAverage.AutoSize = true;
+            this.checkBoxChartAverage.Location = new System.Drawing.Point(168, 420);
+            this.checkBoxChartAverage.Name = "checkBoxChartAverage";
+            this.checkBoxChartAverage.Size = new System.Drawing.Size(66, 17);
+            this.checkBoxChartAverage.TabIndex = 2;
+            this.checkBoxChartAverage.Text = "Average";
+            this.checkBoxChartAverage.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // checkBoxChartRealTime
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(271, 420);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(76, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Peak Hold";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBoxChartRealTime.AutoSize = true;
+            this.checkBoxChartRealTime.Checked = true;
+            this.checkBoxChartRealTime.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxChartRealTime.Location = new System.Drawing.Point(57, 420);
+            this.checkBoxChartRealTime.Name = "checkBoxChartRealTime";
+            this.checkBoxChartRealTime.Size = new System.Drawing.Size(74, 17);
+            this.checkBoxChartRealTime.TabIndex = 1;
+            this.checkBoxChartRealTime.Text = "Real Time";
+            this.checkBoxChartRealTime.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
+            // groupBoxChart
             // 
-            this.groupBox3.Location = new System.Drawing.Point(4, 5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(361, 448);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Charting";
+            this.groupBoxChart.Controls.Add(this.panelChart);
+            this.groupBoxChart.Location = new System.Drawing.Point(4, 5);
+            this.groupBoxChart.Name = "groupBoxChart";
+            this.groupBoxChart.Size = new System.Drawing.Size(361, 448);
+            this.groupBoxChart.TabIndex = 4;
+            this.groupBoxChart.TabStop = false;
+            this.groupBoxChart.Text = "Spectrum";
             // 
-            // label3
+            // panelChart
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(210, 42);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Device:";
-            // 
-            // labelModel
-            // 
-            this.labelModel.AutoSize = true;
-            this.labelModel.Location = new System.Drawing.Point(210, 67);
-            this.labelModel.Name = "labelModel";
-            this.labelModel.Size = new System.Drawing.Size(39, 13);
-            this.labelModel.TabIndex = 13;
-            this.labelModel.Text = "Model:";
+            this.panelChart.Location = new System.Drawing.Point(6, 19);
+            this.panelChart.Name = "panelChart";
+            this.panelChart.Size = new System.Drawing.Size(349, 377);
+            this.panelChart.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -625,9 +614,9 @@ namespace RFEOnsite
             this.SweepPanel.ResumeLayout(false);
             this.ConfigurationPanel.ResumeLayout(false);
             this.ConnectionPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ChartPanel.ResumeLayout(false);
             this.ChartPanel.PerformLayout();
+            this.groupBoxChart.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
@@ -674,14 +663,14 @@ namespace RFEOnsite
         private TextBox textBoxStepSize;
         private TextBox textBoxStopFrequency;
         private CheckBox checkBox1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private Panel ChartPanel;
-        private CheckBox checkBox4;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private GroupBox groupBox3;
+        private CheckBox checkBoxChartPeakHold;
+        private CheckBox checkBoxChartAverage;
+        private CheckBox checkBoxChartRealTime;
+        private GroupBox groupBoxChart;
         private Label label3;
         private Label labelModel;
+        private Panel panelChart;
     }
 }
 

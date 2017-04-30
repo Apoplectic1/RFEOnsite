@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RFEOnSite;
+using System;
+using System.Collections.Generic;
 
 namespace RFEOnsite
 {
@@ -32,7 +34,7 @@ namespace RFEOnsite
         }
         public enum eMode
         {
-            MODE_SPECTRUM_ANALYZER = 0,
+            MODE_ANALYZER = 0,
             MODE_TRANSMITTER = 1,
             MODE_WIFI_ANALYZER = 2,
             MODE_TRACKING = 5,
@@ -74,7 +76,7 @@ namespace RFEOnsite
             public float fOffset_dB;
             public string mFirmwareVersion;
             public string mSerialNumber;
-
+            public List<double> mFreqencyList;
 
             public RFEConfiguration()
             {
@@ -95,6 +97,7 @@ namespace RFEOnsite
                 mMainModel = eModel.None;
                 mExpansionModel = eModel.None;
                 mFirmwareVersion = String.Empty;
+                mFreqencyList = new List<double>();
             }
 
             public bool CopyRFEConfiguration(RFEConfiguration objSource)
@@ -156,19 +159,29 @@ namespace RFEOnsite
                 return true;
             }
 
+            
+
             public bool ParseSweepData()
             {
+                if (mReceivedData.Count == 0)
+                {
+                    return false;
+                }
+
+                mFreqencyList.Clear();
+
                 double[] frequencyHeader = new double[nFreqSpectrumSteps];
 
                 for(int step = 0; step < nFreqSpectrumSteps; step++)
                 {
-                    frequencyHeader[step] = fStartMHZ + (step * fStepMHZ);
+                    mFreqencyList.Add(fStartMHZ + (step * fStepMHZ));
                 }
 
+                mChart.ReplaceSeries(mReceivedData);
 
-                //gRFE.
+                mChart.Chart.Refresh();
 
-                
+
                 return true;
             }
 
