@@ -11,33 +11,34 @@ namespace RFEOnsite
 {
     public partial class MainForm : Form
     {
-        RFExplorer gRFE;
-        Charts mUIChart;
+        public RFExplorer gRFE;
+        public Charts mGraph;
 
         public MainForm()
         {
             InitializeComponent();
 
+            
+            mGraph = new Charts();
             gRFE = new RFExplorer();
 
-            mUIChart = new Charts();
 
-            InitializeChart();
+            InitializeChartUI();
         }
 
-        private void InitializeChart()
+        private void InitializeChartUI()
         {
 
             components = new System.ComponentModel.Container();
-            
-            ((ISupportInitialize)(mUIChart.Chart)).BeginInit();
+
+            ((ISupportInitialize)(mGraph.Chart)).BeginInit();
 
             SuspendLayout();
 
-            mUIChart.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            mGraph.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
 
-            mUIChart.Chart.Location = new System.Drawing.Point(0, 50);
-            
+            mGraph.Chart.Location = new System.Drawing.Point(0, 50);
+
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 
@@ -46,7 +47,7 @@ namespace RFEOnsite
 
             Load += new EventHandler(Form1_Load);
 
-            ((ISupportInitialize)(mUIChart.Chart)).EndInit();
+            ((ISupportInitialize)(mGraph.Chart)).EndInit();
 
             ResumeLayout(false);
         }
@@ -55,24 +56,32 @@ namespace RFEOnsite
         {
             if (textBoxStartFrequency.Text.Length > 0)
             {
-                mUIChart.MinX = Convert.ToInt32(textBoxStartFrequency.Text);
+                mGraph.MinX = Convert.ToInt32(textBoxStartFrequency.Text);
             }
 
             if (textBoxStopFrequency.Text.Length > 0)
             {
-                mUIChart.MaxX = Convert.ToInt32(textBoxStopFrequency.Text);
+                mGraph.MaxX = Convert.ToInt32(textBoxStopFrequency.Text);
             }
 
-            mUIChart.MaxY = -30;
-            mUIChart.MinY = -100;
+            mGraph.MaxY = -30;
+            mGraph.MinY = -100;
 
-            mUIChart.BuildChart();
+            mGraph.BuildChart();
 
-            mUIChart.AddReplaceSeries(mUIChart.Chart, gRFE.SweepData);
+            
+            gRFE.mSeries = new Series();
 
-            panelChart.Controls.Add(mUIChart.Chart);
+            gRFE.mSeries.Points.AddXY(750, -50);
+
+            mGraph.Chart.Series.Add(gRFE.mSeries);
+
+
+            //gRFE.AddReplaceSeries(mGraph.Chart, gRFE.SweepData);
+
+            panelChart.Controls.Add(mGraph.Chart);
         }
-        
+
         public void UIUpdateCallback_RFE_Configutration(RFEConfiguration config)
         {
             double stopMHz;
@@ -87,12 +96,19 @@ namespace RFEOnsite
             labelFirmware.Text = config.mFirmwareVersion;
         }
 
+        public void UIUpdateCallback_Series(Series series)
+        {
+            mGraph.Chart.Series.Add(series);
+        }
+
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
         {
-           
-            var progress = new Progress<string>(s => labelRFEComPort.Text = s);
+            // Pass "labelRFEComPort.Text" - a string - to Initialize() thread (await)
+            // TThe thread then updates the GUI
 
-            await Task.Factory.StartNew(() => gRFE.Initialize(progress));
+            IProgress<string> updateUiComPortLabel = new Progress<string>(s => labelRFEComPort.Text = s);
+
+            await Task.Factory.StartNew(() => gRFE.Initialize(updateUiComPortLabel));
 
             if (!labelRFEComPort.Text.Contains("COM"))
             {
@@ -103,36 +119,37 @@ namespace RFEOnsite
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
 
+            var updateUISeries = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
             var UpdateUI = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
 
-            gRFE.AttachSerialPortAndDataReceivedThread(UpdateUI);
+            gRFE.AttachSerialPortAndDataReceivedThread(UpdateUI, updateUISeries);
         }
 
         private void buttonSetConfiguration_Click(object sender, EventArgs e)
         {
-            string startMHz;
-            string stopMHz;
-            string rbwKHz;
-            string stepMHZ;
+            double startMHz;
+            double stopMHz;
+            double rbwKHz;
+            double stepMHZ;
 
-            startMHz = textBoxStartFrequency.Text;
-            stopMHz  = textBoxStopFrequency.Text;
-            rbwKHz   = textBoxRBW.Text;
-            stepMHZ  = textBoxStepSize.Text;
+            startMHz = Convert.ToDouble(textBoxStartFrequency.Text);
+            stopMHz = Convert.ToDouble(textBoxStopFrequency.Text);
+            rbwKHz = Convert.ToDouble(textBoxRBW.Text);
+            stepMHZ = Convert.ToDouble(textBoxStepSize.Text);
 
-            gRFE.SetConfiguration(Convert.ToDouble(startMHz), Convert.ToDouble(stopMHz));
+            gRFE.SetConfiguration(startMHz, stopMHz);
 
-            mUIChart.MinX = Convert.ToInt32(startMHz);
-            mUIChart.MaxX = Convert.ToInt32(stopMHz);
+            mGraph.MinX = startMHz;
+            mGraph.MaxX = stopMHz;
 
-            mUIChart.Chart.ChartAreas[0].AxisX.Maximum = mUIChart.MaxX;
-            mUIChart.Chart.ChartAreas[0].AxisX.Minimum = mUIChart.MinX;
+            mGraph.Chart.ChartAreas[0].AxisX.Maximum = mGraph.MaxX;
+            mGraph.Chart.ChartAreas[0].AxisX.Minimum = mGraph.MinX;
 
-            mUIChart.Chart.ChartAreas[0].AxisX.Interval = (mUIChart.MaxX - mUIChart.MinX) / 5;
+            mGraph.Chart.ChartAreas[0].AxisX.Interval = (mGraph.MaxX - mGraph.MinX) / 5;
 
             if (checkBoxChartRealTime.Checked == true)
             {
-                gRFE.Capture = true;
+                //gRFE.Capture = true;
             }
         }
 
@@ -140,31 +157,12 @@ namespace RFEOnsite
         {
             //buttonSetConfiguration.Focus();
         }
-        
+
         private void buttonStartWeeps_Click(object sender, EventArgs e)
         {
-            string startMHz;
-            string stopMHz;
-            string rbwKHz;
-            string stepMHZ;
-
-            startMHz = textBoxStartFrequency.Text;
-            stopMHz = textBoxStopFrequency.Text;
-            rbwKHz = textBoxRBW.Text;
-            stepMHZ = textBoxStepSize.Text;
-
             gRFE.SweepCount = (int)numericUpDownSweeps.Value;
-            gRFE.SetConfiguration(Convert.ToDouble(startMHz), Convert.ToDouble(stopMHz));
 
             gRFE.Capture = true;
-            foreach (var series in mUIChart.Chart.Series)
-            {
-                series.Points.Clear();
-            }
-            mUIChart.Chart.Series[0].Points.AddXY(700, -70);
-            mUIChart.Chart.Series[0].Points.AddXY(750, -70);
-            mUIChart.Chart.Series[0].Points.AddXY(800, -70);
-
         }
 
         private void checkBoxChartRealTime_CheckedChanged(object sender, EventArgs e)

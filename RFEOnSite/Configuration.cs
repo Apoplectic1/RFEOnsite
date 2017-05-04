@@ -1,6 +1,7 @@
 ﻿using RFEOnSite;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnsite
 {
@@ -100,29 +101,6 @@ namespace RFEOnsite
                 mFreqencyList = new List<double>();
             }
 
-            public bool CopyRFEConfiguration(RFEConfiguration objSource)
-            {
-                if (objSource == null) return false;
-
-                fStartMHZ = objSource.fStartMHZ;
-                fStepMHZ = objSource.fStepMHZ;
-                fAmplitudeTopDBM = objSource.fAmplitudeTopDBM;
-                fAmplitudeBottomDBM = objSource.fAmplitudeBottomDBM;
-                nFreqSpectrumSteps = objSource.nFreqSpectrumSteps;
-                bExpansionBoardActive = objSource.bExpansionBoardActive;
-                eMode = objSource.eMode;
-                fMinFreqMHZ = objSource.fMinFreqMHZ;
-                fMaxFreqMHZ = objSource.fMaxFreqMHZ;
-                fMaxSpanMHZ = objSource.fMaxSpanMHZ;
-                fRBWKHZ = objSource.fRBWKHZ;
-                fOffset_dB = objSource.fOffset_dB;
-                eCalculator = objSource.eCalculator;
-                mSerialNumber = objSource.mSerialNumber;
-                mMainModel = objSource.mMainModel;
-
-                return true;
-            }
-
             public bool ParseCurrentSetup(string sLine)
             {
                 mMainModel = (eModel)Convert.ToUInt16(sLine.Substring(6, 3));
@@ -159,9 +137,7 @@ namespace RFEOnsite
                 return true;
             }
 
-            
-
-            public bool ParseSweepData()
+            public bool ParseSweepData(IProgress<Series> series)
             {
                 if (mReceivedData.Count == 0)
                 {
@@ -175,16 +151,24 @@ namespace RFEOnsite
                     mFreqencyList.Add(fStartMHZ + (step * fStepMHZ));
                 }
 
-                //mChart.AddReplaceSeries(mChart.Chart, mReceivedData);
+                Series localSeries = new Series();
 
-                //mChart.Chart.Refresh();
+                while (mReceivedData.Count != 0)
+                {
+                    string dataString = mReceivedData.Dequeue();
 
+                    for( int index = 0; index != 112; index++)
+                    {
+                        double dBm = Convert.ToDouble(Convert.ToUInt16(dataString[index + 3])) / -2.0;
+                        localSeries.Points.AddXY(mFreqencyList[index], dBm);
+                    }
+                    break;
+                }
 
+                series.Report(localSeries);
+               
                 return true;
             }
-
-            
         }
-
     }
 }

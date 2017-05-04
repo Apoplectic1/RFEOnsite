@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnsite
 {
@@ -15,44 +16,46 @@ namespace RFEOnsite
         private Thread mReceiveThread;
         private bool mCapture = false;
         private bool mConfigured = false;
-        private int nSweepCount;
+        private int mSweepCount;
         volatile private bool mbRunReceiveThread;
-       
-        public int SweepCount { get { return nSweepCount; } set { nSweepCount = value; } }
+        public Series mSeries;
+
+        public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public Queue<string> SweepData { get { return mReceivedData; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
-
         public Queue<string> ReceivedData { get { return mReceivedData; } }
+        
 
-
+        
         public RFExplorer()
         {
             mSerialPort = new SerialCommunications();
             mReceivedData = new Queue<string>();
             mRFEConfiguration = new RFEConfiguration();
-            nSweepCount = 0;
+            mSeries = null;
+            mSweepCount = 0;
         }
 
-        public void UpdateUI(IProgress<string> progress)
-        {
-            progress.Report(mSerialPort.ConnectedPortName);
-        }
+        //public void UpdateUI(IProgress<string> progress)
+        //{
+        //    progress.Report(mSerialPort.ConnectedPortName);
+        //}
 
-        public void Initialize(IProgress<string> progress)
+        public void Initialize(IProgress<string> updateUIComPortText)
         {
             mSerialPort.FindSerialPorts();
 
             mSerialPort.ConnectPort();
 
-            progress.Report(mSerialPort.ConnectedPortName);
+            updateUIComPortText.Report(mSerialPort.ConnectedPortName);
 
         }
 
-        public void AttachSerialPortAndDataReceivedThread(IProgress<RFEConfiguration> progress)
+        public void AttachSerialPortAndDataReceivedThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series)
         {
             //Start listening to data from the RF Explorer
             mbRunReceiveThread = true;
-            mReceiveThread = new Thread(() => ReceiveThreadfunc(progress));
+            mReceiveThread = new Thread(() => ReceiveThreadfunc(configurationData, series));
             mReceiveThread.Start();
         }
 
@@ -87,7 +90,7 @@ namespace RFEOnsite
             mConfigured = true;
         }
 
-        private void ReceiveThreadfunc(IProgress<RFEConfiguration> progress)
+        private void ReceiveThreadfunc(IProgress<RFEConfiguration> configurationData, IProgress<Series> series)
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
@@ -136,15 +139,16 @@ namespace RFEOnsite
                             {
                                 if (sNewLine.Length == 115)
                                 {
-                                    if (nSweepCount > 0)
+                                    if (mSweepCount > 0)
                                     {
                                         mReceivedData.Enqueue(sNewLine);
-                                        nSweepCount--;
+                                        mSweepCount--;
                                     }
                                     else
                                     {
                                         mCapture = false;
-                                        mRFEConfiguration.ParseSweepData();
+                                        mRFEConfiguration.ParseSweepData(series);
+                                        mReceivedData.Clear();
                                     }
                                 }
                             }
@@ -171,7 +175,7 @@ namespace RFEOnsite
                             if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                             {
                                 mRFEConfiguration.ParseConfigurationString(sNewLine);
-                                progress.Report(mRFEConfiguration);
+                                configurationData.Report(mRFEConfiguration);
                                 mConfigured = true;
                             }
                         }
