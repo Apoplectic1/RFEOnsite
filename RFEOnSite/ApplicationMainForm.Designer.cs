@@ -575,6 +575,7 @@ namespace RFEOnsite
             this.checkBoxChartRealTime.TabIndex = 1;
             this.checkBoxChartRealTime.Text = "Real Time";
             this.checkBoxChartRealTime.UseVisualStyleBackColor = true;
+            this.checkBoxChartRealTime.CheckedChanged += new System.EventHandler(this.checkBoxChartRealTime_CheckedChanged);
             // 
             // groupBoxChart
             // 

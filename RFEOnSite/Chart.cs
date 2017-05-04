@@ -39,14 +39,15 @@ namespace RFEOnSite
         private double pointMaxY;
         private double pointMinY;
 
-        
+        private Series mSeries;
+
         public int MaxY { get { return mMaxY; } set { mMaxY = value; } }
         public int MinY { get { return mMinY; } set { mMinY = value; } }
         public int MaxX { get { return mMaxX; } set { mMaxX = value; } }
         public int MinX { get { return mMinX; } set { mMinX = value; } }
 
         public Chart Chart { get { return mChart; } }
-        
+
 
         public Charts()
         {
@@ -71,11 +72,17 @@ namespace RFEOnSite
             mTitle = "Spectum";
 
             mChart = new Chart();
+            mSeries = new Series
+            {
+                Name = String.Empty,
+                IsVisibleInLegend = false,
+                ChartType = SeriesChartType.Spline
+            };
         }
-         
+
         public void BuildChart()
         {
-            
+            mChart.Name = "RFE";
             mChart.BackColor = System.Drawing.ColorTranslator.FromHtml(mBackColor);
             mChart.ChartAreas.Add("");
             mChart.ChartAreas[0].AxisX.Interval = mTickIntervalX;
@@ -99,38 +106,40 @@ namespace RFEOnSite
             mChart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
             mChart.Titles.Add(mTitle);
             mChart.Titles[0].Font = new System.Drawing.Font(mChartFont, mTitleFontSize);
-   
+
             mChart.Palette = ChartColorPalette.Bright;
+
+            mChart.Series.Add(mSeries);
+            mChart.DataBind();
         }
 
-        public void ReplaceSeries(Queue<string> sweepData)
+        public void AddReplaceSeries(Chart chart, Queue<string> sweepData)
         {
-            Series sweepSeries = new Series
+            // if the existing chart contains any sweep series points, clear them
+            foreach (var series in chart.Series)
             {
-                Name = "Test",
-                IsVisibleInLegend = false,
-                ChartType = SeriesChartType.Spline
-            };
+                series.Points.Clear();
+            }
 
-            mChart.Series.Clear();
+            if (chart.Series.Count == 0)
+            {
+                chart.Series.Add(mSeries);
+                chart.DataBind();
+            }
 
-            mChart.Series.Add(sweepSeries);
-
-            //foreach(string sweep in sweepData)
-            //{
-
-            //   for(int index = 0; index < 112; index++ )
-            //    {
-            //        double dBm = -Convert.ToDouble(Convert.ToUInt16(sweep[index + 3])) / 2.0;
-
-            //        sweepSeries.Points.AddXY(xAxis[index], dBm);
-            //    }
-            //}
-
-
-            sweepSeries.Points.AddXY(700, -80);
-            sweepSeries.Points.AddXY(750, -40);
-            sweepSeries.Points.AddXY(800, -30);
+            if (sweepData.Count > 0)
+            {
+                chart.Series[0].Points.AddXY(700, -80);
+                chart.Series[0].Points.AddXY(750, -80);
+                chart.Series[0].Points.AddXY(800, -80);
+                
+            }
+            else
+            {
+                chart.Series[0].Points.AddXY(700, -80);
+                chart.Series[0].Points.AddXY(750, -40);
+                chart.Series[0].Points.AddXY(800, -30);
+            }
         }
 
 

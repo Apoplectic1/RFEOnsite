@@ -170,16 +170,14 @@ namespace RFEOnsite
 
                 mFreqencyList.Clear();
 
-                double[] frequencyHeader = new double[nFreqSpectrumSteps];
-
                 for(int step = 0; step < nFreqSpectrumSteps; step++)
                 {
                     mFreqencyList.Add(fStartMHZ + (step * fStepMHZ));
                 }
 
-                mChart.ReplaceSeries(mReceivedData);
+                //mChart.AddReplaceSeries(mChart.Chart, mReceivedData);
 
-                mChart.Chart.Refresh();
+                //mChart.Chart.Refresh();
 
 
                 return true;

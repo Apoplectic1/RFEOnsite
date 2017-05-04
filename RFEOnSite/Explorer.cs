@@ -17,11 +17,7 @@ namespace RFEOnsite
         private bool mConfigured = false;
         private int nSweepCount;
         volatile private bool mbRunReceiveThread;
-
-        private static Charts mChart;
-
-
-
+       
         public int SweepCount { get { return nSweepCount; } set { nSweepCount = value; } }
         public Queue<string> SweepData { get { return mReceivedData; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
@@ -35,8 +31,6 @@ namespace RFEOnsite
             mReceivedData = new Queue<string>();
             mRFEConfiguration = new RFEConfiguration();
             nSweepCount = 0;
-
-            mChart = new Charts();
         }
 
         public void UpdateUI(IProgress<string> progress)
@@ -54,7 +48,7 @@ namespace RFEOnsite
 
         }
 
-        public void Configuration(IProgress<RFEConfiguration> progress)
+        public void AttachSerialPortAndDataReceivedThread(IProgress<RFEConfiguration> progress)
         {
             //Start listening to data from the RF Explorer
             mbRunReceiveThread = true;
@@ -149,6 +143,7 @@ namespace RFEOnsite
                                     }
                                     else
                                     {
+                                        mCapture = false;
                                         mRFEConfiguration.ParseSweepData();
                                     }
                                 }
