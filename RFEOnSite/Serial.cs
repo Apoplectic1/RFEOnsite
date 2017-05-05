@@ -146,7 +146,19 @@ namespace RFEOnsite
             }
             catch (Exception obException)
             {
+                string message = obException.ToString();
+                string caption = "Serial Port Connection Error";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
 
+                // Displays the MessageBox.
+
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    
+                }
             }
             finally
             {
