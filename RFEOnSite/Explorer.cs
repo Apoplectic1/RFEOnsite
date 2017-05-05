@@ -10,7 +10,7 @@ namespace RFEOnsite
 
     public partial class RFExplorer
     {
-        private static Queue<string> mReceivedData;
+        private static List<string> mReceivedData;
         private RFEConfiguration mRFEConfiguration;
         private SerialCommunications mSerialPort;
         private Thread mReceiveThread;
@@ -21,25 +21,19 @@ namespace RFEOnsite
         public Series mSeries;
 
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
-        public Queue<string> SweepData { get { return mReceivedData; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
-        public Queue<string> ReceivedData { get { return mReceivedData; } }
+        public List<string> SweepData { get { return mReceivedData; } }
         
 
         
         public RFExplorer()
         {
             mSerialPort = new SerialCommunications();
-            mReceivedData = new Queue<string>();
+            mReceivedData = new List<string>();
             mRFEConfiguration = new RFEConfiguration();
             mSeries = null;
             mSweepCount = 0;
         }
-
-        //public void UpdateUI(IProgress<string> progress)
-        //{
-        //    progress.Report(mSerialPort.ConnectedPortName);
-        //}
 
         public void Initialize(IProgress<string> updateUIComPortText)
         {
@@ -141,7 +135,7 @@ namespace RFEOnsite
                                 {
                                     if (mSweepCount > 0)
                                     {
-                                        mReceivedData.Enqueue(sNewLine);
+                                        mReceivedData.Add(sNewLine);
                                         mSweepCount--;
                                     }
                                     else

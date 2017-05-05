@@ -46,7 +46,7 @@ namespace RFEOnSite
             mMaxX = 2800;
             mMaxY = -25;
             mMinX = 0;
-            mMinY = -100;
+            mMinY = -110;
             mTickIntervalX = 200;
             mTickIntervalY = 10;
             mTitle = string.Empty;

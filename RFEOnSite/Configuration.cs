@@ -111,7 +111,7 @@ namespace RFEOnsite
             }
             public bool ParseSerialNumber(string sLine)
             {
-                mSerialNumber = sLine.Substring(3,16);
+                mSerialNumber = sLine.Substring(3, 16);
 
                 return true;
             }
@@ -139,34 +139,42 @@ namespace RFEOnsite
 
             public bool ParseSweepData(IProgress<Series> series)
             {
+                Int32 dBm, maxDbm;
                 if (mReceivedData.Count == 0)
                 {
                     return false;
                 }
 
+                int sweepCount = mReceivedData.Count;
+
                 mFreqencyList.Clear();
 
-                for(int step = 0; step < nFreqSpectrumSteps; step++)
+                for (int step = 0; step < nFreqSpectrumSteps; step++)
                 {
                     mFreqencyList.Add(fStartMHZ + (step * fStepMHZ));
                 }
 
                 Series localSeries = new Series();
+                localSeries.ChartType = SeriesChartType.Spline;
 
-                while (mReceivedData.Count != 0)
+                for (int index = 0; index != 112; index++)
                 {
-                    string dataString = mReceivedData.Dequeue();
+                    maxDbm = -1000;
 
-                    for( int index = 0; index != 112; index++)
+                    for (int sweepIndex = 0; sweepIndex < sweepCount; sweepIndex++)
                     {
-                        double dBm = Convert.ToDouble(Convert.ToUInt16(dataString[index + 3])) / -2.0;
-                        localSeries.Points.AddXY(mFreqencyList[index], dBm);
+                        dBm = -(Convert.ToInt32((mReceivedData[sweepIndex])[index + 3]) >> 1);
+
+                        maxDbm = (dBm > maxDbm) ? dBm : maxDbm;
                     }
-                    break;
+
+                    localSeries.Points.AddXY(mFreqencyList[index], Convert.ToDouble(maxDbm));
                 }
 
+
+
                 series.Report(localSeries);
-               
+
                 return true;
             }
         }

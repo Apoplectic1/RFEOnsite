@@ -459,7 +459,7 @@ namespace RFEOnsite
             // 
             this.numericUpDownSweeps.Location = new System.Drawing.Point(65, 25);
             this.numericUpDownSweeps.Maximum = new decimal(new int[] {
-            200,
+            10000,
             0,
             0,
             0});
@@ -469,14 +469,15 @@ namespace RFEOnsite
             0,
             0});
             this.numericUpDownSweeps.Name = "numericUpDownSweeps";
-            this.numericUpDownSweeps.Size = new System.Drawing.Size(42, 20);
+            this.numericUpDownSweeps.Size = new System.Drawing.Size(50, 20);
             this.numericUpDownSweeps.TabIndex = 15;
             this.numericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownSweeps.Value = new decimal(new int[] {
-            25,
+            250,
             0,
             0,
             0});
+            this.numericUpDownSweeps.ValueChanged += new System.EventHandler(this.numericUpDownSweeps_ValueChanged);
             // 
             // groupBox2
             // 
@@ -547,6 +548,7 @@ namespace RFEOnsite
             // checkBoxChartPeakHold
             // 
             this.checkBoxChartPeakHold.AutoSize = true;
+            this.checkBoxChartPeakHold.Checked = true;
             this.checkBoxChartPeakHold.Location = new System.Drawing.Point(271, 420);
             this.checkBoxChartPeakHold.Name = "checkBoxChartPeakHold";
             this.checkBoxChartPeakHold.Size = new System.Drawing.Size(76, 17);
@@ -567,7 +569,7 @@ namespace RFEOnsite
             // checkBoxChartRealTime
             // 
             this.checkBoxChartRealTime.AutoSize = true;
-            this.checkBoxChartRealTime.Checked = true;
+            this.checkBoxChartRealTime.Checked = false;
             this.checkBoxChartRealTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxChartRealTime.Location = new System.Drawing.Point(57, 420);
             this.checkBoxChartRealTime.Name = "checkBoxChartRealTime";
@@ -575,7 +577,6 @@ namespace RFEOnsite
             this.checkBoxChartRealTime.TabIndex = 1;
             this.checkBoxChartRealTime.Text = "Real Time";
             this.checkBoxChartRealTime.UseVisualStyleBackColor = true;
-            this.checkBoxChartRealTime.CheckedChanged += new System.EventHandler(this.checkBoxChartRealTime_CheckedChanged);
             // 
             // groupBoxChart
             // 

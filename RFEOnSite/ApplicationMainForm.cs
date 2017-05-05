@@ -65,7 +65,7 @@ namespace RFEOnsite
             }
 
             mGraph.MaxY = -30;
-            mGraph.MinY = -100;
+            mGraph.MinY = -110;
 
             mGraph.BuildChart();
 
@@ -73,6 +73,11 @@ namespace RFEOnsite
             gRFE.mSeries = new Series();
 
             gRFE.mSeries.Points.AddXY(750, -50);
+
+            foreach (var series in mGraph.Chart.Series)
+            {
+                series.Points.Clear();
+            }
 
             mGraph.Chart.Series.Add(gRFE.mSeries);
 
@@ -96,9 +101,61 @@ namespace RFEOnsite
             labelFirmware.Text = config.mFirmwareVersion;
         }
 
-        public void UIUpdateCallback_Series(Series series)
+        public void UIUpdateCallback_Series(Series newSeries)
         {
-            mGraph.Chart.Series.Add(series);
+            //lock (mGraph.Chart.Series)
+            {
+                for (int i=0;  mGraph.Chart.Series.Count != 0; i++ )
+                {
+                    mGraph.Chart.Series.RemoveAt(0);
+                }
+
+                if (checkBoxChartRealTime.Checked)
+                {
+                    newSeries.Color = Color.DarkSlateGray;
+                    newSeries.Name = "RealTime";
+                    mGraph.Chart.Series.Add(newSeries);
+                }
+
+                if (checkBoxChartAverage.Checked)
+                {
+                    newSeries = AverageSeries(newSeries);
+
+                    newSeries.Color = Color.DarkGreen;
+                    newSeries.Name = "Average";
+                    mGraph.Chart.Series.Add(newSeries);
+                }
+
+                if (checkBoxChartPeakHold.Checked)
+                {
+                    newSeries = PeakHoldSeries(newSeries);
+
+                    newSeries.Color = Color.DarkRed;
+                    newSeries.Name = "PeakHold";
+                    mGraph.Chart.Series.Add(newSeries);
+                }
+            }
+        }
+
+        private Series AverageSeries(Series inSeries)
+        {
+            Series outSeries = new Series();
+
+            return outSeries;
+        }
+
+        private Series PeakHoldSeries(Series inSeries)
+        {
+            Series outSeries = new Series();
+            double maxY = -200.0;
+
+            for(int index = 0; index < 112; index++)
+            {
+
+            }
+            
+
+            return outSeries;
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -162,15 +219,19 @@ namespace RFEOnsite
         {
             gRFE.SweepCount = (int)numericUpDownSweeps.Value;
 
-            gRFE.Capture = true;
-        }
-
-        private void checkBoxChartRealTime_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxChartRealTime.Checked == true)
+            if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
             {
                 gRFE.Capture = true;
             }
+            else
+            {
+                gRFE.Capture = false;
+            }
+        }
+
+        private void numericUpDownSweeps_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
