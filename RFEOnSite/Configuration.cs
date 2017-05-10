@@ -139,7 +139,10 @@ namespace RFEOnsite
 
             public bool ParseSweepData(IProgress<Series> series)
             {
-                Int32 dBm, maxDbm;
+                double dBm, maxDbm;
+                DataPoint dpMaxY;
+                DataPoint dpMinY;
+ 
                 if (mReceivedData.Count == 0)
                 {
                     return false;
@@ -163,15 +166,22 @@ namespace RFEOnsite
 
                     for (int sweepIndex = 0; sweepIndex < sweepCount; sweepIndex++)
                     {
-                        dBm = -(Convert.ToInt32((mReceivedData[sweepIndex])[index + 3]) >> 1);
+                        dBm = -(Convert.ToDouble(Convert.ToInt32(mReceivedData[sweepIndex][index + 3])) / 2.0);
 
                         maxDbm = (dBm > maxDbm) ? dBm : maxDbm;
                     }
 
-                    localSeries.Points.AddXY(mFreqencyList[index], Convert.ToDouble(maxDbm));
+                    localSeries.Points.AddXY(mFreqencyList[index], maxDbm);
                 }
 
+                localSeries.LabelBackColor = System.Drawing.Color.White;
 
+                dpMaxY = localSeries.Points.FindMaxByValue();
+                dpMaxY.Label = dpMaxY.YValues[0].ToString() + " Max";
+                dpMaxY.Font = new System.Drawing.Font("Arial", 10f);
+                dpMaxY.MarkerColor = System.Drawing.Color.MediumBlue;
+                dpMaxY.MarkerSize = 5;
+                dpMaxY.MarkerStyle = MarkerStyle.Circle;
 
                 series.Report(localSeries);
 

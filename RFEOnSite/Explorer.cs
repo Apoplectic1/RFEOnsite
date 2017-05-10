@@ -45,11 +45,11 @@ namespace RFEOnsite
 
         }
 
-        public void AttachSerialPortAndDataReceivedThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series)
+        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> nProgress)
         {
             //Start listening to data from the RF Explorer
             mbRunReceiveThread = true;
-            mReceiveThread = new Thread(() => ReceiveThreadfunc(configurationData, series));
+            mReceiveThread = new Thread(() => ReceiveThreadfunc(configurationData, series, nProgress));
             mReceiveThread.Start();
         }
 
@@ -70,21 +70,31 @@ namespace RFEOnsite
 
             mReceivedData.Clear();
 
+            // Select Proper RFE antenna Port
             if (startMHz >= 4850)
             {
-                mSerialPort.SendCommand("CM\x0");
+                mSerialPort.SendCommand("CM\x0"); // Left Antenna Port 
+                mSerialPort.SendCommand("Cp\x2"); // DSP Filter Mode- Fast
             }
             else
             {
-                mSerialPort.SendCommand("CM\x1");
+                mSerialPort.SendCommand("CM\x1"); // Right Antenna Port
+                mSerialPort.SendCommand("Cp\x1"); // DSP Filter Mode- Only available on right: 15 to 2700 MHz 
             }
+
+            // Make sure Offset is zero
+            mSerialPort.SendCommand("CO\x0");
+
+
+            // Reset Max Hold
+            mSerialPort.SendCommand("C+\x1"); // Calculator Mode -  
 
             mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + "," + bottom);
 
             mConfigured = true;
         }
 
-        private void ReceiveThreadfunc(IProgress<RFEConfiguration> configurationData, IProgress<Series> series)
+        private void ReceiveThreadfunc(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> updateUIProgressBar)
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
@@ -135,12 +145,15 @@ namespace RFEOnsite
                                 {
                                     if (mSweepCount > 0)
                                     {
+
+                                        updateUIProgressBar.Report(mSweepCount);
                                         mReceivedData.Add(sNewLine);
                                         mSweepCount--;
                                     }
                                     else
                                     {
                                         mCapture = false;
+                                        updateUIProgressBar.Report(mSweepCount);
                                         mRFEConfiguration.ParseSweepData(series);
                                         mReceivedData.Clear();
                                     }

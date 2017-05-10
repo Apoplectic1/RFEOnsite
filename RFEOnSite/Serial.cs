@@ -48,6 +48,7 @@ namespace RFEOnsite
         public bool FindSerialPorts()
         {
             Cursor.Current = Cursors.WaitCursor;
+
             mSerialPort = new SerialPort();
 
             mEnumeratedComPortNames = System.IO.Ports.SerialPort.GetPortNames();
@@ -129,7 +130,7 @@ namespace RFEOnsite
                 mSerialPort.ReadBufferSize = 8192;
                 mSerialPort.Open();
                 mSerialPort.Handshake = Handshake.None;
-                mSerialPort.Encoding = Encoding.GetEncoding(28591); //this is the great trick to use ASCII and binary together
+                mSerialPort.Encoding = Encoding.GetEncoding(28591); //Trick: use ASCII and binary together
 
                 mRFEConnected = true;
 
@@ -146,18 +147,19 @@ namespace RFEOnsite
             }
             catch (Exception obException)
             {
-                string message = obException.ToString();
+                string message; // = obException.ToString();
                 string caption = "Serial Port Connection Error";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                message = "After Application closes:\n\t1. Disconnect the RF Explorer USB cable.\n\t2. Cycle RF Explorer Power.\n\t3. Reconnect and try again.";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
                 // Displays the MessageBox.
 
                 result = MessageBox.Show(message, caption, buttons);
 
-                if (result == System.Windows.Forms.DialogResult.Yes)
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                    
+                        Application.Exit();
                 }
             }
             finally

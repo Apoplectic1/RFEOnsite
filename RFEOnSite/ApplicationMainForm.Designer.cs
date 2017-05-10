@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnsite
@@ -35,7 +36,7 @@ namespace RFEOnsite
             this.labelRFEComPort = new System.Windows.Forms.Label();
             this.labelStartFrequency = new System.Windows.Forms.Label();
             this.textBoxStartFrequency = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelStopFrequency = new System.Windows.Forms.Label();
             this.labelRBW = new System.Windows.Forms.Label();
             this.labelRBWKhz = new System.Windows.Forms.Label();
             this.textBoxStopFrequency = new System.Windows.Forms.TextBox();
@@ -70,7 +71,7 @@ namespace RFEOnsite
             this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
             this.SweepPanel = new System.Windows.Forms.Panel();
             this.ConfigurationPanel = new System.Windows.Forms.Panel();
             this.ConnectionPanel = new System.Windows.Forms.Panel();
@@ -128,12 +129,12 @@ namespace RFEOnsite
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Stop Frequency";
+            this.labelStopFrequency.AutoSize = true;
+            this.labelStopFrequency.Location = new System.Drawing.Point(37, 51);
+            this.labelStopFrequency.Name = "labelStopFrequency";
+            this.labelStopFrequency.Size = new System.Drawing.Size(82, 13);
+            this.labelStopFrequency.TabIndex = 4;
+            this.labelStopFrequency.Text = "Stop Frequency";
             // 
             // labelRBW
             // 
@@ -201,7 +202,7 @@ namespace RFEOnsite
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxStartFrequency);
             this.groupBox1.Controls.Add(this.textBoxStopFrequency);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.labelStopFrequency);
             this.groupBox1.Controls.Add(this.labelRBWKhz);
             this.groupBox1.Controls.Add(this.labelRBW);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
@@ -473,7 +474,7 @@ namespace RFEOnsite
             this.numericUpDownSweeps.TabIndex = 15;
             this.numericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownSweeps.Value = new decimal(new int[] {
-            250,
+            150,
             0,
             0,
             0});
@@ -482,7 +483,7 @@ namespace RFEOnsite
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.progressBar1);
+            this.groupBox2.Controls.Add(this.TaskProgressBar);
             this.groupBox2.Controls.Add(this.labelStartSweeps);
             this.groupBox2.Controls.Add(this.buttonStartSweeps);
             this.groupBox2.Controls.Add(this.numericUpDownSweeps);
@@ -503,12 +504,12 @@ namespace RFEOnsite
             this.checkBox1.Text = "Sweep Chart";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // progressBar1
+            // TaskProgressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(15, 87);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(343, 23);
-            this.progressBar1.TabIndex = 16;
+            this.TaskProgressBar.Location = new System.Drawing.Point(15, 87);
+            this.TaskProgressBar.Name = "TaskProgressBar";
+            this.TaskProgressBar.Size = new System.Drawing.Size(343, 23);
+            this.TaskProgressBar.TabIndex = 16;
             // 
             // SweepPanel
             // 
@@ -549,6 +550,7 @@ namespace RFEOnsite
             // 
             this.checkBoxChartPeakHold.AutoSize = true;
             this.checkBoxChartPeakHold.Checked = true;
+            this.checkBoxChartPeakHold.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxChartPeakHold.Location = new System.Drawing.Point(271, 420);
             this.checkBoxChartPeakHold.Name = "checkBoxChartPeakHold";
             this.checkBoxChartPeakHold.Size = new System.Drawing.Size(76, 17);
@@ -569,7 +571,7 @@ namespace RFEOnsite
             // checkBoxChartRealTime
             // 
             this.checkBoxChartRealTime.AutoSize = true;
-            this.checkBoxChartRealTime.Checked = false;
+            this.checkBoxChartRealTime.Checked = true;
             this.checkBoxChartRealTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxChartRealTime.Location = new System.Drawing.Point(57, 420);
             this.checkBoxChartRealTime.Name = "checkBoxChartRealTime";
@@ -621,8 +623,11 @@ namespace RFEOnsite
             this.groupBoxChart.ResumeLayout(false);
             this.ResumeLayout(false);
 
-    }
+        }
         #endregion
+
+
+         
 
         private Button buttonFindCOMPorts;
         private Button buttonSetConfiguration;
@@ -633,7 +638,7 @@ namespace RFEOnsite
         private GroupBox groupBoxSerialConnection;
         private Label label10;
         private Label label11;
-        private Label label1;
+        private Label labelStopFrequency;
         private Label label2;
         private Label labelFoundDevice;
         private Label labelFoundModel;
@@ -653,7 +658,7 @@ namespace RFEOnsite
         private Panel SweepPanel;
         private Panel ConfigurationPanel;
         private Panel ConnectionPanel;
-        private ProgressBar progressBar1;
+        private ProgressBar TaskProgressBar;
         private RadioButton radioButtonRBW;
         private RadioButton radioButtonSize;
         private RadioButton radioButtonStart;
@@ -673,6 +678,8 @@ namespace RFEOnsite
         private Label label3;
         private Label labelModel;
         private Panel panelChart;
+
+
     }
 }
 

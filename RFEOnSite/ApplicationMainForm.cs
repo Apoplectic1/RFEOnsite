@@ -18,7 +18,18 @@ namespace RFEOnsite
         {
             InitializeComponent();
 
-            
+            if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+            {
+                System.Deployment.Application.ApplicationDeployment ad = System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
+                Version version = ad.CurrentVersion;
+                this.Text = "RF Explorer OnSite - Version: " + version.ToString();
+            }
+            else
+            {
+                this.Text = "RF Explorer OnSite - Version: " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd - HHMM");
+            }
+
+
             mGraph = new Charts();
             gRFE = new RFExplorer();
 
@@ -163,8 +174,7 @@ namespace RFEOnsite
             // Pass "labelRFEComPort.Text" - a string - to Initialize() thread (await)
             // TThe thread then updates the GUI
 
-            IProgress<string> updateUiComPortLabel = new Progress<string>(s => labelRFEComPort.Text = s);
-
+            IProgress<string> updateUiComPortLabel  = new Progress<string>(s => labelRFEComPort.Text = s);
             await Task.Factory.StartNew(() => gRFE.Initialize(updateUiComPortLabel));
 
             if (!labelRFEComPort.Text.Contains("COM"))
@@ -176,10 +186,11 @@ namespace RFEOnsite
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
 
-            var updateUISeries = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
-            var UpdateUI = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
+            IProgress<Series> updateUISeries        = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
+            IProgress<RFEConfiguration> UpdateUI    = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
+            IProgress<int> UpdateUIProgressBar      = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            gRFE.AttachSerialPortAndDataReceivedThread(UpdateUI, updateUISeries);
+            gRFE.AttachSerialPortAndReceiveDataThread(UpdateUI, updateUISeries, UpdateUIProgressBar);
         }
 
         private void buttonSetConfiguration_Click(object sender, EventArgs e)
@@ -221,6 +232,11 @@ namespace RFEOnsite
 
             if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
             {
+                TaskProgressBar.Maximum = gRFE.SweepCount;
+                TaskProgressBar.Step = 1;
+                TaskProgressBar.Value = 0;
+
+               
                 gRFE.Capture = true;
             }
             else
