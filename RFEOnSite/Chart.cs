@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnSite
@@ -13,7 +6,7 @@ namespace RFEOnSite
 
     public class Charts
     {
-        private Chart mChart;
+        private Chart mChart;  // Microsoft Class Chart
         private double mMaxX;
         private double mMaxY;
         private double mMinX;
@@ -83,8 +76,8 @@ namespace RFEOnSite
             mChart.ChartAreas[0].AxisY.Interval = mTickIntervalY;
             mChart.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
             mChart.ChartAreas[0].AxisY.RoundAxisValues();
-            //mChart.ChartAreas[0].AxisY.Title = mTitleY;
-            //mChart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
+            mChart.ChartAreas[0].AxisY.Title = mTitleY;
+            mChart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
             mChart.ChartAreas[0].AxisY.Maximum = mMaxY;
             mChart.ChartAreas[0].AxisY.Minimum = mMinY;
 

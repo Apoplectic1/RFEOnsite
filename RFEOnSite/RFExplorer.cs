@@ -19,6 +19,7 @@ namespace RFEOnsite
         private int mSweepCount;
         volatile private bool mbRunReceiveThread;
         public Series mSeries;
+        public CsvExport mCsvExport;
 
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
@@ -33,6 +34,7 @@ namespace RFEOnsite
             mRFEConfiguration = new RFEConfiguration();
             mSeries = null;
             mSweepCount = 0;
+            mCsvExport = new CsvExport();
         }
 
         public void Initialize(IProgress<string> updateUIComPortText)
@@ -45,11 +47,11 @@ namespace RFEOnsite
 
         }
 
-        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> nProgress)
+        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> nProgress, IProgress<CsvExport> csvExport)
         {
             //Start listening to data from the RF Explorer
             mbRunReceiveThread = true;
-            mReceiveThread = new Thread(() => ReceiveThreadfunc(configurationData, series, nProgress));
+            mReceiveThread = new Thread(() => ReceiveThread(configurationData, series, nProgress, csvExport));
             mReceiveThread.Start();
         }
 
@@ -94,7 +96,7 @@ namespace RFEOnsite
             mConfigured = true;
         }
 
-        private void ReceiveThreadfunc(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> updateUIProgressBar)
+        private void ReceiveThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> updateUIProgressBar, IProgress<CsvExport> csvExport)
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
@@ -155,6 +157,7 @@ namespace RFEOnsite
                                         mCapture = false;
                                         updateUIProgressBar.Report(mSweepCount);
                                         mRFEConfiguration.ParseSweepData(series);
+                                        mRFEConfiguration.ConstructCsvFile(csvExport);
                                         mReceivedData.Clear();
                                     }
 

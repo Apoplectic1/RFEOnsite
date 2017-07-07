@@ -137,12 +137,50 @@ namespace RFEOnsite
                 return true;
             }
 
+            public bool ConstructCsvFile(IProgress<CsvExport> csvExport)
+            {
+                CsvExport localCsvExport = new CsvExport();
+                double dBm;
+                string frequency;
+
+                mFreqencyList.Clear();
+
+                for (int step = 0; step < nFreqSpectrumSteps; step++)
+                {
+                    mFreqencyList.Add(fStartMHZ + (step * fStepMHZ));
+                }
+
+                for (int sweepIndex = 0; sweepIndex < mReceivedData.Count; sweepIndex++)
+                {
+                    localCsvExport.AddRow();
+
+                    for (int index = 0; index != 112; index++)
+                    {
+                        frequency = mFreqencyList[index].ToString();
+
+                        dBm = -(Convert.ToDouble(Convert.ToInt32(mReceivedData[sweepIndex][index + 3])) / 2.0);
+                      
+
+                        localCsvExport[frequency] = dBm.ToString();
+                    }
+                }
+
+                csvExport.Report(localCsvExport);
+                return true;
+            }
+
             public bool ParseSweepData(IProgress<Series> series)
             {
+                // This is updating the GUI Spectrum MS Chart with mReceivedData (serial data) from the RF Explorer
+
+                // The GUI spectrum chart Series element is actually what is being updated
+                // mReceievedData is local to this thread read from the RF Explorer
+                // series is local to the GUI
+
                 double dBm, maxDbm;
                 DataPoint dpMaxY;
-                DataPoint dpMinY;
- 
+                //DataPoint dpMinY;
+
                 if (mReceivedData.Count == 0)
                 {
                     return false;

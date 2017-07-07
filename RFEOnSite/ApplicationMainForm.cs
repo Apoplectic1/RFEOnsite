@@ -13,7 +13,10 @@ namespace RFEOnsite
     {
         public RFExplorer gRFE;
         public Charts mGraph;
+        public CsvExport mCsvExports;
+        private int mSweepCount;
 
+        private FolderBrowserDialog mFolderDialog;
         public MainForm()
         {
             InitializeComponent();
@@ -32,9 +35,14 @@ namespace RFEOnsite
 
             mGraph = new Charts();
             gRFE = new RFExplorer();
-
+            mCsvExports = new CsvExport();
 
             InitializeChartUI();
+
+            mFolderDialog = new FolderBrowserDialog();
+            mFolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            labelCsvRootText.Text = "Root Folder for CSV Files:";
+            
         }
 
         private void InitializeChartUI()
@@ -98,6 +106,35 @@ namespace RFEOnsite
             panelChart.Controls.Add(mGraph.Chart);
         }
 
+        public void UIUpdateCallback_CsvExport(CsvExport csvExport)
+        {
+           
+
+            string fileName = "ABCD-" +
+                mSweepCount.ToString("D2") +
+                " " +
+                DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + 
+                " " +
+                (Convert.ToInt64(textBoxStartFrequency.Text) * 10).ToString("D5") + 
+                "to" +
+                (Convert.ToInt64(textBoxStopFrequency.Text) * 10).ToString("D5") + 
+                "-" +
+                numericUpDownSweeps.Text + 
+                " at " + 
+                "000 " + 
+                "Degrees.csv";
+
+            textBoxCsvFileName.Text = fileName;
+
+            string filePath = mFolderDialog.SelectedPath + "\\" + fileName;
+
+
+
+            csvExport.ExportToFile(filePath);
+
+            mSweepCount++;
+        }
+
         public void UIUpdateCallback_RFE_Configutration(RFEConfiguration config)
         {
             double stopMHz;
@@ -110,6 +147,17 @@ namespace RFEOnsite
             labelFoundDevice.Text = config.mMainModel.ToString();
             labelFoundModel.Text = config.mExpansionModel.ToString();
             labelFirmwareText.Text = config.mFirmwareVersion;
+
+            if (config.mMainModel == eModel.MODEL_6G)
+            {
+                radioButtonAnalyzer.Checked = true;
+                radioButtonGenerator.Checked = false;
+            }
+            else
+            {
+                radioButtonAnalyzer.Checked = false;
+                radioButtonGenerator.Checked = true;
+            }
         }
 
         public void UIUpdateCallback_Series(Series newSeries)
@@ -190,7 +238,9 @@ namespace RFEOnsite
             IProgress<RFEConfiguration> UpdateUI    = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
             IProgress<int> UpdateUIProgressBar      = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            gRFE.AttachSerialPortAndReceiveDataThread(UpdateUI, updateUISeries, UpdateUIProgressBar);
+            IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
+
+            gRFE.AttachSerialPortAndReceiveDataThread(UpdateUI, updateUISeries, UpdateUIProgressBar, UpdateCsvExport);
         }
 
         private void buttonSetConfiguration_Click(object sender, EventArgs e)
@@ -245,15 +295,25 @@ namespace RFEOnsite
                     TaskProgressBar.Value = 0;
 
                     buttonStartSweeps.Text = "Cancel";
+                    mSweepCount = 1;
 
                     gRFE.Capture = true;
                 }
             }
         }
 
-        private void numericUpDownSweeps_ValueChanged(object sender, EventArgs e)
+        private void checkBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonSelectCsvFolder_Click(object sender, EventArgs e)
+        {
+            mFolderDialog.Description = "Create or select a Desktop folder to store CSV file results in.";
+            if (mFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                labelRootDirectory.Text = mFolderDialog.SelectedPath;
+            }
         }
     }
 }
