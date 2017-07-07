@@ -109,7 +109,7 @@ namespace RFEOnsite
             textBoxStepSize.Text = Math.Round(config.fStepMHZ * 1000.0, 2).ToString();
             labelFoundDevice.Text = config.mMainModel.ToString();
             labelFoundModel.Text = config.mExpansionModel.ToString();
-            labelFirmware.Text = config.mFirmwareVersion;
+            labelFirmwareText.Text = config.mFirmwareVersion;
         }
 
         public void UIUpdateCallback_Series(Series newSeries)
@@ -230,18 +230,24 @@ namespace RFEOnsite
         {
             gRFE.SweepCount = (int)numericUpDownSweeps.Value;
 
-            if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
+            if (gRFE.Capture == true)
             {
-                TaskProgressBar.Maximum = gRFE.SweepCount;
-                TaskProgressBar.Step = 1;
+                gRFE.Capture = false;
                 TaskProgressBar.Value = 0;
-
-               
-                gRFE.Capture = true;
+                buttonStartSweeps.Text = "Capture";
             }
             else
             {
-                gRFE.Capture = false;
+                if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
+                {
+                    TaskProgressBar.Maximum = gRFE.SweepCount;
+                    TaskProgressBar.Step = 1;
+                    TaskProgressBar.Value = 0;
+
+                    buttonStartSweeps.Text = "Cancel";
+
+                    gRFE.Capture = true;
+                }
             }
         }
 

@@ -32,6 +32,7 @@ namespace RFEOnsite
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonFindCOMPorts = new System.Windows.Forms.Button();
             this.labelRFEComPort = new System.Windows.Forms.Label();
             this.labelStartFrequency = new System.Windows.Forms.Label();
@@ -42,13 +43,13 @@ namespace RFEOnsite
             this.textBoxStopFrequency = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.labelFrequencyStep = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.groupBoxConfiguration = new System.Windows.Forms.GroupBox();
+            this.labelRightSMAAttenuationText = new System.Windows.Forms.Label();
+            this.textBoxRightSMAAttentuationValue = new System.Windows.Forms.TextBox();
+            this.labelRightAttentaion = new System.Windows.Forms.Label();
+            this.labelLeftSMAAttenuationText = new System.Windows.Forms.Label();
+            this.textBoxLeftSMAAttenuationValue = new System.Windows.Forms.TextBox();
+            this.labelLeftAttenution = new System.Windows.Forms.Label();
             this.textBoxStepSize = new System.Windows.Forms.TextBox();
             this.textBoxRBW = new System.Windows.Forms.TextBox();
             this.labelStopMHz = new System.Windows.Forms.Label();
@@ -62,8 +63,8 @@ namespace RFEOnsite
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
             this.labelModel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelFirmwareText = new System.Windows.Forms.Label();
             this.labelFirmware = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.labelFoundModel = new System.Windows.Forms.Label();
             this.labelFoundDevice = new System.Windows.Forms.Label();
             this.buttonStartSweeps = new System.Windows.Forms.Button();
@@ -81,7 +82,8 @@ namespace RFEOnsite
             this.checkBoxChartRealTime = new System.Windows.Forms.CheckBox();
             this.groupBoxChart = new System.Windows.Forms.GroupBox();
             this.panelChart = new System.Windows.Forms.Panel();
-            this.groupBox1.SuspendLayout();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBoxConfiguration.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -127,7 +129,7 @@ namespace RFEOnsite
             this.textBoxStartFrequency.TabIndex = 3;
             this.textBoxStartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // label1
+            // labelStopFrequency
             // 
             this.labelStopFrequency.AutoSize = true;
             this.labelStopFrequency.Location = new System.Drawing.Point(37, 51);
@@ -180,91 +182,91 @@ namespace RFEOnsite
             this.labelFrequencyStep.TabIndex = 9;
             this.labelFrequencyStep.Text = "KHz";
             // 
-            // groupBox1
+            // groupBoxConfiguration
             // 
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.textBoxStepSize);
-            this.groupBox1.Controls.Add(this.textBoxRBW);
-            this.groupBox1.Controls.Add(this.labelStopMHz);
-            this.groupBox1.Controls.Add(this.labelStartMHz);
-            this.groupBox1.Controls.Add(this.radioButtonSize);
-            this.groupBox1.Controls.Add(this.radioButtonRBW);
-            this.groupBox1.Controls.Add(this.radioButtonStop);
-            this.groupBox1.Controls.Add(this.radioButtonStart);
-            this.groupBox1.Controls.Add(this.buttonSetConfiguration);
-            this.groupBox1.Controls.Add(this.labelFrequencyStep);
-            this.groupBox1.Controls.Add(this.labelStartFrequency);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxStartFrequency);
-            this.groupBox1.Controls.Add(this.textBoxStopFrequency);
-            this.groupBox1.Controls.Add(this.labelStopFrequency);
-            this.groupBox1.Controls.Add(this.labelRBWKhz);
-            this.groupBox1.Controls.Add(this.labelRBW);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(366, 186);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Current Configuration";
+            this.groupBoxConfiguration.Controls.Add(this.labelRightSMAAttenuationText);
+            this.groupBoxConfiguration.Controls.Add(this.textBoxRightSMAAttentuationValue);
+            this.groupBoxConfiguration.Controls.Add(this.labelRightAttentaion);
+            this.groupBoxConfiguration.Controls.Add(this.labelLeftSMAAttenuationText);
+            this.groupBoxConfiguration.Controls.Add(this.textBoxLeftSMAAttenuationValue);
+            this.groupBoxConfiguration.Controls.Add(this.labelLeftAttenution);
+            this.groupBoxConfiguration.Controls.Add(this.textBoxStepSize);
+            this.groupBoxConfiguration.Controls.Add(this.textBoxRBW);
+            this.groupBoxConfiguration.Controls.Add(this.labelStopMHz);
+            this.groupBoxConfiguration.Controls.Add(this.labelStartMHz);
+            this.groupBoxConfiguration.Controls.Add(this.radioButtonSize);
+            this.groupBoxConfiguration.Controls.Add(this.radioButtonRBW);
+            this.groupBoxConfiguration.Controls.Add(this.radioButtonStop);
+            this.groupBoxConfiguration.Controls.Add(this.radioButtonStart);
+            this.groupBoxConfiguration.Controls.Add(this.buttonSetConfiguration);
+            this.groupBoxConfiguration.Controls.Add(this.labelFrequencyStep);
+            this.groupBoxConfiguration.Controls.Add(this.labelStartFrequency);
+            this.groupBoxConfiguration.Controls.Add(this.label2);
+            this.groupBoxConfiguration.Controls.Add(this.textBoxStartFrequency);
+            this.groupBoxConfiguration.Controls.Add(this.textBoxStopFrequency);
+            this.groupBoxConfiguration.Controls.Add(this.labelStopFrequency);
+            this.groupBoxConfiguration.Controls.Add(this.labelRBWKhz);
+            this.groupBoxConfiguration.Controls.Add(this.labelRBW);
+            this.groupBoxConfiguration.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxConfiguration.Name = "groupBoxConfiguration";
+            this.groupBoxConfiguration.Size = new System.Drawing.Size(366, 186);
+            this.groupBoxConfiguration.TabIndex = 10;
+            this.groupBoxConfiguration.TabStop = false;
+            this.groupBoxConfiguration.Text = "Current Configuration";
             // 
-            // label11
+            // labelRightSMAAttenuationText
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(218, 161);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(20, 13);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "dB";
+            this.labelRightSMAAttenuationText.AutoSize = true;
+            this.labelRightSMAAttenuationText.Location = new System.Drawing.Point(218, 161);
+            this.labelRightSMAAttenuationText.Name = "labelRightSMAAttenuationText";
+            this.labelRightSMAAttenuationText.Size = new System.Drawing.Size(20, 13);
+            this.labelRightSMAAttenuationText.TabIndex = 24;
+            this.labelRightSMAAttenuationText.Text = "dB";
             // 
-            // textBox2
+            // textBoxRightSMAAttentuationValue
             // 
-            this.textBox2.Location = new System.Drawing.Point(196, 157);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(20, 20);
-            this.textBox2.TabIndex = 23;
-            this.textBox2.Text = "0";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxRightSMAAttentuationValue.Location = new System.Drawing.Point(196, 157);
+            this.textBoxRightSMAAttentuationValue.Name = "textBoxRightSMAAttentuationValue";
+            this.textBoxRightSMAAttentuationValue.Size = new System.Drawing.Size(20, 20);
+            this.textBoxRightSMAAttentuationValue.TabIndex = 23;
+            this.textBoxRightSMAAttentuationValue.Text = "0";
+            this.textBoxRightSMAAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label10
+            // labelRightAttentaion
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(85, 161);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(110, 13);
-            this.label10.TabIndex = 22;
-            this.label10.Text = "Right SMA Attenuator";
+            this.labelRightAttentaion.AutoSize = true;
+            this.labelRightAttentaion.Location = new System.Drawing.Point(85, 161);
+            this.labelRightAttentaion.Name = "labelRightAttentaion";
+            this.labelRightAttentaion.Size = new System.Drawing.Size(110, 13);
+            this.labelRightAttentaion.TabIndex = 22;
+            this.labelRightAttentaion.Text = "Right SMA Attenuator";
             // 
-            // label9
+            // labelLeftSMAAttenuationText
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(218, 135);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(20, 13);
-            this.label9.TabIndex = 21;
-            this.label9.Text = "dB";
+            this.labelLeftSMAAttenuationText.AutoSize = true;
+            this.labelLeftSMAAttenuationText.Location = new System.Drawing.Point(218, 135);
+            this.labelLeftSMAAttenuationText.Name = "labelLeftSMAAttenuationText";
+            this.labelLeftSMAAttenuationText.Size = new System.Drawing.Size(20, 13);
+            this.labelLeftSMAAttenuationText.TabIndex = 21;
+            this.labelLeftSMAAttenuationText.Text = "dB";
             // 
-            // textBox1
+            // textBoxLeftSMAAttenuationValue
             // 
-            this.textBox1.Location = new System.Drawing.Point(196, 131);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(20, 20);
-            this.textBox1.TabIndex = 20;
-            this.textBox1.Text = "0";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxLeftSMAAttenuationValue.Location = new System.Drawing.Point(196, 131);
+            this.textBoxLeftSMAAttenuationValue.Name = "textBoxLeftSMAAttenuationValue";
+            this.textBoxLeftSMAAttenuationValue.Size = new System.Drawing.Size(20, 20);
+            this.textBoxLeftSMAAttenuationValue.TabIndex = 20;
+            this.textBoxLeftSMAAttenuationValue.Text = "0";
+            this.textBoxLeftSMAAttenuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label8
+            // labelLeftAttenution
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(92, 135);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "Left SMA Attenuator";
+            this.labelLeftAttenution.AutoSize = true;
+            this.labelLeftAttenution.Location = new System.Drawing.Point(92, 135);
+            this.labelLeftAttenution.Name = "labelLeftAttenution";
+            this.labelLeftAttenution.Size = new System.Drawing.Size(103, 13);
+            this.labelLeftAttenution.TabIndex = 19;
+            this.labelLeftAttenution.Text = "Left SMA Attenuator";
             // 
             // textBoxStepSize
             // 
@@ -347,11 +349,12 @@ namespace RFEOnsite
             // 
             // buttonSetConfiguration
             // 
-            this.buttonSetConfiguration.Location = new System.Drawing.Point(278, 58);
+            this.buttonSetConfiguration.Location = new System.Drawing.Point(274, 61);
             this.buttonSetConfiguration.Name = "buttonSetConfiguration";
             this.buttonSetConfiguration.Size = new System.Drawing.Size(75, 23);
             this.buttonSetConfiguration.TabIndex = 10;
             this.buttonSetConfiguration.Text = "Set";
+            this.toolTip1.SetToolTip(this.buttonSetConfiguration, "Solve for Radio Selected Value");
             this.buttonSetConfiguration.UseVisualStyleBackColor = true;
             this.buttonSetConfiguration.Click += new System.EventHandler(this.buttonSetConfiguration_Click);
             // 
@@ -371,8 +374,8 @@ namespace RFEOnsite
             // 
             this.groupBoxSerialConnection.Controls.Add(this.labelModel);
             this.groupBoxSerialConnection.Controls.Add(this.label3);
+            this.groupBoxSerialConnection.Controls.Add(this.labelFirmwareText);
             this.groupBoxSerialConnection.Controls.Add(this.labelFirmware);
-            this.groupBoxSerialConnection.Controls.Add(this.label6);
             this.groupBoxSerialConnection.Controls.Add(this.labelFoundModel);
             this.groupBoxSerialConnection.Controls.Add(this.comboBoxProgramMode);
             this.groupBoxSerialConnection.Controls.Add(this.labelFoundDevice);
@@ -403,28 +406,28 @@ namespace RFEOnsite
             this.label3.TabIndex = 12;
             this.label3.Text = "Device:";
             // 
+            // labelFirmwareText
+            // 
+            this.labelFirmwareText.AutoSize = true;
+            this.labelFirmwareText.Location = new System.Drawing.Point(265, 20);
+            this.labelFirmwareText.Name = "labelFirmwareText";
+            this.labelFirmwareText.Size = new System.Drawing.Size(0, 13);
+            this.labelFirmwareText.TabIndex = 5;
+            this.labelFirmwareText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelFirmware
             // 
             this.labelFirmware.AutoSize = true;
-            this.labelFirmware.Location = new System.Drawing.Point(284, 20);
+            this.labelFirmware.Location = new System.Drawing.Point(200, 20);
             this.labelFirmware.Name = "labelFirmware";
-            this.labelFirmware.Size = new System.Drawing.Size(0, 13);
-            this.labelFirmware.TabIndex = 5;
-            this.labelFirmware.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(200, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Firmware:";
+            this.labelFirmware.Size = new System.Drawing.Size(52, 13);
+            this.labelFirmware.TabIndex = 4;
+            this.labelFirmware.Text = "Firmware:";
             // 
             // labelFoundModel
             // 
             this.labelFoundModel.AutoSize = true;
-            this.labelFoundModel.Location = new System.Drawing.Point(284, 68);
+            this.labelFoundModel.Location = new System.Drawing.Point(265, 68);
             this.labelFoundModel.Name = "labelFoundModel";
             this.labelFoundModel.Size = new System.Drawing.Size(0, 13);
             this.labelFoundModel.TabIndex = 3;
@@ -432,7 +435,7 @@ namespace RFEOnsite
             // labelFoundDevice
             // 
             this.labelFoundDevice.AutoSize = true;
-            this.labelFoundDevice.Location = new System.Drawing.Point(284, 42);
+            this.labelFoundDevice.Location = new System.Drawing.Point(265, 42);
             this.labelFoundDevice.Name = "labelFoundDevice";
             this.labelFoundDevice.Size = new System.Drawing.Size(0, 13);
             this.labelFoundDevice.TabIndex = 2;
@@ -444,6 +447,7 @@ namespace RFEOnsite
             this.buttonStartSweeps.Size = new System.Drawing.Size(155, 23);
             this.buttonStartSweeps.TabIndex = 13;
             this.buttonStartSweeps.Text = "Capture";
+            this.toolTip1.SetToolTip(this.buttonStartSweeps, "Begin Capture and logging of RF Explorer dBm Data");
             this.buttonStartSweeps.UseVisualStyleBackColor = true;
             this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartWeeps_Click);
             // 
@@ -521,7 +525,7 @@ namespace RFEOnsite
             // 
             // ConfigurationPanel
             // 
-            this.ConfigurationPanel.Controls.Add(this.groupBox1);
+            this.ConfigurationPanel.Controls.Add(this.groupBoxConfiguration);
             this.ConfigurationPanel.Location = new System.Drawing.Point(14, 133);
             this.ConfigurationPanel.Name = "ConfigurationPanel";
             this.ConfigurationPanel.Size = new System.Drawing.Size(376, 192);
@@ -597,6 +601,12 @@ namespace RFEOnsite
             this.panelChart.Size = new System.Drawing.Size(349, 377);
             this.panelChart.TabIndex = 0;
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 10000;
+            this.toolTip1.InitialDelay = 1000;
+            this.toolTip1.ReshowDelay = 1000;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -608,8 +618,8 @@ namespace RFEOnsite
             this.Controls.Add(this.SweepPanel);
             this.Name = "MainForm";
             this.Text = "OnSite";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxConfiguration.ResumeLayout(false);
+            this.groupBoxConfiguration.PerformLayout();
             this.groupBoxSerialConnection.ResumeLayout(false);
             this.groupBoxSerialConnection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).EndInit();
@@ -633,19 +643,19 @@ namespace RFEOnsite
         private Button buttonSetConfiguration;
         private Button buttonStartSweeps;
         private ComboBox comboBoxProgramMode;
-        private GroupBox groupBox1;
+        private GroupBox groupBoxConfiguration;
         private GroupBox groupBox2;
         private GroupBox groupBoxSerialConnection;
-        private Label label10;
-        private Label label11;
+        private Label labelRightAttentaion;
+        private Label labelRightSMAAttenuationText;
         private Label labelStopFrequency;
         private Label label2;
         private Label labelFoundDevice;
         private Label labelFoundModel;
-        private Label label6;
         private Label labelFirmware;
-        private Label label8;
-        private Label label9;
+        private Label labelFirmwareText;
+        private Label labelLeftAttenution;
+        private Label labelLeftSMAAttenuationText;
         private Label labelFrequencyStep;
         private Label labelRBW;
         private Label labelRBWKhz;
@@ -663,8 +673,8 @@ namespace RFEOnsite
         private RadioButton radioButtonSize;
         private RadioButton radioButtonStart;
         private RadioButton radioButtonStop;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox textBoxLeftSMAAttenuationValue;
+        private TextBox textBoxRightSMAAttentuationValue;
         private TextBox textBoxRBW;
         private TextBox textBoxStartFrequency;
         private TextBox textBoxStepSize;
@@ -678,8 +688,7 @@ namespace RFEOnsite
         private Label label3;
         private Label labelModel;
         private Panel panelChart;
-
-
+        private ToolTip toolTip1;
     }
 }
 

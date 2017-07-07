@@ -145,10 +145,10 @@ namespace RFEOnsite
                                 {
                                     if (mSweepCount > 0)
                                     {
-
                                         updateUIProgressBar.Report(mSweepCount);
                                         mReceivedData.Add(sNewLine);
                                         mSweepCount--;
+                                        //sNewLine = String.Empty;
                                     }
                                     else
                                     {
@@ -157,6 +157,8 @@ namespace RFEOnsite
                                         mRFEConfiguration.ParseSweepData(series);
                                         mReceivedData.Clear();
                                     }
+
+                                    //continue;
                                 }
                             }
                         }
