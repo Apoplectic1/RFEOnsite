@@ -159,8 +159,7 @@ namespace RFEOnsite
                         frequency = mFreqencyList[index].ToString();
 
                         dBm = -(Convert.ToDouble(Convert.ToInt32(mReceivedData[sweepIndex][index + 3])) / 2.0);
-                      
-
+ 
                         localCsvExport[frequency] = dBm.ToString();
                     }
                 }

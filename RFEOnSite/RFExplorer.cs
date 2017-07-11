@@ -17,14 +17,17 @@ namespace RFEOnsite
         private bool mCapture = false;
         private bool mConfigured = false;
         private int mSweepCount;
+        private bool mbWriteCsvFiles;
         volatile private bool mbRunReceiveThread;
         public Series mSeries;
         public CsvExport mCsvExport;
 
+        
+
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
         public List<string> SweepData { get { return mReceivedData; } }
-        
+        public bool WriteCsvFiles { get { return mbWriteCsvFiles; } set { mbWriteCsvFiles = value; } }
 
         
         public RFExplorer()
@@ -35,6 +38,7 @@ namespace RFEOnsite
             mSeries = null;
             mSweepCount = 0;
             mCsvExport = new CsvExport();
+            mbWriteCsvFiles = false;
         }
 
         public void Initialize(IProgress<string> updateUIComPortText)
@@ -157,7 +161,11 @@ namespace RFEOnsite
                                         mCapture = false;
                                         updateUIProgressBar.Report(mSweepCount);
                                         mRFEConfiguration.ParseSweepData(series);
-                                        mRFEConfiguration.ConstructCsvFile(csvExport);
+
+                                        if (WriteCsvFiles)
+                                        {
+                                            mRFEConfiguration.ConstructCsvFile(csvExport);
+                                        }
                                         mReceivedData.Clear();
                                     }
 

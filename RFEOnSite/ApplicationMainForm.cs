@@ -14,13 +14,15 @@ namespace RFEOnsite
         public RFExplorer gRFE;
         public Charts mGraph;
         public CsvExport mCsvExports;
-        private int mSweepCount;
+        private int mCsvFileSweepCount;
+
 
         private FolderBrowserDialog mFolderDialog;
         public MainForm()
         {
             InitializeComponent();
 
+            // Versioning
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
             {
                 System.Deployment.Application.ApplicationDeployment ad = System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
@@ -42,7 +44,6 @@ namespace RFEOnsite
             mFolderDialog = new FolderBrowserDialog();
             mFolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
             labelCsvRootText.Text = "Root Folder for CSV Files:";
-            
         }
 
         private void InitializeChartUI()
@@ -88,10 +89,10 @@ namespace RFEOnsite
 
             mGraph.BuildChart();
 
-            
+
             gRFE.mSeries = new Series();
 
-            gRFE.mSeries.Points.AddXY(750, -50);
+            gRFE.mSeries.Points.AddXY(750, -30);
 
             foreach (var series in mGraph.Chart.Series)
             {
@@ -108,20 +109,20 @@ namespace RFEOnsite
 
         public void UIUpdateCallback_CsvExport(CsvExport csvExport)
         {
-           
 
-            string fileName = "ABCD-" +
-                mSweepCount.ToString("D2") +
+
+            string fileName = textBoxSweepLocation.Text + "-" +
+                mCsvFileSweepCount.ToString("D2") +
                 " " +
-                DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + 
+                DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) +
                 " " +
-                (Convert.ToInt64(textBoxStartFrequency.Text) * 10).ToString("D5") + 
+                (Convert.ToInt64(textBoxStartFrequency.Text) * 10).ToString("D5") +
                 "to" +
-                (Convert.ToInt64(textBoxStopFrequency.Text) * 10).ToString("D5") + 
+                (Convert.ToInt64(textBoxStopFrequency.Text) * 10).ToString("D5") +
                 "-" +
-                numericUpDownSweeps.Text + 
-                " at " + 
-                "000 " + 
+                numericUpDownSweeps.Text +
+                " at " +
+                "000 " +
                 "Degrees.csv";
 
             textBoxCsvFileName.Text = fileName;
@@ -132,7 +133,7 @@ namespace RFEOnsite
 
             csvExport.ExportToFile(filePath);
 
-            mSweepCount++;
+            mCsvFileSweepCount++;
         }
 
         public void UIUpdateCallback_RFE_Configutration(RFEConfiguration config)
@@ -164,7 +165,7 @@ namespace RFEOnsite
         {
             //lock (mGraph.Chart.Series)
             {
-                for (int i=0;  mGraph.Chart.Series.Count != 0; i++ )
+                for (int i = 0; mGraph.Chart.Series.Count != 0; i++)
                 {
                     mGraph.Chart.Series.RemoveAt(0);
                 }
@@ -208,11 +209,11 @@ namespace RFEOnsite
             Series outSeries = new Series();
             double maxY = -200.0;
 
-            for(int index = 0; index < 112; index++)
+            for (int index = 0; index < 112; index++)
             {
 
             }
-            
+
 
             return outSeries;
         }
@@ -221,8 +222,9 @@ namespace RFEOnsite
         {
             // Pass "labelRFEComPort.Text" - a string - to Initialize() thread (await)
             // TThe thread then updates the GUI
+            buttonFindCOMPorts.Enabled = false;
 
-            IProgress<string> updateUiComPortLabel  = new Progress<string>(s => labelRFEComPort.Text = s);
+            IProgress<string> updateUiComPortLabel = new Progress<string>(s => labelRFEComPort.Text = s);
             await Task.Factory.StartNew(() => gRFE.Initialize(updateUiComPortLabel));
 
             if (!labelRFEComPort.Text.Contains("COM"))
@@ -234,9 +236,9 @@ namespace RFEOnsite
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
 
-            IProgress<Series> updateUISeries        = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
-            IProgress<RFEConfiguration> UpdateUI    = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
-            IProgress<int> UpdateUIProgressBar      = new Progress<int>(s => TaskProgressBar.Value = s);
+            IProgress<Series> updateUISeries = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
+            IProgress<RFEConfiguration> UpdateUI = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
+            IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
 
             IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
 
@@ -280,31 +282,43 @@ namespace RFEOnsite
         {
             gRFE.SweepCount = (int)numericUpDownSweeps.Value;
 
-            if (gRFE.Capture == true)
+
+            if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
             {
-                gRFE.Capture = false;
+                TaskProgressBar.Maximum = gRFE.SweepCount;
+                TaskProgressBar.Step = 1;
                 TaskProgressBar.Value = 0;
-                buttonStartSweeps.Text = "Capture";
-            }
-            else
-            {
-                if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
-                {
-                    TaskProgressBar.Maximum = gRFE.SweepCount;
-                    TaskProgressBar.Step = 1;
-                    TaskProgressBar.Value = 0;
 
-                    buttonStartSweeps.Text = "Cancel";
-                    mSweepCount = 1;
+                buttonStartSweeps.Text = "Cancel";
+                mCsvFileSweepCount = 1;
 
-                    gRFE.Capture = true;
-                }
+                gRFE.Capture = true;
             }
+
         }
 
         private void checkBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
         {
+            gRFE.WriteCsvFiles = checkBoxSaveCsvFiles.Checked;
 
+            if (gRFE.WriteCsvFiles)
+            {
+                textBoxSweepLocation.Enabled = true;
+                textBoxCsvFileName.Enabled = true;
+                buttonSelectCsvFolder.Enabled = true;
+                labelCsvRootText.Enabled = true;
+                labelRootDirectory.Enabled = true;
+                labelProgressWriteCsvFile.Enabled = true;
+            }
+            else
+            {
+                textBoxSweepLocation.Enabled = false;
+                textBoxCsvFileName.Enabled = false;
+                buttonSelectCsvFolder.Enabled = false;
+                labelCsvRootText.Enabled = false;
+                labelRootDirectory.Enabled = false;
+                labelProgressWriteCsvFile.Enabled = true;
+            }
         }
 
         private void buttonSelectCsvFolder_Click(object sender, EventArgs e)
@@ -314,6 +328,31 @@ namespace RFEOnsite
             {
                 labelRootDirectory.Text = mFolderDialog.SelectedPath;
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ConfigurationPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ConnectionPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxSerialConnection_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

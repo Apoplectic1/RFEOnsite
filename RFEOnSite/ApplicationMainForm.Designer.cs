@@ -60,6 +60,8 @@ namespace RFEOnsite
             this.radioButtonStart = new System.Windows.Forms.RadioButton();
             this.buttonSetConfiguration = new System.Windows.Forms.Button();
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
+            this.radioButtonGenerator = new System.Windows.Forms.RadioButton();
+            this.radioButtonAnalyzer = new System.Windows.Forms.RadioButton();
             this.labelModel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelFirmwareText = new System.Windows.Forms.Label();
@@ -69,9 +71,9 @@ namespace RFEOnsite
             this.buttonStartSweeps = new System.Windows.Forms.Button();
             this.labelStartSweeps = new System.Windows.Forms.Label();
             this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBoxSaveCsvFiles = new System.Windows.Forms.CheckBox();
+            this.groupBoxSweepControl = new System.Windows.Forms.GroupBox();
             this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
+            this.checkBoxSaveCsvFiles = new System.Windows.Forms.CheckBox();
             this.SweepPanel = new System.Windows.Forms.Panel();
             this.ConfigurationPanel = new System.Windows.Forms.Panel();
             this.ConnectionPanel = new System.Windows.Forms.Panel();
@@ -85,16 +87,14 @@ namespace RFEOnsite
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelRootDirectory = new System.Windows.Forms.Label();
             this.labelCsvRootText = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxSweepLocation = new System.Windows.Forms.TextBox();
             this.textBoxCsvFileName = new System.Windows.Forms.TextBox();
             this.buttonSelectCsvFolder = new System.Windows.Forms.Button();
-            this.radioButtonAnalyzer = new System.Windows.Forms.RadioButton();
-            this.radioButtonGenerator = new System.Windows.Forms.RadioButton();
+            this.labelProgressWriteCsvFile = new System.Windows.Forms.Label();
             this.groupBoxConfiguration.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            this.SweepPanel.SuspendLayout();
+            this.groupBoxSweepControl.SuspendLayout();
             this.ConfigurationPanel.SuspendLayout();
             this.ConnectionPanel.SuspendLayout();
             this.ChartPanel.SuspendLayout();
@@ -217,7 +217,7 @@ namespace RFEOnsite
             this.groupBoxConfiguration.Controls.Add(this.labelRBW);
             this.groupBoxConfiguration.Location = new System.Drawing.Point(3, 3);
             this.groupBoxConfiguration.Name = "groupBoxConfiguration";
-            this.groupBoxConfiguration.Size = new System.Drawing.Size(366, 186);
+            this.groupBoxConfiguration.Size = new System.Drawing.Size(373, 186);
             this.groupBoxConfiguration.TabIndex = 10;
             this.groupBoxConfiguration.TabStop = false;
             this.groupBoxConfiguration.Text = "Current Configuration";
@@ -380,10 +380,33 @@ namespace RFEOnsite
             this.groupBoxSerialConnection.Controls.Add(this.labelRFEComPort);
             this.groupBoxSerialConnection.Location = new System.Drawing.Point(3, 4);
             this.groupBoxSerialConnection.Name = "groupBoxSerialConnection";
-            this.groupBoxSerialConnection.Size = new System.Drawing.Size(366, 110);
+            this.groupBoxSerialConnection.Size = new System.Drawing.Size(373, 110);
             this.groupBoxSerialConnection.TabIndex = 12;
             this.groupBoxSerialConnection.TabStop = false;
             this.groupBoxSerialConnection.Text = "RF Explorer Connection";
+            this.groupBoxSerialConnection.Enter += new System.EventHandler(this.groupBoxSerialConnection_Enter);
+            // 
+            // radioButtonGenerator
+            // 
+            this.radioButtonGenerator.AutoSize = true;
+            this.radioButtonGenerator.Location = new System.Drawing.Point(12, 86);
+            this.radioButtonGenerator.Name = "radioButtonGenerator";
+            this.radioButtonGenerator.Size = new System.Drawing.Size(104, 17);
+            this.radioButtonGenerator.TabIndex = 15;
+            this.radioButtonGenerator.TabStop = true;
+            this.radioButtonGenerator.Text = "Signal Generator";
+            this.radioButtonGenerator.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAnalyzer
+            // 
+            this.radioButtonAnalyzer.AutoSize = true;
+            this.radioButtonAnalyzer.Location = new System.Drawing.Point(12, 62);
+            this.radioButtonAnalyzer.Name = "radioButtonAnalyzer";
+            this.radioButtonAnalyzer.Size = new System.Drawing.Size(113, 17);
+            this.radioButtonAnalyzer.TabIndex = 14;
+            this.radioButtonAnalyzer.TabStop = true;
+            this.radioButtonAnalyzer.Text = "Spectrum Analyzer";
+            this.radioButtonAnalyzer.UseVisualStyleBackColor = true;
             // 
             // labelModel
             // 
@@ -480,24 +503,32 @@ namespace RFEOnsite
             0,
             0});
             // 
-            // groupBox2
+            // groupBoxSweepControl
             // 
-            this.groupBox2.Controls.Add(this.checkBoxSaveCsvFiles);
-            this.groupBox2.Controls.Add(this.TaskProgressBar);
-            this.groupBox2.Controls.Add(this.labelStartSweeps);
-            this.groupBox2.Controls.Add(this.buttonStartSweeps);
-            this.groupBox2.Controls.Add(this.numericUpDownSweeps);
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(366, 125);
-            this.groupBox2.TabIndex = 16;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Sweep Control";
+            this.groupBoxSweepControl.Controls.Add(this.labelProgressWriteCsvFile);
+            this.groupBoxSweepControl.Controls.Add(this.TaskProgressBar);
+            this.groupBoxSweepControl.Controls.Add(this.labelStartSweeps);
+            this.groupBoxSweepControl.Controls.Add(this.buttonStartSweeps);
+            this.groupBoxSweepControl.Controls.Add(this.numericUpDownSweeps);
+            this.groupBoxSweepControl.Controls.Add(this.textBoxCsvFileName);
+            this.groupBoxSweepControl.Location = new System.Drawing.Point(14, 446);
+            this.groupBoxSweepControl.Name = "groupBoxSweepControl";
+            this.groupBoxSweepControl.Size = new System.Drawing.Size(376, 158);
+            this.groupBoxSweepControl.TabIndex = 16;
+            this.groupBoxSweepControl.TabStop = false;
+            this.groupBoxSweepControl.Text = "Sweep Control";
+            // 
+            // TaskProgressBar
+            // 
+            this.TaskProgressBar.Location = new System.Drawing.Point(15, 87);
+            this.TaskProgressBar.Name = "TaskProgressBar";
+            this.TaskProgressBar.Size = new System.Drawing.Size(344, 23);
+            this.TaskProgressBar.TabIndex = 16;
             // 
             // checkBoxSaveCsvFiles
             // 
             this.checkBoxSaveCsvFiles.AutoSize = true;
-            this.checkBoxSaveCsvFiles.Location = new System.Drawing.Point(203, 10);
+            this.checkBoxSaveCsvFiles.Location = new System.Drawing.Point(261, 23);
             this.checkBoxSaveCsvFiles.Name = "checkBoxSaveCsvFiles";
             this.checkBoxSaveCsvFiles.Size = new System.Drawing.Size(106, 17);
             this.checkBoxSaveCsvFiles.TabIndex = 17;
@@ -505,17 +536,9 @@ namespace RFEOnsite
             this.checkBoxSaveCsvFiles.UseVisualStyleBackColor = true;
             this.checkBoxSaveCsvFiles.CheckedChanged += new System.EventHandler(this.checkBoxSaveCsvFiles_CheckedChanged);
             // 
-            // TaskProgressBar
-            // 
-            this.TaskProgressBar.Location = new System.Drawing.Point(15, 87);
-            this.TaskProgressBar.Name = "TaskProgressBar";
-            this.TaskProgressBar.Size = new System.Drawing.Size(343, 23);
-            this.TaskProgressBar.TabIndex = 16;
-            // 
             // SweepPanel
             // 
-            this.SweepPanel.Controls.Add(this.groupBox2);
-            this.SweepPanel.Location = new System.Drawing.Point(14, 333);
+            this.SweepPanel.Location = new System.Drawing.Point(481, 0);
             this.SweepPanel.Name = "SweepPanel";
             this.SweepPanel.Size = new System.Drawing.Size(376, 132);
             this.SweepPanel.TabIndex = 17;
@@ -527,6 +550,7 @@ namespace RFEOnsite
             this.ConfigurationPanel.Name = "ConfigurationPanel";
             this.ConfigurationPanel.Size = new System.Drawing.Size(376, 192);
             this.ConfigurationPanel.TabIndex = 18;
+            this.ConfigurationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ConfigurationPanel_Paint);
             // 
             // ConnectionPanel
             // 
@@ -535,6 +559,7 @@ namespace RFEOnsite
             this.ConnectionPanel.Name = "ConnectionPanel";
             this.ConnectionPanel.Size = new System.Drawing.Size(376, 117);
             this.ConnectionPanel.TabIndex = 22;
+            this.ConnectionPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ConnectionPanel_Paint);
             // 
             // ChartPanel
             // 
@@ -606,14 +631,15 @@ namespace RFEOnsite
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxSaveCsvFiles);
             this.groupBox1.Controls.Add(this.labelRootDirectory);
             this.groupBox1.Controls.Add(this.labelCsvRootText);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBoxCsvFileName);
+            this.groupBox1.Controls.Add(this.textBoxSweepLocation);
+            this.groupBox1.Controls.Add(this.SweepPanel);
             this.groupBox1.Controls.Add(this.buttonSelectCsvFolder);
-            this.groupBox1.Location = new System.Drawing.Point(14, 476);
+            this.groupBox1.Location = new System.Drawing.Point(14, 336);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(753, 119);
+            this.groupBox1.Size = new System.Drawing.Size(376, 102);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output CSV File Structure";
@@ -621,7 +647,8 @@ namespace RFEOnsite
             // labelRootDirectory
             // 
             this.labelRootDirectory.AutoSize = true;
-            this.labelRootDirectory.Location = new System.Drawing.Point(143, 63);
+            this.labelRootDirectory.Enabled = false;
+            this.labelRootDirectory.Location = new System.Drawing.Point(143, 77);
             this.labelRootDirectory.Name = "labelRootDirectory";
             this.labelRootDirectory.Size = new System.Drawing.Size(47, 13);
             this.labelRootDirectory.TabIndex = 4;
@@ -630,29 +657,34 @@ namespace RFEOnsite
             // labelCsvRootText
             // 
             this.labelCsvRootText.AutoSize = true;
-            this.labelCsvRootText.Location = new System.Drawing.Point(18, 63);
+            this.labelCsvRootText.Enabled = false;
+            this.labelCsvRootText.Location = new System.Drawing.Point(18, 77);
             this.labelCsvRootText.Name = "labelCsvRootText";
             this.labelCsvRootText.Size = new System.Drawing.Size(128, 13);
             this.labelCsvRootText.TabIndex = 3;
             this.labelCsvRootText.Text = "Root Folder for CSV Files:";
             // 
-            // textBox2
+            // textBoxSweepLocation
             // 
-            this.textBox2.Location = new System.Drawing.Point(206, 32);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(174, 20);
-            this.textBox2.TabIndex = 2;
+            this.textBoxSweepLocation.Enabled = false;
+            this.textBoxSweepLocation.Location = new System.Drawing.Point(18, 20);
+            this.textBoxSweepLocation.Name = "textBoxSweepLocation";
+            this.textBoxSweepLocation.Size = new System.Drawing.Size(223, 20);
+            this.textBoxSweepLocation.TabIndex = 2;
+            this.textBoxSweepLocation.Text = "Enter Location";
             // 
             // textBoxCsvFileName
             // 
-            this.textBoxCsvFileName.Location = new System.Drawing.Point(18, 82);
+            this.textBoxCsvFileName.Enabled = false;
+            this.textBoxCsvFileName.Location = new System.Drawing.Point(15, 131);
             this.textBoxCsvFileName.Name = "textBoxCsvFileName";
-            this.textBoxCsvFileName.Size = new System.Drawing.Size(362, 20);
+            this.textBoxCsvFileName.Size = new System.Drawing.Size(344, 20);
             this.textBoxCsvFileName.TabIndex = 1;
             // 
             // buttonSelectCsvFolder
             // 
-            this.buttonSelectCsvFolder.Location = new System.Drawing.Point(18, 30);
+            this.buttonSelectCsvFolder.Enabled = false;
+            this.buttonSelectCsvFolder.Location = new System.Drawing.Point(18, 47);
             this.buttonSelectCsvFolder.Name = "buttonSelectCsvFolder";
             this.buttonSelectCsvFolder.Size = new System.Drawing.Size(106, 23);
             this.buttonSelectCsvFolder.TabIndex = 0;
@@ -660,48 +692,36 @@ namespace RFEOnsite
             this.buttonSelectCsvFolder.UseVisualStyleBackColor = true;
             this.buttonSelectCsvFolder.Click += new System.EventHandler(this.buttonSelectCsvFolder_Click);
             // 
-            // radioButtonAnalyzer
+            // labelProgressWriteCsvFile
             // 
-            this.radioButtonAnalyzer.AutoSize = true;
-            this.radioButtonAnalyzer.Location = new System.Drawing.Point(12, 62);
-            this.radioButtonAnalyzer.Name = "radioButtonAnalyzer";
-            this.radioButtonAnalyzer.Size = new System.Drawing.Size(113, 17);
-            this.radioButtonAnalyzer.TabIndex = 14;
-            this.radioButtonAnalyzer.TabStop = true;
-            this.radioButtonAnalyzer.Text = "Spectrum Analyzer";
-            this.radioButtonAnalyzer.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonGenerator
-            // 
-            this.radioButtonGenerator.AutoSize = true;
-            this.radioButtonGenerator.Location = new System.Drawing.Point(12, 86);
-            this.radioButtonGenerator.Name = "radioButtonGenerator";
-            this.radioButtonGenerator.Size = new System.Drawing.Size(104, 17);
-            this.radioButtonGenerator.TabIndex = 15;
-            this.radioButtonGenerator.TabStop = true;
-            this.radioButtonGenerator.Text = "Signal Generator";
-            this.radioButtonGenerator.UseVisualStyleBackColor = true;
+            this.labelProgressWriteCsvFile.AutoSize = true;
+            this.labelProgressWriteCsvFile.Enabled = false;
+            this.labelProgressWriteCsvFile.Location = new System.Drawing.Point(15, 114);
+            this.labelProgressWriteCsvFile.Name = "labelProgressWriteCsvFile";
+            this.labelProgressWriteCsvFile.Size = new System.Drawing.Size(50, 13);
+            this.labelProgressWriteCsvFile.TabIndex = 17;
+            this.labelProgressWriteCsvFile.Text = "CSV File:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 597);
+            this.ClientSize = new System.Drawing.Size(775, 613);
+            this.Controls.Add(this.groupBoxSweepControl);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ChartPanel);
             this.Controls.Add(this.ConnectionPanel);
             this.Controls.Add(this.ConfigurationPanel);
-            this.Controls.Add(this.SweepPanel);
             this.Name = "MainForm";
             this.Text = "OnSite";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBoxConfiguration.ResumeLayout(false);
             this.groupBoxConfiguration.PerformLayout();
             this.groupBoxSerialConnection.ResumeLayout(false);
             this.groupBoxSerialConnection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.SweepPanel.ResumeLayout(false);
+            this.groupBoxSweepControl.ResumeLayout(false);
+            this.groupBoxSweepControl.PerformLayout();
             this.ConfigurationPanel.ResumeLayout(false);
             this.ConnectionPanel.ResumeLayout(false);
             this.ChartPanel.ResumeLayout(false);
@@ -721,7 +741,7 @@ namespace RFEOnsite
         private Button buttonSetConfiguration;
         private Button buttonStartSweeps;
         private GroupBox groupBoxConfiguration;
-        private GroupBox groupBox2;
+        private GroupBox groupBoxSweepControl;
         private GroupBox groupBoxSerialConnection;
         private Label labelRightAttentaion;
         private Label labelRightSMAAttenuationText;
@@ -769,11 +789,12 @@ namespace RFEOnsite
         private GroupBox groupBox1;
         private TextBox textBoxCsvFileName;
         private Button buttonSelectCsvFolder;
-        private TextBox textBox2;
+        private TextBox textBoxSweepLocation;
         private Label labelCsvRootText;
         private Label labelRootDirectory;
         private RadioButton radioButtonGenerator;
         private RadioButton radioButtonAnalyzer;
+        private Label labelProgressWriteCsvFile;
     }
 }
 
