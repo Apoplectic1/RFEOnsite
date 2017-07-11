@@ -10,7 +10,7 @@ namespace RFEOnsite
 
     public partial class RFExplorer
     {
-        private static List<string> mReceivedData;
+        private static List<string> mReceivedSweep;
         private RFEConfiguration mRFEConfiguration;
         private SerialCommunications mSerialPort;
         private Thread mReceiveThread;
@@ -26,14 +26,14 @@ namespace RFEOnsite
 
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
-        public List<string> SweepData { get { return mReceivedData; } }
+        public List<string> SweepData { get { return mReceivedSweep; } }
         public bool WriteCsvFiles { get { return mbWriteCsvFiles; } set { mbWriteCsvFiles = value; } }
 
         
         public RFExplorer()
         {
             mSerialPort = new SerialCommunications();
-            mReceivedData = new List<string>();
+            mReceivedSweep = new List<string>();
             mRFEConfiguration = new RFEConfiguration();
             mSeries = null;
             mSweepCount = 0;
@@ -51,7 +51,7 @@ namespace RFEOnsite
 
         }
 
-        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> nProgress, IProgress<CsvExport> csvExport)
+        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<CsvExport> csvExport, IProgress<int> nProgress)
         {
             //Start listening to data from the RF Explorer
             mbRunReceiveThread = true;
@@ -74,7 +74,7 @@ namespace RFEOnsite
             top = (amplitudeTop * 1000.0).ToString("0000");
             bottom = (amplitudeBottom * 1000.0).ToString("0000");
 
-            mReceivedData.Clear();
+            mReceivedSweep.Clear();
 
             // Select Proper RFE antenna Port
             if (startMHz >= 4850)
@@ -123,7 +123,7 @@ namespace RFEOnsite
                     }
                     catch (IOException) { }
                     catch (TimeoutException) { }
-                    catch (Exception obExeption) { }
+                    catch (Exception) { }
                     finally
                     {
                         Monitor.Exit(mSerialPort);
@@ -152,7 +152,7 @@ namespace RFEOnsite
                                     if (mSweepCount > 0)
                                     {
                                         updateUIProgressBar.Report(mSweepCount);
-                                        mReceivedData.Add(sNewLine);
+                                        mReceivedSweep.Add(sNewLine);
                                         mSweepCount--;
                                         //sNewLine = String.Empty;
                                     }
@@ -160,13 +160,13 @@ namespace RFEOnsite
                                     {
                                         mCapture = false;
                                         updateUIProgressBar.Report(mSweepCount);
-                                        mRFEConfiguration.ParseSweepData(series);
+                                        mRFEConfiguration.BuildChartSeriesFromExplorer(series);
 
                                         if (WriteCsvFiles)
                                         {
-                                            mRFEConfiguration.ConstructCsvFile(csvExport);
+                                            mRFEConfiguration.BuildCsvDataFromExplorer(csvExport);
                                         }
-                                        mReceivedData.Clear();
+                                        mReceivedSweep.Clear();
                                     }
 
                                     //continue;
@@ -194,7 +194,7 @@ namespace RFEOnsite
                             // Look for Configuration string 
                             if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                             {
-                                mRFEConfiguration.ParseConfigurationString(sNewLine);
+                                mRFEConfiguration.GetConfigurationFromExplorer(sNewLine);
                                 configurationData.Report(mRFEConfiguration);
                                 mConfigured = true;
                             }

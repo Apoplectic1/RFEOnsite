@@ -142,7 +142,7 @@ namespace RFEOnsite
                 Thread.Sleep(500);
 
             }
-            catch (Exception obException)
+            catch (Exception)
             {
                 string message; // = obException.ToString();
                 string caption = "Serial Port Connection Error";
@@ -187,7 +187,7 @@ namespace RFEOnsite
                 Monitor.Enter(mSerialPort);
                 mSerialPort.Write("#" + Convert.ToChar(sData.Length + 2) + sData);
             }
-            catch (Exception obEx)
+            catch (Exception)
             {
                 
             }

@@ -22,7 +22,9 @@ namespace RFEOnSite
         private Single mTitleFontSize;
         private string mBand;
 
-        private Series mSeries;
+        private Series mSeriesPeak;
+        private Series mSeriesAverage;
+        private Series mSeriesRealTime;
 
         public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
         public double MinY { get { return mMinY; } set { mMinY = value; } }
@@ -51,12 +53,24 @@ namespace RFEOnSite
             mTitle = "Spectum";
 
             mChart = new Chart();
-            mSeries = new Series
+            mSeriesPeak = new Series
             {
-                Name = String.Empty,
-                IsVisibleInLegend = false,
+                Name = "Peak",
+                IsVisibleInLegend = true,
                 ChartType = SeriesChartType.Spline
             };
+            mSeriesAverage = new Series
+            {
+                Name = "Average",
+                IsVisibleInLegend = true,
+                ChartType = SeriesChartType.Spline
+            };
+            //mSeriesRealTime = new Series
+            //{
+            //    Name = "RealRime",
+            //    IsVisibleInLegend = true,
+            //    ChartType = SeriesChartType.Spline
+            //};
         }
 
         public void BuildChart()
@@ -88,8 +102,11 @@ namespace RFEOnSite
 
             mChart.Palette = ChartColorPalette.Bright;
 
-            mChart.Series.Add(mSeries);
-            mChart.DataBind();
+            mChart.Series.Add(mSeriesPeak);
+            mChart.Series.Add(mSeriesAverage);
+            //mChart.Series.Add(mSeriesRealTime);
+
+            //mChart.DataBind();
         }
     }
 }

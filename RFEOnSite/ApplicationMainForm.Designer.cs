@@ -33,6 +33,7 @@ namespace RFEOnsite
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonFindCOMPorts = new System.Windows.Forms.Button();
             this.labelRFEComPort = new System.Windows.Forms.Label();
             this.labelStartFrequency = new System.Windows.Forms.Label();
@@ -72,25 +73,24 @@ namespace RFEOnsite
             this.labelStartSweeps = new System.Windows.Forms.Label();
             this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
             this.groupBoxSweepControl = new System.Windows.Forms.GroupBox();
+            this.labelProgressWriteCsvFile = new System.Windows.Forms.Label();
             this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
+            this.textBoxCsvFileName = new System.Windows.Forms.TextBox();
             this.checkBoxSaveCsvFiles = new System.Windows.Forms.CheckBox();
             this.SweepPanel = new System.Windows.Forms.Panel();
             this.ConfigurationPanel = new System.Windows.Forms.Panel();
             this.ConnectionPanel = new System.Windows.Forms.Panel();
             this.ChartPanel = new System.Windows.Forms.Panel();
-            this.checkBoxChartPeakHold = new System.Windows.Forms.CheckBox();
+            this.checkBoxChartPeak = new System.Windows.Forms.CheckBox();
             this.checkBoxChartAverage = new System.Windows.Forms.CheckBox();
             this.checkBoxChartRealTime = new System.Windows.Forms.CheckBox();
             this.groupBoxChart = new System.Windows.Forms.GroupBox();
             this.panelChart = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelRootDirectory = new System.Windows.Forms.Label();
             this.labelCsvRootText = new System.Windows.Forms.Label();
+            this.labelRootDirectory = new System.Windows.Forms.Label();
             this.textBoxSweepLocation = new System.Windows.Forms.TextBox();
-            this.textBoxCsvFileName = new System.Windows.Forms.TextBox();
-            this.buttonSelectCsvFolder = new System.Windows.Forms.Button();
-            this.labelProgressWriteCsvFile = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBoxConfiguration.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
@@ -233,6 +233,7 @@ namespace RFEOnsite
             // 
             // textBoxRightSMAAttentuationValue
             // 
+            this.textBoxRightSMAAttentuationValue.Enabled = false;
             this.textBoxRightSMAAttentuationValue.Location = new System.Drawing.Point(196, 157);
             this.textBoxRightSMAAttentuationValue.Name = "textBoxRightSMAAttentuationValue";
             this.textBoxRightSMAAttentuationValue.Size = new System.Drawing.Size(20, 20);
@@ -260,6 +261,7 @@ namespace RFEOnsite
             // 
             // textBoxLeftSMAAttenuationValue
             // 
+            this.textBoxLeftSMAAttenuationValue.Enabled = false;
             this.textBoxLeftSMAAttenuationValue.Location = new System.Drawing.Point(196, 131);
             this.textBoxLeftSMAAttenuationValue.Name = "textBoxLeftSMAAttenuationValue";
             this.textBoxLeftSMAAttenuationValue.Size = new System.Drawing.Size(20, 20);
@@ -314,6 +316,7 @@ namespace RFEOnsite
             // radioButtonSize
             // 
             this.radioButtonSize.AutoSize = true;
+            this.radioButtonSize.Enabled = false;
             this.radioButtonSize.Location = new System.Drawing.Point(210, 97);
             this.radioButtonSize.Name = "radioButtonSize";
             this.radioButtonSize.Size = new System.Drawing.Size(52, 17);
@@ -325,6 +328,7 @@ namespace RFEOnsite
             // radioButtonRBW
             // 
             this.radioButtonRBW.AutoSize = true;
+            this.radioButtonRBW.Enabled = false;
             this.radioButtonRBW.Location = new System.Drawing.Point(210, 73);
             this.radioButtonRBW.Name = "radioButtonRBW";
             this.radioButtonRBW.Size = new System.Drawing.Size(52, 17);
@@ -336,6 +340,7 @@ namespace RFEOnsite
             // radioButtonStop
             // 
             this.radioButtonStop.AutoSize = true;
+            this.radioButtonStop.Enabled = false;
             this.radioButtonStop.Location = new System.Drawing.Point(210, 49);
             this.radioButtonStop.Name = "radioButtonStop";
             this.radioButtonStop.Size = new System.Drawing.Size(52, 17);
@@ -347,6 +352,7 @@ namespace RFEOnsite
             // radioButtonStart
             // 
             this.radioButtonStart.AutoSize = true;
+            this.radioButtonStart.Enabled = false;
             this.radioButtonStart.Location = new System.Drawing.Point(210, 25);
             this.radioButtonStart.Name = "radioButtonStart";
             this.radioButtonStart.Size = new System.Drawing.Size(52, 17);
@@ -357,6 +363,7 @@ namespace RFEOnsite
             // 
             // buttonSetConfiguration
             // 
+            this.buttonSetConfiguration.Enabled = false;
             this.buttonSetConfiguration.Location = new System.Drawing.Point(274, 61);
             this.buttonSetConfiguration.Name = "buttonSetConfiguration";
             this.buttonSetConfiguration.Size = new System.Drawing.Size(75, 23);
@@ -384,7 +391,6 @@ namespace RFEOnsite
             this.groupBoxSerialConnection.TabIndex = 12;
             this.groupBoxSerialConnection.TabStop = false;
             this.groupBoxSerialConnection.Text = "RF Explorer Connection";
-            this.groupBoxSerialConnection.Enter += new System.EventHandler(this.groupBoxSerialConnection_Enter);
             // 
             // radioButtonGenerator
             // 
@@ -411,7 +417,7 @@ namespace RFEOnsite
             // labelModel
             // 
             this.labelModel.AutoSize = true;
-            this.labelModel.Location = new System.Drawing.Point(213, 67);
+            this.labelModel.Location = new System.Drawing.Point(213, 66);
             this.labelModel.Name = "labelModel";
             this.labelModel.Size = new System.Drawing.Size(39, 13);
             this.labelModel.TabIndex = 13;
@@ -420,7 +426,7 @@ namespace RFEOnsite
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(208, 42);
+            this.label3.Location = new System.Drawing.Point(208, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 12;
@@ -462,12 +468,13 @@ namespace RFEOnsite
             // 
             // buttonStartSweeps
             // 
+            this.buttonStartSweeps.Enabled = false;
             this.buttonStartSweeps.Location = new System.Drawing.Point(15, 53);
             this.buttonStartSweeps.Name = "buttonStartSweeps";
             this.buttonStartSweeps.Size = new System.Drawing.Size(155, 23);
             this.buttonStartSweeps.TabIndex = 13;
             this.buttonStartSweeps.Text = "Capture";
-            this.toolTip1.SetToolTip(this.buttonStartSweeps, "Begin Capture and logging of RF Explorer dBm Data");
+            this.toolTip1.SetToolTip(this.buttonStartSweeps, resources.GetString("buttonStartSweeps.ToolTip"));
             this.buttonStartSweeps.UseVisualStyleBackColor = true;
             this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartWeeps_Click);
             // 
@@ -518,6 +525,16 @@ namespace RFEOnsite
             this.groupBoxSweepControl.TabStop = false;
             this.groupBoxSweepControl.Text = "Sweep Control";
             // 
+            // labelProgressWriteCsvFile
+            // 
+            this.labelProgressWriteCsvFile.AutoSize = true;
+            this.labelProgressWriteCsvFile.Enabled = false;
+            this.labelProgressWriteCsvFile.Location = new System.Drawing.Point(15, 114);
+            this.labelProgressWriteCsvFile.Name = "labelProgressWriteCsvFile";
+            this.labelProgressWriteCsvFile.Size = new System.Drawing.Size(50, 13);
+            this.labelProgressWriteCsvFile.TabIndex = 17;
+            this.labelProgressWriteCsvFile.Text = "CSV File:";
+            // 
             // TaskProgressBar
             // 
             this.TaskProgressBar.Location = new System.Drawing.Point(15, 87);
@@ -525,14 +542,25 @@ namespace RFEOnsite
             this.TaskProgressBar.Size = new System.Drawing.Size(344, 23);
             this.TaskProgressBar.TabIndex = 16;
             // 
+            // textBoxCsvFileName
+            // 
+            this.textBoxCsvFileName.Enabled = false;
+            this.textBoxCsvFileName.Location = new System.Drawing.Point(15, 131);
+            this.textBoxCsvFileName.Name = "textBoxCsvFileName";
+            this.textBoxCsvFileName.ReadOnly = true;
+            this.textBoxCsvFileName.Size = new System.Drawing.Size(344, 20);
+            this.textBoxCsvFileName.TabIndex = 1;
+            // 
             // checkBoxSaveCsvFiles
             // 
             this.checkBoxSaveCsvFiles.AutoSize = true;
-            this.checkBoxSaveCsvFiles.Location = new System.Drawing.Point(261, 23);
+            this.checkBoxSaveCsvFiles.Location = new System.Drawing.Point(15, 23);
             this.checkBoxSaveCsvFiles.Name = "checkBoxSaveCsvFiles";
-            this.checkBoxSaveCsvFiles.Size = new System.Drawing.Size(106, 17);
+            this.checkBoxSaveCsvFiles.Size = new System.Drawing.Size(184, 17);
             this.checkBoxSaveCsvFiles.TabIndex = 17;
-            this.checkBoxSaveCsvFiles.Text = "Save to CSV File";
+            this.checkBoxSaveCsvFiles.Text = "Save Collected Data to CSV Files";
+            this.toolTip1.SetToolTip(this.checkBoxSaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
+        "e user\'s Desktop.");
             this.checkBoxSaveCsvFiles.UseVisualStyleBackColor = true;
             this.checkBoxSaveCsvFiles.CheckedChanged += new System.EventHandler(this.checkBoxSaveCsvFiles_CheckedChanged);
             // 
@@ -563,7 +591,7 @@ namespace RFEOnsite
             // 
             // ChartPanel
             // 
-            this.ChartPanel.Controls.Add(this.checkBoxChartPeakHold);
+            this.ChartPanel.Controls.Add(this.checkBoxChartPeak);
             this.ChartPanel.Controls.Add(this.checkBoxChartAverage);
             this.ChartPanel.Controls.Add(this.checkBoxChartRealTime);
             this.ChartPanel.Controls.Add(this.groupBoxChart);
@@ -572,21 +600,22 @@ namespace RFEOnsite
             this.ChartPanel.Size = new System.Drawing.Size(368, 457);
             this.ChartPanel.TabIndex = 21;
             // 
-            // checkBoxChartPeakHold
+            // checkBoxChartPeak
             // 
-            this.checkBoxChartPeakHold.AutoSize = true;
-            this.checkBoxChartPeakHold.Checked = true;
-            this.checkBoxChartPeakHold.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxChartPeakHold.Location = new System.Drawing.Point(271, 420);
-            this.checkBoxChartPeakHold.Name = "checkBoxChartPeakHold";
-            this.checkBoxChartPeakHold.Size = new System.Drawing.Size(76, 17);
-            this.checkBoxChartPeakHold.TabIndex = 3;
-            this.checkBoxChartPeakHold.Text = "Peak Hold";
-            this.checkBoxChartPeakHold.UseVisualStyleBackColor = true;
+            this.checkBoxChartPeak.AutoSize = true;
+            this.checkBoxChartPeak.Checked = true;
+            this.checkBoxChartPeak.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxChartPeak.Location = new System.Drawing.Point(271, 420);
+            this.checkBoxChartPeak.Name = "checkBoxChartPeak";
+            this.checkBoxChartPeak.Size = new System.Drawing.Size(51, 17);
+            this.checkBoxChartPeak.TabIndex = 3;
+            this.checkBoxChartPeak.Text = "Peak";
+            this.checkBoxChartPeak.UseVisualStyleBackColor = true;
             // 
             // checkBoxChartAverage
             // 
             this.checkBoxChartAverage.AutoSize = true;
+            this.checkBoxChartAverage.Enabled = false;
             this.checkBoxChartAverage.Location = new System.Drawing.Point(168, 420);
             this.checkBoxChartAverage.Name = "checkBoxChartAverage";
             this.checkBoxChartAverage.Size = new System.Drawing.Size(66, 17);
@@ -597,14 +626,14 @@ namespace RFEOnsite
             // checkBoxChartRealTime
             // 
             this.checkBoxChartRealTime.AutoSize = true;
-            this.checkBoxChartRealTime.Checked = true;
-            this.checkBoxChartRealTime.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxChartRealTime.Enabled = false;
             this.checkBoxChartRealTime.Location = new System.Drawing.Point(57, 420);
             this.checkBoxChartRealTime.Name = "checkBoxChartRealTime";
             this.checkBoxChartRealTime.Size = new System.Drawing.Size(74, 17);
             this.checkBoxChartRealTime.TabIndex = 1;
             this.checkBoxChartRealTime.Text = "Real Time";
             this.checkBoxChartRealTime.UseVisualStyleBackColor = true;
+            this.checkBoxChartRealTime.CheckedChanged += new System.EventHandler(this.checkBoxChartRealTime_CheckedChanged);
             // 
             // groupBoxChart
             // 
@@ -625,9 +654,45 @@ namespace RFEOnsite
             // 
             // toolTip1
             // 
-            this.toolTip1.AutoPopDelay = 10000;
+            this.toolTip1.AutoPopDelay = 20000;
             this.toolTip1.InitialDelay = 1000;
             this.toolTip1.ReshowDelay = 1000;
+            // 
+            // labelCsvRootText
+            // 
+            this.labelCsvRootText.AutoSize = true;
+            this.labelCsvRootText.Enabled = false;
+            this.labelCsvRootText.Location = new System.Drawing.Point(15, 48);
+            this.labelCsvRootText.Name = "labelCsvRootText";
+            this.labelCsvRootText.Size = new System.Drawing.Size(128, 13);
+            this.labelCsvRootText.TabIndex = 3;
+            this.labelCsvRootText.Text = "Root Folder for CSV Files:";
+            this.toolTip1.SetToolTip(this.labelCsvRootText, resources.GetString("labelCsvRootText.ToolTip"));
+            // 
+            // labelRootDirectory
+            // 
+            this.labelRootDirectory.AutoSize = true;
+            this.labelRootDirectory.Enabled = false;
+            this.labelRootDirectory.Location = new System.Drawing.Point(142, 48);
+            this.labelRootDirectory.Name = "labelRootDirectory";
+            this.labelRootDirectory.Size = new System.Drawing.Size(47, 13);
+            this.labelRootDirectory.TabIndex = 4;
+            this.labelRootDirectory.Text = "Desktop";
+            this.toolTip1.SetToolTip(this.labelRootDirectory, "All captured data is stored in sub-folders located on the user\'s Desktop.\r\nThe co" +
+        "llection location MUST be entered (below) for each collection site.");
+            // 
+            // textBoxSweepLocation
+            // 
+            this.textBoxSweepLocation.Enabled = false;
+            this.textBoxSweepLocation.Location = new System.Drawing.Point(15, 69);
+            this.textBoxSweepLocation.Name = "textBoxSweepLocation";
+            this.textBoxSweepLocation.Size = new System.Drawing.Size(223, 20);
+            this.textBoxSweepLocation.TabIndex = 2;
+            this.textBoxSweepLocation.Text = "Enter Collection Location";
+            this.toolTip1.SetToolTip(this.textBoxSweepLocation, "Enter a short site collection location identifier for data that is about to be co" +
+        "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
+        " store collected data in CSV Files.");
+            this.textBoxSweepLocation.TextChanged += new System.EventHandler(this.textBoxSweepLocation_TextChanged);
             // 
             // groupBox1
             // 
@@ -636,71 +701,12 @@ namespace RFEOnsite
             this.groupBox1.Controls.Add(this.labelCsvRootText);
             this.groupBox1.Controls.Add(this.textBoxSweepLocation);
             this.groupBox1.Controls.Add(this.SweepPanel);
-            this.groupBox1.Controls.Add(this.buttonSelectCsvFolder);
             this.groupBox1.Location = new System.Drawing.Point(14, 336);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(376, 102);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Output CSV File Structure";
-            // 
-            // labelRootDirectory
-            // 
-            this.labelRootDirectory.AutoSize = true;
-            this.labelRootDirectory.Enabled = false;
-            this.labelRootDirectory.Location = new System.Drawing.Point(143, 77);
-            this.labelRootDirectory.Name = "labelRootDirectory";
-            this.labelRootDirectory.Size = new System.Drawing.Size(47, 13);
-            this.labelRootDirectory.TabIndex = 4;
-            this.labelRootDirectory.Text = "Desktop";
-            // 
-            // labelCsvRootText
-            // 
-            this.labelCsvRootText.AutoSize = true;
-            this.labelCsvRootText.Enabled = false;
-            this.labelCsvRootText.Location = new System.Drawing.Point(18, 77);
-            this.labelCsvRootText.Name = "labelCsvRootText";
-            this.labelCsvRootText.Size = new System.Drawing.Size(128, 13);
-            this.labelCsvRootText.TabIndex = 3;
-            this.labelCsvRootText.Text = "Root Folder for CSV Files:";
-            // 
-            // textBoxSweepLocation
-            // 
-            this.textBoxSweepLocation.Enabled = false;
-            this.textBoxSweepLocation.Location = new System.Drawing.Point(18, 20);
-            this.textBoxSweepLocation.Name = "textBoxSweepLocation";
-            this.textBoxSweepLocation.Size = new System.Drawing.Size(223, 20);
-            this.textBoxSweepLocation.TabIndex = 2;
-            this.textBoxSweepLocation.Text = "Enter Location";
-            // 
-            // textBoxCsvFileName
-            // 
-            this.textBoxCsvFileName.Enabled = false;
-            this.textBoxCsvFileName.Location = new System.Drawing.Point(15, 131);
-            this.textBoxCsvFileName.Name = "textBoxCsvFileName";
-            this.textBoxCsvFileName.Size = new System.Drawing.Size(344, 20);
-            this.textBoxCsvFileName.TabIndex = 1;
-            // 
-            // buttonSelectCsvFolder
-            // 
-            this.buttonSelectCsvFolder.Enabled = false;
-            this.buttonSelectCsvFolder.Location = new System.Drawing.Point(18, 47);
-            this.buttonSelectCsvFolder.Name = "buttonSelectCsvFolder";
-            this.buttonSelectCsvFolder.Size = new System.Drawing.Size(106, 23);
-            this.buttonSelectCsvFolder.TabIndex = 0;
-            this.buttonSelectCsvFolder.Text = "Select Folder";
-            this.buttonSelectCsvFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectCsvFolder.Click += new System.EventHandler(this.buttonSelectCsvFolder_Click);
-            // 
-            // labelProgressWriteCsvFile
-            // 
-            this.labelProgressWriteCsvFile.AutoSize = true;
-            this.labelProgressWriteCsvFile.Enabled = false;
-            this.labelProgressWriteCsvFile.Location = new System.Drawing.Point(15, 114);
-            this.labelProgressWriteCsvFile.Name = "labelProgressWriteCsvFile";
-            this.labelProgressWriteCsvFile.Size = new System.Drawing.Size(50, 13);
-            this.labelProgressWriteCsvFile.TabIndex = 17;
-            this.labelProgressWriteCsvFile.Text = "CSV File:";
+            this.groupBox1.Text = "Collected CSV File Storage";
             // 
             // MainForm
             // 
@@ -778,7 +784,7 @@ namespace RFEOnsite
         private TextBox textBoxStopFrequency;
         private CheckBox checkBoxSaveCsvFiles;
         private Panel ChartPanel;
-        private CheckBox checkBoxChartPeakHold;
+        private CheckBox checkBoxChartPeak;
         private CheckBox checkBoxChartAverage;
         private CheckBox checkBoxChartRealTime;
         private GroupBox groupBoxChart;
@@ -788,7 +794,6 @@ namespace RFEOnsite
         private ToolTip toolTip1;
         private GroupBox groupBox1;
         private TextBox textBoxCsvFileName;
-        private Button buttonSelectCsvFolder;
         private TextBox textBoxSweepLocation;
         private Label labelCsvRootText;
         private Label labelRootDirectory;

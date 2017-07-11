@@ -55,7 +55,7 @@ namespace RFEOnsite
 
             SuspendLayout();
 
-            mGraph.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            mGraph.Chart.Dock = DockStyle.Fill;
 
             mGraph.Chart.Location = new System.Drawing.Point(0, 50);
 
@@ -136,20 +136,20 @@ namespace RFEOnsite
             mCsvFileSweepCount++;
         }
 
-        public void UIUpdateCallback_RFE_Configutration(RFEConfiguration config)
+        public void UIUpdateCallback_RFE_Configutration(RFEConfiguration fromSerialThread)
         {
             double stopMHz;
 
-            textBoxStartFrequency.Text = config.fStartMHZ.ToString();
-            stopMHz = (config.fStepMHZ * 112.0) + config.fStartMHZ;
+            textBoxStartFrequency.Text = fromSerialThread.GetExplorer_StartMHz.ToString();//  fStartMHz.ToString();
+            stopMHz = (fromSerialThread.GetExplorer_StepMHz * 112.0) + fromSerialThread.GetExplorer_StartMHz;
             textBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
-            textBoxRBW.Text = Math.Round(config.fRBWKHZ, 2).ToString();
-            textBoxStepSize.Text = Math.Round(config.fStepMHZ * 1000.0, 2).ToString();
-            labelFoundDevice.Text = config.mMainModel.ToString();
-            labelFoundModel.Text = config.mExpansionModel.ToString();
-            labelFirmwareText.Text = config.mFirmwareVersion;
+            textBoxRBW.Text = Math.Round(fromSerialThread.GetExplorer_RBWKHz, 2).ToString();
+            textBoxStepSize.Text = Math.Round(fromSerialThread.GetExplorer_StepMHz * 1000.0, 2).ToString();
+            labelFoundDevice.Text = fromSerialThread.mMainModel.ToString();
+            labelFoundModel.Text = fromSerialThread.mExpansionModel.ToString();
+            labelFirmwareText.Text = fromSerialThread.mFirmwareVersion;
 
-            if (config.mMainModel == eModel.MODEL_6G)
+            if (fromSerialThread.mMainModel == eModel.MODEL_6G)
             {
                 radioButtonAnalyzer.Checked = true;
                 radioButtonGenerator.Checked = false;
@@ -161,61 +161,36 @@ namespace RFEOnsite
             }
         }
 
-        public void UIUpdateCallback_Series(Series newSeries)
+        public void UIUpdateCallback_Series(Series seriesFromExplorer)
         {
-            //lock (mGraph.Chart.Series)
+            while (mGraph.Chart.Series.Count > 0) { mGraph.Chart.Series.RemoveAt(0); }
+           
+
+            //if (checkBoxChartRealTime.Checked)
+            //{
+            //    newSeries.Color = Color.DarkSlateGray;
+            //    newSeries.Name = "RealTime";
+            //    mGraph.Chart.Series.Add(newSeries);
+            //}
+
+            //if (checkBoxChartAverage.Checked)
+            //{
+            //    newSeries = SeriesAverage(newSeries);
+
+            //    newSeries.Color = Color.DarkGreen;
+            //    newSeries.Name = "Average";
+            //    mGraph.Chart.Series.Add(newSeries);
+            //}
+
+            if (checkBoxChartPeak.Checked)
             {
-                for (int i = 0; mGraph.Chart.Series.Count != 0; i++)
-                {
-                    mGraph.Chart.Series.RemoveAt(0);
-                }
+                //newSeries = SeriesPeak(newSeries);
 
-                if (checkBoxChartRealTime.Checked)
-                {
-                    newSeries.Color = Color.DarkSlateGray;
-                    newSeries.Name = "RealTime";
-                    mGraph.Chart.Series.Add(newSeries);
-                }
-
-                if (checkBoxChartAverage.Checked)
-                {
-                    newSeries = AverageSeries(newSeries);
-
-                    newSeries.Color = Color.DarkGreen;
-                    newSeries.Name = "Average";
-                    mGraph.Chart.Series.Add(newSeries);
-                }
-
-                if (checkBoxChartPeakHold.Checked)
-                {
-                    newSeries = PeakHoldSeries(newSeries);
-
-                    newSeries.Color = Color.DarkRed;
-                    newSeries.Name = "PeakHold";
-                    mGraph.Chart.Series.Add(newSeries);
-                }
-            }
-        }
-
-        private Series AverageSeries(Series inSeries)
-        {
-            Series outSeries = new Series();
-
-            return outSeries;
-        }
-
-        private Series PeakHoldSeries(Series inSeries)
-        {
-            Series outSeries = new Series();
-            double maxY = -200.0;
-
-            for (int index = 0; index < 112; index++)
-            {
-
+                seriesFromExplorer.Color = Color.DarkRed;
+                seriesFromExplorer.Name = "Peak";
+                mGraph.Chart.Series.Add(seriesFromExplorer);
             }
 
-
-            return outSeries;
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -236,13 +211,14 @@ namespace RFEOnsite
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
 
-            IProgress<Series> updateUISeries = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
+            IProgress<Series> UpdateUISeries = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
             IProgress<RFEConfiguration> UpdateUI = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
+            IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
             IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
+            gRFE.AttachSerialPortAndReceiveDataThread(UpdateUI, UpdateUISeries, UpdateCsvExport, UpdateUIProgressBar);
 
-            gRFE.AttachSerialPortAndReceiveDataThread(UpdateUI, updateUISeries, UpdateUIProgressBar, UpdateCsvExport);
+            buttonSetConfiguration.Enabled = true;
         }
 
         private void buttonSetConfiguration_Click(object sender, EventArgs e)
@@ -267,15 +243,12 @@ namespace RFEOnsite
 
             mGraph.Chart.ChartAreas[0].AxisX.Interval = (mGraph.MaxX - mGraph.MinX) / 5;
 
+            buttonStartSweeps.Enabled = true;
+
             if (checkBoxChartRealTime.Checked == true)
             {
                 //gRFE.Capture = true;
             }
-        }
-
-        private void comboBoxProgramMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //buttonSetConfiguration.Focus();
         }
 
         private void buttonStartWeeps_Click(object sender, EventArgs e)
@@ -283,7 +256,7 @@ namespace RFEOnsite
             gRFE.SweepCount = (int)numericUpDownSweeps.Value;
 
 
-            if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeakHold.Checked)
+            if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeak.Checked)
             {
                 TaskProgressBar.Maximum = gRFE.SweepCount;
                 TaskProgressBar.Step = 1;
@@ -294,7 +267,6 @@ namespace RFEOnsite
 
                 gRFE.Capture = true;
             }
-
         }
 
         private void checkBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
@@ -305,7 +277,6 @@ namespace RFEOnsite
             {
                 textBoxSweepLocation.Enabled = true;
                 textBoxCsvFileName.Enabled = true;
-                buttonSelectCsvFolder.Enabled = true;
                 labelCsvRootText.Enabled = true;
                 labelRootDirectory.Enabled = true;
                 labelProgressWriteCsvFile.Enabled = true;
@@ -314,19 +285,9 @@ namespace RFEOnsite
             {
                 textBoxSweepLocation.Enabled = false;
                 textBoxCsvFileName.Enabled = false;
-                buttonSelectCsvFolder.Enabled = false;
                 labelCsvRootText.Enabled = false;
                 labelRootDirectory.Enabled = false;
                 labelProgressWriteCsvFile.Enabled = true;
-            }
-        }
-
-        private void buttonSelectCsvFolder_Click(object sender, EventArgs e)
-        {
-            mFolderDialog.Description = "Create or select a Desktop folder to store CSV file results in.";
-            if (mFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                labelRootDirectory.Text = mFolderDialog.SelectedPath;
             }
         }
 
@@ -345,14 +306,28 @@ namespace RFEOnsite
 
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
+        private void textBoxSweepLocation_TextChanged(object sender, EventArgs e)
         {
 
+            this.toolTip1.SetToolTip(this.textBoxSweepLocation, "Enter a short site collection location identifier " +
+                "for data that is about to be collected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
+                    " store collected data in CSV Files.");
         }
 
-        private void groupBoxSerialConnection_Enter(object sender, EventArgs e)
+        private void checkBoxChartRealTime_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (checkBoxChartRealTime.Checked)
+            {
+                checkBoxChartAverage.Enabled = false;
+                checkBoxChartPeak.Enabled = false;
+                gRFE.Capture = true;
+            }
+            else
+            {
+                checkBoxChartAverage.Enabled = false;
+                checkBoxChartPeak.Enabled = false;
+                gRFE.Capture = false;
+            }
         }
     }
 }

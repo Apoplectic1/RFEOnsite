@@ -123,4 +123,16 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="buttonStartSweeps.ToolTip" xml:space="preserve">
+    <value>Begin Capture and logging of RF Explorer dBm Data.
+
+CSV FILES
+
+If the 'Save to CSV Files' checkbox is active, csv files will be saved in the selected sub-folder on the user's Desktop.
+File names for any saved CSV files will appear in the 'CSV File:' text area below.</value>
+  </data>
+  <data name="labelCsvRootText.ToolTip" xml:space="preserve">
+    <value>If CSV File capture is enabled, the captured files will be placed in sub-folders on the user's Desktop.
+The Desktop root folder is not changable - select different sub-folders to differentiate between collection locations.</value>
+  </data>
 </root>
