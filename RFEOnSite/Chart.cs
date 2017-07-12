@@ -50,7 +50,7 @@ namespace RFEOnSite
             mTitleY = "dBm";
             mTitleFontSize = 10F;
             mBand = string.Empty;
-            mTitle = "Spectum";
+            mTitle = "Spectrum";
 
             mChart = new Chart();
             mSeriesPeak = new Series

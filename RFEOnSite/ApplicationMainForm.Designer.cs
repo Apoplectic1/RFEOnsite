@@ -45,6 +45,8 @@ namespace RFEOnsite
             this.label2 = new System.Windows.Forms.Label();
             this.labelFrequencyStep = new System.Windows.Forms.Label();
             this.groupBoxConfiguration = new System.Windows.Forms.GroupBox();
+            this.labelPresets = new System.Windows.Forms.Label();
+            this.comboBoxPreset = new System.Windows.Forms.ComboBox();
             this.labelRightSMAAttenuationText = new System.Windows.Forms.Label();
             this.textBoxRightSMAAttentuationValue = new System.Windows.Forms.TextBox();
             this.labelRightAttentaion = new System.Windows.Forms.Label();
@@ -91,6 +93,9 @@ namespace RFEOnsite
             this.labelRootDirectory = new System.Windows.Forms.Label();
             this.textBoxSweepLocation = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBoxConfiguration.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
@@ -100,6 +105,7 @@ namespace RFEOnsite
             this.ChartPanel.SuspendLayout();
             this.groupBoxChart.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonFindCOMPorts
@@ -192,6 +198,8 @@ namespace RFEOnsite
             // 
             // groupBoxConfiguration
             // 
+            this.groupBoxConfiguration.Controls.Add(this.labelPresets);
+            this.groupBoxConfiguration.Controls.Add(this.comboBoxPreset);
             this.groupBoxConfiguration.Controls.Add(this.labelRightSMAAttenuationText);
             this.groupBoxConfiguration.Controls.Add(this.textBoxRightSMAAttentuationValue);
             this.groupBoxConfiguration.Controls.Add(this.labelRightAttentaion);
@@ -222,57 +230,85 @@ namespace RFEOnsite
             this.groupBoxConfiguration.TabStop = false;
             this.groupBoxConfiguration.Text = "Current Configuration";
             // 
+            // labelPresets
+            // 
+            this.labelPresets.AutoSize = true;
+            this.labelPresets.Location = new System.Drawing.Point(262, 137);
+            this.labelPresets.Name = "labelPresets";
+            this.labelPresets.Size = new System.Drawing.Size(42, 13);
+            this.labelPresets.TabIndex = 26;
+            this.labelPresets.Text = "Presets";
+            // 
+            // comboBoxPreset
+            // 
+            this.comboBoxPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPreset.FormattingEnabled = true;
+            this.comboBoxPreset.Items.AddRange(new object[] {
+            "Manual Configuration",
+            "Whoop Downlink"});
+            this.comboBoxPreset.Location = new System.Drawing.Point(216, 157);
+            this.comboBoxPreset.Name = "comboBoxPreset";
+            this.comboBoxPreset.Size = new System.Drawing.Size(135, 21);
+            this.comboBoxPreset.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.comboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.  ");
+            this.comboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.OpenWhoopNodeSelection);
+            // 
             // labelRightSMAAttenuationText
             // 
             this.labelRightSMAAttenuationText.AutoSize = true;
-            this.labelRightSMAAttenuationText.Location = new System.Drawing.Point(218, 161);
+            this.labelRightSMAAttenuationText.Location = new System.Drawing.Point(166, 161);
             this.labelRightSMAAttenuationText.Name = "labelRightSMAAttenuationText";
             this.labelRightSMAAttenuationText.Size = new System.Drawing.Size(20, 13);
             this.labelRightSMAAttenuationText.TabIndex = 24;
             this.labelRightSMAAttenuationText.Text = "dB";
+            this.labelRightSMAAttenuationText.Click += new System.EventHandler(this.labelRightSMAAttenuationText_Click);
             // 
             // textBoxRightSMAAttentuationValue
             // 
             this.textBoxRightSMAAttentuationValue.Enabled = false;
-            this.textBoxRightSMAAttentuationValue.Location = new System.Drawing.Point(196, 157);
+            this.textBoxRightSMAAttentuationValue.Location = new System.Drawing.Point(144, 157);
             this.textBoxRightSMAAttentuationValue.Name = "textBoxRightSMAAttentuationValue";
             this.textBoxRightSMAAttentuationValue.Size = new System.Drawing.Size(20, 20);
             this.textBoxRightSMAAttentuationValue.TabIndex = 23;
             this.textBoxRightSMAAttentuationValue.Text = "0";
             this.textBoxRightSMAAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxRightSMAAttentuationValue.TextChanged += new System.EventHandler(this.textBoxRightSMAAttentuationValue_TextChanged);
             // 
             // labelRightAttentaion
             // 
             this.labelRightAttentaion.AutoSize = true;
-            this.labelRightAttentaion.Location = new System.Drawing.Point(85, 161);
+            this.labelRightAttentaion.Location = new System.Drawing.Point(33, 161);
             this.labelRightAttentaion.Name = "labelRightAttentaion";
             this.labelRightAttentaion.Size = new System.Drawing.Size(110, 13);
             this.labelRightAttentaion.TabIndex = 22;
             this.labelRightAttentaion.Text = "Right SMA Attenuator";
+            this.labelRightAttentaion.Click += new System.EventHandler(this.labelRightAttentaion_Click);
             // 
             // labelLeftSMAAttenuationText
             // 
             this.labelLeftSMAAttenuationText.AutoSize = true;
-            this.labelLeftSMAAttenuationText.Location = new System.Drawing.Point(218, 135);
+            this.labelLeftSMAAttenuationText.Location = new System.Drawing.Point(166, 135);
             this.labelLeftSMAAttenuationText.Name = "labelLeftSMAAttenuationText";
             this.labelLeftSMAAttenuationText.Size = new System.Drawing.Size(20, 13);
             this.labelLeftSMAAttenuationText.TabIndex = 21;
             this.labelLeftSMAAttenuationText.Text = "dB";
+            this.labelLeftSMAAttenuationText.Click += new System.EventHandler(this.labelLeftSMAAttenuationText_Click);
             // 
             // textBoxLeftSMAAttenuationValue
             // 
             this.textBoxLeftSMAAttenuationValue.Enabled = false;
-            this.textBoxLeftSMAAttenuationValue.Location = new System.Drawing.Point(196, 131);
+            this.textBoxLeftSMAAttenuationValue.Location = new System.Drawing.Point(144, 131);
             this.textBoxLeftSMAAttenuationValue.Name = "textBoxLeftSMAAttenuationValue";
             this.textBoxLeftSMAAttenuationValue.Size = new System.Drawing.Size(20, 20);
             this.textBoxLeftSMAAttenuationValue.TabIndex = 20;
             this.textBoxLeftSMAAttenuationValue.Text = "0";
             this.textBoxLeftSMAAttenuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxLeftSMAAttenuationValue.TextChanged += new System.EventHandler(this.textBoxLeftSMAAttenuationValue_TextChanged);
             // 
             // labelLeftAttenution
             // 
             this.labelLeftAttenution.AutoSize = true;
-            this.labelLeftAttenution.Location = new System.Drawing.Point(92, 135);
+            this.labelLeftAttenution.Location = new System.Drawing.Point(40, 135);
             this.labelLeftAttenution.Name = "labelLeftAttenution";
             this.labelLeftAttenution.Size = new System.Drawing.Size(103, 13);
             this.labelLeftAttenution.TabIndex = 19;
@@ -686,9 +722,9 @@ namespace RFEOnsite
             this.textBoxSweepLocation.Enabled = false;
             this.textBoxSweepLocation.Location = new System.Drawing.Point(15, 69);
             this.textBoxSweepLocation.Name = "textBoxSweepLocation";
-            this.textBoxSweepLocation.Size = new System.Drawing.Size(223, 20);
+            this.textBoxSweepLocation.Size = new System.Drawing.Size(344, 20);
             this.textBoxSweepLocation.TabIndex = 2;
-            this.textBoxSweepLocation.Text = "Enter Collection Location";
+            this.textBoxSweepLocation.Text = "Enter Collection Identifier";
             this.toolTip1.SetToolTip(this.textBoxSweepLocation, "Enter a short site collection location identifier for data that is about to be co" +
         "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
         " store collected data in CSV Files.");
@@ -708,11 +744,41 @@ namespace RFEOnsite
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Collected CSV File Storage";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Location = new System.Drawing.Point(405, 471);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(361, 132);
+            this.groupBox2.TabIndex = 24;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Program Configuration";
+            // 
+            // buttonSelect
+            // 
+            this.button1.Location = new System.Drawing.Point(89, 28);
+            this.button1.Name = "buttonSelect";
+            this.button1.Size = new System.Drawing.Size(185, 34);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Recall Last Saved Program State";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(89, 80);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(185, 33);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Save Program State";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(775, 613);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBoxSweepControl);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ChartPanel);
@@ -735,6 +801,7 @@ namespace RFEOnsite
             this.groupBoxChart.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -800,6 +867,11 @@ namespace RFEOnsite
         private RadioButton radioButtonGenerator;
         private RadioButton radioButtonAnalyzer;
         private Label labelProgressWriteCsvFile;
+        private Label labelPresets;
+        private ComboBox comboBoxPreset;
+        private GroupBox groupBox2;
+        private Button button2;
+        private Button button1;
     }
 }
 

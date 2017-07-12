@@ -30,7 +30,7 @@
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>20</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -128,12 +128,19 @@
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Chart.cs" />
+    <Compile Include="Decibels.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFExplorer.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Serial.cs" />
     <Compile Include="CsvExport.cs" />
+    <Compile Include="WhoopNodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WhoopNodeForm.Designer.cs">
+      <DependentUpon>WhoopNodeForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ApplicationMainForm.resx">
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +154,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="WhoopNodeForm.resx">
+      <DependentUpon>WhoopNodeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

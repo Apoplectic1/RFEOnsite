@@ -41,14 +41,13 @@ namespace RFEOnsite
             mbWriteCsvFiles = false;
         }
 
-        public void Initialize(IProgress<string> updateUIComPortText)
+        public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)
         {
             mSerialPort.FindSerialPorts();
 
             mSerialPort.ConnectPort();
 
-            updateUIComPortText.Report(mSerialPort.ConnectedPortName);
-
+            UpdateUIComPortText.Report(mSerialPort.ConnectedPortName);
         }
 
         public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<CsvExport> csvExport, IProgress<int> nProgress)

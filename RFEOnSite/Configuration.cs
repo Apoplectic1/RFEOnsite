@@ -59,6 +59,8 @@ namespace RFEOnsite
             MODEL_RFGEN = 60, //60
             None = 0xFF //0xFF
         };
+        
+
         public class RFEConfiguration
         {
             public UInt16 mFreqSpectrumSteps;
@@ -166,7 +168,7 @@ namespace RFEOnsite
                     {
                         frequency = mFreqencyList[index].ToString();
 
-                        dBm = -(Convert.ToDouble(Convert.ToInt32(mReceivedSweep[sweepIndex][index + 3])) / 2.0);
+                        dBm = -(Convert.ToDouble(Convert.ToUInt32(mReceivedSweep[sweepIndex][index + 3]) >> 1));
  
                         localCsvExport[frequency] = dBm.ToString();
                     }
@@ -179,6 +181,7 @@ namespace RFEOnsite
 
             public void ReturnSweepsFromExplorer(IProgress<List<string>> sweeps)
             {
+                
                 sweeps.Report(mReceivedSweep);
             }
 
@@ -189,15 +192,11 @@ namespace RFEOnsite
                 // The GUI spectrum chart Series element is actually what is being updated
                 // mReceievedData is local to this thread read from the RF Explorer
                 // series is local to the GUI
-                List<double> averageDbm;
-                averageDbm = new List<double>();
-                averageDbm.Clear();
 
-                double dBm, maxDbm;
+                Decibels dBm = new Decibels();
                 DataPoint dpMaxY;
 
                 mFreqencyList.Clear();
-
                 for (int step = 0; step < mFreqSpectrumSteps; step++)
                 {
                     mFreqencyList.Add(mfStartMHz + (step * mfStepMHz));
@@ -212,21 +211,16 @@ namespace RFEOnsite
                 // Walk across each Sweep Column
                 for (int index = 0; index != 112; index++)
                 {
-                    maxDbm = -1000;
-
                     // Walk DOWN each Sweep Row using the same column index
                     for (int sweepIndex = 0; sweepIndex < mReceivedSweep.Count; sweepIndex++)
                     {
-                        dBm = -(Convert.ToDouble(Convert.ToInt32(mReceivedSweep[sweepIndex][index + 3])) / 2.0);
-
-                        averageDbm.Add(dBm);
-
-                        maxDbm = (dBm > maxDbm) ? dBm : maxDbm;
+                        dBm.AddDbmList(mReceivedSweep[sweepIndex][index + 3]);
                     }
 
-                    localSeriesPeak.Points.AddXY(mFreqencyList[index], maxDbm);
+                    localSeriesPeak.Points.AddXY(mFreqencyList[index], dBm.MaxdBm());
+                    //localSeriesAverage.Points.AddXY(mFreqencyList[index], dBm.AveragedBm());
 
-                    localSeriesAverage.Points.AddXY(mFreqencyList[index], averageDbm.Average());
+                    dBm.Clear();
                 }
 
                 localSeriesPeak.LabelBackColor = System.Drawing.Color.White;
@@ -239,6 +233,7 @@ namespace RFEOnsite
                 dpMaxY.MarkerStyle = MarkerStyle.Circle;
 
                 series.Report(localSeriesPeak);
+                //series.Report(localSeriesAverage);
 
                 return true;
             }

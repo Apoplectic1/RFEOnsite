@@ -16,6 +16,7 @@ namespace RFEOnsite
         public CsvExport mCsvExports;
         private int mCsvFileSweepCount;
 
+        private WhoopNodeForm mWhoopNodeDownlinkForm;
 
         private FolderBrowserDialog mFolderDialog;
         public MainForm()
@@ -38,6 +39,8 @@ namespace RFEOnsite
             mGraph = new Charts();
             gRFE = new RFExplorer();
             mCsvExports = new CsvExport();
+
+            comboBoxPreset.SelectedIndex = 0;
 
             InitializeChartUI();
 
@@ -109,8 +112,6 @@ namespace RFEOnsite
 
         public void UIUpdateCallback_CsvExport(CsvExport csvExport)
         {
-
-
             string fileName = textBoxSweepLocation.Text + "-" +
                 mCsvFileSweepCount.ToString("D2") +
                 " " +
@@ -126,6 +127,8 @@ namespace RFEOnsite
                 "Degrees.csv";
 
             textBoxCsvFileName.Text = fileName;
+            mFolderDialog.Description = "Create or Select Desktop Folder to Store CSV Files";
+            mFolderDialog.ShowDialog();
 
             string filePath = mFolderDialog.SelectedPath + "\\" + fileName;
 
@@ -161,7 +164,7 @@ namespace RFEOnsite
             }
         }
 
-        public void UIUpdateCallback_Series(Series seriesFromExplorer)
+        public void UIUpdateCallback_Chart(Series seriesFromExplorer)
         {
             while (mGraph.Chart.Series.Count > 0) { mGraph.Chart.Series.RemoveAt(0); }
            
@@ -199,8 +202,8 @@ namespace RFEOnsite
             // TThe thread then updates the GUI
             buttonFindCOMPorts.Enabled = false;
 
-            IProgress<string> updateUiComPortLabel = new Progress<string>(s => labelRFEComPort.Text = s);
-            await Task.Factory.StartNew(() => gRFE.Initialize(updateUiComPortLabel));
+            IProgress<string> UIComPortLabel = new Progress<string>(s => labelRFEComPort.Text = s);
+            await Task.Factory.StartNew(() => gRFE.InitializeSerialConnection(UIComPortLabel));
 
             if (!labelRFEComPort.Text.Contains("COM"))
             {
@@ -211,12 +214,12 @@ namespace RFEOnsite
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
 
-            IProgress<Series> UpdateUISeries = new Progress<Series>(SERIES => UIUpdateCallback_Series(SERIES));
-            IProgress<RFEConfiguration> UpdateUI = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
+            IProgress<Series> UpdateUIChartSeries = new Progress<Series>(SERIES => UIUpdateCallback_Chart(SERIES));
+            IProgress<RFEConfiguration> UpdateUIControls = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
             IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
             IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            gRFE.AttachSerialPortAndReceiveDataThread(UpdateUI, UpdateUISeries, UpdateCsvExport, UpdateUIProgressBar);
+            await Task.Factory.StartNew(() => gRFE.AttachSerialPortAndReceiveDataThread(UpdateUIControls, UpdateUIChartSeries, UpdateCsvExport, UpdateUIProgressBar));
 
             buttonSetConfiguration.Enabled = true;
         }
@@ -244,11 +247,6 @@ namespace RFEOnsite
             mGraph.Chart.ChartAreas[0].AxisX.Interval = (mGraph.MaxX - mGraph.MinX) / 5;
 
             buttonStartSweeps.Enabled = true;
-
-            if (checkBoxChartRealTime.Checked == true)
-            {
-                //gRFE.Capture = true;
-            }
         }
 
         private void buttonStartWeeps_Click(object sender, EventArgs e)
@@ -327,6 +325,70 @@ namespace RFEOnsite
                 checkBoxChartAverage.Enabled = false;
                 checkBoxChartPeak.Enabled = false;
                 gRFE.Capture = false;
+            }
+        }
+
+        private void labelRightAttentaion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxLeftSMAAttenuationValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelLeftSMAAttenuationText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelRightSMAAttenuationText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxRightSMAAttentuationValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OpenWhoopNodeSelection(object sender, EventArgs e)
+        {
+            if (comboBoxPreset.SelectedItem == null)
+                return;
+
+            var item = (string)comboBoxPreset.SelectedItem;
+
+            if (item == "Whoop Downlink")
+            {
+                textBoxStartFrequency.Enabled = false;
+                textBoxStopFrequency.Enabled = false;
+                textBoxStepSize.Enabled = false;
+
+                using (WhoopNodeForm mWhoopNodeDownlinkForm = new WhoopNodeForm())
+                {
+                    mWhoopNodeDownlinkForm.StartPosition = FormStartPosition.CenterParent;
+                    var value = mWhoopNodeDownlinkForm.ShowDialog();
+                    if (mWhoopNodeDownlinkForm.Selected)
+                    {
+                        bool b700 = mWhoopNodeDownlinkForm.Band_700;
+                        bool b850 = mWhoopNodeDownlinkForm.Band_850;
+                        bool bPCS = mWhoopNodeDownlinkForm.Band_PCS;
+                        bool bAWS = mWhoopNodeDownlinkForm.Band_AWS;
+                    }
+                }
+
+                return;
+            }
+
+            if (item == "Manual Configuration")
+            {
+                textBoxStartFrequency.Enabled = true;
+                textBoxStopFrequency.Enabled = true;
+                textBoxStepSize.Enabled = true;
+
+                return;
             }
         }
     }
