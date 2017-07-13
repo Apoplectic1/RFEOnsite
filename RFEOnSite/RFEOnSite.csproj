@@ -30,7 +30,7 @@
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -129,11 +129,12 @@
     </Compile>
     <Compile Include="Chart.cs" />
     <Compile Include="Decibels.cs" />
+    <Compile Include="GlobalData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFExplorer.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="Serial.cs" />
+    <Compile Include="RFEConfiguration.cs" />
+    <Compile Include="SerialPorts.cs" />
     <Compile Include="CsvExport.cs" />
     <Compile Include="WhoopNodeForm.cs">
       <SubType>Form</SubType>

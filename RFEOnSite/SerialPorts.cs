@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace RFEOnsite
 {
-    public class SerialCommunications
+    public class SerialPorts
     {
         private static string[] mEnumeratedComPortNames;
         private static string[] mConnectedPorts;
@@ -131,10 +131,6 @@ namespace RFEOnsite
 
                 mRFEConnected = true;
 
-                //m_LastCaptureTime = DateTime.Now;
-
-                //HoldMode = false;
-
                 OnPortConnected(new EventArgs());
                 Thread.Sleep(500);
 
@@ -150,8 +146,7 @@ namespace RFEOnsite
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
-                // Displays the MessageBox.
-
+                // Displays the Exception MessageBox.
                 result = MessageBox.Show(message, caption, buttons);
 
                 if (result == System.Windows.Forms.DialogResult.OK)

@@ -151,14 +151,5 @@
         private System.Windows.Forms.CheckBox checkBox700;
         private System.Windows.Forms.CheckBox checkBoxPublicSafety;
         private System.Windows.Forms.Button buttonSelect;
-        private bool mSelected;
-
-        public bool Band_700 { get { return checkBox700.Checked; } }
-        public bool Band_850 { get { return checkBox850.Checked; } }
-        public bool Band_AWS { get { return checkBoxAWS.Checked; } }
-        public bool Band_PCS { get { return checkBoxPCS.Checked; } }
-        public bool Selected { get { return mSelected; } }
-
-
     }
 }

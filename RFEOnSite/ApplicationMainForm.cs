@@ -11,19 +11,18 @@ namespace RFEOnsite
 {
     public partial class MainForm : Form
     {
-        public RFExplorer gRFE;
-        public Charts mGraph;
-        public CsvExport mCsvExports;
+        private GlobalData gRFEOnSite;
         private int mCsvFileSweepCount;
 
-        private WhoopNodeForm mWhoopNodeDownlinkForm;
 
         private FolderBrowserDialog mFolderDialog;
         public MainForm()
         {
+            gRFEOnSite = new GlobalData();
+
             InitializeComponent();
 
-            // Versioning
+            // Versioning Text at top of Application Window
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
             {
                 System.Deployment.Application.ApplicationDeployment ad = System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
@@ -34,11 +33,6 @@ namespace RFEOnsite
             {
                 this.Text = "RF Explorer OnSite - Version: " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd - HHMM");
             }
-
-
-            mGraph = new Charts();
-            gRFE = new RFExplorer();
-            mCsvExports = new CsvExport();
 
             comboBoxPreset.SelectedIndex = 0;
 
@@ -52,62 +46,54 @@ namespace RFEOnsite
         private void InitializeChartUI()
         {
 
-            components = new System.ComponentModel.Container();
+            components = new Container();
 
-            ((ISupportInitialize)(mGraph.Chart)).BeginInit();
+            ((ISupportInitialize)(gRFEOnSite.Graph.Chart)).BeginInit();
 
             SuspendLayout();
 
-            mGraph.Chart.Dock = DockStyle.Fill;
+            gRFEOnSite.Graph.Chart.Dock = DockStyle.Fill;
 
-            mGraph.Chart.Location = new System.Drawing.Point(0, 50);
+            gRFEOnSite.Graph.Chart.Location = new Point(0, 50);
 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(6F, 13F);
+            AutoScaleMode = AutoScaleMode.Font;
 
             // Use this to resize Client Area
             //this.ClientSize = new System.Drawing.Size(284, 262); 
 
             Load += new EventHandler(Form1_Load);
 
-            ((ISupportInitialize)(mGraph.Chart)).EndInit();
+            ((ISupportInitialize)(gRFEOnSite.Graph.Chart)).EndInit();
 
             ResumeLayout(false);
         }
 
         void Form1_Load(object sender, EventArgs e)
         {
+
+            // This builds a dummy chart on the GUI and adds a dummy point to draw and not show white space
+            // Prolly not the correct way of initializing
+
             if (textBoxStartFrequency.Text.Length > 0)
             {
-                mGraph.MinX = Convert.ToInt32(textBoxStartFrequency.Text);
+                gRFEOnSite.Graph.MinX = Convert.ToInt32(textBoxStartFrequency.Text);
             }
 
             if (textBoxStopFrequency.Text.Length > 0)
             {
-                mGraph.MaxX = Convert.ToInt32(textBoxStopFrequency.Text);
+                gRFEOnSite.Graph.MaxX = Convert.ToInt32(textBoxStopFrequency.Text);
             }
 
-            mGraph.MaxY = -30;
-            mGraph.MinY = -110;
+            gRFEOnSite.Graph.MaxY = -30;
+            gRFEOnSite.Graph.MinY = -110;
+            gRFEOnSite.Graph.BuildChart();
+            gRFEOnSite.Graph.RemoveChartSeries();
+            gRFEOnSite.Graph.Series = new Series();
+            gRFEOnSite.Graph.Series.Points.AddXY(750, -30);
+            gRFEOnSite.Graph.Chart.Series.Add(gRFEOnSite.Graph.Series);
 
-            mGraph.BuildChart();
-
-
-            gRFE.mSeries = new Series();
-
-            gRFE.mSeries.Points.AddXY(750, -30);
-
-            foreach (var series in mGraph.Chart.Series)
-            {
-                series.Points.Clear();
-            }
-
-            mGraph.Chart.Series.Add(gRFE.mSeries);
-
-
-            //gRFE.AddReplaceSeries(mGraph.Chart, gRFE.SweepData);
-
-            panelChart.Controls.Add(mGraph.Chart);
+            panelChart.Controls.Add(gRFEOnSite.Graph.Chart);
         }
 
         public void UIUpdateCallback_CsvExport(CsvExport csvExport)
@@ -132,8 +118,6 @@ namespace RFEOnsite
 
             string filePath = mFolderDialog.SelectedPath + "\\" + fileName;
 
-
-
             csvExport.ExportToFile(filePath);
 
             mCsvFileSweepCount++;
@@ -143,14 +127,16 @@ namespace RFEOnsite
         {
             double stopMHz;
 
-            textBoxStartFrequency.Text = fromSerialThread.GetExplorer_StartMHz.ToString();//  fStartMHz.ToString();
-            stopMHz = (fromSerialThread.GetExplorer_StepMHz * 112.0) + fromSerialThread.GetExplorer_StartMHz;
+            textBoxStartFrequency.Text = fromSerialThread.StartMHz.ToString();
+
+            stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
             textBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
-            textBoxRBW.Text = Math.Round(fromSerialThread.GetExplorer_RBWKHz, 2).ToString();
-            textBoxStepSize.Text = Math.Round(fromSerialThread.GetExplorer_StepMHz * 1000.0, 2).ToString();
-            labelFoundDevice.Text = fromSerialThread.mMainModel.ToString();
-            labelFoundModel.Text = fromSerialThread.mExpansionModel.ToString();
-            labelFirmwareText.Text = fromSerialThread.mFirmwareVersion;
+
+            textBoxRBW.Text = Math.Round(fromSerialThread.RBWKHz, 2).ToString();
+            textBoxStepSize.Text = Math.Round(fromSerialThread.StepMHz * 1000.0, 2).ToString();
+            labelDeviceText.Text = fromSerialThread.mMainModel.ToString();
+            labelModelText.Text = fromSerialThread.mExpansionModel.ToString();
+            labelFirmwareText.Text = fromSerialThread.FirmwareVersion;
 
             if (fromSerialThread.mMainModel == eModel.MODEL_6G)
             {
@@ -166,7 +152,7 @@ namespace RFEOnsite
 
         public void UIUpdateCallback_Chart(Series seriesFromExplorer)
         {
-            while (mGraph.Chart.Series.Count > 0) { mGraph.Chart.Series.RemoveAt(0); }
+            while (gRFEOnSite.Graph.Chart.Series.Count > 0) { gRFEOnSite.Graph.Chart.Series.RemoveAt(0); }
            
 
             //if (checkBoxChartRealTime.Checked)
@@ -191,7 +177,7 @@ namespace RFEOnsite
 
                 seriesFromExplorer.Color = Color.DarkRed;
                 seriesFromExplorer.Name = "Peak";
-                mGraph.Chart.Series.Add(seriesFromExplorer);
+                gRFEOnSite.Graph.Chart.Series.Add(seriesFromExplorer);
             }
 
         }
@@ -199,11 +185,11 @@ namespace RFEOnsite
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
         {
             // Pass "labelRFEComPort.Text" - a string - to Initialize() thread (await)
-            // TThe thread then updates the GUI
+            // The thread then updates the GUI
             buttonFindCOMPorts.Enabled = false;
 
             IProgress<string> UIComPortLabel = new Progress<string>(s => labelRFEComPort.Text = s);
-            await Task.Factory.StartNew(() => gRFE.InitializeSerialConnection(UIComPortLabel));
+            await Task.Factory.StartNew(() => gRFEOnSite.Explorer.InitializeSerialConnection(UIComPortLabel));
 
             if (!labelRFEComPort.Text.Contains("COM"))
             {
@@ -213,13 +199,14 @@ namespace RFEOnsite
 
             buttonFindCOMPorts.Text = "Connected";
             buttonFindCOMPorts.Enabled = false;
+            buttonFindCOMPorts.BackColor = Color.Green;
 
             IProgress<Series> UpdateUIChartSeries = new Progress<Series>(SERIES => UIUpdateCallback_Chart(SERIES));
             IProgress<RFEConfiguration> UpdateUIControls = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
             IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
             IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            await Task.Factory.StartNew(() => gRFE.AttachSerialPortAndReceiveDataThread(UpdateUIControls, UpdateUIChartSeries, UpdateCsvExport, UpdateUIProgressBar));
+            await Task.Factory.StartNew(() => gRFEOnSite.Explorer.AttachSerialPortAndReceiveDataThread(UpdateUIControls, UpdateUIChartSeries, UpdateCsvExport, UpdateUIProgressBar));
 
             buttonSetConfiguration.Enabled = true;
         }
@@ -236,42 +223,42 @@ namespace RFEOnsite
             rbwKHz = Convert.ToDouble(textBoxRBW.Text);
             stepMHZ = Convert.ToDouble(textBoxStepSize.Text);
 
-            gRFE.SetConfiguration(startMHz, stopMHz);
+            gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz);
 
-            mGraph.MinX = startMHz;
-            mGraph.MaxX = stopMHz;
+            gRFEOnSite.Graph.MinX = startMHz;
+            gRFEOnSite.Graph.MaxX = stopMHz;
 
-            mGraph.Chart.ChartAreas[0].AxisX.Maximum = mGraph.MaxX;
-            mGraph.Chart.ChartAreas[0].AxisX.Minimum = mGraph.MinX;
+            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
 
-            mGraph.Chart.ChartAreas[0].AxisX.Interval = (mGraph.MaxX - mGraph.MinX) / 5;
+            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
 
             buttonStartSweeps.Enabled = true;
         }
 
-        private void buttonStartWeeps_Click(object sender, EventArgs e)
+        private void buttonStartSweeps_Click(object sender, EventArgs e)
         {
-            gRFE.SweepCount = (int)numericUpDownSweeps.Value;
+            gRFEOnSite.Explorer.SweepCount = (int)numericUpDownSweeps.Value;
 
 
             if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeak.Checked)
             {
-                TaskProgressBar.Maximum = gRFE.SweepCount;
+                TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                 TaskProgressBar.Step = 1;
                 TaskProgressBar.Value = 0;
 
                 buttonStartSweeps.Text = "Cancel";
                 mCsvFileSweepCount = 1;
 
-                gRFE.Capture = true;
+                gRFEOnSite.Explorer.Capture = true;
             }
         }
 
         private void checkBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
         {
-            gRFE.WriteCsvFiles = checkBoxSaveCsvFiles.Checked;
+            gRFEOnSite.Explorer.WriteCsvFiles = checkBoxSaveCsvFiles.Checked;
 
-            if (gRFE.WriteCsvFiles)
+            if (gRFEOnSite.Explorer.WriteCsvFiles)
             {
                 textBoxSweepLocation.Enabled = true;
                 textBoxCsvFileName.Enabled = true;
@@ -318,13 +305,13 @@ namespace RFEOnsite
             {
                 checkBoxChartAverage.Enabled = false;
                 checkBoxChartPeak.Enabled = false;
-                gRFE.Capture = true;
+                gRFEOnSite.Explorer.Capture = true;
             }
             else
             {
                 checkBoxChartAverage.Enabled = false;
                 checkBoxChartPeak.Enabled = false;
-                gRFE.Capture = false;
+                gRFEOnSite.Explorer.Capture = false;
             }
         }
 
@@ -353,7 +340,7 @@ namespace RFEOnsite
 
         }
 
-        private void OpenWhoopNodeSelection(object sender, EventArgs e)
+        private void comboBoxPreset_IndexChanged(object sender, EventArgs e)
         {
             if (comboBoxPreset.SelectedItem == null)
                 return;
@@ -364,30 +351,52 @@ namespace RFEOnsite
             {
                 textBoxStartFrequency.Enabled = false;
                 textBoxStopFrequency.Enabled = false;
+                textBoxRBW.Enabled = false;
                 textBoxStepSize.Enabled = false;
+                buttonSetConfiguration.Enabled = false;
 
                 using (WhoopNodeForm mWhoopNodeDownlinkForm = new WhoopNodeForm())
                 {
+                    mWhoopNodeDownlinkForm.CheckBox700 = gRFEOnSite.Whoop700;
+                    mWhoopNodeDownlinkForm.CheckBox850 = gRFEOnSite.Whoop850;
+                    mWhoopNodeDownlinkForm.CheckBoxPCS = gRFEOnSite.WhoopPCS;
+                    mWhoopNodeDownlinkForm.CheckBoxAWS = gRFEOnSite.WhoopAWS;
+
                     mWhoopNodeDownlinkForm.StartPosition = FormStartPosition.CenterParent;
-                    var value = mWhoopNodeDownlinkForm.ShowDialog();
-                    if (mWhoopNodeDownlinkForm.Selected)
+
+                    mWhoopNodeDownlinkForm.ShowDialog();
+
+                    gRFEOnSite.WhoopPresetActive = mWhoopNodeDownlinkForm.Selected;
+
+                    if (gRFEOnSite.WhoopPresetActive)
                     {
-                        bool b700 = mWhoopNodeDownlinkForm.Band_700;
-                        bool b850 = mWhoopNodeDownlinkForm.Band_850;
-                        bool bPCS = mWhoopNodeDownlinkForm.Band_PCS;
-                        bool bAWS = mWhoopNodeDownlinkForm.Band_AWS;
+                        gRFEOnSite.Whoop700 = mWhoopNodeDownlinkForm.CheckBox700;
+                        gRFEOnSite.Whoop850 = mWhoopNodeDownlinkForm.CheckBox850;
+                        gRFEOnSite.WhoopPCS = mWhoopNodeDownlinkForm.CheckBoxPCS;
+                        gRFEOnSite.WhoopAWS = mWhoopNodeDownlinkForm.CheckBoxAWS;
+                    }
+                    else
+                    {
+                        textBoxStartFrequency.Enabled = true;
+                        textBoxStopFrequency.Enabled = true;
+                        textBoxRBW.Enabled = true;
+                        textBoxStepSize.Enabled = true;
+                        buttonSetConfiguration.Enabled = true;
                     }
                 }
-
+                
                 return;
             }
 
             if (item == "Manual Configuration")
             {
+                gRFEOnSite.WhoopPresetActive = false;
+
                 textBoxStartFrequency.Enabled = true;
                 textBoxStopFrequency.Enabled = true;
+                textBoxRBW.Enabled = true;
                 textBoxStepSize.Enabled = true;
-
+                buttonSetConfiguration.Enabled = true;
                 return;
             }
         }

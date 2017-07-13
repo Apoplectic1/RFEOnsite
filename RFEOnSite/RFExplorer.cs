@@ -12,14 +12,13 @@ namespace RFEOnsite
     {
         private static List<string> mReceivedSweep;
         private RFEConfiguration mRFEConfiguration;
-        private SerialCommunications mSerialPort;
+        private SerialPorts mSerialPort;
         private Thread mReceiveThread;
         private bool mCapture = false;
         private bool mConfigured = false;
         private int mSweepCount;
         private bool mbWriteCsvFiles;
         volatile private bool mbRunReceiveThread;
-        public Series mSeries;
         public CsvExport mCsvExport;
 
         
@@ -32,10 +31,9 @@ namespace RFEOnsite
         
         public RFExplorer()
         {
-            mSerialPort = new SerialCommunications();
+            mSerialPort = new SerialPorts();
             mReceivedSweep = new List<string>();
             mRFEConfiguration = new RFEConfiguration();
-            mSeries = null;
             mSweepCount = 0;
             mCsvExport = new CsvExport();
             mbWriteCsvFiles = false;
@@ -58,7 +56,7 @@ namespace RFEOnsite
             mReceiveThread.Start();
         }
 
-        public void SetConfiguration(double startMHz, double stopMHz, int amplitudeTop = 0, int amplitudeBottom = -110)
+        public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = 0, int amplitudeBottom = -110)
         {
             string start;
             string stop;
@@ -99,7 +97,10 @@ namespace RFEOnsite
             mConfigured = true;
         }
 
-        private void ReceiveThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<int> updateUIProgressBar, IProgress<CsvExport> csvExport)
+        private void ReceiveThread( IProgress<RFEConfiguration> configurationProgress, 
+                                    IProgress<Series> seriesProgress, 
+                                    IProgress<int> progressBarProgress, 
+                                    IProgress<CsvExport> csvExportProgress)
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
@@ -150,7 +151,7 @@ namespace RFEOnsite
                                 {
                                     if (mSweepCount > 0)
                                     {
-                                        updateUIProgressBar.Report(mSweepCount);
+                                        progressBarProgress.Report(mSweepCount);
                                         mReceivedSweep.Add(sNewLine);
                                         mSweepCount--;
                                         //sNewLine = String.Empty;
@@ -158,12 +159,12 @@ namespace RFEOnsite
                                     else
                                     {
                                         mCapture = false;
-                                        updateUIProgressBar.Report(mSweepCount);
-                                        mRFEConfiguration.BuildChartSeriesFromExplorer(series);
+                                        progressBarProgress.Report(mSweepCount);
+                                        mRFEConfiguration.ParseChartSeriesFromExplorer(seriesProgress);
 
                                         if (WriteCsvFiles)
                                         {
-                                            mRFEConfiguration.BuildCsvDataFromExplorer(csvExport);
+                                            mRFEConfiguration.ParseCsvDataFromExplorer(csvExportProgress);
                                         }
                                         mReceivedSweep.Clear();
                                     }
@@ -188,13 +189,13 @@ namespace RFEOnsite
 
                             if ((sNewLine.StartsWith("#C2-M:")) && (sNewLine.Length == 19))
                             {
-                                mRFEConfiguration.ParseCurrentSetup(sNewLine);
+                                mRFEConfiguration.ParseModelAndVersion(sNewLine);
                             }
                             // Look for Configuration string 
                             if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                             {
-                                mRFEConfiguration.GetConfigurationFromExplorer(sNewLine);
-                                configurationData.Report(mRFEConfiguration);
+                                mRFEConfiguration.ParseConfiguration(sNewLine);
+                                configurationProgress.Report(mRFEConfiguration);
                                 mConfigured = true;
                             }
                         }

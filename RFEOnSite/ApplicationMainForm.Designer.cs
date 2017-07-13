@@ -69,8 +69,8 @@ namespace RFEOnsite
             this.label3 = new System.Windows.Forms.Label();
             this.labelFirmwareText = new System.Windows.Forms.Label();
             this.labelFirmware = new System.Windows.Forms.Label();
-            this.labelFoundModel = new System.Windows.Forms.Label();
-            this.labelFoundDevice = new System.Windows.Forms.Label();
+            this.labelModelText = new System.Windows.Forms.Label();
+            this.labelDeviceText = new System.Windows.Forms.Label();
             this.buttonStartSweeps = new System.Windows.Forms.Button();
             this.labelStartSweeps = new System.Windows.Forms.Label();
             this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
@@ -250,8 +250,8 @@ namespace RFEOnsite
             this.comboBoxPreset.Name = "comboBoxPreset";
             this.comboBoxPreset.Size = new System.Drawing.Size(135, 21);
             this.comboBoxPreset.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.comboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.  ");
-            this.comboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.OpenWhoopNodeSelection);
+            this.toolTip1.SetToolTip(this.comboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.");
+            this.comboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.comboBoxPreset_IndexChanged);
             // 
             // labelRightSMAAttenuationText
             // 
@@ -417,8 +417,8 @@ namespace RFEOnsite
             this.groupBoxSerialConnection.Controls.Add(this.label3);
             this.groupBoxSerialConnection.Controls.Add(this.labelFirmwareText);
             this.groupBoxSerialConnection.Controls.Add(this.labelFirmware);
-            this.groupBoxSerialConnection.Controls.Add(this.labelFoundModel);
-            this.groupBoxSerialConnection.Controls.Add(this.labelFoundDevice);
+            this.groupBoxSerialConnection.Controls.Add(this.labelModelText);
+            this.groupBoxSerialConnection.Controls.Add(this.labelDeviceText);
             this.groupBoxSerialConnection.Controls.Add(this.buttonFindCOMPorts);
             this.groupBoxSerialConnection.Controls.Add(this.labelRFEComPort);
             this.groupBoxSerialConnection.Location = new System.Drawing.Point(3, 4);
@@ -488,19 +488,19 @@ namespace RFEOnsite
             // 
             // labelFoundModel
             // 
-            this.labelFoundModel.AutoSize = true;
-            this.labelFoundModel.Location = new System.Drawing.Point(265, 68);
-            this.labelFoundModel.Name = "labelFoundModel";
-            this.labelFoundModel.Size = new System.Drawing.Size(0, 13);
-            this.labelFoundModel.TabIndex = 3;
+            this.labelModelText.AutoSize = true;
+            this.labelModelText.Location = new System.Drawing.Point(265, 68);
+            this.labelModelText.Name = "labelFoundModel";
+            this.labelModelText.Size = new System.Drawing.Size(0, 13);
+            this.labelModelText.TabIndex = 3;
             // 
             // labelFoundDevice
             // 
-            this.labelFoundDevice.AutoSize = true;
-            this.labelFoundDevice.Location = new System.Drawing.Point(265, 42);
-            this.labelFoundDevice.Name = "labelFoundDevice";
-            this.labelFoundDevice.Size = new System.Drawing.Size(0, 13);
-            this.labelFoundDevice.TabIndex = 2;
+            this.labelDeviceText.AutoSize = true;
+            this.labelDeviceText.Location = new System.Drawing.Point(265, 42);
+            this.labelDeviceText.Name = "labelFoundDevice";
+            this.labelDeviceText.Size = new System.Drawing.Size(0, 13);
+            this.labelDeviceText.TabIndex = 2;
             // 
             // buttonStartSweeps
             // 
@@ -512,7 +512,7 @@ namespace RFEOnsite
             this.buttonStartSweeps.Text = "Capture";
             this.toolTip1.SetToolTip(this.buttonStartSweeps, resources.GetString("buttonStartSweeps.ToolTip"));
             this.buttonStartSweeps.UseVisualStyleBackColor = true;
-            this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartWeeps_Click);
+            this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartSweeps_Click);
             // 
             // labelStartSweeps
             // 
@@ -820,8 +820,8 @@ namespace RFEOnsite
         private Label labelRightSMAAttenuationText;
         private Label labelStopFrequency;
         private Label label2;
-        private Label labelFoundDevice;
-        private Label labelFoundModel;
+        private Label labelDeviceText;
+        private Label labelModelText;
         private Label labelFirmware;
         private Label labelFirmwareText;
         private Label labelLeftAttenution;

@@ -22,6 +22,9 @@ namespace RFEOnSite
         private Single mTitleFontSize;
         private string mBand;
 
+        private Series mSeries;
+        public Series Series { get { return mSeries; } set { mSeries = value; } }
+
         private Series mSeriesPeak;
         private Series mSeriesAverage;
         private Series mSeriesRealTime;
@@ -107,6 +110,14 @@ namespace RFEOnSite
             //mChart.Series.Add(mSeriesRealTime);
 
             //mChart.DataBind();
+        }
+
+        public void RemoveChartSeries()
+        {
+            while (mChart.Series.Count > 0)
+            {
+                mChart.Series.RemoveAt(0);
+            }
         }
     }
 }

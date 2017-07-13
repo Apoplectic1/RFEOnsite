@@ -48,16 +48,15 @@ namespace RFEOnsite
         };
         public enum eModel
         {
-            MODEL_433 = 0,  //0
-            MODEL_868,      //1
-            MODEL_915,      //2
-            MODEL_WSUB1G,   //3
-            MODEL_2400,     //4
-            MODEL_WSUB3G,   //5
-            MODEL_6G,       //6
-
-            MODEL_RFGEN = 60, //60
-            None = 0xFF //0xFF
+            MODEL_433 = 0,
+            MODEL_868 = 1,          
+            MODEL_915 = 2,          
+            MODEL_WSUB1G = 3,       
+            MODEL_2400 = 4,         
+            MODEL_WSUB3G = 5,       
+            MODEL_6G = 6,           
+            MODEL_RFGEN = 60,   
+            None = 0xFF         
         };
         
 
@@ -78,15 +77,16 @@ namespace RFEOnsite
             public eModel mExpansionModel;
             public eModel mMainModel;
             public float fOffset_dB;
-            public string mFirmwareVersion;
+            private string mFirmwareVersion;
             public string mSerialNumber;
             public List<double> mFreqencyList;
 
             public List<string> mSweepsFromExplorer;  
 
-            public double GetExplorer_StartMHz{ get { return mfStartMHz; } }
-            public double GetExplorer_StepMHz { get { return mfStepMHz; } }
-            public double GetExplorer_RBWKHz { get { return mResolutionBandwidthKHz; } }
+            public double StartMHz{ get { return mfStartMHz; } }
+            public double StepMHz { get { return mfStepMHz; } }
+            public double RBWKHz { get { return mResolutionBandwidthKHz; } }
+            public string FirmwareVersion { get { return mFirmwareVersion; } set { mFirmwareVersion = value; } }
 
             public RFEConfiguration()
             {
@@ -111,7 +111,7 @@ namespace RFEOnsite
                 mSweepsFromExplorer = new List<string>();
             }
 
-            public bool ParseCurrentSetup(string sLine)
+            public bool ParseModelAndVersion(string sLine)
             {
                 mMainModel = (eModel)Convert.ToUInt16(sLine.Substring(6, 3));
                 mExpansionModel = (eModel)Convert.ToUInt16(sLine.Substring(10, 3));
@@ -129,8 +129,9 @@ namespace RFEOnsite
             {
                 return true;
             }
-            public bool GetConfigurationFromExplorer(string sLine)
+            public bool ParseConfiguration(string sLine)
             {
+                
                 mfStartMHz = Convert.ToInt32(sLine.Substring(6, 7)) / 1000.0;
                 mfStepMHz = Convert.ToInt32(sLine.Substring(14, 7)) / 1000000.0;
                 mAmplitudeTopDbm = Convert.ToInt32(sLine.Substring(22, 4));
@@ -147,7 +148,7 @@ namespace RFEOnsite
                 return true;
             }
 
-            public bool BuildCsvDataFromExplorer(IProgress<CsvExport> csvExport)
+            public bool ParseCsvDataFromExplorer(IProgress<CsvExport> csvExportProgress)
             {
                 CsvExport localCsvExport = new CsvExport();
                 double dBm;
@@ -174,18 +175,18 @@ namespace RFEOnsite
                     }
                 }
 
-                csvExport.Report(localCsvExport);
+                csvExportProgress.Report(localCsvExport);
                 return true;
             }
 
 
-            public void ReturnSweepsFromExplorer(IProgress<List<string>> sweeps)
+            public void ReturnSweepsFromExplorer(IProgress<List<string>> sweepsProgress)
             {
                 
-                sweeps.Report(mReceivedSweep);
+                sweepsProgress.Report(mReceivedSweep);
             }
 
-            public bool BuildChartSeriesFromExplorer(IProgress<Series> series)
+            public bool ParseChartSeriesFromExplorer(IProgress<Series> seriesProgress)
             {
                 // This is updating the GUI Spectrum MS Chart with mReceivedData (serial data) from the RF Explorer
 
@@ -232,7 +233,8 @@ namespace RFEOnsite
                 dpMaxY.MarkerSize = 5;
                 dpMaxY.MarkerStyle = MarkerStyle.Circle;
 
-                series.Report(localSeriesPeak);
+                
+                seriesProgress.Report(localSeriesPeak);
                 //series.Report(localSeriesAverage);
 
                 return true;
