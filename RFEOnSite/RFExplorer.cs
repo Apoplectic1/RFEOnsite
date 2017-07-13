@@ -158,14 +158,20 @@ namespace RFEOnsite
                                     }
                                     else
                                     {
+                                        // Sweeping is now done so stop and report results using two Progress callbacks.
                                         mCapture = false;
-                                        progressBarProgress.Report(mSweepCount);
+
+                                        progressBarProgress.Report(0);
+
                                         mRFEConfiguration.ParseChartSeriesFromExplorer(seriesProgress);
 
                                         if (WriteCsvFiles)
                                         {
                                             mRFEConfiguration.ParseCsvDataFromExplorer(csvExportProgress);
                                         }
+
+                                        mRFEConfiguration.SweepComplete();
+
                                         mReceivedSweep.Clear();
                                     }
 

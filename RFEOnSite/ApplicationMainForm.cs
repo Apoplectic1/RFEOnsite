@@ -1,5 +1,6 @@
 ﻿using RFEOnSite;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -88,7 +89,7 @@ namespace RFEOnsite
             gRFEOnSite.Graph.MaxY = -30;
             gRFEOnSite.Graph.MinY = -110;
             gRFEOnSite.Graph.BuildChart();
-            gRFEOnSite.Graph.RemoveChartSeries();
+            gRFEOnSite.Graph.RemoveChartSeries("All");
             gRFEOnSite.Graph.Series = new Series();
             gRFEOnSite.Graph.Series.Points.AddXY(750, -30);
             gRFEOnSite.Graph.Chart.Series.Add(gRFEOnSite.Graph.Series);
@@ -215,12 +216,10 @@ namespace RFEOnsite
         {
             double startMHz;
             double stopMHz;
-            double rbwKHz;
             double stepMHZ;
 
             startMHz = Convert.ToDouble(textBoxStartFrequency.Text);
             stopMHz = Convert.ToDouble(textBoxStopFrequency.Text);
-            rbwKHz = Convert.ToDouble(textBoxRBW.Text);
             stepMHZ = Convert.ToDouble(textBoxStepSize.Text);
 
             gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz);
@@ -240,17 +239,51 @@ namespace RFEOnsite
         {
             gRFEOnSite.Explorer.SweepCount = (int)numericUpDownSweeps.Value;
 
-
-            if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeak.Checked)
+            if (gRFEOnSite.WhoopPresetActive)
             {
-                TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
-                TaskProgressBar.Step = 1;
-                TaskProgressBar.Value = 0;
+                foreach (FrequencyTable pair in gRFEOnSite.WhoopDownLinkFrequencies)
+                {
+                    double start = pair.start;
+                    double stop = pair.stop;
 
-                buttonStartSweeps.Text = "Cancel";
-                mCsvFileSweepCount = 1;
 
-                gRFEOnSite.Explorer.Capture = true;
+                    gRFEOnSite.Explorer.SendConfiguration(start, stop);
+
+                    gRFEOnSite.Graph.MinX = start;
+                    gRFEOnSite.Graph.MaxX = stop;
+
+                    gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+                    gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+
+                    gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
+
+                    buttonStartSweeps.Enabled = true;
+
+                    TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
+                    TaskProgressBar.Step = 1;
+                    TaskProgressBar.Value = 0;
+
+                    mCsvFileSweepCount = 1;
+
+                    gRFEOnSite.Explorer.Capture = true;
+                    break;
+                }
+               
+             
+            }
+            else
+            {
+                if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeak.Checked)
+                {
+                    TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
+                    TaskProgressBar.Step = 1;
+                    TaskProgressBar.Value = 0;
+
+                    //buttonStartSweeps.Text = "Cancel";
+                    mCsvFileSweepCount = 1;
+
+                    gRFEOnSite.Explorer.Capture = true;
+                }
             }
         }
 
@@ -398,6 +431,53 @@ namespace RFEOnsite
                 textBoxStepSize.Enabled = true;
                 buttonSetConfiguration.Enabled = true;
                 return;
+            }
+        }
+
+        private void buttonDocumentation_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (radioButtonAnalyzer.Checked)
+                {
+                    System.Diagnostics.Process.Start("http://j3.rf-explorer.com/download/docs/RF%20Explorer%20Spectrum%20Analyzer%20User%20Manual.pdf");
+                }
+                else
+                {
+                    if (radioButtonGenerator.Checked)
+                    { 
+                        System.Diagnostics.Process.Start("http://j3.rf-explorer.com/download/docs/RF%20Explorer%20Signal%20Generator%20User%20Manual.pdf");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Process.Start("http://j3.rf-explorer.com/download/docs/RF%20Explorer%20Spectrum%20Analyzer%20User%20Manual.pdf");
+                    }
+                }
+            }
+
+            catch
+            {
+                string message; // = obException.ToString();
+                string caption = "Can't connect to the RF Explorer website.";
+                message = "This is probably due to a lack of Internet connectivity for this PC/Tablet.\nEstablish connectivity and try again.";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the Exception MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+        }
+
+        private void checkBoxChartPeak_CheckedChanged(object sender, EventArgs e)
+        {
+         
+            if (checkBoxChartPeak.Checked)
+            {
+                gRFEOnSite.Graph.Chart.Series["Peak"].Enabled = true;
+            }
+            else
+            {
+                gRFEOnSite.Graph.Chart.Series["Peak"].Enabled = false;
             }
         }
     }

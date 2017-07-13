@@ -24,11 +24,7 @@ namespace RFEOnSite
 
         private Series mSeries;
         public Series Series { get { return mSeries; } set { mSeries = value; } }
-
-        private Series mSeriesPeak;
-        private Series mSeriesAverage;
-        private Series mSeriesRealTime;
-
+        
         public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
         public double MinY { get { return mMinY; } set { mMinY = value; } }
         public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
@@ -56,24 +52,6 @@ namespace RFEOnSite
             mTitle = "Spectrum";
 
             mChart = new Chart();
-            mSeriesPeak = new Series
-            {
-                Name = "Peak",
-                IsVisibleInLegend = true,
-                ChartType = SeriesChartType.Spline
-            };
-            mSeriesAverage = new Series
-            {
-                Name = "Average",
-                IsVisibleInLegend = true,
-                ChartType = SeriesChartType.Spline
-            };
-            //mSeriesRealTime = new Series
-            //{
-            //    Name = "RealRime",
-            //    IsVisibleInLegend = true,
-            //    ChartType = SeriesChartType.Spline
-            //};
         }
 
         public void BuildChart()
@@ -104,19 +82,36 @@ namespace RFEOnSite
             mChart.Titles[0].Font = new System.Drawing.Font(mChartFont, mTitleFontSize);
 
             mChart.Palette = ChartColorPalette.Bright;
-
-            mChart.Series.Add(mSeriesPeak);
-            mChart.Series.Add(mSeriesAverage);
-            //mChart.Series.Add(mSeriesRealTime);
-
-            //mChart.DataBind();
         }
 
-        public void RemoveChartSeries()
+        public void DrawChart(string series)
         {
-            while (mChart.Series.Count > 0)
+
+        }
+
+        public void ShowSeries(string seriesName, bool state)
+        {
+            int foundIndex;
+
+            foundIndex = mChart.Series.IndexOf(seriesName);
+
+            mChart.Series[foundIndex].Enabled = state;
+        }
+
+        public void RemoveChartSeries(string seriesName)
+        {
+            if (seriesName == "All")
             {
-                mChart.Series.RemoveAt(0);
+                while (mChart.Series.Count > 0)
+                {
+                    mChart.Series.RemoveAt(0);
+                }
+            }
+            else
+            {
+               int index = mChart.Series.IndexOf(seriesName);
+
+               mChart.Series.RemoveAt(index);
             }
         }
     }

@@ -63,6 +63,7 @@ namespace RFEOnsite
             this.radioButtonStart = new System.Windows.Forms.RadioButton();
             this.buttonSetConfiguration = new System.Windows.Forms.Button();
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
+            this.buttonDocumentation = new System.Windows.Forms.Button();
             this.radioButtonGenerator = new System.Windows.Forms.RadioButton();
             this.radioButtonAnalyzer = new System.Windows.Forms.RadioButton();
             this.labelModel = new System.Windows.Forms.Label();
@@ -94,8 +95,8 @@ namespace RFEOnsite
             this.textBoxSweepLocation = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxConfiguration.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
@@ -160,6 +161,7 @@ namespace RFEOnsite
             this.labelRBW.Size = new System.Drawing.Size(110, 13);
             this.labelRBW.TabIndex = 5;
             this.labelRBW.Text = "Resolution Bandwidth";
+            this.toolTip1.SetToolTip(this.labelRBW, resources.GetString("labelRBW.ToolTip"));
             // 
             // labelRBWKhz
             // 
@@ -330,6 +332,7 @@ namespace RFEOnsite
             this.textBoxRBW.Size = new System.Drawing.Size(40, 20);
             this.textBoxRBW.TabIndex = 17;
             this.textBoxRBW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.textBoxRBW, "RBW is not directly settable and is based on Span.");
             // 
             // labelStopMHz
             // 
@@ -411,6 +414,7 @@ namespace RFEOnsite
             // 
             // groupBoxSerialConnection
             // 
+            this.groupBoxSerialConnection.Controls.Add(this.buttonDocumentation);
             this.groupBoxSerialConnection.Controls.Add(this.radioButtonGenerator);
             this.groupBoxSerialConnection.Controls.Add(this.radioButtonAnalyzer);
             this.groupBoxSerialConnection.Controls.Add(this.labelModel);
@@ -427,6 +431,16 @@ namespace RFEOnsite
             this.groupBoxSerialConnection.TabIndex = 12;
             this.groupBoxSerialConnection.TabStop = false;
             this.groupBoxSerialConnection.Text = "RF Explorer Connection";
+            // 
+            // buttonDocumentation
+            // 
+            this.buttonDocumentation.Location = new System.Drawing.Point(201, 84);
+            this.buttonDocumentation.Name = "buttonDocumentation";
+            this.buttonDocumentation.Size = new System.Drawing.Size(169, 23);
+            this.buttonDocumentation.TabIndex = 16;
+            this.buttonDocumentation.Text = "RF Explorer Documentation";
+            this.buttonDocumentation.UseVisualStyleBackColor = true;
+            this.buttonDocumentation.Click += new System.EventHandler(this.buttonDocumentation_Click);
             // 
             // radioButtonGenerator
             // 
@@ -486,19 +500,19 @@ namespace RFEOnsite
             this.labelFirmware.TabIndex = 4;
             this.labelFirmware.Text = "Firmware:";
             // 
-            // labelFoundModel
+            // labelModelText
             // 
             this.labelModelText.AutoSize = true;
             this.labelModelText.Location = new System.Drawing.Point(265, 68);
-            this.labelModelText.Name = "labelFoundModel";
+            this.labelModelText.Name = "labelModelText";
             this.labelModelText.Size = new System.Drawing.Size(0, 13);
             this.labelModelText.TabIndex = 3;
             // 
-            // labelFoundDevice
+            // labelDeviceText
             // 
             this.labelDeviceText.AutoSize = true;
             this.labelDeviceText.Location = new System.Drawing.Point(265, 42);
-            this.labelDeviceText.Name = "labelFoundDevice";
+            this.labelDeviceText.Name = "labelDeviceText";
             this.labelDeviceText.Size = new System.Drawing.Size(0, 13);
             this.labelDeviceText.TabIndex = 2;
             // 
@@ -647,6 +661,7 @@ namespace RFEOnsite
             this.checkBoxChartPeak.TabIndex = 3;
             this.checkBoxChartPeak.Text = "Peak";
             this.checkBoxChartPeak.UseVisualStyleBackColor = true;
+            this.checkBoxChartPeak.CheckedChanged += new System.EventHandler(this.checkBoxChartPeak_CheckedChanged);
             // 
             // checkBoxChartAverage
             // 
@@ -755,15 +770,6 @@ namespace RFEOnsite
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Program Configuration";
             // 
-            // buttonSelect
-            // 
-            this.button1.Location = new System.Drawing.Point(89, 28);
-            this.button1.Name = "buttonSelect";
-            this.button1.Size = new System.Drawing.Size(185, 34);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Recall Last Saved Program State";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(89, 80);
@@ -772,6 +778,15 @@ namespace RFEOnsite
             this.button2.TabIndex = 1;
             this.button2.Text = "Save Program State";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(89, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(185, 34);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Recall Last Saved Program State";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -872,6 +887,7 @@ namespace RFEOnsite
         private GroupBox groupBox2;
         private Button button2;
         private Button button1;
+        private Button buttonDocumentation;
     }
 }
 

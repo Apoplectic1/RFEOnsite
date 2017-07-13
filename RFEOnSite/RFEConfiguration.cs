@@ -191,7 +191,7 @@ namespace RFEOnsite
                 // This is updating the GUI Spectrum MS Chart with mReceivedData (serial data) from the RF Explorer
 
                 // The GUI spectrum chart Series element is actually what is being updated
-                // mReceievedData is local to this thread read from the RF Explorer
+                // mReceievedData is local to this thread and read from the RF Explorer
                 // series is local to the GUI
 
                 Decibels dBm = new Decibels();
@@ -237,6 +237,12 @@ namespace RFEOnsite
                 seriesProgress.Report(localSeriesPeak);
                 //series.Report(localSeriesAverage);
 
+                return true;
+            }
+
+            public bool SweepComplete()
+            {
+               
                 return true;
             }
         }

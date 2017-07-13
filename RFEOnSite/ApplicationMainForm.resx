@@ -120,6 +120,12 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="labelRBW.ToolTip" xml:space="preserve">
+    <value>Resolution Bandwidth is not directly programmable on the RF Explorer.
+
+RBW is determined internally by table lookup using the current Span (stop MHz minus start MHz) as the RBW table index. 
+The RBW table is limited and will automaticlly choose the 'best' value.</value>
+  </data>
   <data name="buttonStartSweeps.ToolTip" xml:space="preserve">
     <value>Begin Capture and logging of RF Explorer dBm Data.
 
