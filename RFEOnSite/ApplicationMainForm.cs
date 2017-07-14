@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -14,9 +15,9 @@ namespace RFEOnsite
     {
         private GlobalData gRFEOnSite;
         private int mCsvFileSweepCount;
-
-
         private FolderBrowserDialog mFolderDialog;
+
+
         public MainForm()
         {
             gRFEOnSite = new GlobalData();
@@ -54,7 +55,6 @@ namespace RFEOnsite
             SuspendLayout();
 
             gRFEOnSite.Graph.Chart.Dock = DockStyle.Fill;
-
             gRFEOnSite.Graph.Chart.Location = new Point(0, 50);
 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -124,10 +124,17 @@ namespace RFEOnsite
             mCsvFileSweepCount++;
         }
 
-        public void UIUpdateCallback_RFE_Configutration(RFEConfiguration fromSerialThread)
+        public void UIUpdateCallback_RFE_Configuration(RFEConfiguration fromSerialThread)
         {
-            double stopMHz;
+            // Executing on UI Thread with Series data gathered and consructed in passed from serial worker thread
 
+            // *********************************************************************
+            // *********************************************************************
+            // Updates UI with configuration data read from the physical RF Explorer
+            // *********************************************************************
+            // *********************************************************************
+            double stopMHz;
+          
             textBoxStartFrequency.Text = fromSerialThread.StartMHz.ToString();
 
             stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
@@ -149,28 +156,14 @@ namespace RFEOnsite
                 radioButtonAnalyzer.Checked = false;
                 radioButtonGenerator.Checked = true;
             }
+
+            //gRFEOnSite.ConfigurationState = true;
         }
 
         public void UIUpdateCallback_Chart(Series seriesFromExplorer)
         {
-            while (gRFEOnSite.Graph.Chart.Series.Count > 0) { gRFEOnSite.Graph.Chart.Series.RemoveAt(0); }
-           
-
-            //if (checkBoxChartRealTime.Checked)
-            //{
-            //    newSeries.Color = Color.DarkSlateGray;
-            //    newSeries.Name = "RealTime";
-            //    mGraph.Chart.Series.Add(newSeries);
-            //}
-
-            //if (checkBoxChartAverage.Checked)
-            //{
-            //    newSeries = SeriesAverage(newSeries);
-
-            //    newSeries.Color = Color.DarkGreen;
-            //    newSeries.Name = "Average";
-            //    mGraph.Chart.Series.Add(newSeries);
-            //}
+            // Executing on UI Thread with Series data gathered and consructed in passed from serial worker thread
+            gRFEOnSite.Graph.RemoveChartSeries("All");
 
             if (checkBoxChartPeak.Checked)
             {
@@ -180,8 +173,70 @@ namespace RFEOnsite
                 seriesFromExplorer.Name = "Peak";
                 gRFEOnSite.Graph.Chart.Series.Add(seriesFromExplorer);
             }
-
         }
+
+        public void UIUpdateCallback_SweepData(List<string> sweepsFromExplorer)
+        {
+            // Executing on UI Thread with Series data gathered and consructed in passed from serial worker thread - which keeps righ on executing.
+            // What is now stopping if mCapture is now false (set in thread). The thread will not capture more RF Explorer data until mCapture becomes true.
+
+            // This gets called at the completion of the number of sweeps from the Explorer worker thread
+
+            if (sweepsFromExplorer.Count != numericUpDownSweeps.Value)
+            {
+                string message;
+                string caption = "RF Explorer Sweep Error";
+                message = "The Explorer READ thread returned " + sweepsFromExplorer.Count.ToString() + " out of " + numericUpDownSweeps.Value.ToString() + " expected sweeps.";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the Exception MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+
+            // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
+            // This List is available to both the Charts and CsvEXport classes
+            gRFEOnSite.ExplorerSweepData.Clear();
+            for (int i = 0; i < sweepsFromExplorer.Count; i++)
+            {
+                gRFEOnSite.ExplorerSweepData.Add(sweepsFromExplorer[i]);
+            }
+
+            // This really does appear to clear the thread mReceivedSweeps list 
+            sweepsFromExplorer.Clear();
+
+            gRFEOnSite.GraphAverage = checkBoxChartAverage.Checked;
+            gRFEOnSite.GraphPeak = checkBoxChartPeak.Checked;
+
+            if (checkBoxSaveCsvFiles.Checked)
+            {
+                //gRFEOnSite.CsvFiles.WriteFile(gRFEOnSite.ExplorerSweepData);
+            }
+
+            List<string> value = gRFEOnSite.ExplorerSweepData;
+
+
+            // See if we have more frequencies to scan
+            // If we don't: Just graph and/or csv save and then wait for the user to click something
+            // If we do: send some sort of signal to get next frequency pair scanning in worker thread
+
+            // Temp: one pair and graph and csv Write
+
+            // Now Graph and/or Write CSV Files
+
+            if (gRFEOnSite.GraphAverage || gRFEOnSite.GraphPeak)
+            {
+                gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
+            }
+
+            if (checkBoxSaveCsvFiles.Checked)
+            {
+                //gRFEOnSite.CsvFiles.WriteFile();
+            }
+
+            buttonStartSweeps.Enabled = true;
+        }
+
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
         {
@@ -202,30 +257,39 @@ namespace RFEOnsite
             buttonFindCOMPorts.Enabled = false;
             buttonFindCOMPorts.BackColor = Color.Green;
 
-            IProgress<Series> UpdateUIChartSeries = new Progress<Series>(SERIES => UIUpdateCallback_Chart(SERIES));
-            IProgress<RFEConfiguration> UpdateUIControls = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configutration(RFE));
-            IProgress<CsvExport> UpdateCsvExport = new Progress<CsvExport>(CSV => UIUpdateCallback_CsvExport(CSV));
-            IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
+  
+            // A reference to the right hand side object (from the UI Thread) is passed to the thread through the left hand side IProcess object
+            IProgress<RFEConfiguration> UpdateUIControls    = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configuration(RFE));
+            IProgress<List<string>> UpdateUISweepData       = new Progress<List<string>>(SWEEPS => UIUpdateCallback_SweepData(SWEEPS));
+            IProgress<int> UpdateUIProgressBar              = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            await Task.Factory.StartNew(() => gRFEOnSite.Explorer.AttachSerialPortAndReceiveDataThread(UpdateUIControls, UpdateUIChartSeries, UpdateCsvExport, UpdateUIProgressBar));
+            await Task.Factory.StartNew(() => gRFEOnSite.Explorer.AttachSerialPortAndReceiveDataThread(
+                                    UpdateUIControls,
+                                    UpdateUISweepData,
+                                    UpdateUIProgressBar));
+                                 
 
             buttonSetConfiguration.Enabled = true;
         }
 
         private void buttonSetConfiguration_Click(object sender, EventArgs e)
         {
-            double startMHz;
-            double stopMHz;
-            double stepMHZ;
+            // ***********************************************************
+            // ***********************************************************
+            // Updates the physical RF Explorer with data from UI and then
+            // Updates UI Graph with configuration data read from the UI
+            // ***********************************************************
+            // ***********************************************************
 
-            startMHz = Convert.ToDouble(textBoxStartFrequency.Text);
-            stopMHz = Convert.ToDouble(textBoxStopFrequency.Text);
-            stepMHZ = Convert.ToDouble(textBoxStepSize.Text);
+            double startMHz = Convert.ToDouble(textBoxStartFrequency.Text);
+            double stopMHz = Convert.ToDouble(textBoxStopFrequency.Text);
+            double stepKHZ = Convert.ToDouble(textBoxStepSize.Text);
 
             gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz);
-
+            
             gRFEOnSite.Graph.MinX = startMHz;
             gRFEOnSite.Graph.MaxX = stopMHz;
+            gRFEOnSite.Graph.StepX = stepKHZ / 1000.0;
 
             gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
             gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
@@ -237,6 +301,8 @@ namespace RFEOnsite
 
         private void buttonStartSweeps_Click(object sender, EventArgs e)
         {
+            buttonStartSweeps.Enabled = false;
+
             gRFEOnSite.Explorer.SweepCount = (int)numericUpDownSweeps.Value;
 
             if (gRFEOnSite.WhoopPresetActive)
@@ -246,18 +312,18 @@ namespace RFEOnsite
                     double start = pair.start;
                     double stop = pair.stop;
 
-
                     gRFEOnSite.Explorer.SendConfiguration(start, stop);
+
+                    System.Threading.Thread.Sleep(100);
 
                     gRFEOnSite.Graph.MinX = start;
                     gRFEOnSite.Graph.MaxX = stop;
+                    gRFEOnSite.Graph.StepX = 0.10;
 
-                    gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
-                    gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+                    //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+                    //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
 
-                    gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
-
-                    buttonStartSweeps.Enabled = true;
+                    //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
 
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -268,8 +334,6 @@ namespace RFEOnsite
                     gRFEOnSite.Explorer.Capture = true;
                     break;
                 }
-               
-             
             }
             else
             {

@@ -145,6 +145,7 @@ namespace RFEOnsite
                 mResolutionBandwidthKHz = Convert.ToInt32(sLine.Substring(67, 5));
                 eCalculator = (eCalculator)Convert.ToUInt16(sLine.Substring(73, 3));
 
+               
                 return true;
             }
 
@@ -179,15 +180,10 @@ namespace RFEOnsite
                 return true;
             }
 
-
-            public void ReturnSweepsFromExplorer(IProgress<List<string>> sweepsProgress)
-            {
-                
-                sweepsProgress.Report(mReceivedSweep);
-            }
-
             public bool ParseChartSeriesFromExplorer(IProgress<Series> seriesProgress)
             {
+                // This is executing in the serial ReceiveData Thread
+
                 // This is updating the GUI Spectrum MS Chart with mReceivedData (serial data) from the RF Explorer
 
                 // The GUI spectrum chart Series element is actually what is being updated
@@ -215,10 +211,10 @@ namespace RFEOnsite
                     // Walk DOWN each Sweep Row using the same column index
                     for (int sweepIndex = 0; sweepIndex < mReceivedSweep.Count; sweepIndex++)
                     {
-                        dBm.AddDbmList(mReceivedSweep[sweepIndex][index + 3]);
+                        dBm.DbmToList(mReceivedSweep[sweepIndex][index + 3]);
                     }
 
-                    localSeriesPeak.Points.AddXY(mFreqencyList[index], dBm.MaxdBm());
+                    localSeriesPeak.Points.AddXY(mFreqencyList[index], dBm.MaxdBmList());
                     //localSeriesAverage.Points.AddXY(mFreqencyList[index], dBm.AveragedBm());
 
                     dBm.Clear();
@@ -233,16 +229,10 @@ namespace RFEOnsite
                 dpMaxY.MarkerSize = 5;
                 dpMaxY.MarkerStyle = MarkerStyle.Circle;
 
-                
+                //Call the callback and pass this local data to it
                 seriesProgress.Report(localSeriesPeak);
                 //series.Report(localSeriesAverage);
 
-                return true;
-            }
-
-            public bool SweepComplete()
-            {
-               
                 return true;
             }
         }

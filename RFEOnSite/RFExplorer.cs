@@ -27,6 +27,7 @@ namespace RFEOnsite
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
         public List<string> SweepData { get { return mReceivedSweep; } }
         public bool WriteCsvFiles { get { return mbWriteCsvFiles; } set { mbWriteCsvFiles = value; } }
+       
 
         
         public RFExplorer()
@@ -48,11 +49,11 @@ namespace RFEOnsite
             UpdateUIComPortText.Report(mSerialPort.ConnectedPortName);
         }
 
-        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<Series> series, IProgress<CsvExport> csvExport, IProgress<int> nProgress)
+        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<List<string>> sweepData, IProgress<int> nProgress)
         {
             //Start listening to data from the RF Explorer
             mbRunReceiveThread = true;
-            mReceiveThread = new Thread(() => ReceiveThread(configurationData, series, nProgress, csvExport));
+            mReceiveThread = new Thread(() => ReceiveThread(configurationData, sweepData, nProgress));
             mReceiveThread.Start();
         }
 
@@ -71,8 +72,6 @@ namespace RFEOnsite
             top = (amplitudeTop * 1000.0).ToString("0000");
             bottom = (amplitudeBottom * 1000.0).ToString("0000");
 
-            mReceivedSweep.Clear();
-
             // Select Proper RFE antenna Port
             if (startMHz >= 4850)
             {
@@ -88,19 +87,17 @@ namespace RFEOnsite
             // Make sure Offset is zero
             mSerialPort.SendCommand("CO\x0");
 
-
             // Reset Max Hold
             mSerialPort.SendCommand("C+\x1"); // Calculator Mode -  
 
+            // Send final configuration and ww should wait for the Explorer to return with configuration data
             mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + "," + bottom);
-
-            mConfigured = true;
         }
 
         private void ReceiveThread( IProgress<RFEConfiguration> configurationProgress, 
-                                    IProgress<Series> seriesProgress, 
-                                    IProgress<int> progressBarProgress, 
-                                    IProgress<CsvExport> csvExportProgress)
+                                    IProgress<List<string>> sweepData, 
+                                    IProgress<int> progressBarProgress)
+                                   
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
@@ -160,19 +157,17 @@ namespace RFEOnsite
                                     {
                                         // Sweeping is now done so stop and report results using two Progress callbacks.
                                         mCapture = false;
+                                        sReceived = "";
+                                        sNewText = "";
 
+                                        //mRFEConfiguration.ParseChartSeriesFromExplorer(seriesProgress);
+
+                                        //if (WriteCsvFiles)
+                                        //{
+                                        //    mRFEConfiguration.ParseCsvDataFromExplorer(csvExportProgress);
+                                        //}
+                                        sweepData.Report(mReceivedSweep);
                                         progressBarProgress.Report(0);
-
-                                        mRFEConfiguration.ParseChartSeriesFromExplorer(seriesProgress);
-
-                                        if (WriteCsvFiles)
-                                        {
-                                            mRFEConfiguration.ParseCsvDataFromExplorer(csvExportProgress);
-                                        }
-
-                                        mRFEConfiguration.SweepComplete();
-
-                                        mReceivedSweep.Clear();
                                     }
 
                                     //continue;
@@ -201,7 +196,13 @@ namespace RFEOnsite
                             if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                             {
                                 mRFEConfiguration.ParseConfiguration(sNewLine);
+
+                                // Now actually Update UI thread with configuration information 
+                                // that was obtained from the RF Explorer in this thread 
                                 configurationProgress.Report(mRFEConfiguration);
+                                mReceivedSweep.Clear();
+                                sReceived = "";
+                                sNewText = "";
                                 mConfigured = true;
                             }
                         }

@@ -10,6 +10,7 @@ namespace RFEOnSite
     {
         private List<double> mDbmList;
         private List<double> mWattsList;
+        
 
         public Decibels()
         {
@@ -23,7 +24,7 @@ namespace RFEOnSite
             mWattsList.Clear();
         }
 
-        public double MaxdBm()
+        public double MaxdBmList()
         {
             double max = -200.0;
             for (int i = 0; i < mDbmList.Count; i++)
@@ -33,7 +34,7 @@ namespace RFEOnSite
             return max;
         }
 
-        public double MaxWatts()
+        public double MaxWattsList()
         {
             double max = -200.0;
             for (int i = 0; i < mWattsList.Count; i++)
@@ -43,7 +44,7 @@ namespace RFEOnSite
             return max;
         }
 
-        public double AverageWatts()
+        public double AverageWattsList()
         {
             double sum = 0;
             for (int i = 0; i < mWattsList.Count; i++)
@@ -53,14 +54,14 @@ namespace RFEOnSite
             return sum / mWattsList.Count;
         }
 
-        public double AveragedBm()
+        public double AveragedBmList()
         {
             double sum = 0;
             for (int i = 0; i < mWattsList.Count; i++)
             {
                 sum += mWattsList[i];
             }
-            return TodBm(sum / mWattsList.Count);
+            return ConvertTodBm(sum / mWattsList.Count);
         }
         public double ConvertToWatts(double dBm)
         {
@@ -76,7 +77,7 @@ namespace RFEOnSite
             return watts;
         }
 
-        public void TodBmList(double dBm)
+        public void DbmToList(double dBm)
         {
             double watts;
 
@@ -85,7 +86,7 @@ namespace RFEOnSite
             mDbmList.Add(dBm);
         }
 
-        public void ToWattsList(double watts)
+        public void WattsToList(double watts)
         {
             double dBm;
 
@@ -94,11 +95,11 @@ namespace RFEOnSite
             mWattsList.Add(watts);
         }
 
-        public double TodBm(double watts)
+        public double ConvertTodBm(double watts)
         {
             return 10.0 * Math.Log10(1000.0 * watts);
         }
-        public void AddDbmList(char value)
+        public void ExplorerDbmToList(char value)
         {
             double dBm;
             dBm = -(Convert.ToDouble(Convert.ToInt16(value)) / 2.0);

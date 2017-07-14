@@ -4,18 +4,31 @@ using System.Collections.Generic;
 
 namespace RFEOnSite
 {
-    class GlobalData
+    public class GlobalData
     {
         private Charts mChart;
         private CsvExport mCsvExport;
         private RFExplorer mRFE;
         private WhoopTable mWhoopDownlinkTable;
+        private Decibels mDecibels;
 
         private bool mWhoop700;
         private bool mWhoop850;
         private bool mWhoopPCS;
         private bool mWhoopAWS;
         private bool mWhoopPresetActive;
+
+        private List<char> mSweepData; // Holds UI accessable copy of RF Explorer data from worker thread
+
+        private bool mGraphPeak;
+        private bool mGraphAverage;
+        private double mStartMHz;
+        private double mStopMHz;
+        private double mStepSizeMHz;
+
+        private bool mConfigurationValid;
+
+        private List<string> mRawSweepData;
 
         public GlobalData()
         {
@@ -29,6 +42,15 @@ namespace RFEOnSite
             mWhoop850 = true;
             mWhoopPCS = true;
             mWhoopAWS = true;
+
+            mRawSweepData = new List<string>();
+
+            mGraphPeak = false;
+            mGraphAverage = false;
+
+            mDecibels = new Decibels();
+
+            mConfigurationValid = false;
         }
 
         public Charts Graph { get { return mChart; } set { mChart = value; } }
@@ -41,6 +63,15 @@ namespace RFEOnSite
         public bool WhoopAWS { get { return mWhoopAWS; } set { mWhoopAWS = value; } }
 
         public WhoopTable WhoopDownLinkFrequencies { get { return mWhoopDownlinkTable; } }
+
+        public List<string> ExplorerSweepData { get { return mRawSweepData; } }
+
+        public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
+        public bool GraphAverage { get { return mGraphAverage; } set { mGraphAverage = value; } }
+            
+        public Decibels Data { get { return mDecibels; } }
+
+        //public bool ConfigurationState { get { return mConfigurationValid; } set { mConfigurationValid = value; } }
     }
 
 
