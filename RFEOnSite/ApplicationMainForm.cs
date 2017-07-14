@@ -43,6 +43,8 @@ namespace RFEOnsite
             mFolderDialog = new FolderBrowserDialog();
             mFolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
             labelCsvRootText.Text = "Root Folder for CSV Files:";
+
+            buttonSetConfiguration.Enabled = false;
         }
 
         private void InitializeChartUI()
@@ -156,8 +158,6 @@ namespace RFEOnsite
                 radioButtonAnalyzer.Checked = false;
                 radioButtonGenerator.Checked = true;
             }
-
-            //gRFEOnSite.ConfigurationState = true;
         }
 
         public void UIUpdateCallback_Chart(Series seriesFromExplorer)
@@ -182,6 +182,7 @@ namespace RFEOnsite
 
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
 
+#if DEBUG
             if (sweepsFromExplorer.Count != numericUpDownSweeps.Value)
             {
                 string message;
@@ -193,6 +194,7 @@ namespace RFEOnsite
                 // Displays the Exception MessageBox.
                 result = MessageBox.Show(message, caption, buttons);
             }
+#endif
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
             // This List is available to both the Charts and CsvEXport classes
@@ -205,8 +207,8 @@ namespace RFEOnsite
             // This really does appear to clear the thread mReceivedSweeps list 
             sweepsFromExplorer.Clear();
 
-            gRFEOnSite.GraphAverage = checkBoxChartAverage.Checked;
-            gRFEOnSite.GraphPeak = checkBoxChartPeak.Checked;
+            //gRFEOnSite.GraphAverage = checkBoxChartAverage.Checked;
+            //gRFEOnSite.GraphPeak = checkBoxChartPeak.Checked;
 
             if (checkBoxSaveCsvFiles.Checked)
             {
@@ -224,7 +226,7 @@ namespace RFEOnsite
 
             // Now Graph and/or Write CSV Files
 
-            if (gRFEOnSite.GraphAverage || gRFEOnSite.GraphPeak)
+            if (gRFEOnSite.Graph.GraphAverage || gRFEOnSite.Graph.GraphPeak)
             {
                 gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
             }
@@ -337,7 +339,7 @@ namespace RFEOnsite
             }
             else
             {
-                if (checkBoxChartRealTime.Checked || checkBoxChartAverage.Checked || checkBoxChartPeak.Checked)
+                if (checkBoxChartAutoScale.Checked || checkBoxChartAverage.Checked || checkBoxChartPeak.Checked)
                 {
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -396,20 +398,9 @@ namespace RFEOnsite
                     " store collected data in CSV Files.");
         }
 
-        private void checkBoxChartRealTime_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxChartAutoScale_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxChartRealTime.Checked)
-            {
-                checkBoxChartAverage.Enabled = false;
-                checkBoxChartPeak.Enabled = false;
-                gRFEOnSite.Explorer.Capture = true;
-            }
-            else
-            {
-                checkBoxChartAverage.Enabled = false;
-                checkBoxChartPeak.Enabled = false;
-                gRFEOnSite.Explorer.Capture = false;
-            }
+            gRFEOnSite.Graph.AutoScale = checkBoxChartAutoScale.Checked;
         }
 
         private void labelRightAttentaion_Click(object sender, EventArgs e)
@@ -471,6 +462,7 @@ namespace RFEOnsite
                         gRFEOnSite.Whoop850 = mWhoopNodeDownlinkForm.CheckBox850;
                         gRFEOnSite.WhoopPCS = mWhoopNodeDownlinkForm.CheckBoxPCS;
                         gRFEOnSite.WhoopAWS = mWhoopNodeDownlinkForm.CheckBoxAWS;
+                        buttonStartSweeps.Enabled = true;
                     }
                     else
                     {
@@ -534,14 +526,22 @@ namespace RFEOnsite
 
         private void checkBoxChartPeak_CheckedChanged(object sender, EventArgs e)
         {
-         
-            if (checkBoxChartPeak.Checked)
+            gRFEOnSite.Graph.GraphPeak = checkBoxChartPeak.Checked;
+            if (gRFEOnSite.Graph.GraphAverage == false && gRFEOnSite.Graph.GraphPeak == false)
             {
-                gRFEOnSite.Graph.Chart.Series["Peak"].Enabled = true;
+                checkBoxChartAverage.Checked = true;
+                gRFEOnSite.Graph.GraphAverage = true;
             }
-            else
+        }
+
+        private void checkBoxChartAverage_CheckedChanged(object sender, EventArgs e)
+        {
+            gRFEOnSite.Graph.GraphAverage = checkBoxChartAverage.Checked;
+
+            if (gRFEOnSite.Graph.GraphAverage == false && gRFEOnSite.Graph.GraphPeak == false)
             {
-                gRFEOnSite.Graph.Chart.Series["Peak"].Enabled = false;
+                checkBoxChartPeak.Checked = true;
+                gRFEOnSite.Graph.GraphPeak = true;
             }
         }
     }

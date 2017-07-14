@@ -86,7 +86,7 @@ namespace RFEOnsite
             this.ChartPanel = new System.Windows.Forms.Panel();
             this.checkBoxChartPeak = new System.Windows.Forms.CheckBox();
             this.checkBoxChartAverage = new System.Windows.Forms.CheckBox();
-            this.checkBoxChartRealTime = new System.Windows.Forms.CheckBox();
+            this.checkBoxChartAutoScale = new System.Windows.Forms.CheckBox();
             this.groupBoxChart = new System.Windows.Forms.GroupBox();
             this.panelChart = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -555,7 +555,7 @@ namespace RFEOnsite
             this.numericUpDownSweeps.TabIndex = 15;
             this.numericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownSweeps.Value = new decimal(new int[] {
-            150,
+            200,
             0,
             0,
             0});
@@ -643,7 +643,7 @@ namespace RFEOnsite
             // 
             this.ChartPanel.Controls.Add(this.checkBoxChartPeak);
             this.ChartPanel.Controls.Add(this.checkBoxChartAverage);
-            this.ChartPanel.Controls.Add(this.checkBoxChartRealTime);
+            this.ChartPanel.Controls.Add(this.checkBoxChartAutoScale);
             this.ChartPanel.Controls.Add(this.groupBoxChart);
             this.ChartPanel.Location = new System.Drawing.Point(399, 8);
             this.ChartPanel.Name = "ChartPanel";
@@ -666,25 +666,26 @@ namespace RFEOnsite
             // checkBoxChartAverage
             // 
             this.checkBoxChartAverage.AutoSize = true;
-            this.checkBoxChartAverage.Enabled = false;
+            this.checkBoxChartAverage.Checked = true;
+            this.checkBoxChartAverage.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxChartAverage.Location = new System.Drawing.Point(168, 420);
             this.checkBoxChartAverage.Name = "checkBoxChartAverage";
             this.checkBoxChartAverage.Size = new System.Drawing.Size(66, 17);
             this.checkBoxChartAverage.TabIndex = 2;
             this.checkBoxChartAverage.Text = "Average";
             this.checkBoxChartAverage.UseVisualStyleBackColor = true;
+            this.checkBoxChartAverage.CheckedChanged += new System.EventHandler(this.checkBoxChartAverage_CheckedChanged);
             // 
-            // checkBoxChartRealTime
+            // checkBoxChartAutoScale
             // 
-            this.checkBoxChartRealTime.AutoSize = true;
-            this.checkBoxChartRealTime.Enabled = false;
-            this.checkBoxChartRealTime.Location = new System.Drawing.Point(57, 420);
-            this.checkBoxChartRealTime.Name = "checkBoxChartRealTime";
-            this.checkBoxChartRealTime.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxChartRealTime.TabIndex = 1;
-            this.checkBoxChartRealTime.Text = "Real Time";
-            this.checkBoxChartRealTime.UseVisualStyleBackColor = true;
-            this.checkBoxChartRealTime.CheckedChanged += new System.EventHandler(this.checkBoxChartRealTime_CheckedChanged);
+            this.checkBoxChartAutoScale.AutoSize = true;
+            this.checkBoxChartAutoScale.Location = new System.Drawing.Point(57, 420);
+            this.checkBoxChartAutoScale.Name = "checkBoxChartAutoScale";
+            this.checkBoxChartAutoScale.Size = new System.Drawing.Size(78, 17);
+            this.checkBoxChartAutoScale.TabIndex = 1;
+            this.checkBoxChartAutoScale.Text = "Auto Scale";
+            this.checkBoxChartAutoScale.UseVisualStyleBackColor = true;
+            this.checkBoxChartAutoScale.CheckedChanged += new System.EventHandler(this.checkBoxChartAutoScale_CheckedChanged);
             // 
             // groupBoxChart
             // 
@@ -868,7 +869,7 @@ namespace RFEOnsite
         private Panel ChartPanel;
         private CheckBox checkBoxChartPeak;
         private CheckBox checkBoxChartAverage;
-        private CheckBox checkBoxChartRealTime;
+        private CheckBox checkBoxChartAutoScale;
         private GroupBox groupBoxChart;
         private Label label3;
         private Label labelModel;

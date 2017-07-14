@@ -26,13 +26,10 @@ namespace RFEOnSite
         private Series mSeries;
         private Series mSeriesPeak;
         private Series mSeriesAverage;
-        private bool mPeak;
-        private bool mAverage;
+        private bool mGraphPeak;
+        private bool mGraphAverage;
         private List<double> mFrequencyList;
-
-
-
-        
+        private bool mAutoScale;
 
         public Series Series { get { return mSeries; } set { mSeries = value; } }
         public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
@@ -40,9 +37,10 @@ namespace RFEOnSite
         public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
         public double MinX { get { return mMinX; } set { mMinX = value; } }
         public double StepX { get { return mStepX; } set { mStepX = value; } }
-
         public Chart Chart { get { return mChart; } }
-
+        public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
+        public bool GraphAverage { get { return mGraphAverage; } set { mGraphAverage = value; } }
+        public bool AutoScale { get { return mAutoScale; } set { mAutoScale = value; } }
 
         public Charts()
         {
@@ -61,12 +59,11 @@ namespace RFEOnSite
             mTitleFontSize = 10F;
             mBand = string.Empty;
             mTitle = "Spectrum";
-
             mChart = new Chart();
-            
-            mPeak = true;
-            mAverage = false;
+            mGraphPeak = true;
+            mGraphAverage = true;
             mFrequencyList = new List<double>();
+            mAutoScale = false;
         }
 
         public void BuildChart()
@@ -74,6 +71,7 @@ namespace RFEOnSite
             mChart.Name = "RFE";
             mChart.BackColor = System.Drawing.ColorTranslator.FromHtml(mBackColor);
             mChart.ChartAreas.Add("");
+
             mChart.ChartAreas[0].AxisX.Interval = mTickIntervalX;
             mChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
             mChart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
@@ -109,6 +107,7 @@ namespace RFEOnSite
 
             Decibels dBm = new Decibels();
             DataPoint dpMaxY;
+            DataPoint dpMinY;
 
             mFrequencyList.Clear();
             for (int index = 0; index < 112; index++)
@@ -116,9 +115,6 @@ namespace RFEOnSite
                 frequency = mMinX + (index * mStepX);
                 mFrequencyList.Add(frequency);
             }
-
-            //mSeriesPeak.Points.Clear();
-            //mSeriesAverage.Points.Clear();
 
             RemoveChartSeries("All");
 
@@ -154,8 +150,40 @@ namespace RFEOnSite
             dpMaxY.MarkerSize = 5;
             dpMaxY.MarkerStyle = MarkerStyle.Circle;
 
-            mChart.Series.Add(mSeriesPeak);
-            mChart.Series.Add(mSeriesAverage);
+            if (mAutoScale)
+            {
+                double maxY = dpMaxY.YValues[0];
+
+                dpMinY = mSeriesAverage.Points.FindMinByValue();
+                double minY = dpMinY.YValues[0];
+
+                double temp = (maxY - (maxY % mTickIntervalY));
+                temp = (temp == maxY) ? temp + mTickIntervalY : temp;
+                mChart.ChartAreas[0].AxisY.Maximum = temp;
+
+                if ((minY % mTickIntervalY) != 0)
+                {
+                    minY = (minY - (minY % mTickIntervalY)) - mTickIntervalY;
+                }
+
+                mChart.ChartAreas[0].AxisY.Minimum = minY;
+            }
+            else
+            {
+                mChart.ChartAreas[0].AxisY.Maximum = -30;
+                mChart.ChartAreas[0].AxisY.Minimum = -110;
+            }
+
+
+
+            if (mGraphPeak)
+            {
+                mChart.Series.Add(mSeriesPeak);
+            }
+            if (mGraphAverage)
+            {
+                mChart.Series.Add(mSeriesAverage);
+            }
         }
 
         public void ShowSeries(string seriesName, bool state)

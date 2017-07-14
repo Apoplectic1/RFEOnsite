@@ -144,7 +144,6 @@ namespace RFEOnsite
                 mfMaxSpanMHz = Convert.ToInt32(sLine.Substring(59, 7)) / 1000.0;
                 mResolutionBandwidthKHz = Convert.ToInt32(sLine.Substring(67, 5));
                 eCalculator = (eCalculator)Convert.ToUInt16(sLine.Substring(73, 3));
-
                
                 return true;
             }
@@ -177,62 +176,6 @@ namespace RFEOnsite
                 }
 
                 csvExportProgress.Report(localCsvExport);
-                return true;
-            }
-
-            public bool ParseChartSeriesFromExplorer(IProgress<Series> seriesProgress)
-            {
-                // This is executing in the serial ReceiveData Thread
-
-                // This is updating the GUI Spectrum MS Chart with mReceivedData (serial data) from the RF Explorer
-
-                // The GUI spectrum chart Series element is actually what is being updated
-                // mReceievedData is local to this thread and read from the RF Explorer
-                // series is local to the GUI
-
-                Decibels dBm = new Decibels();
-                DataPoint dpMaxY;
-
-                mFreqencyList.Clear();
-                for (int step = 0; step < mFreqSpectrumSteps; step++)
-                {
-                    mFreqencyList.Add(mfStartMHz + (step * mfStepMHz));
-                }
-                
-                Series localSeriesPeak = new Series();
-                Series localSeriesAverage = new Series();
-
-                localSeriesPeak.ChartType = SeriesChartType.Spline;
-                localSeriesAverage.ChartType = SeriesChartType.Spline;
-
-                // Walk across each Sweep Column
-                for (int index = 0; index != 112; index++)
-                {
-                    // Walk DOWN each Sweep Row using the same column index
-                    for (int sweepIndex = 0; sweepIndex < mReceivedSweep.Count; sweepIndex++)
-                    {
-                        dBm.DbmToList(mReceivedSweep[sweepIndex][index + 3]);
-                    }
-
-                    localSeriesPeak.Points.AddXY(mFreqencyList[index], dBm.MaxdBmList());
-                    //localSeriesAverage.Points.AddXY(mFreqencyList[index], dBm.AveragedBm());
-
-                    dBm.Clear();
-                }
-
-                localSeriesPeak.LabelBackColor = System.Drawing.Color.White;
-
-                dpMaxY = localSeriesPeak.Points.FindMaxByValue();
-                dpMaxY.Label = dpMaxY.YValues[0].ToString() + " Peak";
-                dpMaxY.Font = new System.Drawing.Font("Arial", 10f);
-                dpMaxY.MarkerColor = System.Drawing.Color.MediumBlue;
-                dpMaxY.MarkerSize = 5;
-                dpMaxY.MarkerStyle = MarkerStyle.Circle;
-
-                //Call the callback and pass this local data to it
-                seriesProgress.Report(localSeriesPeak);
-                //series.Report(localSeriesAverage);
-
                 return true;
             }
         }

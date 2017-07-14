@@ -151,7 +151,6 @@ namespace RFEOnsite
                                         progressBarProgress.Report(mSweepCount);
                                         mReceivedSweep.Add(sNewLine);
                                         mSweepCount--;
-                                        //sNewLine = String.Empty;
                                     }
                                     else
                                     {
@@ -159,18 +158,9 @@ namespace RFEOnsite
                                         mCapture = false;
                                         sReceived = "";
                                         sNewText = "";
-
-                                        //mRFEConfiguration.ParseChartSeriesFromExplorer(seriesProgress);
-
-                                        //if (WriteCsvFiles)
-                                        //{
-                                        //    mRFEConfiguration.ParseCsvDataFromExplorer(csvExportProgress);
-                                        //}
                                         sweepData.Report(mReceivedSweep);
                                         progressBarProgress.Report(0);
                                     }
-
-                                    //continue;
                                 }
                             }
                         }
@@ -207,10 +197,8 @@ namespace RFEOnsite
                             }
                         }
                     }
-
                     Thread.Sleep(10);
                 }
-
                 Thread.Sleep(500);
             }
         }
