@@ -25,14 +25,15 @@ namespace RFEOnSite
             {
                 System.Deployment.Application.ApplicationDeployment ad = System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
                 Version version = ad.CurrentVersion;
-                this.Text = "RF Explorer OnSite - Version: " + version.ToString();
+                Text = "RF Explorer OnSite - Version: " + version.ToString();
             }
             else
             {
-                this.Text = "RF Explorer OnSite - Version: " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd - HHMM");
+                Text = "RF Explorer OnSite - Version: " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd - HHMM");
             }
 
             ComboBoxPreset.SelectedIndex = 0;
+            //ComboBoxPreset.Enabled = false;
 
             InitializeChartUI();
 
@@ -122,11 +123,13 @@ namespace RFEOnSite
             {
                 RadioButtonAnalyzer.Checked = true;
                 RadioButtonGenerator.Checked = false;
+                RadioButtonGenerator.Enabled = false;
             }
             else
             {
                 RadioButtonAnalyzer.Checked = false;
                 RadioButtonGenerator.Checked = true;
+                RadioButtonAnalyzer.Enabled = false;
             }
         }
 
@@ -137,7 +140,7 @@ namespace RFEOnSite
 
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
 
-#if DEBUG
+//#if DEBUG
             if (sweepsFromExplorer.Count != NumericUpDownSweeps.Value)
             {
                 string message;
@@ -149,7 +152,7 @@ namespace RFEOnSite
                 // Displays the Exception MessageBox.
                 result = MessageBox.Show(message, caption, buttons);
             }
-#endif
+//#endif
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
             // This List is available to both the Charts and CsvEXport classes
@@ -165,6 +168,48 @@ namespace RFEOnSite
             // See if we have more frequencies to scan
             // If we don't: Just graph and/or csv save and then wait for the user to click something
             // If we do: send some sort of signal to get next frequency pair scanning in worker thread
+
+            // If Save CSV Files, Housekeeping to get a valid location
+            while (CheckBoxSaveCsvFiles.Checked && TextBoxSweepLocation.Text == "Enter Collection Identifier")
+            {
+                Form prompt = new Form()
+                {
+                    Width = 500,
+                    Height = 150,
+                    MaximizeBox = false,
+                    MinimizeBox = false,
+                    TopMost = true,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    Text = "Enter a location identifier for the current Sweep(s):",
+                    StartPosition = FormStartPosition.CenterParent
+                };
+
+                Label textLabel = new Label() { Left = 50, Top = 20, Text = "Survey Location:" };
+                TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 350 };
+                Button confirmation = new Button() { Text = "Ok", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
+                confirmation.Click += (sender, e) => { prompt.Close(); };
+                prompt.Controls.Add(textBox);
+                prompt.Controls.Add(confirmation);
+                prompt.Controls.Add(textLabel);
+                prompt.AcceptButton = confirmation;
+                
+                if (prompt.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    TextBoxSweepLocation.Text = textBox.Text;
+                    if (TextBoxSweepLocation.Text == "")
+                    {
+                        TextBoxSweepLocation.Text = "Enter Collection Identifier";
+                    }
+                }
+                else
+                {
+                    // User closed DialogBox by "X";
+                    CheckBoxSaveCsvFiles.Checked = false;
+                }
+                prompt.Dispose();
+            }
+
 
             if (CheckBoxSaveCsvFiles.Checked)
             {
@@ -188,8 +233,6 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.Path = filePath;
 
                 //gRFEOnSite.FileOps.ExportCsvFile();
-                
-
             }
 
 
@@ -250,7 +293,7 @@ namespace RFEOnSite
             double stopMHz = Convert.ToDouble(TextBoxStopFrequency.Text);
             double stepKHZ = Convert.ToDouble(TextBoxStepSize.Text);
 
-            gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz);
+            gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz, -80, -110);
 
             gRFEOnSite.Graph.MinX = startMHz;
             gRFEOnSite.Graph.MaxX = stopMHz;
@@ -289,8 +332,6 @@ namespace RFEOnSite
                     TaskProgressBar.Step = 1;
                     TaskProgressBar.Value = 0;
 
-                    gRFEOnSite.Explorer.SweepCount = 1;
-
                     gRFEOnSite.Explorer.Capture = true;
                     break;
                 }
@@ -302,8 +343,6 @@ namespace RFEOnSite
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
                     TaskProgressBar.Value = 0;
-
-                    gRFEOnSite.Explorer.SweepCount = 1;
 
                     gRFEOnSite.Explorer.Capture = true;
                 }
@@ -350,7 +389,7 @@ namespace RFEOnSite
         private void TextBoxSweepLocation_TextChanged(object sender, EventArgs e)
         {
 
-            this.ToolTip1.SetToolTip(this.TextBoxSweepLocation, "Enter a short site collection location identifier " +
+            ToolTip1.SetToolTip(TextBoxSweepLocation, "Enter a short site collection location identifier " +
                 "for data that is about to be collected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
                     " store collected data in CSV Files.");
         }

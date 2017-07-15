@@ -6,7 +6,15 @@ namespace RFEOnSite
 {
     public class Charts
     {
-        private Chart mChart;  // Microsoft Class Chart
+        private Chart mChart;
+        private List<double> mFrequencyList;
+        private Series mSeries;
+        private Series mSeriesAverage;
+        private Series mSeriesPeak;
+        private Single mTitleFontSize;
+        private bool mAutoScale;
+        private bool mGraphAverage;
+        private bool mGraphPeak;
         private double mMaxX;
         private double mMaxY;
         private double mMinX;
@@ -15,54 +23,46 @@ namespace RFEOnSite
         private double mTickIntervalX;
         private double mTickIntervalY;
         private string mBackColor;
+        private string mBand;
+        private string mChartFont;
         private string mForeColor;
         private string mTitle;
         private string mTitleX;
         private string mTitleY;
-        private string mChartFont;
-        private Single mTitleFontSize;
-        private string mBand;
-        private Series mSeries;
-        private Series mSeriesPeak;
-        private Series mSeriesAverage;
-        private bool mGraphPeak;
-        private bool mGraphAverage;
-        private List<double> mFrequencyList;
-        private bool mAutoScale;
 
-        public Series Series { get { return mSeries; } set { mSeries = value; } }
-        public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
-        public double MinY { get { return mMinY; } set { mMinY = value; } }
-        public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
-        public double MinX { get { return mMinX; } set { mMinX = value; } }
-        public double StepX { get { return mStepX; } set { mStepX = value; } }
         public Chart Chart { get { return mChart; } }
-        public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
-        public bool GraphAverage { get { return mGraphAverage; } set { mGraphAverage = value; } }
+        public Series Series { get { return mSeries; } set { mSeries = value; } }
         public bool AutoScale { get { return mAutoScale; } set { mAutoScale = value; } }
+        public bool GraphAverage { get { return mGraphAverage; } set { mGraphAverage = value; } }
+        public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
+        public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
+        public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
+        public double MinX { get { return mMinX; } set { mMinX = value; } }
+        public double MinY { get { return mMinY; } set { mMinY = value; } }
+        public double StepX { get { return mStepX; } set { mStepX = value; } }
+
 
         public Charts()
         {
+            mAutoScale = false;
             mBackColor = "#e0e0e0";
+            mBand = string.Empty;
+            mChart = new Chart();
+            mChartFont = "Arial";
             mForeColor = "#f0f0f0";
+            mFrequencyList = new List<double>();
+            mGraphAverage = true;
+            mGraphPeak = true;
             mMaxX = 2800;
             mMaxY = -25;
             mMinX = 0;
             mMinY = -110;
             mTickIntervalX = 200;
             mTickIntervalY = 10;
-            mTitle = string.Empty;
-            mChartFont = "Arial";
+            mTitle = "Spectrum";
+            mTitleFontSize = 10F;
             mTitleX = "MHz";
             mTitleY = "dBm";
-            mTitleFontSize = 10F;
-            mBand = string.Empty;
-            mTitle = "Spectrum";
-            mChart = new Chart();
-            mGraphPeak = true;
-            mGraphAverage = true;
-            mFrequencyList = new List<double>();
-            mAutoScale = false;
         }
 
         public void BuildChart()

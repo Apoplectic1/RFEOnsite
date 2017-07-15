@@ -15,8 +15,6 @@ namespace RFEOnSite
         private bool mCapture;
         private bool mConfigured;
         private int mSweepCount;
-        //volatile private bool mbRunReceiveThread;
-        private bool mbRunReceiveThread;
 
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
@@ -46,12 +44,11 @@ namespace RFEOnSite
         public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<List<string>> sweepData, IProgress<int> nProgress)
         {
             //Start listening to data from the RF Explorer
-            mbRunReceiveThread = true;
             mReceiveThread = new Thread(() => ReceiveThread(configurationData, sweepData, nProgress));
             mReceiveThread.Start();
         }
 
-        public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = 0, int amplitudeBottom = -110)
+        public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = -30, int amplitudeBottom = -110)
         {
             string start;
             string stop;
@@ -60,6 +57,8 @@ namespace RFEOnSite
 
             mCapture = false;
             mConfigured = false;
+
+            mReceivedSweep.Clear();
 
             start = (startMHz * 1000.0).ToString("0000000");
             stop = (stopMHz * 1000.0).ToString("0000000");
@@ -95,16 +94,11 @@ namespace RFEOnSite
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
-
-            //while (mbRunReceiveThread)
-            //{
             string sReceived = "";
 
-            //while (mSerialPort.RFEConnected && mbRunReceiveThread)
-                while (mSerialPort.RFEConnected)
-
-                {
-                    string sNewText = "";
+            while (mSerialPort.RFEConnected)
+            {
+                string sNewText = "";
 
                 try
                 {
@@ -148,7 +142,8 @@ namespace RFEOnSite
                             if (sNewLine.Length == 115)
                             {
                                 if (mSweepCount > 0)
-                                {
+                                {   
+                                    //Sweep until count is zero
                                     progressBarProgress.Report(mSweepCount);
                                     mReceivedSweep.Add(sNewLine);
                                     mSweepCount--;
@@ -194,13 +189,13 @@ namespace RFEOnSite
                             mReceivedSweep.Clear();
                             sReceived = "";
                             sNewText = "";
+                            sNewLine = "";
                             mConfigured = true;
                         }
                     }
                 }
+
                 Thread.Sleep(10);
-                //}
-                //Thread.Sleep(500);
             }
         }
     }
