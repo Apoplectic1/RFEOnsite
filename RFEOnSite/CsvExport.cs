@@ -36,14 +36,16 @@ namespace RFEOnSite
         private readonly string mColumnSeparator;
         private readonly bool mIncludeColumnSeparatorDefinitionPreamble;
         private List<double> mFrequencyList = new List<double>();
-        private double mfStartMHz;
-        private double mfStopMHz;
-        private double mfStepMHz;
+        private double mStartMHz;
+        private double mStopMHz;
+        private double mStepMHz;
+        private int mRowCount;
 
-        private Dictionary<string, object> mCurrentRow { get { return mRows[mRows.Count - 1]; } }
-        public double StartMHz { get { return mfStartMHz; } set { mfStartMHz = value; } }
-        public double StopMHz { get { return mfStopMHz; } set { mfStopMHz = value; } }
-        public double StepMHz { get { return mfStepMHz; } set { mfStepMHz = value; } }
+        private Dictionary<string, object> CurrentRow { get { return mRows[mRows.Count - 1]; } }
+        public double StartMHz { get { return mStartMHz; } set { mStartMHz = value; } }
+        public double StopMHz { get { return mStopMHz; } set { mStopMHz = value; } }
+        public double StepMHz { get { return mStepMHz; } set { mStepMHz = value; } }
+        public int TotalRows { get { return mRowCount; } set { mRowCount = value; } }
 
         public CsvExport(string columnSeparator = ",", bool includeColumnSeparatorDefinitionPreamble = true)
         {
@@ -57,7 +59,7 @@ namespace RFEOnSite
             {
                 // Keep track of the field names, because the dictionary loses the ordering
                 if (!mFields.Contains(field)) mFields.Add(field);
-                mCurrentRow[field] = value;
+                CurrentRow[field] = value;
             }
         }
        
@@ -150,6 +152,38 @@ namespace RFEOnSite
         {
             var data = Encoding.UTF8.GetBytes(Export());
             return Encoding.UTF8.GetPreamble().Concat(data).ToArray();
+        }
+
+
+        public bool ExportCsvFile()
+        {
+
+            string frequency;
+            List<double> frequencyList = new List<double>();
+
+            frequencyList.Clear();
+
+            for (int step = 0; step < 112; step++)
+            {
+
+                frequencyList.Add(mStartMHz + (step * mStepMHz));
+            }
+            for (int sweepIndex = 0; sweepIndex < mRowCount; sweepIndex++)
+            {
+                AddRow();
+
+                for (int index = 0; index != 112; index++)
+                {
+                    frequency = frequencyList[index].ToString();
+
+                    //this.[frequency] = SweepDdm.GetDbmAt(index).ToString();
+                }
+            }
+
+            ExportToFile("path");
+
+
+            return true;
         }
 
     }

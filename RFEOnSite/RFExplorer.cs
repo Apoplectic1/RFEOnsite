@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace RFEOnSite
 {
@@ -11,23 +12,26 @@ namespace RFEOnSite
         private RFEConfiguration mRFEConfiguration;
         private SerialPorts mSerialPort;
         private Thread mReceiveThread;
-        private bool mCapture = false;
-        private bool mConfigured = false;
+        private bool mCapture;
+        private bool mConfigured;
         private int mSweepCount;
-        volatile private bool mbRunReceiveThread;
-        
+        //volatile private bool mbRunReceiveThread;
+        private bool mbRunReceiveThread;
+
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
         public List<string> SweepData { get { return mReceivedSweep; } }
-       
-      
-        
+
+
+
         public RFExplorer()
         {
             mSerialPort = new SerialPorts();
             mReceivedSweep = new List<string>();
             mRFEConfiguration = new RFEConfiguration();
             mSweepCount = 0;
+            mConfigured = false;
+            mCapture = false;
         }
 
         public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)
@@ -84,112 +88,119 @@ namespace RFEOnSite
             mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + "," + bottom);
         }
 
-        private void ReceiveThread( IProgress<RFEConfiguration> configurationProgress, 
-                                    IProgress<List<string>> sweepData, 
+        private void ReceiveThread(IProgress<RFEConfiguration> configurationProgress,
+                                    IProgress<List<string>> sweepData,
                                     IProgress<int> progressBarProgress)
-                                   
+
         {
             string sNewLine = String.Empty;
             string sLeftOver = String.Empty;
 
-            while (mbRunReceiveThread)
-            {
-                string sReceived = "";
+            //while (mbRunReceiveThread)
+            //{
+            string sReceived = "";
 
-                while (mSerialPort.RFEConnected && mbRunReceiveThread)
+            //while (mSerialPort.RFEConnected && mbRunReceiveThread)
+                while (mSerialPort.RFEConnected)
+
                 {
                     string sNewText = "";
 
-                    try
+                try
+                {
+                    Monitor.Enter(mSerialPort);
+                    if (mSerialPort.Port.IsOpen && mSerialPort.Port.BytesToRead > 0)
                     {
-                        Monitor.Enter(mSerialPort);
-                        if (mSerialPort.Port.IsOpen && mSerialPort.Port.BytesToRead > 0)
+                        sNewText = mSerialPort.Port.ReadExisting();
+                    }
+                }
+                catch (IOException) { }
+                catch (TimeoutException) { }
+                catch (Exception) { }
+                finally
+                {
+                    Monitor.Exit(mSerialPort);
+                }
+
+                if (sNewText.Length > 0)
+                {
+                    sReceived += sNewText;
+                    sNewText = "";
+                }
+
+                if (sReceived.Length > 66 * 1024)
+                {
+                    //Safety code, some error prevented the string from being processed in several loop cycles. Reset it.
+
+                    string caption = "RF Explorer Serial Communications";
+                    string message = "Serial communication with the RF Explorer appears to be unreliable.\nCheck or replace the USB cable.";
+                    MessageBox.Show(message, caption);
+
+                    sReceived = "";
+                }
+
+                if (sReceived.Length > 0)
+                {
+                    if (mConfigured && mCapture)
+                    {
+                        if (sNewLine.StartsWith("$S"))
                         {
-                            sNewText = mSerialPort.Port.ReadExisting();
-                        }
-                    }
-                    catch (IOException) { }
-                    catch (TimeoutException) { }
-                    catch (Exception) { }
-                    finally
-                    {
-                        Monitor.Exit(mSerialPort);
-                    }
-
-                    if (sNewText.Length > 0)
-                    {
-                        sReceived += sNewText;
-                        sNewText = "";
-                    }
-
-                    if (sReceived.Length > 66 * 1024)
-                    {
-                        //Safety code, some error prevented the string from being processed in several loop cycles. Reset it.
-                        sReceived = "";
-                    }
-
-                    if (sReceived.Length > 0)
-                    {
-                        if (mConfigured && mCapture)
-                        {
-                            if (sNewLine.StartsWith("$S"))
+                            if (sNewLine.Length == 115)
                             {
-                                if (sNewLine.Length == 115)
+                                if (mSweepCount > 0)
                                 {
-                                    if (mSweepCount > 0)
-                                    {
-                                        progressBarProgress.Report(mSweepCount);
-                                        mReceivedSweep.Add(sNewLine);
-                                        mSweepCount--;
-                                    }
-                                    else
-                                    {
-                                        // Sweeping is now done so stop and report results using two Progress callbacks.
-                                        mCapture = false;
-                                        sReceived = "";
-                                        sNewText = "";
-                                        sweepData.Report(mReceivedSweep);
-                                        progressBarProgress.Report(0);
-                                    }
+                                    progressBarProgress.Report(mSweepCount);
+                                    mReceivedSweep.Add(sNewLine);
+                                    mSweepCount--;
+                                }
+                                else
+                                {
+                                    // Sweeping is now done so stop and report results using two Progress callbacks.
+                                    mCapture = false;
+                                    sReceived = "";
+                                    sNewText = "";
+                                    sweepData.Report(mReceivedSweep);
+                                    progressBarProgress.Report(0);
                                 }
                             }
                         }
+                    }
 
-                        // Ensure we have an EOL terminated string
-                        int nEndPos = sReceived.IndexOf("\r\n");
-                        if (nEndPos >= 0)
+                    // Ensure we have an EOL terminated string
+                    int nEndPos = sReceived.IndexOf("\r\n");
+                    if (nEndPos >= 0)
+                    {
+                        sNewLine = sReceived.Substring(0, nEndPos);
+                        sLeftOver = sReceived.Substring(nEndPos + 2);
+                        sReceived = sLeftOver;
+
+                        if ((sNewLine.StartsWith("#Sn")) && (sNewLine.Length == 19))
                         {
-                            sNewLine = sReceived.Substring(0, nEndPos);
-                            sLeftOver = sReceived.Substring(nEndPos + 2);
-                            sReceived = sLeftOver;
+                            mRFEConfiguration.ParseSerialNumber(sNewLine);
+                        }
 
-                            if ((sNewLine.StartsWith("#Sn")) && (sNewLine.Length == 19))
-                            {
-                                mRFEConfiguration.ParseSerialNumber(sNewLine);
-                            }
+                        if ((sNewLine.StartsWith("#C2-M:")) && (sNewLine.Length == 19))
+                        {
+                            mRFEConfiguration.ParseModelAndVersion(sNewLine);
+                        }
+                        // Look for Configuration string 
+                        if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
+                        {
+                            mRFEConfiguration.ParseConfiguration(sNewLine);
 
-                            if ((sNewLine.StartsWith("#C2-M:")) && (sNewLine.Length == 19))
-                            {
-                                mRFEConfiguration.ParseModelAndVersion(sNewLine);
-                            }
-                            // Look for Configuration string 
-                            if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
-                            {
-                                mRFEConfiguration.ParseConfiguration(sNewLine);
-
-                                // Now actually Update UI thread with configuration information 
-                                // that was obtained from the RF Explorer in this thread 
-                                configurationProgress.Report(mRFEConfiguration);
-                                mReceivedSweep.Clear();
-                                sReceived = "";
-                                sNewText = "";
-                                mConfigured = true;
-                            }
+                            // Now actually Update UI thread with configuration information 
+                            // that was obtained from the RF Explorer in this thread 
+                            configurationProgress.Report(mRFEConfiguration);
+                            mReceivedSweep.Clear();
+                            sReceived = "";
+                            sNewText = "";
+                            mConfigured = true;
                         }
                     }
-                    Thread.Sleep(10);
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(10);
+                //}
+                //Thread.Sleep(500);
             }
         }
     }

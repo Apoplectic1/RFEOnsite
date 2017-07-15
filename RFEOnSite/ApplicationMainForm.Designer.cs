@@ -251,7 +251,7 @@ namespace RFEOnSite
             this.ComboBoxPreset.Size = new System.Drawing.Size(135, 21);
             this.ComboBoxPreset.TabIndex = 25;
             this.ToolTip1.SetToolTip(this.ComboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.");
-            this.ComboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.comboBoxPreset_IndexChanged);
+            this.ComboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPreset_IndexChanged);
             // 
             // labelRightSMAAttenuationText
             // 
@@ -261,7 +261,7 @@ namespace RFEOnSite
             this.LabelRightSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
             this.LabelRightSmaAttenuationText.TabIndex = 24;
             this.LabelRightSmaAttenuationText.Text = "dB";
-            this.LabelRightSmaAttenuationText.Click += new System.EventHandler(this.labelRightSMAAttenuationText_Click);
+            this.LabelRightSmaAttenuationText.Click += new System.EventHandler(this.LabelRightSMAAttenuationText_Click);
             // 
             // textBoxRightSMAAttentuationValue
             // 
@@ -272,7 +272,7 @@ namespace RFEOnSite
             this.TextBoxRightSmaAttentuationValue.TabIndex = 23;
             this.TextBoxRightSmaAttentuationValue.Text = "0";
             this.TextBoxRightSmaAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TextBoxRightSmaAttentuationValue.TextChanged += new System.EventHandler(this.textBoxRightSMAAttentuationValue_TextChanged);
+            this.TextBoxRightSmaAttentuationValue.TextChanged += new System.EventHandler(this.TextBoxRightSMAAttentuationValue_TextChanged);
             // 
             // labelRightAttentaion
             // 
@@ -292,7 +292,7 @@ namespace RFEOnSite
             this.LabelLeftSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
             this.LabelLeftSmaAttenuationText.TabIndex = 21;
             this.LabelLeftSmaAttenuationText.Text = "dB";
-            this.LabelLeftSmaAttenuationText.Click += new System.EventHandler(this.labelLeftSMAAttenuationText_Click);
+            this.LabelLeftSmaAttenuationText.Click += new System.EventHandler(this.LabelLeftSMAAttenuationText_Click);
             // 
             // textBoxLeftSMAAttenuationValue
             // 
@@ -438,7 +438,7 @@ namespace RFEOnSite
             this.buttonDocumentation.TabIndex = 16;
             this.buttonDocumentation.Text = "RF Explorer Documentation";
             this.buttonDocumentation.UseVisualStyleBackColor = true;
-            this.buttonDocumentation.Click += new System.EventHandler(this.buttonDocumentation_Click);
+            this.buttonDocumentation.Click += new System.EventHandler(this.ButtonDocumentation_Click);
             // 
             // radioButtonGenerator
             // 
@@ -524,7 +524,7 @@ namespace RFEOnSite
             this.ButtonStartSweeps.Text = "Capture";
             this.ToolTip1.SetToolTip(this.ButtonStartSweeps, resources.GetString("buttonStartSweeps.ToolTip"));
             this.ButtonStartSweeps.UseVisualStyleBackColor = true;
-            this.ButtonStartSweeps.Click += new System.EventHandler(this.buttonStartSweeps_Click);
+            this.ButtonStartSweeps.Click += new System.EventHandler(this.ButtonStartSweeps_Click);
             // 
             // labelStartSweeps
             // 
@@ -659,7 +659,7 @@ namespace RFEOnSite
             this.CheckBoxChartPeak.TabIndex = 3;
             this.CheckBoxChartPeak.Text = "Peak";
             this.CheckBoxChartPeak.UseVisualStyleBackColor = true;
-            this.CheckBoxChartPeak.CheckedChanged += new System.EventHandler(this.checkBoxChartPeak_CheckedChanged);
+            this.CheckBoxChartPeak.CheckedChanged += new System.EventHandler(this.CheckBoxChartPeak_CheckedChanged);
             // 
             // checkBoxChartAverage
             // 
@@ -672,7 +672,7 @@ namespace RFEOnSite
             this.CheckBoxChartAverage.TabIndex = 2;
             this.CheckBoxChartAverage.Text = "Average";
             this.CheckBoxChartAverage.UseVisualStyleBackColor = true;
-            this.CheckBoxChartAverage.CheckedChanged += new System.EventHandler(this.checkBoxChartAverage_CheckedChanged);
+            this.CheckBoxChartAverage.CheckedChanged += new System.EventHandler(this.CheckBoxChartAverage_CheckedChanged);
             // 
             // checkBoxChartAutoScale
             // 
@@ -742,7 +742,7 @@ namespace RFEOnSite
             this.ToolTip1.SetToolTip(this.TextBoxSweepLocation, "Enter a short site collection location identifier for data that is about to be co" +
         "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
         " store collected data in CSV Files.");
-            this.TextBoxSweepLocation.TextChanged += new System.EventHandler(this.textBoxSweepLocation_TextChanged);
+            this.TextBoxSweepLocation.TextChanged += new System.EventHandler(this.TextBoxSweepLocation_TextChanged);
             // 
             // groupBox1
             // 

@@ -11,10 +11,11 @@ namespace RFEOnSite
 {
     public partial class MainForm : Form
     {
-        private GlobalData gRFEOnSite;
+        public GlobalData gRFEOnSite;
 
         public MainForm()
         {
+
             gRFEOnSite = new GlobalData();
 
             InitializeComponent();
@@ -186,7 +187,7 @@ namespace RFEOnSite
 
                 gRFEOnSite.FileOps.Path = filePath;
 
-                gRFEOnSite.FileOps.ExportCsvFile();
+                //gRFEOnSite.FileOps.ExportCsvFile();
                 
 
             }
@@ -263,7 +264,7 @@ namespace RFEOnSite
             ButtonStartSweeps.Enabled = true;
         }
 
-        private void buttonStartSweeps_Click(object sender, EventArgs e)
+        private void ButtonStartSweeps_Click(object sender, EventArgs e)
         {
             ButtonStartSweeps.Enabled = false;
 
@@ -296,7 +297,7 @@ namespace RFEOnSite
             }
             else
             {
-                if (CheckBoxChartAutoScale.Checked || CheckBoxChartAverage.Checked || CheckBoxChartPeak.Checked)
+                if (CheckBoxChartAverage.Checked || CheckBoxChartPeak.Checked)
                 {
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -346,7 +347,7 @@ namespace RFEOnSite
 
         }
 
-        private void textBoxSweepLocation_TextChanged(object sender, EventArgs e)
+        private void TextBoxSweepLocation_TextChanged(object sender, EventArgs e)
         {
 
             this.ToolTip1.SetToolTip(this.TextBoxSweepLocation, "Enter a short site collection location identifier " +
@@ -369,22 +370,22 @@ namespace RFEOnSite
 
         }
 
-        private void labelLeftSMAAttenuationText_Click(object sender, EventArgs e)
+        private void LabelLeftSMAAttenuationText_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void labelRightSMAAttenuationText_Click(object sender, EventArgs e)
+        private void LabelRightSMAAttenuationText_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void textBoxRightSMAAttentuationValue_TextChanged(object sender, EventArgs e)
+        private void TextBoxRightSMAAttentuationValue_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void comboBoxPreset_IndexChanged(object sender, EventArgs e)
+        private void ComboBoxPreset_IndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxPreset.SelectedItem == null)
                 return;
@@ -447,7 +448,7 @@ namespace RFEOnSite
             }
         }
 
-        private void buttonDocumentation_Click(object sender, EventArgs e)
+        private void ButtonDocumentation_Click(object sender, EventArgs e)
         {
             try
             {
@@ -481,7 +482,7 @@ namespace RFEOnSite
             }
         }
 
-        private void checkBoxChartPeak_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxChartPeak_CheckedChanged(object sender, EventArgs e)
         {
             gRFEOnSite.Graph.GraphPeak = CheckBoxChartPeak.Checked;
             if (gRFEOnSite.Graph.GraphAverage == false && gRFEOnSite.Graph.GraphPeak == false)
@@ -491,7 +492,7 @@ namespace RFEOnSite
             }
         }
 
-        private void checkBoxChartAverage_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxChartAverage_CheckedChanged(object sender, EventArgs e)
         {
             gRFEOnSite.Graph.GraphAverage = CheckBoxChartAverage.Checked;
 
