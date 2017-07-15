@@ -681,6 +681,8 @@ namespace RFEOnSite
             // CheckBoxChartAutoScale
             // 
             this.CheckBoxChartAutoScale.AutoSize = true;
+            this.CheckBoxChartAutoScale.Checked = true;
+            this.CheckBoxChartAutoScale.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CheckBoxChartAutoScale.Location = new System.Drawing.Point(57, 420);
             this.CheckBoxChartAutoScale.Name = "CheckBoxChartAutoScale";
             this.CheckBoxChartAutoScale.Size = new System.Drawing.Size(78, 17);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -140,7 +141,7 @@ namespace RFEOnSite
 
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
 
-//#if DEBUG
+            //#if DEBUG
             if (sweepsFromExplorer.Count != NumericUpDownSweeps.Value)
             {
                 string message;
@@ -152,7 +153,7 @@ namespace RFEOnSite
                 // Displays the Exception MessageBox.
                 result = MessageBox.Show(message, caption, buttons);
             }
-//#endif
+            //#endif
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
             // This List is available to both the Charts and CsvEXport classes
@@ -192,7 +193,7 @@ namespace RFEOnSite
                 prompt.Controls.Add(confirmation);
                 prompt.Controls.Add(textLabel);
                 prompt.AcceptButton = confirmation;
-                
+
                 if (prompt.ShowDialog(this) == DialogResult.OK)
                 {
                     // Read the contents of testDialog's TextBox.
@@ -243,8 +244,35 @@ namespace RFEOnSite
             }
 
             ButtonStartSweeps.Enabled = true;
-        }
 
+            if (gRFEOnSite.WhoopPresetActive)
+            {
+                foreach (PresetTableEntry pair in gRFEOnSite.PresetTable.Skip(gRFEOnSite.PresetTableIndex))
+                {
+                    gRFEOnSite.PresetTableIndex++;
+
+                    double start = pair.start;
+                    double stop = pair.stop;
+
+                    gRFEOnSite.Explorer.SendConfiguration(start, stop);
+
+                    System.Threading.Thread.Sleep(100);
+
+                    gRFEOnSite.Graph.MinX = start;
+                    gRFEOnSite.Graph.MaxX = stop;
+                    gRFEOnSite.Graph.StepX = 0.10;
+
+                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+
+                    TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
+                    TaskProgressBar.Step = 1;
+                    TaskProgressBar.Value = 0;
+
+                    gRFEOnSite.Explorer.Capture = true;
+                    break;
+                }
+            }
+        }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
         {
@@ -315,8 +343,11 @@ namespace RFEOnSite
 
             if (gRFEOnSite.WhoopPresetActive)
             {
-                foreach (FrequencyTable pair in gRFEOnSite.WhoopDownLinkFrequencies)
+                gRFEOnSite.PresetTableIndex = 0;
+                foreach (PresetTableEntry pair in gRFEOnSite.PresetTable)
                 {
+                    gRFEOnSite.PresetTableIndex++;
+
                     double start = pair.start;
                     double stop = pair.stop;
 

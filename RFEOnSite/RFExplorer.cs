@@ -147,16 +147,25 @@ namespace RFEOnSite
                                     progressBarProgress.Report(mSweepCount);
                                     mReceivedSweep.Add(sNewLine);
                                     mSweepCount--;
+
+                                    if (mSweepCount == 0)
+                                    {
+                                        mCapture = false;
+                                        sReceived = "";
+                                        sNewText = "";
+                                        sweepData.Report(mReceivedSweep);
+                                        progressBarProgress.Report(0);
+                                    }
                                 }
-                                else
-                                {
-                                    // Sweeping is now done so stop and report results using two Progress callbacks.
-                                    mCapture = false;
-                                    sReceived = "";
-                                    sNewText = "";
-                                    sweepData.Report(mReceivedSweep);
-                                    progressBarProgress.Report(0);
-                                }
+                                //else
+                                //{
+                                //    // Sweeping is now done so stop and report results using two Progress callbacks.
+                                //    mCapture = false;
+                                //    sReceived = "";
+                                //    sNewText = "";
+                                //    sweepData.Report(mReceivedSweep);
+                                //    progressBarProgress.Report(0);
+                                //}
                             }
                         }
                     }

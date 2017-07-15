@@ -44,7 +44,7 @@ namespace RFEOnSite
 
         public Charts()
         {
-            mAutoScale = false;
+            mAutoScale = true;
             mBackColor = "#e0e0e0";
             mBand = string.Empty;
             mChart = new Chart();
