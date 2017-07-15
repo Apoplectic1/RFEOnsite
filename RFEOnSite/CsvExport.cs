@@ -28,17 +28,27 @@ namespace RFEOnSite
     ///   myExport.ExportToFile("Somefile.csv");
     ///   byte[] myCsvData = myExport.ExportToBytes();
     /// </summary>
+    /// 
    	public class CsvExport
     {
-        List<string> _fields = new List<string>();
-        List<Dictionary<string, object>> _rows = new List<Dictionary<string, object>>();
-        Dictionary<string, object> _currentRow { get { return _rows[_rows.Count - 1]; } }
-        private readonly string _columnSeparator;
-        private readonly bool _includeColumnSeparatorDefinitionPreamble;
+        private List<string> mFields = new List<string>();
+        private List<Dictionary<string, object>> mRows = new List<Dictionary<string, object>>();
+        private readonly string mColumnSeparator;
+        private readonly bool mIncludeColumnSeparatorDefinitionPreamble;
+        private List<double> mFrequencyList = new List<double>();
+        private double mfStartMHz;
+        private double mfStopMHz;
+        private double mfStepMHz;
+
+        private Dictionary<string, object> mCurrentRow { get { return mRows[mRows.Count - 1]; } }
+        public double StartMHz { get { return mfStartMHz; } set { mfStartMHz = value; } }
+        public double StopMHz { get { return mfStopMHz; } set { mfStopMHz = value; } }
+        public double StepMHz { get { return mfStepMHz; } set { mfStepMHz = value; } }
+
         public CsvExport(string columnSeparator = ",", bool includeColumnSeparatorDefinitionPreamble = true)
         {
-            _columnSeparator = columnSeparator;
-            _includeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;
+            mColumnSeparator = columnSeparator;
+            mIncludeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;
         }
         
         public object this[string field]
@@ -46,14 +56,14 @@ namespace RFEOnSite
             set
             {
                 // Keep track of the field names, because the dictionary loses the ordering
-                if (!_fields.Contains(field)) _fields.Add(field);
-                _currentRow[field] = value;
+                if (!mFields.Contains(field)) mFields.Add(field);
+                mCurrentRow[field] = value;
             }
         }
        
         public void AddRow()
         {
-            _rows.Add(new Dictionary<string, object>());
+            mRows.Add(new Dictionary<string, object>());
         }
         
         public void AddRows<T>(IEnumerable<T> list)
@@ -103,19 +113,19 @@ namespace RFEOnSite
 
         private IEnumerable<string> ExportToLines()
         {
-            if (_includeColumnSeparatorDefinitionPreamble) yield return "sep=" + _columnSeparator;
+            if (mIncludeColumnSeparatorDefinitionPreamble) yield return "sep=" + mColumnSeparator;
 
             // The header
-            yield return string.Join(_columnSeparator, _fields);
+            yield return string.Join(mColumnSeparator, mFields);
 
             // The rows
-            foreach (Dictionary<string, object> row in _rows)
+            foreach (Dictionary<string, object> row in mRows)
             {
-                foreach (string k in _fields.Where(f => !row.ContainsKey(f)))
+                foreach (string k in mFields.Where(f => !row.ContainsKey(f)))
                 {
                     row[k] = null;
                 }
-                yield return string.Join(_columnSeparator, _fields.Select(field => MakeValueCsvFriendly(row[field], _columnSeparator)));
+                yield return string.Join(mColumnSeparator, mFields.Select(field => MakeValueCsvFriendly(row[field], mColumnSeparator)));
             }
         }
 
@@ -141,9 +151,6 @@ namespace RFEOnSite
             var data = Encoding.UTF8.GetBytes(Export());
             return Encoding.UTF8.GetPreamble().Concat(data).ToArray();
         }
-
-
-
 
     }
 }

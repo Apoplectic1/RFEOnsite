@@ -4,7 +4,6 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnSite
 {
-
     public class Charts
     {
         private Chart mChart;  // Microsoft Class Chart

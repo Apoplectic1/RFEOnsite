@@ -1,5 +1,4 @@
-﻿using RFEOnsite;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace RFEOnSite
@@ -8,46 +7,48 @@ namespace RFEOnSite
     {
         private Charts mChart;
         private CsvExport mCsvExport;
+        private Decibels mDecibels;
+        private FileOps mFileOps;
+        private List<string> mRawSweepData;
         private RFExplorer mRFE;
         private WhoopTable mWhoopDownlinkTable;
-        private Decibels mDecibels;
-
         private bool mWhoop700;
         private bool mWhoop850;
-        private bool mWhoopPCS;
         private bool mWhoopAWS;
+        private bool mWhoopPCS;
         private bool mWhoopPresetActive;
-       
-        private List<string> mRawSweepData;
+
 
         public GlobalData()
         {
             mChart = new Charts();
             mCsvExport = new CsvExport();
+            mDecibels = new Decibels();
+            mFileOps = new FileOps();
             mRFE = new RFExplorer();
-            mWhoopDownlinkTable = new WhoopTable();
-
-            mWhoopPresetActive = false;
+            mRawSweepData = new List<string>();
             mWhoop700 = true;
             mWhoop850 = true;
-            mWhoopPCS = true;
             mWhoopAWS = true;
- 
-            mRawSweepData = new List<string>();
-            mDecibels = new Decibels();
+            mWhoopDownlinkTable = new WhoopTable();
+            mWhoopPCS = true;
+            mWhoopPresetActive = false;
         }
 
+
         public Charts Graph { get { return mChart; } set { mChart = value; } }
-        public CsvExport CsvFiles { get { return mCsvExport; } set { mCsvExport = value; } }
+        public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
+        public Decibels Data { get { return mDecibels; } }
+        public FileOps FileOps { get { return mFileOps; } set { mFileOps = value; } }
+        public List<string> ExplorerSweepData { get { return mRawSweepData; } }
         public RFExplorer Explorer { get { return mRFE; } set { mRFE = value; } }
-        public bool WhoopPresetActive { get { return mWhoopPresetActive; } set { mWhoopPresetActive = value; } }
+        public WhoopTable WhoopDownLinkFrequencies { get { return mWhoopDownlinkTable; } }
         public bool Whoop700 { get { return mWhoop700; } set { mWhoop700 = value; } }
         public bool Whoop850 { get { return mWhoop850; } set { mWhoop850 = value; } }
-        public bool WhoopPCS { get { return mWhoopPCS; } set { mWhoopPCS = value; } }
         public bool WhoopAWS { get { return mWhoopAWS; } set { mWhoopAWS = value; } }
-        public WhoopTable WhoopDownLinkFrequencies { get { return mWhoopDownlinkTable; } }
-        public List<string> ExplorerSweepData { get { return mRawSweepData; } }
-        public Decibels Data { get { return mDecibels; } }
+        public bool WhoopPCS { get { return mWhoopPCS; } set { mWhoopPCS = value; } }
+        public bool WhoopPresetActive { get { return mWhoopPresetActive; } set { mWhoopPresetActive = value; } }
+
     }
 
 

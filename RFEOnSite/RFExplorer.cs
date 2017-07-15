@@ -1,13 +1,10 @@
-﻿using RFEOnSite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using System.Windows.Forms.DataVisualization.Charting;
 
-namespace RFEOnsite
+namespace RFEOnSite
 {
-
     public partial class RFExplorer
     {
         private static List<string> mReceivedSweep;
@@ -17,18 +14,13 @@ namespace RFEOnsite
         private bool mCapture = false;
         private bool mConfigured = false;
         private int mSweepCount;
-        private bool mbWriteCsvFiles;
         volatile private bool mbRunReceiveThread;
-        public CsvExport mCsvExport;
-
         
-
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
         public List<string> SweepData { get { return mReceivedSweep; } }
-        public bool WriteCsvFiles { get { return mbWriteCsvFiles; } set { mbWriteCsvFiles = value; } }
        
-
+      
         
         public RFExplorer()
         {
@@ -36,8 +28,6 @@ namespace RFEOnsite
             mReceivedSweep = new List<string>();
             mRFEConfiguration = new RFEConfiguration();
             mSweepCount = 0;
-            mCsvExport = new CsvExport();
-            mbWriteCsvFiles = false;
         }
 
         public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)

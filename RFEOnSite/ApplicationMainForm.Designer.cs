@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Windows.Forms;
 
-namespace RFEOnsite
+namespace RFEOnSite
 {
     partial class MainForm : Form
     {
@@ -34,203 +32,203 @@ namespace RFEOnsite
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.buttonFindCOMPorts = new System.Windows.Forms.Button();
-            this.labelRFEComPort = new System.Windows.Forms.Label();
-            this.labelStartFrequency = new System.Windows.Forms.Label();
-            this.textBoxStartFrequency = new System.Windows.Forms.TextBox();
-            this.labelStopFrequency = new System.Windows.Forms.Label();
-            this.labelRBW = new System.Windows.Forms.Label();
-            this.labelRBWKhz = new System.Windows.Forms.Label();
-            this.textBoxStopFrequency = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelFrequencyStep = new System.Windows.Forms.Label();
-            this.groupBoxConfiguration = new System.Windows.Forms.GroupBox();
+            this.ButtonFindCOMPorts = new System.Windows.Forms.Button();
+            this.LabelRFEComPort = new System.Windows.Forms.Label();
+            this.LabelStartFrequency = new System.Windows.Forms.Label();
+            this.TextBoxStartFrequency = new System.Windows.Forms.TextBox();
+            this.LabelStopFrequency = new System.Windows.Forms.Label();
+            this.LabelRBW = new System.Windows.Forms.Label();
+            this.LabelRBWKhz = new System.Windows.Forms.Label();
+            this.TextBoxStopFrequency = new System.Windows.Forms.TextBox();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.LabelFrequencyStep = new System.Windows.Forms.Label();
+            this.GroupBoxConfiguration = new System.Windows.Forms.GroupBox();
             this.labelPresets = new System.Windows.Forms.Label();
-            this.comboBoxPreset = new System.Windows.Forms.ComboBox();
-            this.labelRightSMAAttenuationText = new System.Windows.Forms.Label();
-            this.textBoxRightSMAAttentuationValue = new System.Windows.Forms.TextBox();
-            this.labelRightAttentaion = new System.Windows.Forms.Label();
-            this.labelLeftSMAAttenuationText = new System.Windows.Forms.Label();
-            this.textBoxLeftSMAAttenuationValue = new System.Windows.Forms.TextBox();
-            this.labelLeftAttenution = new System.Windows.Forms.Label();
-            this.textBoxStepSize = new System.Windows.Forms.TextBox();
-            this.textBoxRBW = new System.Windows.Forms.TextBox();
-            this.labelStopMHz = new System.Windows.Forms.Label();
+            this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
+            this.LabelRightSmaAttenuationText = new System.Windows.Forms.Label();
+            this.TextBoxRightSmaAttentuationValue = new System.Windows.Forms.TextBox();
+            this.LabelRightAttentaion = new System.Windows.Forms.Label();
+            this.LabelLeftSmaAttenuationText = new System.Windows.Forms.Label();
+            this.TextBoxLeftSmaAttenuationValue = new System.Windows.Forms.TextBox();
+            this.LabelLeftAttenution = new System.Windows.Forms.Label();
+            this.TextBoxStepSize = new System.Windows.Forms.TextBox();
+            this.TextBoxRBW = new System.Windows.Forms.TextBox();
+            this.LabelStopMHz = new System.Windows.Forms.Label();
             this.labelStartMHz = new System.Windows.Forms.Label();
-            this.radioButtonSize = new System.Windows.Forms.RadioButton();
-            this.radioButtonRBW = new System.Windows.Forms.RadioButton();
-            this.radioButtonStop = new System.Windows.Forms.RadioButton();
-            this.radioButtonStart = new System.Windows.Forms.RadioButton();
-            this.buttonSetConfiguration = new System.Windows.Forms.Button();
-            this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
+            this.RadioButtonSize = new System.Windows.Forms.RadioButton();
+            this.RadioButtonRBW = new System.Windows.Forms.RadioButton();
+            this.RadioButtonStop = new System.Windows.Forms.RadioButton();
+            this.RadioButtonStart = new System.Windows.Forms.RadioButton();
+            this.ButtonSetConfiguration = new System.Windows.Forms.Button();
+            this.GroupBoxSerialConnection = new System.Windows.Forms.GroupBox();
             this.buttonDocumentation = new System.Windows.Forms.Button();
-            this.radioButtonGenerator = new System.Windows.Forms.RadioButton();
-            this.radioButtonAnalyzer = new System.Windows.Forms.RadioButton();
-            this.labelModel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelFirmwareText = new System.Windows.Forms.Label();
-            this.labelFirmware = new System.Windows.Forms.Label();
-            this.labelModelText = new System.Windows.Forms.Label();
-            this.labelDeviceText = new System.Windows.Forms.Label();
-            this.buttonStartSweeps = new System.Windows.Forms.Button();
-            this.labelStartSweeps = new System.Windows.Forms.Label();
-            this.numericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
-            this.groupBoxSweepControl = new System.Windows.Forms.GroupBox();
-            this.labelProgressWriteCsvFile = new System.Windows.Forms.Label();
+            this.RadioButtonGenerator = new System.Windows.Forms.RadioButton();
+            this.RadioButtonAnalyzer = new System.Windows.Forms.RadioButton();
+            this.LabelModel = new System.Windows.Forms.Label();
+            this.Label3 = new System.Windows.Forms.Label();
+            this.LabelFirmwareText = new System.Windows.Forms.Label();
+            this.LabelFirmware = new System.Windows.Forms.Label();
+            this.LabelModelText = new System.Windows.Forms.Label();
+            this.LabelDeviceText = new System.Windows.Forms.Label();
+            this.ButtonStartSweeps = new System.Windows.Forms.Button();
+            this.LabelStartSweeps = new System.Windows.Forms.Label();
+            this.NumericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
+            this.GroupBoxSweepControl = new System.Windows.Forms.GroupBox();
+            this.LabelProgressWriteCsvFile = new System.Windows.Forms.Label();
             this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
-            this.textBoxCsvFileName = new System.Windows.Forms.TextBox();
-            this.checkBoxSaveCsvFiles = new System.Windows.Forms.CheckBox();
+            this.TextBoxCsvFileName = new System.Windows.Forms.TextBox();
+            this.CheckBoxSaveCsvFiles = new System.Windows.Forms.CheckBox();
             this.SweepPanel = new System.Windows.Forms.Panel();
             this.ConfigurationPanel = new System.Windows.Forms.Panel();
             this.ConnectionPanel = new System.Windows.Forms.Panel();
             this.ChartPanel = new System.Windows.Forms.Panel();
-            this.checkBoxChartPeak = new System.Windows.Forms.CheckBox();
-            this.checkBoxChartAverage = new System.Windows.Forms.CheckBox();
-            this.checkBoxChartAutoScale = new System.Windows.Forms.CheckBox();
-            this.groupBoxChart = new System.Windows.Forms.GroupBox();
-            this.panelChart = new System.Windows.Forms.Panel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelCsvRootText = new System.Windows.Forms.Label();
-            this.labelRootDirectory = new System.Windows.Forms.Label();
-            this.textBoxSweepLocation = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBoxConfiguration.SuspendLayout();
-            this.groupBoxSerialConnection.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).BeginInit();
-            this.groupBoxSweepControl.SuspendLayout();
+            this.CheckBoxChartPeak = new System.Windows.Forms.CheckBox();
+            this.CheckBoxChartAverage = new System.Windows.Forms.CheckBox();
+            this.CheckBoxChartAutoScale = new System.Windows.Forms.CheckBox();
+            this.GroupBoxChart = new System.Windows.Forms.GroupBox();
+            this.PanelChart = new System.Windows.Forms.Panel();
+            this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.LabelCsvRootText = new System.Windows.Forms.Label();
+            this.LabelRootDirectory = new System.Windows.Forms.Label();
+            this.TextBoxSweepLocation = new System.Windows.Forms.TextBox();
+            this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.GroupBox2 = new System.Windows.Forms.GroupBox();
+            this.Button2 = new System.Windows.Forms.Button();
+            this.Button1 = new System.Windows.Forms.Button();
+            this.GroupBoxConfiguration.SuspendLayout();
+            this.GroupBoxSerialConnection.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
+            this.GroupBoxSweepControl.SuspendLayout();
             this.ConfigurationPanel.SuspendLayout();
             this.ConnectionPanel.SuspendLayout();
             this.ChartPanel.SuspendLayout();
-            this.groupBoxChart.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.GroupBoxChart.SuspendLayout();
+            this.GroupBox1.SuspendLayout();
+            this.GroupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonFindCOMPorts
             // 
-            this.buttonFindCOMPorts.Location = new System.Drawing.Point(9, 20);
-            this.buttonFindCOMPorts.Name = "buttonFindCOMPorts";
-            this.buttonFindCOMPorts.Size = new System.Drawing.Size(91, 35);
-            this.buttonFindCOMPorts.TabIndex = 0;
-            this.buttonFindCOMPorts.Text = "Connect RF Explorer";
-            this.buttonFindCOMPorts.UseVisualStyleBackColor = true;
-            this.buttonFindCOMPorts.Click += new System.EventHandler(this.ButtonFindPorts_Click);
+            this.ButtonFindCOMPorts.Location = new System.Drawing.Point(9, 20);
+            this.ButtonFindCOMPorts.Name = "buttonFindCOMPorts";
+            this.ButtonFindCOMPorts.Size = new System.Drawing.Size(91, 35);
+            this.ButtonFindCOMPorts.TabIndex = 0;
+            this.ButtonFindCOMPorts.Text = "Connect RF Explorer";
+            this.ButtonFindCOMPorts.UseVisualStyleBackColor = true;
+            this.ButtonFindCOMPorts.Click += new System.EventHandler(this.ButtonFindPorts_Click);
             // 
             // labelRFEComPort
             // 
-            this.labelRFEComPort.Location = new System.Drawing.Point(108, 31);
-            this.labelRFEComPort.Name = "labelRFEComPort";
-            this.labelRFEComPort.Size = new System.Drawing.Size(82, 13);
-            this.labelRFEComPort.TabIndex = 1;
-            this.labelRFEComPort.Text = "Not Connected";
+            this.LabelRFEComPort.Location = new System.Drawing.Point(108, 31);
+            this.LabelRFEComPort.Name = "labelRFEComPort";
+            this.LabelRFEComPort.Size = new System.Drawing.Size(82, 13);
+            this.LabelRFEComPort.TabIndex = 1;
+            this.LabelRFEComPort.Text = "Not Connected";
             // 
             // labelStartFrequency
             // 
-            this.labelStartFrequency.AutoSize = true;
-            this.labelStartFrequency.Location = new System.Drawing.Point(37, 27);
-            this.labelStartFrequency.Name = "labelStartFrequency";
-            this.labelStartFrequency.Size = new System.Drawing.Size(82, 13);
-            this.labelStartFrequency.TabIndex = 2;
-            this.labelStartFrequency.Text = "Start Frequency";
+            this.LabelStartFrequency.AutoSize = true;
+            this.LabelStartFrequency.Location = new System.Drawing.Point(37, 27);
+            this.LabelStartFrequency.Name = "labelStartFrequency";
+            this.LabelStartFrequency.Size = new System.Drawing.Size(82, 13);
+            this.LabelStartFrequency.TabIndex = 2;
+            this.LabelStartFrequency.Text = "Start Frequency";
             // 
             // textBoxStartFrequency
             // 
-            this.textBoxStartFrequency.Location = new System.Drawing.Point(125, 23);
-            this.textBoxStartFrequency.Name = "textBoxStartFrequency";
-            this.textBoxStartFrequency.Size = new System.Drawing.Size(40, 20);
-            this.textBoxStartFrequency.TabIndex = 3;
-            this.textBoxStartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBoxStartFrequency.Location = new System.Drawing.Point(125, 23);
+            this.TextBoxStartFrequency.Name = "textBoxStartFrequency";
+            this.TextBoxStartFrequency.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxStartFrequency.TabIndex = 3;
+            this.TextBoxStartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelStopFrequency
             // 
-            this.labelStopFrequency.AutoSize = true;
-            this.labelStopFrequency.Location = new System.Drawing.Point(37, 51);
-            this.labelStopFrequency.Name = "labelStopFrequency";
-            this.labelStopFrequency.Size = new System.Drawing.Size(82, 13);
-            this.labelStopFrequency.TabIndex = 4;
-            this.labelStopFrequency.Text = "Stop Frequency";
+            this.LabelStopFrequency.AutoSize = true;
+            this.LabelStopFrequency.Location = new System.Drawing.Point(37, 51);
+            this.LabelStopFrequency.Name = "labelStopFrequency";
+            this.LabelStopFrequency.Size = new System.Drawing.Size(82, 13);
+            this.LabelStopFrequency.TabIndex = 4;
+            this.LabelStopFrequency.Text = "Stop Frequency";
             // 
             // labelRBW
             // 
-            this.labelRBW.AutoSize = true;
-            this.labelRBW.Location = new System.Drawing.Point(9, 75);
-            this.labelRBW.Name = "labelRBW";
-            this.labelRBW.Size = new System.Drawing.Size(110, 13);
-            this.labelRBW.TabIndex = 5;
-            this.labelRBW.Text = "Resolution Bandwidth";
-            this.toolTip1.SetToolTip(this.labelRBW, resources.GetString("labelRBW.ToolTip"));
+            this.LabelRBW.AutoSize = true;
+            this.LabelRBW.Location = new System.Drawing.Point(9, 75);
+            this.LabelRBW.Name = "labelRBW";
+            this.LabelRBW.Size = new System.Drawing.Size(110, 13);
+            this.LabelRBW.TabIndex = 5;
+            this.LabelRBW.Text = "Resolution Bandwidth";
+            this.ToolTip1.SetToolTip(this.LabelRBW, resources.GetString("labelRBW.ToolTip"));
             // 
             // labelRBWKhz
             // 
-            this.labelRBWKhz.AutoSize = true;
-            this.labelRBWKhz.Location = new System.Drawing.Point(167, 75);
-            this.labelRBWKhz.Name = "labelRBWKhz";
-            this.labelRBWKhz.Size = new System.Drawing.Size(27, 13);
-            this.labelRBWKhz.TabIndex = 6;
-            this.labelRBWKhz.Text = "KHz";
+            this.LabelRBWKhz.AutoSize = true;
+            this.LabelRBWKhz.Location = new System.Drawing.Point(167, 75);
+            this.LabelRBWKhz.Name = "labelRBWKhz";
+            this.LabelRBWKhz.Size = new System.Drawing.Size(27, 13);
+            this.LabelRBWKhz.TabIndex = 6;
+            this.LabelRBWKhz.Text = "KHz";
             // 
             // textBoxStopFrequency
             // 
-            this.textBoxStopFrequency.Location = new System.Drawing.Point(125, 47);
-            this.textBoxStopFrequency.Name = "textBoxStopFrequency";
-            this.textBoxStopFrequency.Size = new System.Drawing.Size(40, 20);
-            this.textBoxStopFrequency.TabIndex = 7;
-            this.textBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBoxStopFrequency.Location = new System.Drawing.Point(125, 47);
+            this.TextBoxStopFrequency.Name = "textBoxStopFrequency";
+            this.TextBoxStopFrequency.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxStopFrequency.TabIndex = 7;
+            this.TextBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 99);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Frequency Step";
+            this.Label2.AutoSize = true;
+            this.Label2.Location = new System.Drawing.Point(37, 99);
+            this.Label2.Name = "label2";
+            this.Label2.Size = new System.Drawing.Size(82, 13);
+            this.Label2.TabIndex = 8;
+            this.Label2.Text = "Frequency Step";
             // 
             // labelFrequencyStep
             // 
-            this.labelFrequencyStep.AutoSize = true;
-            this.labelFrequencyStep.Location = new System.Drawing.Point(167, 99);
-            this.labelFrequencyStep.Name = "labelFrequencyStep";
-            this.labelFrequencyStep.Size = new System.Drawing.Size(27, 13);
-            this.labelFrequencyStep.TabIndex = 9;
-            this.labelFrequencyStep.Text = "KHz";
+            this.LabelFrequencyStep.AutoSize = true;
+            this.LabelFrequencyStep.Location = new System.Drawing.Point(167, 99);
+            this.LabelFrequencyStep.Name = "labelFrequencyStep";
+            this.LabelFrequencyStep.Size = new System.Drawing.Size(27, 13);
+            this.LabelFrequencyStep.TabIndex = 9;
+            this.LabelFrequencyStep.Text = "KHz";
             // 
             // groupBoxConfiguration
             // 
-            this.groupBoxConfiguration.Controls.Add(this.labelPresets);
-            this.groupBoxConfiguration.Controls.Add(this.comboBoxPreset);
-            this.groupBoxConfiguration.Controls.Add(this.labelRightSMAAttenuationText);
-            this.groupBoxConfiguration.Controls.Add(this.textBoxRightSMAAttentuationValue);
-            this.groupBoxConfiguration.Controls.Add(this.labelRightAttentaion);
-            this.groupBoxConfiguration.Controls.Add(this.labelLeftSMAAttenuationText);
-            this.groupBoxConfiguration.Controls.Add(this.textBoxLeftSMAAttenuationValue);
-            this.groupBoxConfiguration.Controls.Add(this.labelLeftAttenution);
-            this.groupBoxConfiguration.Controls.Add(this.textBoxStepSize);
-            this.groupBoxConfiguration.Controls.Add(this.textBoxRBW);
-            this.groupBoxConfiguration.Controls.Add(this.labelStopMHz);
-            this.groupBoxConfiguration.Controls.Add(this.labelStartMHz);
-            this.groupBoxConfiguration.Controls.Add(this.radioButtonSize);
-            this.groupBoxConfiguration.Controls.Add(this.radioButtonRBW);
-            this.groupBoxConfiguration.Controls.Add(this.radioButtonStop);
-            this.groupBoxConfiguration.Controls.Add(this.radioButtonStart);
-            this.groupBoxConfiguration.Controls.Add(this.buttonSetConfiguration);
-            this.groupBoxConfiguration.Controls.Add(this.labelFrequencyStep);
-            this.groupBoxConfiguration.Controls.Add(this.labelStartFrequency);
-            this.groupBoxConfiguration.Controls.Add(this.label2);
-            this.groupBoxConfiguration.Controls.Add(this.textBoxStartFrequency);
-            this.groupBoxConfiguration.Controls.Add(this.textBoxStopFrequency);
-            this.groupBoxConfiguration.Controls.Add(this.labelStopFrequency);
-            this.groupBoxConfiguration.Controls.Add(this.labelRBWKhz);
-            this.groupBoxConfiguration.Controls.Add(this.labelRBW);
-            this.groupBoxConfiguration.Location = new System.Drawing.Point(3, 3);
-            this.groupBoxConfiguration.Name = "groupBoxConfiguration";
-            this.groupBoxConfiguration.Size = new System.Drawing.Size(373, 186);
-            this.groupBoxConfiguration.TabIndex = 10;
-            this.groupBoxConfiguration.TabStop = false;
-            this.groupBoxConfiguration.Text = "Current Configuration";
+            this.GroupBoxConfiguration.Controls.Add(this.labelPresets);
+            this.GroupBoxConfiguration.Controls.Add(this.ComboBoxPreset);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelRightSmaAttenuationText);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxRightSmaAttentuationValue);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelRightAttentaion);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftSmaAttenuationText);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxLeftSmaAttenuationValue);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAttenution);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStepSize);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxRBW);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelStopMHz);
+            this.GroupBoxConfiguration.Controls.Add(this.labelStartMHz);
+            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonSize);
+            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonRBW);
+            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonStop);
+            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonStart);
+            this.GroupBoxConfiguration.Controls.Add(this.ButtonSetConfiguration);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelFrequencyStep);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelStartFrequency);
+            this.GroupBoxConfiguration.Controls.Add(this.Label2);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStartFrequency);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStopFrequency);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelStopFrequency);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelRBWKhz);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelRBW);
+            this.GroupBoxConfiguration.Location = new System.Drawing.Point(3, 3);
+            this.GroupBoxConfiguration.Name = "groupBoxConfiguration";
+            this.GroupBoxConfiguration.Size = new System.Drawing.Size(373, 186);
+            this.GroupBoxConfiguration.TabIndex = 10;
+            this.GroupBoxConfiguration.TabStop = false;
+            this.GroupBoxConfiguration.Text = "Current Configuration";
             // 
             // labelPresets
             // 
@@ -243,105 +241,105 @@ namespace RFEOnsite
             // 
             // comboBoxPreset
             // 
-            this.comboBoxPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPreset.FormattingEnabled = true;
-            this.comboBoxPreset.Items.AddRange(new object[] {
+            this.ComboBoxPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxPreset.FormattingEnabled = true;
+            this.ComboBoxPreset.Items.AddRange(new object[] {
             "Manual Configuration",
             "Whoop Downlink"});
-            this.comboBoxPreset.Location = new System.Drawing.Point(216, 157);
-            this.comboBoxPreset.Name = "comboBoxPreset";
-            this.comboBoxPreset.Size = new System.Drawing.Size(135, 21);
-            this.comboBoxPreset.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.comboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.");
-            this.comboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.comboBoxPreset_IndexChanged);
+            this.ComboBoxPreset.Location = new System.Drawing.Point(216, 157);
+            this.ComboBoxPreset.Name = "comboBoxPreset";
+            this.ComboBoxPreset.Size = new System.Drawing.Size(135, 21);
+            this.ComboBoxPreset.TabIndex = 25;
+            this.ToolTip1.SetToolTip(this.ComboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.");
+            this.ComboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.comboBoxPreset_IndexChanged);
             // 
             // labelRightSMAAttenuationText
             // 
-            this.labelRightSMAAttenuationText.AutoSize = true;
-            this.labelRightSMAAttenuationText.Location = new System.Drawing.Point(166, 161);
-            this.labelRightSMAAttenuationText.Name = "labelRightSMAAttenuationText";
-            this.labelRightSMAAttenuationText.Size = new System.Drawing.Size(20, 13);
-            this.labelRightSMAAttenuationText.TabIndex = 24;
-            this.labelRightSMAAttenuationText.Text = "dB";
-            this.labelRightSMAAttenuationText.Click += new System.EventHandler(this.labelRightSMAAttenuationText_Click);
+            this.LabelRightSmaAttenuationText.AutoSize = true;
+            this.LabelRightSmaAttenuationText.Location = new System.Drawing.Point(166, 161);
+            this.LabelRightSmaAttenuationText.Name = "labelRightSMAAttenuationText";
+            this.LabelRightSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
+            this.LabelRightSmaAttenuationText.TabIndex = 24;
+            this.LabelRightSmaAttenuationText.Text = "dB";
+            this.LabelRightSmaAttenuationText.Click += new System.EventHandler(this.labelRightSMAAttenuationText_Click);
             // 
             // textBoxRightSMAAttentuationValue
             // 
-            this.textBoxRightSMAAttentuationValue.Enabled = false;
-            this.textBoxRightSMAAttentuationValue.Location = new System.Drawing.Point(144, 157);
-            this.textBoxRightSMAAttentuationValue.Name = "textBoxRightSMAAttentuationValue";
-            this.textBoxRightSMAAttentuationValue.Size = new System.Drawing.Size(20, 20);
-            this.textBoxRightSMAAttentuationValue.TabIndex = 23;
-            this.textBoxRightSMAAttentuationValue.Text = "0";
-            this.textBoxRightSMAAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxRightSMAAttentuationValue.TextChanged += new System.EventHandler(this.textBoxRightSMAAttentuationValue_TextChanged);
+            this.TextBoxRightSmaAttentuationValue.Enabled = false;
+            this.TextBoxRightSmaAttentuationValue.Location = new System.Drawing.Point(144, 157);
+            this.TextBoxRightSmaAttentuationValue.Name = "textBoxRightSMAAttentuationValue";
+            this.TextBoxRightSmaAttentuationValue.Size = new System.Drawing.Size(20, 20);
+            this.TextBoxRightSmaAttentuationValue.TabIndex = 23;
+            this.TextBoxRightSmaAttentuationValue.Text = "0";
+            this.TextBoxRightSmaAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxRightSmaAttentuationValue.TextChanged += new System.EventHandler(this.textBoxRightSMAAttentuationValue_TextChanged);
             // 
             // labelRightAttentaion
             // 
-            this.labelRightAttentaion.AutoSize = true;
-            this.labelRightAttentaion.Location = new System.Drawing.Point(33, 161);
-            this.labelRightAttentaion.Name = "labelRightAttentaion";
-            this.labelRightAttentaion.Size = new System.Drawing.Size(110, 13);
-            this.labelRightAttentaion.TabIndex = 22;
-            this.labelRightAttentaion.Text = "Right SMA Attenuator";
-            this.labelRightAttentaion.Click += new System.EventHandler(this.labelRightAttentaion_Click);
+            this.LabelRightAttentaion.AutoSize = true;
+            this.LabelRightAttentaion.Location = new System.Drawing.Point(33, 161);
+            this.LabelRightAttentaion.Name = "labelRightAttentaion";
+            this.LabelRightAttentaion.Size = new System.Drawing.Size(110, 13);
+            this.LabelRightAttentaion.TabIndex = 22;
+            this.LabelRightAttentaion.Text = "Right SMA Attenuator";
+            this.LabelRightAttentaion.Click += new System.EventHandler(this.LabelRightAttentaion_Click);
             // 
             // labelLeftSMAAttenuationText
             // 
-            this.labelLeftSMAAttenuationText.AutoSize = true;
-            this.labelLeftSMAAttenuationText.Location = new System.Drawing.Point(166, 135);
-            this.labelLeftSMAAttenuationText.Name = "labelLeftSMAAttenuationText";
-            this.labelLeftSMAAttenuationText.Size = new System.Drawing.Size(20, 13);
-            this.labelLeftSMAAttenuationText.TabIndex = 21;
-            this.labelLeftSMAAttenuationText.Text = "dB";
-            this.labelLeftSMAAttenuationText.Click += new System.EventHandler(this.labelLeftSMAAttenuationText_Click);
+            this.LabelLeftSmaAttenuationText.AutoSize = true;
+            this.LabelLeftSmaAttenuationText.Location = new System.Drawing.Point(166, 135);
+            this.LabelLeftSmaAttenuationText.Name = "labelLeftSMAAttenuationText";
+            this.LabelLeftSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
+            this.LabelLeftSmaAttenuationText.TabIndex = 21;
+            this.LabelLeftSmaAttenuationText.Text = "dB";
+            this.LabelLeftSmaAttenuationText.Click += new System.EventHandler(this.labelLeftSMAAttenuationText_Click);
             // 
             // textBoxLeftSMAAttenuationValue
             // 
-            this.textBoxLeftSMAAttenuationValue.Enabled = false;
-            this.textBoxLeftSMAAttenuationValue.Location = new System.Drawing.Point(144, 131);
-            this.textBoxLeftSMAAttenuationValue.Name = "textBoxLeftSMAAttenuationValue";
-            this.textBoxLeftSMAAttenuationValue.Size = new System.Drawing.Size(20, 20);
-            this.textBoxLeftSMAAttenuationValue.TabIndex = 20;
-            this.textBoxLeftSMAAttenuationValue.Text = "0";
-            this.textBoxLeftSMAAttenuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxLeftSMAAttenuationValue.TextChanged += new System.EventHandler(this.textBoxLeftSMAAttenuationValue_TextChanged);
+            this.TextBoxLeftSmaAttenuationValue.Enabled = false;
+            this.TextBoxLeftSmaAttenuationValue.Location = new System.Drawing.Point(144, 131);
+            this.TextBoxLeftSmaAttenuationValue.Name = "textBoxLeftSMAAttenuationValue";
+            this.TextBoxLeftSmaAttenuationValue.Size = new System.Drawing.Size(20, 20);
+            this.TextBoxLeftSmaAttenuationValue.TabIndex = 20;
+            this.TextBoxLeftSmaAttenuationValue.Text = "0";
+            this.TextBoxLeftSmaAttenuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxLeftSmaAttenuationValue.TextChanged += new System.EventHandler(this.TextBoxLeftSMAAttenuationValue_TextChanged);
             // 
             // labelLeftAttenution
             // 
-            this.labelLeftAttenution.AutoSize = true;
-            this.labelLeftAttenution.Location = new System.Drawing.Point(40, 135);
-            this.labelLeftAttenution.Name = "labelLeftAttenution";
-            this.labelLeftAttenution.Size = new System.Drawing.Size(103, 13);
-            this.labelLeftAttenution.TabIndex = 19;
-            this.labelLeftAttenution.Text = "Left SMA Attenuator";
+            this.LabelLeftAttenution.AutoSize = true;
+            this.LabelLeftAttenution.Location = new System.Drawing.Point(40, 135);
+            this.LabelLeftAttenution.Name = "labelLeftAttenution";
+            this.LabelLeftAttenution.Size = new System.Drawing.Size(103, 13);
+            this.LabelLeftAttenution.TabIndex = 19;
+            this.LabelLeftAttenution.Text = "Left SMA Attenuator";
             // 
             // textBoxStepSize
             // 
-            this.textBoxStepSize.Location = new System.Drawing.Point(125, 95);
-            this.textBoxStepSize.Name = "textBoxStepSize";
-            this.textBoxStepSize.Size = new System.Drawing.Size(40, 20);
-            this.textBoxStepSize.TabIndex = 18;
-            this.textBoxStepSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBoxStepSize.Location = new System.Drawing.Point(125, 95);
+            this.TextBoxStepSize.Name = "textBoxStepSize";
+            this.TextBoxStepSize.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxStepSize.TabIndex = 18;
+            this.TextBoxStepSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBoxRBW
             // 
-            this.textBoxRBW.Location = new System.Drawing.Point(125, 71);
-            this.textBoxRBW.Name = "textBoxRBW";
-            this.textBoxRBW.ReadOnly = true;
-            this.textBoxRBW.Size = new System.Drawing.Size(40, 20);
-            this.textBoxRBW.TabIndex = 17;
-            this.textBoxRBW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.textBoxRBW, "RBW is not directly settable and is based on Span.");
+            this.TextBoxRBW.Location = new System.Drawing.Point(125, 71);
+            this.TextBoxRBW.Name = "textBoxRBW";
+            this.TextBoxRBW.ReadOnly = true;
+            this.TextBoxRBW.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxRBW.TabIndex = 17;
+            this.TextBoxRBW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip1.SetToolTip(this.TextBoxRBW, "RBW is not directly settable and is based on Span.");
             // 
             // labelStopMHz
             // 
-            this.labelStopMHz.AutoSize = true;
-            this.labelStopMHz.Location = new System.Drawing.Point(167, 51);
-            this.labelStopMHz.Name = "labelStopMHz";
-            this.labelStopMHz.Size = new System.Drawing.Size(29, 13);
-            this.labelStopMHz.TabIndex = 16;
-            this.labelStopMHz.Text = "MHz";
+            this.LabelStopMHz.AutoSize = true;
+            this.LabelStopMHz.Location = new System.Drawing.Point(167, 51);
+            this.LabelStopMHz.Name = "labelStopMHz";
+            this.LabelStopMHz.Size = new System.Drawing.Size(29, 13);
+            this.LabelStopMHz.TabIndex = 16;
+            this.LabelStopMHz.Text = "MHz";
             // 
             // labelStartMHz
             // 
@@ -354,83 +352,83 @@ namespace RFEOnsite
             // 
             // radioButtonSize
             // 
-            this.radioButtonSize.AutoSize = true;
-            this.radioButtonSize.Enabled = false;
-            this.radioButtonSize.Location = new System.Drawing.Point(210, 97);
-            this.radioButtonSize.Name = "radioButtonSize";
-            this.radioButtonSize.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonSize.TabIndex = 14;
-            this.radioButtonSize.TabStop = true;
-            this.radioButtonSize.Text = "Solve";
-            this.radioButtonSize.UseVisualStyleBackColor = true;
+            this.RadioButtonSize.AutoSize = true;
+            this.RadioButtonSize.Enabled = false;
+            this.RadioButtonSize.Location = new System.Drawing.Point(210, 97);
+            this.RadioButtonSize.Name = "radioButtonSize";
+            this.RadioButtonSize.Size = new System.Drawing.Size(52, 17);
+            this.RadioButtonSize.TabIndex = 14;
+            this.RadioButtonSize.TabStop = true;
+            this.RadioButtonSize.Text = "Solve";
+            this.RadioButtonSize.UseVisualStyleBackColor = true;
             // 
             // radioButtonRBW
             // 
-            this.radioButtonRBW.AutoSize = true;
-            this.radioButtonRBW.Enabled = false;
-            this.radioButtonRBW.Location = new System.Drawing.Point(210, 73);
-            this.radioButtonRBW.Name = "radioButtonRBW";
-            this.radioButtonRBW.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonRBW.TabIndex = 13;
-            this.radioButtonRBW.TabStop = true;
-            this.radioButtonRBW.Text = "Solve";
-            this.radioButtonRBW.UseVisualStyleBackColor = true;
+            this.RadioButtonRBW.AutoSize = true;
+            this.RadioButtonRBW.Enabled = false;
+            this.RadioButtonRBW.Location = new System.Drawing.Point(210, 73);
+            this.RadioButtonRBW.Name = "radioButtonRBW";
+            this.RadioButtonRBW.Size = new System.Drawing.Size(52, 17);
+            this.RadioButtonRBW.TabIndex = 13;
+            this.RadioButtonRBW.TabStop = true;
+            this.RadioButtonRBW.Text = "Solve";
+            this.RadioButtonRBW.UseVisualStyleBackColor = true;
             // 
             // radioButtonStop
             // 
-            this.radioButtonStop.AutoSize = true;
-            this.radioButtonStop.Enabled = false;
-            this.radioButtonStop.Location = new System.Drawing.Point(210, 49);
-            this.radioButtonStop.Name = "radioButtonStop";
-            this.radioButtonStop.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonStop.TabIndex = 12;
-            this.radioButtonStop.TabStop = true;
-            this.radioButtonStop.Text = "Solve";
-            this.radioButtonStop.UseVisualStyleBackColor = true;
+            this.RadioButtonStop.AutoSize = true;
+            this.RadioButtonStop.Enabled = false;
+            this.RadioButtonStop.Location = new System.Drawing.Point(210, 49);
+            this.RadioButtonStop.Name = "radioButtonStop";
+            this.RadioButtonStop.Size = new System.Drawing.Size(52, 17);
+            this.RadioButtonStop.TabIndex = 12;
+            this.RadioButtonStop.TabStop = true;
+            this.RadioButtonStop.Text = "Solve";
+            this.RadioButtonStop.UseVisualStyleBackColor = true;
             // 
             // radioButtonStart
             // 
-            this.radioButtonStart.AutoSize = true;
-            this.radioButtonStart.Enabled = false;
-            this.radioButtonStart.Location = new System.Drawing.Point(210, 25);
-            this.radioButtonStart.Name = "radioButtonStart";
-            this.radioButtonStart.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonStart.TabIndex = 11;
-            this.radioButtonStart.TabStop = true;
-            this.radioButtonStart.Text = "Solve";
-            this.radioButtonStart.UseVisualStyleBackColor = true;
+            this.RadioButtonStart.AutoSize = true;
+            this.RadioButtonStart.Enabled = false;
+            this.RadioButtonStart.Location = new System.Drawing.Point(210, 25);
+            this.RadioButtonStart.Name = "radioButtonStart";
+            this.RadioButtonStart.Size = new System.Drawing.Size(52, 17);
+            this.RadioButtonStart.TabIndex = 11;
+            this.RadioButtonStart.TabStop = true;
+            this.RadioButtonStart.Text = "Solve";
+            this.RadioButtonStart.UseVisualStyleBackColor = true;
             // 
             // buttonSetConfiguration
             // 
-            this.buttonSetConfiguration.Enabled = false;
-            this.buttonSetConfiguration.Location = new System.Drawing.Point(274, 61);
-            this.buttonSetConfiguration.Name = "buttonSetConfiguration";
-            this.buttonSetConfiguration.Size = new System.Drawing.Size(75, 23);
-            this.buttonSetConfiguration.TabIndex = 10;
-            this.buttonSetConfiguration.Text = "Set";
-            this.toolTip1.SetToolTip(this.buttonSetConfiguration, "Solve for Radio Selected Value");
-            this.buttonSetConfiguration.UseVisualStyleBackColor = true;
-            this.buttonSetConfiguration.Click += new System.EventHandler(this.buttonSetConfiguration_Click);
+            this.ButtonSetConfiguration.Enabled = false;
+            this.ButtonSetConfiguration.Location = new System.Drawing.Point(274, 61);
+            this.ButtonSetConfiguration.Name = "buttonSetConfiguration";
+            this.ButtonSetConfiguration.Size = new System.Drawing.Size(75, 23);
+            this.ButtonSetConfiguration.TabIndex = 10;
+            this.ButtonSetConfiguration.Text = "Set";
+            this.ToolTip1.SetToolTip(this.ButtonSetConfiguration, "Solve for Radio Selected Value");
+            this.ButtonSetConfiguration.UseVisualStyleBackColor = true;
+            this.ButtonSetConfiguration.Click += new System.EventHandler(this.ButtonSetConfiguration_Click);
             // 
             // groupBoxSerialConnection
             // 
-            this.groupBoxSerialConnection.Controls.Add(this.buttonDocumentation);
-            this.groupBoxSerialConnection.Controls.Add(this.radioButtonGenerator);
-            this.groupBoxSerialConnection.Controls.Add(this.radioButtonAnalyzer);
-            this.groupBoxSerialConnection.Controls.Add(this.labelModel);
-            this.groupBoxSerialConnection.Controls.Add(this.label3);
-            this.groupBoxSerialConnection.Controls.Add(this.labelFirmwareText);
-            this.groupBoxSerialConnection.Controls.Add(this.labelFirmware);
-            this.groupBoxSerialConnection.Controls.Add(this.labelModelText);
-            this.groupBoxSerialConnection.Controls.Add(this.labelDeviceText);
-            this.groupBoxSerialConnection.Controls.Add(this.buttonFindCOMPorts);
-            this.groupBoxSerialConnection.Controls.Add(this.labelRFEComPort);
-            this.groupBoxSerialConnection.Location = new System.Drawing.Point(3, 4);
-            this.groupBoxSerialConnection.Name = "groupBoxSerialConnection";
-            this.groupBoxSerialConnection.Size = new System.Drawing.Size(373, 110);
-            this.groupBoxSerialConnection.TabIndex = 12;
-            this.groupBoxSerialConnection.TabStop = false;
-            this.groupBoxSerialConnection.Text = "RF Explorer Connection";
+            this.GroupBoxSerialConnection.Controls.Add(this.buttonDocumentation);
+            this.GroupBoxSerialConnection.Controls.Add(this.RadioButtonGenerator);
+            this.GroupBoxSerialConnection.Controls.Add(this.RadioButtonAnalyzer);
+            this.GroupBoxSerialConnection.Controls.Add(this.LabelModel);
+            this.GroupBoxSerialConnection.Controls.Add(this.Label3);
+            this.GroupBoxSerialConnection.Controls.Add(this.LabelFirmwareText);
+            this.GroupBoxSerialConnection.Controls.Add(this.LabelFirmware);
+            this.GroupBoxSerialConnection.Controls.Add(this.LabelModelText);
+            this.GroupBoxSerialConnection.Controls.Add(this.LabelDeviceText);
+            this.GroupBoxSerialConnection.Controls.Add(this.ButtonFindCOMPorts);
+            this.GroupBoxSerialConnection.Controls.Add(this.LabelRFEComPort);
+            this.GroupBoxSerialConnection.Location = new System.Drawing.Point(3, 4);
+            this.GroupBoxSerialConnection.Name = "groupBoxSerialConnection";
+            this.GroupBoxSerialConnection.Size = new System.Drawing.Size(373, 110);
+            this.GroupBoxSerialConnection.TabIndex = 12;
+            this.GroupBoxSerialConnection.TabStop = false;
+            this.GroupBoxSerialConnection.Text = "RF Explorer Connection";
             // 
             // buttonDocumentation
             // 
@@ -444,117 +442,117 @@ namespace RFEOnsite
             // 
             // radioButtonGenerator
             // 
-            this.radioButtonGenerator.AutoSize = true;
-            this.radioButtonGenerator.Location = new System.Drawing.Point(12, 86);
-            this.radioButtonGenerator.Name = "radioButtonGenerator";
-            this.radioButtonGenerator.Size = new System.Drawing.Size(104, 17);
-            this.radioButtonGenerator.TabIndex = 15;
-            this.radioButtonGenerator.TabStop = true;
-            this.radioButtonGenerator.Text = "Signal Generator";
-            this.radioButtonGenerator.UseVisualStyleBackColor = true;
+            this.RadioButtonGenerator.AutoSize = true;
+            this.RadioButtonGenerator.Location = new System.Drawing.Point(12, 86);
+            this.RadioButtonGenerator.Name = "radioButtonGenerator";
+            this.RadioButtonGenerator.Size = new System.Drawing.Size(104, 17);
+            this.RadioButtonGenerator.TabIndex = 15;
+            this.RadioButtonGenerator.TabStop = true;
+            this.RadioButtonGenerator.Text = "Signal Generator";
+            this.RadioButtonGenerator.UseVisualStyleBackColor = true;
             // 
             // radioButtonAnalyzer
             // 
-            this.radioButtonAnalyzer.AutoSize = true;
-            this.radioButtonAnalyzer.Location = new System.Drawing.Point(12, 62);
-            this.radioButtonAnalyzer.Name = "radioButtonAnalyzer";
-            this.radioButtonAnalyzer.Size = new System.Drawing.Size(113, 17);
-            this.radioButtonAnalyzer.TabIndex = 14;
-            this.radioButtonAnalyzer.TabStop = true;
-            this.radioButtonAnalyzer.Text = "Spectrum Analyzer";
-            this.radioButtonAnalyzer.UseVisualStyleBackColor = true;
+            this.RadioButtonAnalyzer.AutoSize = true;
+            this.RadioButtonAnalyzer.Location = new System.Drawing.Point(12, 62);
+            this.RadioButtonAnalyzer.Name = "radioButtonAnalyzer";
+            this.RadioButtonAnalyzer.Size = new System.Drawing.Size(113, 17);
+            this.RadioButtonAnalyzer.TabIndex = 14;
+            this.RadioButtonAnalyzer.TabStop = true;
+            this.RadioButtonAnalyzer.Text = "Spectrum Analyzer";
+            this.RadioButtonAnalyzer.UseVisualStyleBackColor = true;
             // 
             // labelModel
             // 
-            this.labelModel.AutoSize = true;
-            this.labelModel.Location = new System.Drawing.Point(213, 66);
-            this.labelModel.Name = "labelModel";
-            this.labelModel.Size = new System.Drawing.Size(39, 13);
-            this.labelModel.TabIndex = 13;
-            this.labelModel.Text = "Model:";
+            this.LabelModel.AutoSize = true;
+            this.LabelModel.Location = new System.Drawing.Point(213, 66);
+            this.LabelModel.Name = "labelModel";
+            this.LabelModel.Size = new System.Drawing.Size(39, 13);
+            this.LabelModel.TabIndex = 13;
+            this.LabelModel.Text = "Model:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(208, 43);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Device:";
+            this.Label3.AutoSize = true;
+            this.Label3.Location = new System.Drawing.Point(208, 43);
+            this.Label3.Name = "label3";
+            this.Label3.Size = new System.Drawing.Size(44, 13);
+            this.Label3.TabIndex = 12;
+            this.Label3.Text = "Device:";
             // 
             // labelFirmwareText
             // 
-            this.labelFirmwareText.AutoSize = true;
-            this.labelFirmwareText.Location = new System.Drawing.Point(265, 20);
-            this.labelFirmwareText.Name = "labelFirmwareText";
-            this.labelFirmwareText.Size = new System.Drawing.Size(0, 13);
-            this.labelFirmwareText.TabIndex = 5;
-            this.labelFirmwareText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelFirmwareText.AutoSize = true;
+            this.LabelFirmwareText.Location = new System.Drawing.Point(265, 20);
+            this.LabelFirmwareText.Name = "labelFirmwareText";
+            this.LabelFirmwareText.Size = new System.Drawing.Size(0, 13);
+            this.LabelFirmwareText.TabIndex = 5;
+            this.LabelFirmwareText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelFirmware
             // 
-            this.labelFirmware.AutoSize = true;
-            this.labelFirmware.Location = new System.Drawing.Point(200, 20);
-            this.labelFirmware.Name = "labelFirmware";
-            this.labelFirmware.Size = new System.Drawing.Size(52, 13);
-            this.labelFirmware.TabIndex = 4;
-            this.labelFirmware.Text = "Firmware:";
+            this.LabelFirmware.AutoSize = true;
+            this.LabelFirmware.Location = new System.Drawing.Point(200, 20);
+            this.LabelFirmware.Name = "labelFirmware";
+            this.LabelFirmware.Size = new System.Drawing.Size(52, 13);
+            this.LabelFirmware.TabIndex = 4;
+            this.LabelFirmware.Text = "Firmware:";
             // 
             // labelModelText
             // 
-            this.labelModelText.AutoSize = true;
-            this.labelModelText.Location = new System.Drawing.Point(265, 68);
-            this.labelModelText.Name = "labelModelText";
-            this.labelModelText.Size = new System.Drawing.Size(0, 13);
-            this.labelModelText.TabIndex = 3;
+            this.LabelModelText.AutoSize = true;
+            this.LabelModelText.Location = new System.Drawing.Point(265, 68);
+            this.LabelModelText.Name = "labelModelText";
+            this.LabelModelText.Size = new System.Drawing.Size(0, 13);
+            this.LabelModelText.TabIndex = 3;
             // 
             // labelDeviceText
             // 
-            this.labelDeviceText.AutoSize = true;
-            this.labelDeviceText.Location = new System.Drawing.Point(265, 42);
-            this.labelDeviceText.Name = "labelDeviceText";
-            this.labelDeviceText.Size = new System.Drawing.Size(0, 13);
-            this.labelDeviceText.TabIndex = 2;
+            this.LabelDeviceText.AutoSize = true;
+            this.LabelDeviceText.Location = new System.Drawing.Point(265, 42);
+            this.LabelDeviceText.Name = "labelDeviceText";
+            this.LabelDeviceText.Size = new System.Drawing.Size(0, 13);
+            this.LabelDeviceText.TabIndex = 2;
             // 
             // buttonStartSweeps
             // 
-            this.buttonStartSweeps.Enabled = false;
-            this.buttonStartSweeps.Location = new System.Drawing.Point(15, 53);
-            this.buttonStartSweeps.Name = "buttonStartSweeps";
-            this.buttonStartSweeps.Size = new System.Drawing.Size(155, 23);
-            this.buttonStartSweeps.TabIndex = 13;
-            this.buttonStartSweeps.Text = "Capture";
-            this.toolTip1.SetToolTip(this.buttonStartSweeps, resources.GetString("buttonStartSweeps.ToolTip"));
-            this.buttonStartSweeps.UseVisualStyleBackColor = true;
-            this.buttonStartSweeps.Click += new System.EventHandler(this.buttonStartSweeps_Click);
+            this.ButtonStartSweeps.Enabled = false;
+            this.ButtonStartSweeps.Location = new System.Drawing.Point(15, 53);
+            this.ButtonStartSweeps.Name = "buttonStartSweeps";
+            this.ButtonStartSweeps.Size = new System.Drawing.Size(155, 23);
+            this.ButtonStartSweeps.TabIndex = 13;
+            this.ButtonStartSweeps.Text = "Capture";
+            this.ToolTip1.SetToolTip(this.ButtonStartSweeps, resources.GetString("buttonStartSweeps.ToolTip"));
+            this.ButtonStartSweeps.UseVisualStyleBackColor = true;
+            this.ButtonStartSweeps.Click += new System.EventHandler(this.buttonStartSweeps_Click);
             // 
             // labelStartSweeps
             // 
-            this.labelStartSweeps.AutoSize = true;
-            this.labelStartSweeps.Location = new System.Drawing.Point(14, 29);
-            this.labelStartSweeps.Name = "labelStartSweeps";
-            this.labelStartSweeps.Size = new System.Drawing.Size(45, 13);
-            this.labelStartSweeps.TabIndex = 14;
-            this.labelStartSweeps.Text = "Sweeps";
+            this.LabelStartSweeps.AutoSize = true;
+            this.LabelStartSweeps.Location = new System.Drawing.Point(14, 29);
+            this.LabelStartSweeps.Name = "labelStartSweeps";
+            this.LabelStartSweeps.Size = new System.Drawing.Size(45, 13);
+            this.LabelStartSweeps.TabIndex = 14;
+            this.LabelStartSweeps.Text = "Sweeps";
             // 
             // numericUpDownSweeps
             // 
-            this.numericUpDownSweeps.Location = new System.Drawing.Point(65, 25);
-            this.numericUpDownSweeps.Maximum = new decimal(new int[] {
+            this.NumericUpDownSweeps.Location = new System.Drawing.Point(65, 25);
+            this.NumericUpDownSweeps.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDownSweeps.Minimum = new decimal(new int[] {
+            this.NumericUpDownSweeps.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownSweeps.Name = "numericUpDownSweeps";
-            this.numericUpDownSweeps.Size = new System.Drawing.Size(50, 20);
-            this.numericUpDownSweeps.TabIndex = 15;
-            this.numericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownSweeps.Value = new decimal(new int[] {
+            this.NumericUpDownSweeps.Name = "numericUpDownSweeps";
+            this.NumericUpDownSweeps.Size = new System.Drawing.Size(50, 20);
+            this.NumericUpDownSweeps.TabIndex = 15;
+            this.NumericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDownSweeps.Value = new decimal(new int[] {
             200,
             0,
             0,
@@ -562,28 +560,28 @@ namespace RFEOnsite
             // 
             // groupBoxSweepControl
             // 
-            this.groupBoxSweepControl.Controls.Add(this.labelProgressWriteCsvFile);
-            this.groupBoxSweepControl.Controls.Add(this.TaskProgressBar);
-            this.groupBoxSweepControl.Controls.Add(this.labelStartSweeps);
-            this.groupBoxSweepControl.Controls.Add(this.buttonStartSweeps);
-            this.groupBoxSweepControl.Controls.Add(this.numericUpDownSweeps);
-            this.groupBoxSweepControl.Controls.Add(this.textBoxCsvFileName);
-            this.groupBoxSweepControl.Location = new System.Drawing.Point(14, 446);
-            this.groupBoxSweepControl.Name = "groupBoxSweepControl";
-            this.groupBoxSweepControl.Size = new System.Drawing.Size(376, 158);
-            this.groupBoxSweepControl.TabIndex = 16;
-            this.groupBoxSweepControl.TabStop = false;
-            this.groupBoxSweepControl.Text = "Sweep Control";
+            this.GroupBoxSweepControl.Controls.Add(this.LabelProgressWriteCsvFile);
+            this.GroupBoxSweepControl.Controls.Add(this.TaskProgressBar);
+            this.GroupBoxSweepControl.Controls.Add(this.LabelStartSweeps);
+            this.GroupBoxSweepControl.Controls.Add(this.ButtonStartSweeps);
+            this.GroupBoxSweepControl.Controls.Add(this.NumericUpDownSweeps);
+            this.GroupBoxSweepControl.Controls.Add(this.TextBoxCsvFileName);
+            this.GroupBoxSweepControl.Location = new System.Drawing.Point(14, 446);
+            this.GroupBoxSweepControl.Name = "groupBoxSweepControl";
+            this.GroupBoxSweepControl.Size = new System.Drawing.Size(376, 158);
+            this.GroupBoxSweepControl.TabIndex = 16;
+            this.GroupBoxSweepControl.TabStop = false;
+            this.GroupBoxSweepControl.Text = "Sweep Control";
             // 
             // labelProgressWriteCsvFile
             // 
-            this.labelProgressWriteCsvFile.AutoSize = true;
-            this.labelProgressWriteCsvFile.Enabled = false;
-            this.labelProgressWriteCsvFile.Location = new System.Drawing.Point(15, 114);
-            this.labelProgressWriteCsvFile.Name = "labelProgressWriteCsvFile";
-            this.labelProgressWriteCsvFile.Size = new System.Drawing.Size(50, 13);
-            this.labelProgressWriteCsvFile.TabIndex = 17;
-            this.labelProgressWriteCsvFile.Text = "CSV File:";
+            this.LabelProgressWriteCsvFile.AutoSize = true;
+            this.LabelProgressWriteCsvFile.Enabled = false;
+            this.LabelProgressWriteCsvFile.Location = new System.Drawing.Point(15, 114);
+            this.LabelProgressWriteCsvFile.Name = "labelProgressWriteCsvFile";
+            this.LabelProgressWriteCsvFile.Size = new System.Drawing.Size(50, 13);
+            this.LabelProgressWriteCsvFile.TabIndex = 17;
+            this.LabelProgressWriteCsvFile.Text = "CSV File:";
             // 
             // TaskProgressBar
             // 
@@ -594,25 +592,25 @@ namespace RFEOnsite
             // 
             // textBoxCsvFileName
             // 
-            this.textBoxCsvFileName.Enabled = false;
-            this.textBoxCsvFileName.Location = new System.Drawing.Point(15, 131);
-            this.textBoxCsvFileName.Name = "textBoxCsvFileName";
-            this.textBoxCsvFileName.ReadOnly = true;
-            this.textBoxCsvFileName.Size = new System.Drawing.Size(344, 20);
-            this.textBoxCsvFileName.TabIndex = 1;
+            this.TextBoxCsvFileName.Enabled = false;
+            this.TextBoxCsvFileName.Location = new System.Drawing.Point(15, 131);
+            this.TextBoxCsvFileName.Name = "textBoxCsvFileName";
+            this.TextBoxCsvFileName.ReadOnly = true;
+            this.TextBoxCsvFileName.Size = new System.Drawing.Size(344, 20);
+            this.TextBoxCsvFileName.TabIndex = 1;
             // 
             // checkBoxSaveCsvFiles
             // 
-            this.checkBoxSaveCsvFiles.AutoSize = true;
-            this.checkBoxSaveCsvFiles.Location = new System.Drawing.Point(15, 23);
-            this.checkBoxSaveCsvFiles.Name = "checkBoxSaveCsvFiles";
-            this.checkBoxSaveCsvFiles.Size = new System.Drawing.Size(184, 17);
-            this.checkBoxSaveCsvFiles.TabIndex = 17;
-            this.checkBoxSaveCsvFiles.Text = "Save Collected Data to CSV Files";
-            this.toolTip1.SetToolTip(this.checkBoxSaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
+            this.CheckBoxSaveCsvFiles.AutoSize = true;
+            this.CheckBoxSaveCsvFiles.Location = new System.Drawing.Point(15, 23);
+            this.CheckBoxSaveCsvFiles.Name = "checkBoxSaveCsvFiles";
+            this.CheckBoxSaveCsvFiles.Size = new System.Drawing.Size(184, 17);
+            this.CheckBoxSaveCsvFiles.TabIndex = 17;
+            this.CheckBoxSaveCsvFiles.Text = "Save Collected Data to CSV Files";
+            this.ToolTip1.SetToolTip(this.CheckBoxSaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
         "e user\'s Desktop.");
-            this.checkBoxSaveCsvFiles.UseVisualStyleBackColor = true;
-            this.checkBoxSaveCsvFiles.CheckedChanged += new System.EventHandler(this.checkBoxSaveCsvFiles_CheckedChanged);
+            this.CheckBoxSaveCsvFiles.UseVisualStyleBackColor = true;
+            this.CheckBoxSaveCsvFiles.CheckedChanged += new System.EventHandler(this.CheckBoxSaveCsvFiles_CheckedChanged);
             // 
             // SweepPanel
             // 
@@ -623,7 +621,7 @@ namespace RFEOnsite
             // 
             // ConfigurationPanel
             // 
-            this.ConfigurationPanel.Controls.Add(this.groupBoxConfiguration);
+            this.ConfigurationPanel.Controls.Add(this.GroupBoxConfiguration);
             this.ConfigurationPanel.Location = new System.Drawing.Point(14, 133);
             this.ConfigurationPanel.Name = "ConfigurationPanel";
             this.ConfigurationPanel.Size = new System.Drawing.Size(376, 192);
@@ -632,7 +630,7 @@ namespace RFEOnsite
             // 
             // ConnectionPanel
             // 
-            this.ConnectionPanel.Controls.Add(this.groupBoxSerialConnection);
+            this.ConnectionPanel.Controls.Add(this.GroupBoxSerialConnection);
             this.ConnectionPanel.Location = new System.Drawing.Point(14, 8);
             this.ConnectionPanel.Name = "ConnectionPanel";
             this.ConnectionPanel.Size = new System.Drawing.Size(376, 117);
@@ -641,10 +639,10 @@ namespace RFEOnsite
             // 
             // ChartPanel
             // 
-            this.ChartPanel.Controls.Add(this.checkBoxChartPeak);
-            this.ChartPanel.Controls.Add(this.checkBoxChartAverage);
-            this.ChartPanel.Controls.Add(this.checkBoxChartAutoScale);
-            this.ChartPanel.Controls.Add(this.groupBoxChart);
+            this.ChartPanel.Controls.Add(this.CheckBoxChartPeak);
+            this.ChartPanel.Controls.Add(this.CheckBoxChartAverage);
+            this.ChartPanel.Controls.Add(this.CheckBoxChartAutoScale);
+            this.ChartPanel.Controls.Add(this.GroupBoxChart);
             this.ChartPanel.Location = new System.Drawing.Point(399, 8);
             this.ChartPanel.Name = "ChartPanel";
             this.ChartPanel.Size = new System.Drawing.Size(368, 457);
@@ -652,172 +650,172 @@ namespace RFEOnsite
             // 
             // checkBoxChartPeak
             // 
-            this.checkBoxChartPeak.AutoSize = true;
-            this.checkBoxChartPeak.Checked = true;
-            this.checkBoxChartPeak.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxChartPeak.Location = new System.Drawing.Point(271, 420);
-            this.checkBoxChartPeak.Name = "checkBoxChartPeak";
-            this.checkBoxChartPeak.Size = new System.Drawing.Size(51, 17);
-            this.checkBoxChartPeak.TabIndex = 3;
-            this.checkBoxChartPeak.Text = "Peak";
-            this.checkBoxChartPeak.UseVisualStyleBackColor = true;
-            this.checkBoxChartPeak.CheckedChanged += new System.EventHandler(this.checkBoxChartPeak_CheckedChanged);
+            this.CheckBoxChartPeak.AutoSize = true;
+            this.CheckBoxChartPeak.Checked = true;
+            this.CheckBoxChartPeak.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBoxChartPeak.Location = new System.Drawing.Point(271, 420);
+            this.CheckBoxChartPeak.Name = "checkBoxChartPeak";
+            this.CheckBoxChartPeak.Size = new System.Drawing.Size(51, 17);
+            this.CheckBoxChartPeak.TabIndex = 3;
+            this.CheckBoxChartPeak.Text = "Peak";
+            this.CheckBoxChartPeak.UseVisualStyleBackColor = true;
+            this.CheckBoxChartPeak.CheckedChanged += new System.EventHandler(this.checkBoxChartPeak_CheckedChanged);
             // 
             // checkBoxChartAverage
             // 
-            this.checkBoxChartAverage.AutoSize = true;
-            this.checkBoxChartAverage.Checked = true;
-            this.checkBoxChartAverage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxChartAverage.Location = new System.Drawing.Point(168, 420);
-            this.checkBoxChartAverage.Name = "checkBoxChartAverage";
-            this.checkBoxChartAverage.Size = new System.Drawing.Size(66, 17);
-            this.checkBoxChartAverage.TabIndex = 2;
-            this.checkBoxChartAverage.Text = "Average";
-            this.checkBoxChartAverage.UseVisualStyleBackColor = true;
-            this.checkBoxChartAverage.CheckedChanged += new System.EventHandler(this.checkBoxChartAverage_CheckedChanged);
+            this.CheckBoxChartAverage.AutoSize = true;
+            this.CheckBoxChartAverage.Checked = true;
+            this.CheckBoxChartAverage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBoxChartAverage.Location = new System.Drawing.Point(168, 420);
+            this.CheckBoxChartAverage.Name = "checkBoxChartAverage";
+            this.CheckBoxChartAverage.Size = new System.Drawing.Size(66, 17);
+            this.CheckBoxChartAverage.TabIndex = 2;
+            this.CheckBoxChartAverage.Text = "Average";
+            this.CheckBoxChartAverage.UseVisualStyleBackColor = true;
+            this.CheckBoxChartAverage.CheckedChanged += new System.EventHandler(this.checkBoxChartAverage_CheckedChanged);
             // 
             // checkBoxChartAutoScale
             // 
-            this.checkBoxChartAutoScale.AutoSize = true;
-            this.checkBoxChartAutoScale.Location = new System.Drawing.Point(57, 420);
-            this.checkBoxChartAutoScale.Name = "checkBoxChartAutoScale";
-            this.checkBoxChartAutoScale.Size = new System.Drawing.Size(78, 17);
-            this.checkBoxChartAutoScale.TabIndex = 1;
-            this.checkBoxChartAutoScale.Text = "Auto Scale";
-            this.checkBoxChartAutoScale.UseVisualStyleBackColor = true;
-            this.checkBoxChartAutoScale.CheckedChanged += new System.EventHandler(this.checkBoxChartAutoScale_CheckedChanged);
+            this.CheckBoxChartAutoScale.AutoSize = true;
+            this.CheckBoxChartAutoScale.Location = new System.Drawing.Point(57, 420);
+            this.CheckBoxChartAutoScale.Name = "checkBoxChartAutoScale";
+            this.CheckBoxChartAutoScale.Size = new System.Drawing.Size(78, 17);
+            this.CheckBoxChartAutoScale.TabIndex = 1;
+            this.CheckBoxChartAutoScale.Text = "Auto Scale";
+            this.CheckBoxChartAutoScale.UseVisualStyleBackColor = true;
+            this.CheckBoxChartAutoScale.CheckedChanged += new System.EventHandler(this.CheckBoxChartAutoScale_CheckedChanged);
             // 
             // groupBoxChart
             // 
-            this.groupBoxChart.Controls.Add(this.panelChart);
-            this.groupBoxChart.Location = new System.Drawing.Point(4, 5);
-            this.groupBoxChart.Name = "groupBoxChart";
-            this.groupBoxChart.Size = new System.Drawing.Size(361, 448);
-            this.groupBoxChart.TabIndex = 4;
-            this.groupBoxChart.TabStop = false;
-            this.groupBoxChart.Text = "Spectrum";
+            this.GroupBoxChart.Controls.Add(this.PanelChart);
+            this.GroupBoxChart.Location = new System.Drawing.Point(4, 5);
+            this.GroupBoxChart.Name = "groupBoxChart";
+            this.GroupBoxChart.Size = new System.Drawing.Size(361, 448);
+            this.GroupBoxChart.TabIndex = 4;
+            this.GroupBoxChart.TabStop = false;
+            this.GroupBoxChart.Text = "Spectrum";
             // 
             // panelChart
             // 
-            this.panelChart.Location = new System.Drawing.Point(6, 19);
-            this.panelChart.Name = "panelChart";
-            this.panelChart.Size = new System.Drawing.Size(349, 377);
-            this.panelChart.TabIndex = 0;
+            this.PanelChart.Location = new System.Drawing.Point(6, 19);
+            this.PanelChart.Name = "panelChart";
+            this.PanelChart.Size = new System.Drawing.Size(349, 377);
+            this.PanelChart.TabIndex = 0;
             // 
             // toolTip1
             // 
-            this.toolTip1.AutoPopDelay = 20000;
-            this.toolTip1.InitialDelay = 1000;
-            this.toolTip1.ReshowDelay = 1000;
+            this.ToolTip1.AutoPopDelay = 20000;
+            this.ToolTip1.InitialDelay = 1000;
+            this.ToolTip1.ReshowDelay = 1000;
             // 
             // labelCsvRootText
             // 
-            this.labelCsvRootText.AutoSize = true;
-            this.labelCsvRootText.Enabled = false;
-            this.labelCsvRootText.Location = new System.Drawing.Point(15, 48);
-            this.labelCsvRootText.Name = "labelCsvRootText";
-            this.labelCsvRootText.Size = new System.Drawing.Size(128, 13);
-            this.labelCsvRootText.TabIndex = 3;
-            this.labelCsvRootText.Text = "Root Folder for CSV Files:";
-            this.toolTip1.SetToolTip(this.labelCsvRootText, resources.GetString("labelCsvRootText.ToolTip"));
+            this.LabelCsvRootText.AutoSize = true;
+            this.LabelCsvRootText.Enabled = false;
+            this.LabelCsvRootText.Location = new System.Drawing.Point(15, 48);
+            this.LabelCsvRootText.Name = "labelCsvRootText";
+            this.LabelCsvRootText.Size = new System.Drawing.Size(128, 13);
+            this.LabelCsvRootText.TabIndex = 3;
+            this.LabelCsvRootText.Text = "Root Folder for CSV Files:";
+            this.ToolTip1.SetToolTip(this.LabelCsvRootText, resources.GetString("labelCsvRootText.ToolTip"));
             // 
             // labelRootDirectory
             // 
-            this.labelRootDirectory.AutoSize = true;
-            this.labelRootDirectory.Enabled = false;
-            this.labelRootDirectory.Location = new System.Drawing.Point(142, 48);
-            this.labelRootDirectory.Name = "labelRootDirectory";
-            this.labelRootDirectory.Size = new System.Drawing.Size(47, 13);
-            this.labelRootDirectory.TabIndex = 4;
-            this.labelRootDirectory.Text = "Desktop";
-            this.toolTip1.SetToolTip(this.labelRootDirectory, "All captured data is stored in sub-folders located on the user\'s Desktop.\r\nThe co" +
+            this.LabelRootDirectory.AutoSize = true;
+            this.LabelRootDirectory.Enabled = false;
+            this.LabelRootDirectory.Location = new System.Drawing.Point(142, 48);
+            this.LabelRootDirectory.Name = "labelRootDirectory";
+            this.LabelRootDirectory.Size = new System.Drawing.Size(47, 13);
+            this.LabelRootDirectory.TabIndex = 4;
+            this.LabelRootDirectory.Text = "Desktop";
+            this.ToolTip1.SetToolTip(this.LabelRootDirectory, "All captured data is stored in sub-folders located on the user\'s Desktop.\r\nThe co" +
         "llection location MUST be entered (below) for each collection site.");
             // 
             // textBoxSweepLocation
             // 
-            this.textBoxSweepLocation.Enabled = false;
-            this.textBoxSweepLocation.Location = new System.Drawing.Point(15, 69);
-            this.textBoxSweepLocation.Name = "textBoxSweepLocation";
-            this.textBoxSweepLocation.Size = new System.Drawing.Size(344, 20);
-            this.textBoxSweepLocation.TabIndex = 2;
-            this.textBoxSweepLocation.Text = "Enter Collection Identifier";
-            this.toolTip1.SetToolTip(this.textBoxSweepLocation, "Enter a short site collection location identifier for data that is about to be co" +
+            this.TextBoxSweepLocation.Enabled = false;
+            this.TextBoxSweepLocation.Location = new System.Drawing.Point(15, 69);
+            this.TextBoxSweepLocation.Name = "textBoxSweepLocation";
+            this.TextBoxSweepLocation.Size = new System.Drawing.Size(344, 20);
+            this.TextBoxSweepLocation.TabIndex = 2;
+            this.TextBoxSweepLocation.Text = "Enter Collection Identifier";
+            this.ToolTip1.SetToolTip(this.TextBoxSweepLocation, "Enter a short site collection location identifier for data that is about to be co" +
         "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
         " store collected data in CSV Files.");
-            this.textBoxSweepLocation.TextChanged += new System.EventHandler(this.textBoxSweepLocation_TextChanged);
+            this.TextBoxSweepLocation.TextChanged += new System.EventHandler(this.textBoxSweepLocation_TextChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBoxSaveCsvFiles);
-            this.groupBox1.Controls.Add(this.labelRootDirectory);
-            this.groupBox1.Controls.Add(this.labelCsvRootText);
-            this.groupBox1.Controls.Add(this.textBoxSweepLocation);
-            this.groupBox1.Controls.Add(this.SweepPanel);
-            this.groupBox1.Location = new System.Drawing.Point(14, 336);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(376, 102);
-            this.groupBox1.TabIndex = 23;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Collected CSV File Storage";
+            this.GroupBox1.Controls.Add(this.CheckBoxSaveCsvFiles);
+            this.GroupBox1.Controls.Add(this.LabelRootDirectory);
+            this.GroupBox1.Controls.Add(this.LabelCsvRootText);
+            this.GroupBox1.Controls.Add(this.TextBoxSweepLocation);
+            this.GroupBox1.Controls.Add(this.SweepPanel);
+            this.GroupBox1.Location = new System.Drawing.Point(14, 336);
+            this.GroupBox1.Name = "groupBox1";
+            this.GroupBox1.Size = new System.Drawing.Size(376, 102);
+            this.GroupBox1.TabIndex = 23;
+            this.GroupBox1.TabStop = false;
+            this.GroupBox1.Text = "Collected CSV File Storage";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(405, 471);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(361, 132);
-            this.groupBox2.TabIndex = 24;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Program Configuration";
+            this.GroupBox2.Controls.Add(this.Button2);
+            this.GroupBox2.Controls.Add(this.Button1);
+            this.GroupBox2.Location = new System.Drawing.Point(405, 471);
+            this.GroupBox2.Name = "groupBox2";
+            this.GroupBox2.Size = new System.Drawing.Size(361, 132);
+            this.GroupBox2.TabIndex = 24;
+            this.GroupBox2.TabStop = false;
+            this.GroupBox2.Text = "Program Configuration";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(89, 80);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(185, 33);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Save Program State";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Button2.Location = new System.Drawing.Point(89, 80);
+            this.Button2.Name = "button2";
+            this.Button2.Size = new System.Drawing.Size(185, 33);
+            this.Button2.TabIndex = 1;
+            this.Button2.Text = "Save Program State";
+            this.Button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(89, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(185, 34);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Recall Last Saved Program State";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Button1.Location = new System.Drawing.Point(89, 28);
+            this.Button1.Name = "button1";
+            this.Button1.Size = new System.Drawing.Size(185, 34);
+            this.Button1.TabIndex = 0;
+            this.Button1.Text = "Recall Last Saved Program State";
+            this.Button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(775, 613);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBoxSweepControl);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.GroupBox2);
+            this.Controls.Add(this.GroupBoxSweepControl);
+            this.Controls.Add(this.GroupBox1);
             this.Controls.Add(this.ChartPanel);
             this.Controls.Add(this.ConnectionPanel);
             this.Controls.Add(this.ConfigurationPanel);
             this.Name = "MainForm";
             this.Text = "OnSite";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBoxConfiguration.ResumeLayout(false);
-            this.groupBoxConfiguration.PerformLayout();
-            this.groupBoxSerialConnection.ResumeLayout(false);
-            this.groupBoxSerialConnection.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSweeps)).EndInit();
-            this.groupBoxSweepControl.ResumeLayout(false);
-            this.groupBoxSweepControl.PerformLayout();
+            this.GroupBoxConfiguration.ResumeLayout(false);
+            this.GroupBoxConfiguration.PerformLayout();
+            this.GroupBoxSerialConnection.ResumeLayout(false);
+            this.GroupBoxSerialConnection.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).EndInit();
+            this.GroupBoxSweepControl.ResumeLayout(false);
+            this.GroupBoxSweepControl.PerformLayout();
             this.ConfigurationPanel.ResumeLayout(false);
             this.ConnectionPanel.ResumeLayout(false);
             this.ChartPanel.ResumeLayout(false);
             this.ChartPanel.PerformLayout();
-            this.groupBoxChart.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.GroupBoxChart.ResumeLayout(false);
+            this.GroupBox1.ResumeLayout(false);
+            this.GroupBox1.PerformLayout();
+            this.GroupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -826,68 +824,68 @@ namespace RFEOnsite
 
          
 
-        private Button buttonFindCOMPorts;
-        private Button buttonSetConfiguration;
-        private Button buttonStartSweeps;
-        private GroupBox groupBoxConfiguration;
-        private GroupBox groupBoxSweepControl;
-        private GroupBox groupBoxSerialConnection;
-        private Label labelRightAttentaion;
-        private Label labelRightSMAAttenuationText;
-        private Label labelStopFrequency;
-        private Label label2;
-        private Label labelDeviceText;
-        private Label labelModelText;
-        private Label labelFirmware;
-        private Label labelFirmwareText;
-        private Label labelLeftAttenution;
-        private Label labelLeftSMAAttenuationText;
-        private Label labelFrequencyStep;
-        private Label labelRBW;
-        private Label labelRBWKhz;
-        private Label labelRFEComPort;
-        private Label labelStartFrequency;
+        private Button ButtonFindCOMPorts;
+        private Button ButtonSetConfiguration;
+        private Button ButtonStartSweeps;
+        private GroupBox GroupBoxConfiguration;
+        private GroupBox GroupBoxSweepControl;
+        private GroupBox GroupBoxSerialConnection;
+        private Label LabelRightAttentaion;
+        private Label LabelRightSmaAttenuationText;
+        private Label LabelStopFrequency;
+        private Label Label2;
+        private Label LabelDeviceText;
+        private Label LabelModelText;
+        private Label LabelFirmware;
+        private Label LabelFirmwareText;
+        private Label LabelLeftAttenution;
+        private Label LabelLeftSmaAttenuationText;
+        private Label LabelFrequencyStep;
+        private Label LabelRBW;
+        private Label LabelRBWKhz;
+        private Label LabelRFEComPort;
+        private Label LabelStartFrequency;
         private Label labelStartMHz;
-        private Label labelStartSweeps;
-        private Label labelStopMHz;
-        private NumericUpDown numericUpDownSweeps;
+        private Label LabelStartSweeps;
+        private Label LabelStopMHz;
+        private NumericUpDown NumericUpDownSweeps;
         private Panel SweepPanel;
         private Panel ConfigurationPanel;
         private Panel ConnectionPanel;
         private ProgressBar TaskProgressBar;
-        private RadioButton radioButtonRBW;
-        private RadioButton radioButtonSize;
-        private RadioButton radioButtonStart;
-        private RadioButton radioButtonStop;
-        private TextBox textBoxLeftSMAAttenuationValue;
-        private TextBox textBoxRightSMAAttentuationValue;
-        private TextBox textBoxRBW;
-        private TextBox textBoxStartFrequency;
-        private TextBox textBoxStepSize;
-        private TextBox textBoxStopFrequency;
-        private CheckBox checkBoxSaveCsvFiles;
+        private RadioButton RadioButtonRBW;
+        private RadioButton RadioButtonSize;
+        private RadioButton RadioButtonStart;
+        private RadioButton RadioButtonStop;
+        private TextBox TextBoxLeftSmaAttenuationValue;
+        private TextBox TextBoxRightSmaAttentuationValue;
+        private TextBox TextBoxRBW;
+        private TextBox TextBoxStartFrequency;
+        private TextBox TextBoxStepSize;
+        private TextBox TextBoxStopFrequency;
+        private CheckBox CheckBoxSaveCsvFiles;
         private Panel ChartPanel;
-        private CheckBox checkBoxChartPeak;
-        private CheckBox checkBoxChartAverage;
-        private CheckBox checkBoxChartAutoScale;
-        private GroupBox groupBoxChart;
-        private Label label3;
-        private Label labelModel;
-        private Panel panelChart;
-        private ToolTip toolTip1;
-        private GroupBox groupBox1;
-        private TextBox textBoxCsvFileName;
-        private TextBox textBoxSweepLocation;
-        private Label labelCsvRootText;
-        private Label labelRootDirectory;
-        private RadioButton radioButtonGenerator;
-        private RadioButton radioButtonAnalyzer;
-        private Label labelProgressWriteCsvFile;
+        private CheckBox CheckBoxChartPeak;
+        private CheckBox CheckBoxChartAverage;
+        private CheckBox CheckBoxChartAutoScale;
+        private GroupBox GroupBoxChart;
+        private Label Label3;
+        private Label LabelModel;
+        private Panel PanelChart;
+        private ToolTip ToolTip1;
+        private GroupBox GroupBox1;
+        private TextBox TextBoxCsvFileName;
+        private TextBox TextBoxSweepLocation;
+        private Label LabelCsvRootText;
+        private Label LabelRootDirectory;
+        private RadioButton RadioButtonGenerator;
+        private RadioButton RadioButtonAnalyzer;
+        private Label LabelProgressWriteCsvFile;
         private Label labelPresets;
-        private ComboBox comboBoxPreset;
-        private GroupBox groupBox2;
-        private Button button2;
-        private Button button1;
+        private ComboBox ComboBoxPreset;
+        private GroupBox GroupBox2;
+        private Button Button2;
+        private Button Button1;
         private Button buttonDocumentation;
     }
 }

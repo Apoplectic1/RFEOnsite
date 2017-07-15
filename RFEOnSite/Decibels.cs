@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RFEOnSite
 {
@@ -22,6 +19,11 @@ namespace RFEOnSite
         {
             mDbmList.Clear();
             mWattsList.Clear();
+        }
+
+        public double GetDbmAt(int index)
+        {
+            return mDbmList[index];
         }
 
         public double MaxdBmList()

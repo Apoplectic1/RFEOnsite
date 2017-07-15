@@ -104,7 +104,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>RFEOnsite.Program</StartupObject>
+    <StartupObject>RFEOnSite.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Chart.cs" />
     <Compile Include="Decibels.cs" />
+    <Compile Include="FileOps.cs" />
     <Compile Include="GlobalData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,10 +1,7 @@
-﻿using RFEOnSite;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms.DataVisualization.Charting;
 
-namespace RFEOnsite
+namespace RFEOnSite
 {
     public partial class RFExplorer
     {
@@ -145,37 +142,6 @@ namespace RFEOnsite
                 mResolutionBandwidthKHz = Convert.ToInt32(sLine.Substring(67, 5));
                 eCalculator = (eCalculator)Convert.ToUInt16(sLine.Substring(73, 3));
                
-                return true;
-            }
-
-            public bool ParseCsvDataFromExplorer(IProgress<CsvExport> csvExportProgress)
-            {
-                CsvExport localCsvExport = new CsvExport();
-                double dBm;
-                string frequency;
-
-                mFreqencyList.Clear();
-
-                for (int step = 0; step < mFreqSpectrumSteps; step++)
-                {
-                    mFreqencyList.Add(mfStartMHz + (step * mfStepMHz));
-                }
-
-                for (int sweepIndex = 0; sweepIndex < mReceivedSweep.Count; sweepIndex++)
-                {
-                    localCsvExport.AddRow();
-
-                    for (int index = 0; index != 112; index++)
-                    {
-                        frequency = mFreqencyList[index].ToString();
-
-                        dBm = -(Convert.ToDouble(Convert.ToUInt32(mReceivedSweep[sweepIndex][index + 3]) >> 1));
- 
-                        localCsvExport[frequency] = dBm.ToString();
-                    }
-                }
-
-                csvExportProgress.Report(localCsvExport);
                 return true;
             }
         }
