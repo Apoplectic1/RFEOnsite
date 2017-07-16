@@ -649,7 +649,7 @@ namespace RFEOnSite
             this.ChartPanel.Controls.Add(this.GroupBoxChart);
             this.ChartPanel.Location = new System.Drawing.Point(399, 8);
             this.ChartPanel.Name = "ChartPanel";
-            this.ChartPanel.Size = new System.Drawing.Size(368, 457);
+            this.ChartPanel.Size = new System.Drawing.Size(437, 457);
             this.ChartPanel.TabIndex = 21;
             // 
             // CheckBoxChartPeak
@@ -657,7 +657,7 @@ namespace RFEOnSite
             this.CheckBoxChartPeak.AutoSize = true;
             this.CheckBoxChartPeak.Checked = true;
             this.CheckBoxChartPeak.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxChartPeak.Location = new System.Drawing.Point(271, 420);
+            this.CheckBoxChartPeak.Location = new System.Drawing.Point(300, 420);
             this.CheckBoxChartPeak.Name = "CheckBoxChartPeak";
             this.CheckBoxChartPeak.Size = new System.Drawing.Size(51, 17);
             this.CheckBoxChartPeak.TabIndex = 3;
@@ -670,7 +670,7 @@ namespace RFEOnSite
             this.CheckBoxChartAverage.AutoSize = true;
             this.CheckBoxChartAverage.Checked = true;
             this.CheckBoxChartAverage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxChartAverage.Location = new System.Drawing.Point(168, 420);
+            this.CheckBoxChartAverage.Location = new System.Drawing.Point(197, 420);
             this.CheckBoxChartAverage.Name = "CheckBoxChartAverage";
             this.CheckBoxChartAverage.Size = new System.Drawing.Size(66, 17);
             this.CheckBoxChartAverage.TabIndex = 2;
@@ -683,7 +683,7 @@ namespace RFEOnSite
             this.CheckBoxChartAutoScale.AutoSize = true;
             this.CheckBoxChartAutoScale.Checked = true;
             this.CheckBoxChartAutoScale.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxChartAutoScale.Location = new System.Drawing.Point(57, 420);
+            this.CheckBoxChartAutoScale.Location = new System.Drawing.Point(86, 420);
             this.CheckBoxChartAutoScale.Name = "CheckBoxChartAutoScale";
             this.CheckBoxChartAutoScale.Size = new System.Drawing.Size(78, 17);
             this.CheckBoxChartAutoScale.TabIndex = 1;
@@ -696,7 +696,7 @@ namespace RFEOnSite
             this.GroupBoxChart.Controls.Add(this.PanelChart);
             this.GroupBoxChart.Location = new System.Drawing.Point(4, 5);
             this.GroupBoxChart.Name = "GroupBoxChart";
-            this.GroupBoxChart.Size = new System.Drawing.Size(361, 448);
+            this.GroupBoxChart.Size = new System.Drawing.Size(430, 448);
             this.GroupBoxChart.TabIndex = 4;
             this.GroupBoxChart.TabStop = false;
             this.GroupBoxChart.Text = "Spectrum";
@@ -705,7 +705,7 @@ namespace RFEOnSite
             // 
             this.PanelChart.Location = new System.Drawing.Point(6, 19);
             this.PanelChart.Name = "PanelChart";
-            this.PanelChart.Size = new System.Drawing.Size(349, 377);
+            this.PanelChart.Size = new System.Drawing.Size(418, 377);
             this.PanelChart.TabIndex = 0;
             // 
             // ToolTip1
@@ -770,14 +770,14 @@ namespace RFEOnSite
             this.GroupBox2.Controls.Add(this.Button1);
             this.GroupBox2.Location = new System.Drawing.Point(405, 471);
             this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(361, 132);
+            this.GroupBox2.Size = new System.Drawing.Size(431, 132);
             this.GroupBox2.TabIndex = 24;
             this.GroupBox2.TabStop = false;
             this.GroupBox2.Text = "Program Configuration";
             // 
             // Button2
             // 
-            this.Button2.Location = new System.Drawing.Point(89, 80);
+            this.Button2.Location = new System.Drawing.Point(121, 80);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(185, 33);
             this.Button2.TabIndex = 1;
@@ -786,7 +786,7 @@ namespace RFEOnSite
             // 
             // Button1
             // 
-            this.Button1.Location = new System.Drawing.Point(89, 28);
+            this.Button1.Location = new System.Drawing.Point(121, 28);
             this.Button1.Name = "Button1";
             this.Button1.Size = new System.Drawing.Size(185, 34);
             this.Button1.TabIndex = 0;
@@ -807,7 +807,7 @@ namespace RFEOnSite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 636);
+            this.ClientSize = new System.Drawing.Size(848, 636);
             this.Controls.Add(this.labelCopyright);
             this.Controls.Add(this.GroupBox2);
             this.Controls.Add(this.GroupBoxSweepControl);

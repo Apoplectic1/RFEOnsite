@@ -5,7 +5,6 @@ namespace RFEOnSite
 {
     static class Program
     {
-        public static GlobalData gRFEOnSite;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

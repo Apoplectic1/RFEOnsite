@@ -59,7 +59,7 @@ namespace RFEOnSite
             mMinY = -110;
             mTickIntervalX = 200;
             mTickIntervalY = 10;
-            mTitle = "Spectrum";
+            mTitle = "Current Sweep Range";
             mTitleFontSize = 10F;
             mTitleX = "MHz";
             mTitleY = "dBm";
@@ -74,6 +74,7 @@ namespace RFEOnSite
             mChart.ChartAreas[0].AxisX.Interval = mTickIntervalX;
             mChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
             mChart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
+            mChart.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
             mChart.ChartAreas[0].AxisX.Maximum = mMaxX;
             mChart.ChartAreas[0].AxisX.Minimum = mMinX;
             mChart.ChartAreas[0].AxisX.RoundAxisValues();
@@ -83,10 +84,12 @@ namespace RFEOnSite
             mChart.ChartAreas[0].AxisY.Interval = mTickIntervalY;
             mChart.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
             mChart.ChartAreas[0].AxisY.RoundAxisValues();
+            mChart.ChartAreas[0].AxisY.LabelStyle.Format = "F0";
             mChart.ChartAreas[0].AxisY.Title = mTitleY;
             mChart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
             mChart.ChartAreas[0].AxisY.Maximum = mMaxY;
             mChart.ChartAreas[0].AxisY.Minimum = mMinY;
+            
 
             mChart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
             mChart.Titles.Add(mTitle);

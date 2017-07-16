@@ -245,21 +245,41 @@ namespace RFEOnSite
 
             ButtonStartSweeps.Enabled = true;
 
+            // Preset Mode
+            // Automatically get, populate and set sweep start and stop frequency pairs and cycle through the list of them
+            // The first pair is determnined and set from the "Capture" Clicked Event (method) on the UI.
+            // This gets the 'next' values and then sweeps with them
+
             if (gRFEOnSite.WhoopPresetActive)
             {
                 foreach (PresetTableEntry pair in gRFEOnSite.PresetTable.Skip(gRFEOnSite.PresetTableIndex))
                 {
                     gRFEOnSite.PresetTableIndex++;
 
-                    double start = pair.start;
-                    double stop = pair.stop;
-
-                    gRFEOnSite.Explorer.SendConfiguration(start, stop);
+                    switch (pair.SweepBand)
+                    {
+                        case eBand.e700:
+                            if (!gRFEOnSite.Whoop700) continue;
+                            break;
+                        case eBand.e850:
+                            if (!gRFEOnSite.Whoop850) continue;
+                            break;
+                        case eBand.ePCS:
+                            if (!gRFEOnSite.WhoopPCS) continue;
+                            break;
+                        case eBand.eAWS:
+                            if (!gRFEOnSite.WhoopAWS) continue;
+                            break;
+                        default:
+                            continue;
+                    }
+                    
+                    gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
                     System.Threading.Thread.Sleep(100);
 
-                    gRFEOnSite.Graph.MinX = start;
-                    gRFEOnSite.Graph.MaxX = stop;
+                    gRFEOnSite.Graph.MinX = pair.SweepStart;
+                    gRFEOnSite.Graph.MaxX = pair.SweepStop;
                     gRFEOnSite.Graph.StepX = 0.10;
 
                     gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
@@ -348,15 +368,30 @@ namespace RFEOnSite
                 {
                     gRFEOnSite.PresetTableIndex++;
 
-                    double start = pair.start;
-                    double stop = pair.stop;
-
-                    gRFEOnSite.Explorer.SendConfiguration(start, stop);
+                    switch (pair.SweepBand)
+                    {
+                        case eBand.e700:
+                            if (!gRFEOnSite.Whoop700) continue;
+                            break;
+                        case eBand.e850:
+                            if (!gRFEOnSite.Whoop850) continue;
+                            break;
+                        case eBand.ePCS:
+                            if (!gRFEOnSite.WhoopPCS) continue;
+                            break;
+                        case eBand.eAWS:
+                            if (!gRFEOnSite.WhoopAWS) continue;
+                            break;
+                        default:
+                            continue;
+                    }
+                    
+                    gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
                     System.Threading.Thread.Sleep(100);
 
-                    gRFEOnSite.Graph.MinX = start;
-                    gRFEOnSite.Graph.MaxX = stop;
+                    gRFEOnSite.Graph.MinX = pair.SweepStart;
+                    gRFEOnSite.Graph.MaxX = pair.SweepStop;
                     gRFEOnSite.Graph.StepX = 0.10;
 
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
@@ -472,10 +507,10 @@ namespace RFEOnSite
 
                 using (WhoopNodeForm mWhoopNodeDownlinkForm = new WhoopNodeForm())
                 {
-                    mWhoopNodeDownlinkForm.CheckBox700 = gRFEOnSite.Whoop700;
-                    mWhoopNodeDownlinkForm.CheckBox850 = gRFEOnSite.Whoop850;
-                    mWhoopNodeDownlinkForm.CheckBoxPCS = gRFEOnSite.WhoopPCS;
-                    mWhoopNodeDownlinkForm.CheckBoxAWS = gRFEOnSite.WhoopAWS;
+                    mWhoopNodeDownlinkForm.PresetFormCheckBox700 = gRFEOnSite.Whoop700;
+                    mWhoopNodeDownlinkForm.PresetFormCheckBox850 = gRFEOnSite.Whoop850;
+                    mWhoopNodeDownlinkForm.PresetFormCheckBoxPCS = gRFEOnSite.WhoopPCS;
+                    mWhoopNodeDownlinkForm.PresetFormCheckBoxAWS = gRFEOnSite.WhoopAWS;
 
                     mWhoopNodeDownlinkForm.StartPosition = FormStartPosition.CenterParent;
 
@@ -485,10 +520,10 @@ namespace RFEOnSite
 
                     if (gRFEOnSite.WhoopPresetActive)
                     {
-                        gRFEOnSite.Whoop700 = mWhoopNodeDownlinkForm.CheckBox700;
-                        gRFEOnSite.Whoop850 = mWhoopNodeDownlinkForm.CheckBox850;
-                        gRFEOnSite.WhoopPCS = mWhoopNodeDownlinkForm.CheckBoxPCS;
-                        gRFEOnSite.WhoopAWS = mWhoopNodeDownlinkForm.CheckBoxAWS;
+                        gRFEOnSite.Whoop700 = mWhoopNodeDownlinkForm.PresetFormCheckBox700;
+                        gRFEOnSite.Whoop850 = mWhoopNodeDownlinkForm.PresetFormCheckBox850;
+                        gRFEOnSite.WhoopPCS = mWhoopNodeDownlinkForm.PresetFormCheckBoxPCS;
+                        gRFEOnSite.WhoopAWS = mWhoopNodeDownlinkForm.PresetFormCheckBoxAWS;
                         ButtonStartSweeps.Enabled = true;
                         CheckBoxSaveCsvFiles.Checked = true;
                     }

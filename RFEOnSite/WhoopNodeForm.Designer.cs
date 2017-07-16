@@ -31,7 +31,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonSelect = new System.Windows.Forms.Button();
-            this.checkBoxPublicSafety = new System.Windows.Forms.CheckBox();
             this.checkBoxAWS = new System.Windows.Forms.CheckBox();
             this.checkBoxPCS = new System.Windows.Forms.CheckBox();
             this.checkBox850 = new System.Windows.Forms.CheckBox();
@@ -42,14 +41,13 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.buttonSelect);
-            this.groupBox1.Controls.Add(this.checkBoxPublicSafety);
             this.groupBox1.Controls.Add(this.checkBoxAWS);
             this.groupBox1.Controls.Add(this.checkBoxPCS);
             this.groupBox1.Controls.Add(this.checkBox850);
             this.groupBox1.Controls.Add(this.checkBox700);
             this.groupBox1.Location = new System.Drawing.Point(15, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(261, 155);
+            this.groupBox1.Size = new System.Drawing.Size(261, 130);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Whoop Node Supported Downlink Frequencies";
@@ -57,24 +55,13 @@
             // buttonSelect
             // 
             this.buttonSelect.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonSelect.Location = new System.Drawing.Point(180, 66);
+            this.buttonSelect.Location = new System.Drawing.Point(180, 60);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(75, 23);
             this.buttonSelect.TabIndex = 9;
             this.buttonSelect.Text = "Select";
             this.buttonSelect.UseVisualStyleBackColor = true;
-            this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
-            // 
-            // checkBoxPublicSafety
-            // 
-            this.checkBoxPublicSafety.AutoSize = true;
-            this.checkBoxPublicSafety.Enabled = false;
-            this.checkBoxPublicSafety.Location = new System.Drawing.Point(6, 135);
-            this.checkBoxPublicSafety.Name = "checkBoxPublicSafety";
-            this.checkBoxPublicSafety.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxPublicSafety.TabIndex = 8;
-            this.checkBoxPublicSafety.Text = "Include Public Safety";
-            this.checkBoxPublicSafety.UseVisualStyleBackColor = true;
+            this.buttonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
             // 
             // checkBoxAWS
             // 
@@ -123,13 +110,13 @@
             this.checkBox700.TabIndex = 0;
             this.checkBox700.Text = "700 - 734.0  to 757.0 MHz";
             this.checkBox700.UseVisualStyleBackColor = true;
-            
+            this.checkBox700.CheckedChanged += new System.EventHandler(this.CheckBox700_CheckedChanged);
             // 
             // WhoopNodeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 184);
+            this.ClientSize = new System.Drawing.Size(288, 163);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -149,7 +136,6 @@
         private System.Windows.Forms.CheckBox checkBoxPCS;
         private System.Windows.Forms.CheckBox checkBox850;
         private System.Windows.Forms.CheckBox checkBox700;
-        private System.Windows.Forms.CheckBox checkBoxPublicSafety;
         private System.Windows.Forms.Button buttonSelect;
     }
 }
