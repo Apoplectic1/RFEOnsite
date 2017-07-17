@@ -37,9 +37,10 @@ namespace RFEOnSite
         public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
         public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
         public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
+
         public double MinX { get { return mMinX; } set { mMinX = value; } }
         public double MinY { get { return mMinY; } set { mMinY = value; } }
-        public double StepX { get { return mStepX; } set { mStepX = value; } }
+        //public double StepX { get { return mStepX; } set { mStepX = value; } }
 
 
         public Charts()
@@ -63,6 +64,7 @@ namespace RFEOnSite
             mTitleFontSize = 10F;
             mTitleX = "MHz";
             mTitleY = "dBm";
+            mStepX = -1.0;
         }
 
         public void BuildChart()
@@ -112,9 +114,11 @@ namespace RFEOnSite
             DataPoint dpMinY;
 
             mFrequencyList.Clear();
+            mStepX = (MaxX - MinX) / 112.0;
+            frequency = MinX;
             for (int index = 0; index < 112; index++)
             {
-                frequency = mMinX + (index * mStepX);
+                frequency += mStepX;
                 mFrequencyList.Add(frequency);
             }
 

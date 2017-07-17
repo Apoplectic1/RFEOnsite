@@ -137,6 +137,7 @@
     <Compile Include="RFEConfiguration.cs" />
     <Compile Include="SerialPorts.cs" />
     <Compile Include="CsvExport.cs" />
+    <Compile Include="UIMethods.cs" />
     <Compile Include="WhoopNodeForm.cs">
       <SubType>Form</SubType>
     </Compile>

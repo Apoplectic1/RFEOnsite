@@ -13,6 +13,16 @@ namespace RFEOnSite
     public partial class MainForm : Form
     {
         public GlobalData gRFEOnSite;
+        //private UIMethods mUIMethods;
+
+        //private eConfigState mConfigurationState;
+
+        //public TextBox StartFrequency { get { return TextBoxStartFrequency; } set { TextBoxStartFrequency = value; } }
+        //public TextBox StopFrequency { get { return TextBoxStopFrequency; } set { TextBoxStopFrequency = value; } }
+        //public TextBox StepSize { get { return TextBoxStepSize; } set { TextBoxStepSize = value; } }
+        
+
+        
 
         public MainForm()
         {
@@ -95,6 +105,8 @@ namespace RFEOnSite
             gRFEOnSite.Graph.Chart.Series.Add(gRFEOnSite.Graph.Series);
 
             PanelChart.Controls.Add(gRFEOnSite.Graph.Chart);
+
+            //mUIMethods = new UIMethods(this);
         }
 
 
@@ -132,6 +144,9 @@ namespace RFEOnSite
                 RadioButtonGenerator.Checked = true;
                 RadioButtonAnalyzer.Enabled = false;
             }
+
+            //mConfigurationState = eConfigState.eExplorerValid;
+            
         }
 
         public void UIUpdateCallback_SweepData(List<string> sweepsFromExplorer)
@@ -141,19 +156,19 @@ namespace RFEOnSite
 
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
 
-            //#if DEBUG
-            if (sweepsFromExplorer.Count != NumericUpDownSweeps.Value)
-            {
-                string message;
-                string caption = "RF Explorer Sweep Error";
-                message = "The Explorer READ thread returned " + sweepsFromExplorer.Count.ToString() + " out of " + NumericUpDownSweeps.Value.ToString() + " expected sweeps.";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
+            ////#if DEBUG
+            //if (sweepsFromExplorer.Count != NumericUpDownSweeps.Value)
+            //{
+            //    string message;
+            //    string caption = "RF Explorer Sweep Error";
+            //    message = "The Explorer READ thread returned " + sweepsFromExplorer.Count.ToString() + " out of " + NumericUpDownSweeps.Value.ToString() + " expected sweeps.";
+            //    MessageBoxButtons buttons = MessageBoxButtons.OK;
+            //    DialogResult result;
 
-                // Displays the Exception MessageBox.
-                result = MessageBox.Show(message, caption, buttons);
-            }
-            //#endif
+            //    // Displays the Exception MessageBox.
+            //    result = MessageBox.Show(message, caption, buttons);
+            //}
+            ////#endif
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
             // This List is available to both the Charts and CsvEXport classes
@@ -244,8 +259,10 @@ namespace RFEOnSite
             }
 
             ButtonStartSweeps.Enabled = true;
-
-            // Preset Mode
+            //*****************************************************
+            // SETUP AND GET NEXT SWEEP
+            //*****************************************************
+            // Preset Mode -- 
             // Automatically get, populate and set sweep start and stop frequency pairs and cycle through the list of them
             // The first pair is determnined and set from the "Capture" Clicked Event (method) on the UI.
             // This gets the 'next' values and then sweeps with them
@@ -280,7 +297,7 @@ namespace RFEOnSite
 
                     gRFEOnSite.Graph.MinX = pair.SweepStart;
                     gRFEOnSite.Graph.MaxX = pair.SweepStop;
-                    gRFEOnSite.Graph.StepX = 0.10;
+                    //gRFEOnSite.Graph.StepX = 0.10;
 
                     gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
 
@@ -326,6 +343,9 @@ namespace RFEOnSite
 
 
             ButtonSetConfiguration.Enabled = true;
+            ButtonGetConfiguration.Enabled = true;
+            ComboBoxPreset.Enabled = true;
+            //mConfigurationState = eConfigState.eInvalid;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
@@ -337,15 +357,19 @@ namespace RFEOnSite
             // ***********************************************************
             // ***********************************************************
 
+            //mUIMethods.SendExplorerConfiguration();
+
             double startMHz = Convert.ToDouble(TextBoxStartFrequency.Text);
             double stopMHz = Convert.ToDouble(TextBoxStopFrequency.Text);
             double stepKHZ = Convert.ToDouble(TextBoxStepSize.Text);
+
+            //mConfigurationState = eConfigState.eExplorerUpdate;
 
             gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz, -80, -110);
 
             gRFEOnSite.Graph.MinX = startMHz;
             gRFEOnSite.Graph.MaxX = stopMHz;
-            gRFEOnSite.Graph.StepX = stepKHZ / 1000.0;
+            //gRFEOnSite.Graph.StepX = stepKHZ / 1000.0;
 
             gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
             gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
@@ -360,6 +384,11 @@ namespace RFEOnSite
             ButtonStartSweeps.Enabled = false;
 
             gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+
+            //while (!(mConfigurationState == eConfigState.eExplorerValid))
+            //{
+            //    System.Threading.Thread.Sleep(100);
+            //}
 
             if (gRFEOnSite.WhoopPresetActive)
             {
@@ -392,7 +421,7 @@ namespace RFEOnSite
 
                     gRFEOnSite.Graph.MinX = pair.SweepStart;
                     gRFEOnSite.Graph.MaxX = pair.SweepStop;
-                    gRFEOnSite.Graph.StepX = 0.10;
+                    //gRFEOnSite.Graph.StepX = 0.10;
 
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -606,6 +635,57 @@ namespace RFEOnSite
                 CheckBoxChartPeak.Checked = true;
                 gRFEOnSite.Graph.GraphPeak = true;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            gRFEOnSite.Explorer.RequestConfiguration();
+        }
+
+        private void TextBoxStartFrequency_TextChanged(object sender, EventArgs e)
+        {
+            double start, stop, stepSize;
+            bool bStatus;
+
+            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start);
+            bStatus &= Double.TryParse(TextBoxStopFrequency.Text, out stop);
+
+            if (bStatus)
+            {
+                if (stop > start)
+                {
+                    stepSize = (stop - start) / .1120;
+                    TextBoxStepSize.Text = stepSize.ToString("F0");
+                }
+            }
+        }
+
+        private void TextBoxStopFrequency_TextChanged(object sender, EventArgs e)
+        {
+            double start, stop, stepSize;
+            bool bStatus;
+
+            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start);
+            bStatus &= Double.TryParse(TextBoxStopFrequency.Text, out stop);
+
+            if (bStatus)
+            {
+                if (stop > start)
+                {
+                    stepSize = (stop - start) / .1120;
+                    TextBoxStepSize.Text = stepSize.ToString("F0");
+                }
+            }
+        }
+
+        private void RadioButtonAnalyzer_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonDocumentation.Text = "RF Explorer Documentation";
+        }
+
+        private void RadioButtonGenerator_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonDocumentation.Text = "RFE Generator Documentation";
         }
     }
 }

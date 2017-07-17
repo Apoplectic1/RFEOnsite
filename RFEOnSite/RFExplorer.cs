@@ -62,8 +62,11 @@ namespace RFEOnSite
 
             start = (startMHz * 1000.0).ToString("0000000");
             stop = (stopMHz * 1000.0).ToString("0000000");
-            top = (amplitudeTop * 1000.0).ToString("0000");
-            bottom = (amplitudeBottom * 1000.0).ToString("0000");
+            top = amplitudeTop.ToString("000");
+            bottom = amplitudeBottom.ToString("000");
+
+
+            //mSerialPort.SendCommand("CH"); // Hold Data
 
             // Select Proper RFE antenna Port
             if (startMHz >= 4850)
@@ -83,8 +86,14 @@ namespace RFEOnSite
             // Reset Max Hold
             mSerialPort.SendCommand("C+\x1"); // Calculator Mode -  
 
-            // Send final configuration and ww should wait for the Explorer to return with configuration data
+            // Send final configuration and wait for the Explorer to return with configuration data
             mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + "," + bottom);
+            mSerialPort.SendCommand("C0"); // Request Config Data
+
+        }
+        public void RequestConfiguration()
+        {
+            mSerialPort.SendCommand("C0"); // Request Config Data
         }
 
         private void ReceiveThread(IProgress<RFEConfiguration> configurationProgress,
@@ -190,11 +199,11 @@ namespace RFEOnSite
                         // Look for Configuration string 
                         if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                         {
-                            mRFEConfiguration.ParseConfiguration(sNewLine);
+                            mRFEConfiguration.ParseConfiguration(sNewLine);  
 
                             // Now actually Update UI thread with configuration information 
                             // that was obtained from the RF Explorer in this thread 
-                            configurationProgress.Report(mRFEConfiguration);
+                            configurationProgress.Report(mRFEConfiguration); // This is not blocking and falls through. It "calls" the UI thread
                             mReceivedSweep.Clear();
                             sReceived = "";
                             sNewText = "";

@@ -55,7 +55,8 @@ namespace RFEOnSite
             MODEL_RFGEN = 60,   
             None = 0xFF         
         };
-        
+
+        public enum eConfigState { eInvalid, eUiValid, eUIUpdate, eExplorerUpdate, eExplorerValid };
 
         public class RFEConfiguration
         {
@@ -73,12 +74,13 @@ namespace RFEOnSite
             public eMode eMode;
             public eModel mExpansionModel;
             public eModel mMainModel;
+            public eConfigState mConfigurationState;
             public float fOffset_dB;
             private string mFirmwareVersion;
             public string mSerialNumber;
             public List<double> mFreqencyList;
-
-            public List<string> mSweepsFromExplorer;  
+            public List<string> mSweepsFromExplorer;
+            
 
             public double StartMHz{ get { return mfStartMHz; } }
             public double StepMHz { get { return mfStepMHz; } }
@@ -106,6 +108,9 @@ namespace RFEOnSite
                 mFirmwareVersion = String.Empty;
                 mFreqencyList = new List<double>();
                 mSweepsFromExplorer = new List<string>();
+
+                mConfigurationState = eConfigState.eInvalid;
+
             }
 
             public bool ParseModelAndVersion(string sLine)
@@ -141,7 +146,10 @@ namespace RFEOnSite
                 mfMaxSpanMHz = Convert.ToInt32(sLine.Substring(59, 7)) / 1000.0;
                 mResolutionBandwidthKHz = Convert.ToInt32(sLine.Substring(67, 5));
                 eCalculator = (eCalculator)Convert.ToUInt16(sLine.Substring(73, 3));
-               
+
+                mConfigurationState = eConfigState.eExplorerValid;
+
+
                 return true;
             }
         }

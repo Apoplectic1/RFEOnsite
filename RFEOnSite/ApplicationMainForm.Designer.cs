@@ -43,6 +43,7 @@ namespace RFEOnSite
             this.Label2 = new System.Windows.Forms.Label();
             this.LabelFrequencyStep = new System.Windows.Forms.Label();
             this.GroupBoxConfiguration = new System.Windows.Forms.GroupBox();
+            this.ButtonGetConfiguration = new System.Windows.Forms.Button();
             this.labelPresets = new System.Windows.Forms.Label();
             this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
             this.LabelRightSmaAttenuationText = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@ namespace RFEOnSite
             this.LabelStopMHz = new System.Windows.Forms.Label();
             this.labelStartMHz = new System.Windows.Forms.Label();
             this.RadioButtonSize = new System.Windows.Forms.RadioButton();
-            this.RadioButtonRBW = new System.Windows.Forms.RadioButton();
             this.RadioButtonStop = new System.Windows.Forms.RadioButton();
             this.RadioButtonStart = new System.Windows.Forms.RadioButton();
             this.ButtonSetConfiguration = new System.Windows.Forms.Button();
@@ -142,6 +142,7 @@ namespace RFEOnSite
             this.TextBoxStartFrequency.Size = new System.Drawing.Size(40, 20);
             this.TextBoxStartFrequency.TabIndex = 3;
             this.TextBoxStartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBoxStartFrequency.TextChanged += new System.EventHandler(this.TextBoxStartFrequency_TextChanged);
             // 
             // LabelStopFrequency
             // 
@@ -178,6 +179,7 @@ namespace RFEOnSite
             this.TextBoxStopFrequency.Size = new System.Drawing.Size(40, 20);
             this.TextBoxStopFrequency.TabIndex = 7;
             this.TextBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBoxStopFrequency.TextChanged += new System.EventHandler(this.TextBoxStopFrequency_TextChanged);
             // 
             // Label2
             // 
@@ -199,6 +201,7 @@ namespace RFEOnSite
             // 
             // GroupBoxConfiguration
             // 
+            this.GroupBoxConfiguration.Controls.Add(this.ButtonGetConfiguration);
             this.GroupBoxConfiguration.Controls.Add(this.labelPresets);
             this.GroupBoxConfiguration.Controls.Add(this.ComboBoxPreset);
             this.GroupBoxConfiguration.Controls.Add(this.LabelRightSmaAttenuationText);
@@ -212,7 +215,6 @@ namespace RFEOnSite
             this.GroupBoxConfiguration.Controls.Add(this.LabelStopMHz);
             this.GroupBoxConfiguration.Controls.Add(this.labelStartMHz);
             this.GroupBoxConfiguration.Controls.Add(this.RadioButtonSize);
-            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonRBW);
             this.GroupBoxConfiguration.Controls.Add(this.RadioButtonStop);
             this.GroupBoxConfiguration.Controls.Add(this.RadioButtonStart);
             this.GroupBoxConfiguration.Controls.Add(this.ButtonSetConfiguration);
@@ -231,6 +233,18 @@ namespace RFEOnSite
             this.GroupBoxConfiguration.TabStop = false;
             this.GroupBoxConfiguration.Text = "Current Configuration";
             // 
+            // ButtonGetConfiguration
+            // 
+            this.ButtonGetConfiguration.Enabled = false;
+            this.ButtonGetConfiguration.Location = new System.Drawing.Point(274, 43);
+            this.ButtonGetConfiguration.Name = "ButtonGetConfiguration";
+            this.ButtonGetConfiguration.Size = new System.Drawing.Size(75, 23);
+            this.ButtonGetConfiguration.TabIndex = 27;
+            this.ButtonGetConfiguration.Text = "Get Config";
+            this.ToolTip1.SetToolTip(this.ButtonGetConfiguration, "Request and display the current RF Explorer configuration.");
+            this.ButtonGetConfiguration.UseVisualStyleBackColor = true;
+            this.ButtonGetConfiguration.Click += new System.EventHandler(this.button3_Click);
+            // 
             // labelPresets
             // 
             this.labelPresets.AutoSize = true;
@@ -243,6 +257,7 @@ namespace RFEOnSite
             // ComboBoxPreset
             // 
             this.ComboBoxPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxPreset.Enabled = false;
             this.ComboBoxPreset.FormattingEnabled = true;
             this.ComboBoxPreset.Items.AddRange(new object[] {
             "Manual Configuration",
@@ -251,7 +266,7 @@ namespace RFEOnSite
             this.ComboBoxPreset.Name = "ComboBoxPreset";
             this.ComboBoxPreset.Size = new System.Drawing.Size(135, 21);
             this.ComboBoxPreset.TabIndex = 25;
-            this.ToolTip1.SetToolTip(this.ComboBoxPreset, "Choose a Preset to sweep predefined frequency ranges.");
+            this.ToolTip1.SetToolTip(this.ComboBoxPreset, resources.GetString("ComboBoxPreset.ToolTip"));
             this.ComboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPreset_IndexChanged);
             // 
             // LabelRightSmaAttenuationText
@@ -363,18 +378,6 @@ namespace RFEOnSite
             this.RadioButtonSize.Text = "Solve";
             this.RadioButtonSize.UseVisualStyleBackColor = true;
             // 
-            // RadioButtonRBW
-            // 
-            this.RadioButtonRBW.AutoSize = true;
-            this.RadioButtonRBW.Enabled = false;
-            this.RadioButtonRBW.Location = new System.Drawing.Point(210, 73);
-            this.RadioButtonRBW.Name = "RadioButtonRBW";
-            this.RadioButtonRBW.Size = new System.Drawing.Size(52, 17);
-            this.RadioButtonRBW.TabIndex = 13;
-            this.RadioButtonRBW.TabStop = true;
-            this.RadioButtonRBW.Text = "Solve";
-            this.RadioButtonRBW.UseVisualStyleBackColor = true;
-            // 
             // RadioButtonStop
             // 
             this.RadioButtonStop.AutoSize = true;
@@ -402,12 +405,12 @@ namespace RFEOnSite
             // ButtonSetConfiguration
             // 
             this.ButtonSetConfiguration.Enabled = false;
-            this.ButtonSetConfiguration.Location = new System.Drawing.Point(274, 61);
+            this.ButtonSetConfiguration.Location = new System.Drawing.Point(274, 72);
             this.ButtonSetConfiguration.Name = "ButtonSetConfiguration";
             this.ButtonSetConfiguration.Size = new System.Drawing.Size(75, 23);
             this.ButtonSetConfiguration.TabIndex = 10;
-            this.ButtonSetConfiguration.Text = "Set";
-            this.ToolTip1.SetToolTip(this.ButtonSetConfiguration, "Solve for Radio Selected Value");
+            this.ButtonSetConfiguration.Text = "Set Config";
+            this.ToolTip1.SetToolTip(this.ButtonSetConfiguration, resources.GetString("ButtonSetConfiguration.ToolTip"));
             this.ButtonSetConfiguration.UseVisualStyleBackColor = true;
             this.ButtonSetConfiguration.Click += new System.EventHandler(this.ButtonSetConfiguration_Click);
             // 
@@ -451,6 +454,7 @@ namespace RFEOnSite
             this.RadioButtonGenerator.TabStop = true;
             this.RadioButtonGenerator.Text = "Signal Generator";
             this.RadioButtonGenerator.UseVisualStyleBackColor = true;
+            this.RadioButtonGenerator.CheckedChanged += new System.EventHandler(this.RadioButtonGenerator_CheckedChanged);
             // 
             // RadioButtonAnalyzer
             // 
@@ -462,6 +466,7 @@ namespace RFEOnSite
             this.RadioButtonAnalyzer.TabStop = true;
             this.RadioButtonAnalyzer.Text = "Spectrum Analyzer";
             this.RadioButtonAnalyzer.UseVisualStyleBackColor = true;
+            this.RadioButtonAnalyzer.CheckedChanged += new System.EventHandler(this.RadioButtonAnalyzer_CheckedChanged);
             // 
             // LabelModel
             // 
@@ -557,7 +562,7 @@ namespace RFEOnSite
             this.NumericUpDownSweeps.TabIndex = 15;
             this.NumericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericUpDownSweeps.Value = new decimal(new int[] {
-            200,
+            250,
             0,
             0,
             0});
@@ -777,6 +782,7 @@ namespace RFEOnSite
             // 
             // Button2
             // 
+            this.Button2.Enabled = false;
             this.Button2.Location = new System.Drawing.Point(121, 80);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(185, 33);
@@ -786,6 +792,7 @@ namespace RFEOnSite
             // 
             // Button1
             // 
+            this.Button1.Enabled = false;
             this.Button1.Location = new System.Drawing.Point(121, 28);
             this.Button1.Name = "Button1";
             this.Button1.Size = new System.Drawing.Size(185, 34);
@@ -871,7 +878,6 @@ namespace RFEOnSite
         private Panel ConfigurationPanel;
         private Panel ConnectionPanel;
         private ProgressBar TaskProgressBar;
-        private RadioButton RadioButtonRBW;
         private RadioButton RadioButtonSize;
         private RadioButton RadioButtonStart;
         private RadioButton RadioButtonStop;
@@ -906,6 +912,7 @@ namespace RFEOnSite
         private Button Button1;
         private Button buttonDocumentation;
         private Label labelCopyright;
+        private Button ButtonGetConfiguration;
     }
 }
 
