@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 
@@ -29,7 +30,46 @@ namespace RFEOnSite
         public FileOps()
         {
             mFolderDialog = new FolderBrowserDialog();
+            mFileName = string.Empty;
         }
 
+
+
+        public bool ExportCsvFile(double start, double stop, List<string> data)
+        {
+            mCsvExport = new CsvExport();
+
+            string frequency;
+            List<double> frequencyList = new List<double>();
+
+            frequencyList.Clear();
+            double stepMHz = (stop - start) / 112.0;
+            double freq = start;
+            for (int step = 0; step < 112; step++)
+            {
+                frequencyList.Add(freq);
+                freq += stepMHz;
+            }
+
+            for (int sweepIndex = 0; sweepIndex < data.Count; sweepIndex++)
+            {
+                mCsvExport.AddRow();
+                string row = data[sweepIndex];
+
+                for (int index = 0; index != 112; index++)
+                {
+                    frequency = frequencyList[index].ToString("F1");
+                    Int32 dBm = Convert.ToInt16(row[index + 3]);
+
+                    mCsvExport[frequency] = (-(Convert.ToDouble(dBm) / 2.0)).ToString("F1");
+                }
+            }
+
+            mCsvExport.ExportToFile(mFileName);
+
+            mCsvExport = null;
+
+            return true;
+        }
     }
 }

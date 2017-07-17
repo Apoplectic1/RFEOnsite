@@ -749,7 +749,7 @@ namespace RFEOnSite
             this.TextBoxSweepLocation.Name = "TextBoxSweepLocation";
             this.TextBoxSweepLocation.Size = new System.Drawing.Size(344, 20);
             this.TextBoxSweepLocation.TabIndex = 2;
-            this.TextBoxSweepLocation.Text = "Enter Collection Identifier";
+            this.TextBoxSweepLocation.Text = "Enter Collection Location Identifier";
             this.ToolTip1.SetToolTip(this.TextBoxSweepLocation, "Enter a short site collection location identifier for data that is about to be co" +
         "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
         " store collected data in CSV Files.");

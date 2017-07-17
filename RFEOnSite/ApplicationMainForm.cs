@@ -20,9 +20,9 @@ namespace RFEOnSite
         //public TextBox StartFrequency { get { return TextBoxStartFrequency; } set { TextBoxStartFrequency = value; } }
         //public TextBox StopFrequency { get { return TextBoxStopFrequency; } set { TextBoxStopFrequency = value; } }
         //public TextBox StepSize { get { return TextBoxStepSize; } set { TextBoxStepSize = value; } }
-        
 
-        
+
+
 
         public MainForm()
         {
@@ -146,7 +146,7 @@ namespace RFEOnSite
             }
 
             //mConfigurationState = eConfigState.eExplorerValid;
-            
+
         }
 
         public void UIUpdateCallback_SweepData(List<string> sweepsFromExplorer)
@@ -156,7 +156,7 @@ namespace RFEOnSite
 
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
 
-            ////#if DEBUG
+            //#if DEBUG
             //if (sweepsFromExplorer.Count != NumericUpDownSweeps.Value)
             //{
             //    string message;
@@ -168,7 +168,7 @@ namespace RFEOnSite
             //    // Displays the Exception MessageBox.
             //    result = MessageBox.Show(message, caption, buttons);
             //}
-            ////#endif
+            //#endif
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
             // This List is available to both the Charts and CsvEXport classes
@@ -186,7 +186,7 @@ namespace RFEOnSite
             // If we do: send some sort of signal to get next frequency pair scanning in worker thread
 
             // If Save CSV Files, Housekeeping to get a valid location
-            while (CheckBoxSaveCsvFiles.Checked && TextBoxSweepLocation.Text == "Enter Collection Identifier")
+            while (CheckBoxSaveCsvFiles.Checked && TextBoxSweepLocation.Text == "Enter Collection Location Identifier")
             {
                 Form prompt = new Form()
                 {
@@ -215,7 +215,7 @@ namespace RFEOnSite
                     TextBoxSweepLocation.Text = textBox.Text;
                     if (TextBoxSweepLocation.Text == "")
                     {
-                        TextBoxSweepLocation.Text = "Enter Collection Identifier";
+                        TextBoxSweepLocation.Text = "Enter Collection Location Identifier";
                     }
                 }
                 else
@@ -226,39 +226,12 @@ namespace RFEOnSite
                 prompt.Dispose();
             }
 
-
-            if (CheckBoxSaveCsvFiles.Checked)
+            if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
             {
-                string fileName = TextBoxSweepLocation.Text + "-" + gRFEOnSite.Explorer.SweepCount.ToString("D2") + " ";
-
-                string dateString = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
-
-                string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
-
-                string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
-
-                string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
-
-                TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + extra;
-
                 gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop Folder to Store CSV Files";
                 gRFEOnSite.FileOps.FolderDialog.ShowDialog();
-
-                string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
-
-                gRFEOnSite.FileOps.Path = filePath;
-
-                //gRFEOnSite.FileOps.ExportCsvFile();
             }
 
-
-
-            if (gRFEOnSite.Graph.GraphAverage || gRFEOnSite.Graph.GraphPeak)
-            {
-                gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
-            }
-
-            ButtonStartSweeps.Enabled = true;
             //*****************************************************
             // SETUP AND GET NEXT SWEEP
             //*****************************************************
@@ -290,14 +263,13 @@ namespace RFEOnSite
                         default:
                             continue;
                     }
-                    
+
                     gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
                     System.Threading.Thread.Sleep(100);
 
                     gRFEOnSite.Graph.MinX = pair.SweepStart;
                     gRFEOnSite.Graph.MaxX = pair.SweepStop;
-                    //gRFEOnSite.Graph.StepX = 0.10;
 
                     gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
 
@@ -308,6 +280,43 @@ namespace RFEOnSite
                     gRFEOnSite.Explorer.Capture = true;
                     break;
                 }
+            }
+
+            if (CheckBoxSaveCsvFiles.Checked)
+            {
+                string fileName = TextBoxSweepLocation.Text + "-" + gRFEOnSite.ExplorerSweepData.Count.ToString("D3") + " ";
+
+                string dateString = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
+
+                string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
+
+                string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
+
+                string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
+
+                TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + extra;
+
+
+
+                string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
+
+                gRFEOnSite.FileOps.Path = filePath;
+
+                gRFEOnSite.FileOps.ExportCsvFile(
+                        gRFEOnSite.Graph.MinX,
+                        gRFEOnSite.Graph.MaxX,
+                        gRFEOnSite.ExplorerSweepData);
+
+
+
+
+                if (gRFEOnSite.Graph.GraphAverage || gRFEOnSite.Graph.GraphPeak)
+                {
+                    gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
+                }
+
+                ButtonStartSweeps.Enabled = true;
+
             }
         }
 
@@ -369,7 +378,6 @@ namespace RFEOnSite
 
             gRFEOnSite.Graph.MinX = startMHz;
             gRFEOnSite.Graph.MaxX = stopMHz;
-            //gRFEOnSite.Graph.StepX = stepKHZ / 1000.0;
 
             gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
             gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
@@ -414,7 +422,7 @@ namespace RFEOnSite
                         default:
                             continue;
                     }
-                    
+
                     gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
                     System.Threading.Thread.Sleep(100);
@@ -446,24 +454,22 @@ namespace RFEOnSite
 
         private void CheckBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
         {
-            //gRFEOnSite.Explorer.WriteCsvFiles = checkBoxSaveCsvFiles.Checked;
-
-            //if (gRFEOnSite.Explorer.WriteCsvFiles)
-            //{
-            //    textBoxSweepLocation.Enabled = true;
-            //    textBoxCsvFileName.Enabled = true;
-            //    labelCsvRootText.Enabled = true;
-            //    labelRootDirectory.Enabled = true;
-            //    labelProgressWriteCsvFile.Enabled = true;
-            //}
-            //else
-            //{
-            //    textBoxSweepLocation.Enabled = false;
-            //    textBoxCsvFileName.Enabled = false;
-            //    labelCsvRootText.Enabled = false;
-            //    labelRootDirectory.Enabled = false;
-            //    labelProgressWriteCsvFile.Enabled = true;
-            //}
+            if (CheckBoxSaveCsvFiles.Checked)
+            {
+                TextBoxSweepLocation.Enabled = true;
+                TextBoxCsvFileName.Enabled = true;
+                LabelCsvRootText.Enabled = true;
+                LabelRootDirectory.Enabled = true;
+                LabelProgressWriteCsvFile.Enabled = true;
+            }
+            else
+            {
+                TextBoxSweepLocation.Enabled = false;
+                TextBoxCsvFileName.Enabled = false;
+                LabelCsvRootText.Enabled = false;
+                LabelRootDirectory.Enabled = false;
+                LabelProgressWriteCsvFile.Enabled = true;
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)

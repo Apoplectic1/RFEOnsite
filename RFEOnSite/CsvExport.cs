@@ -7,50 +7,39 @@ using System.Text;
 
 namespace RFEOnSite
 {
-
-    /// <summary>
-    /// Simple CSV export
-    /// Example:
-    ///   CsvExport myExport = new CsvExport();
-    ///
-    ///   myExport.AddRow();
-    ///   myExport["Region"] = "New York, USA";
-    ///   myExport["Sales"] = 100000;
-    ///   myExport["Date Opened"] = new DateTime(2003, 12, 31);
-    ///
-    ///   myExport.AddRow();
-    ///   myExport["Region"] = "Sydney \"in\" Australia";
-    ///   myExport["Sales"] = 50000;
-    ///   myExport["Date Opened"] = new DateTime(2005, 1, 1, 9, 30, 0);
-    ///
-    /// Then you can do any of the following three output options:
-    ///   string myCsv = myExport.Export();
-    ///   myExport.ExportToFile("Somefile.csv");
-    ///   byte[] myCsvData = myExport.ExportToBytes();
-    /// </summary>
-    /// 
+    // Simple CSV export
+    // Example:
+    //   CsvExport myExport = new CsvExport();
+    //
+    //   myExport.AddRow();
+    //   myExport["Region"] = "New York, USA";
+    //   myExport["Sales"] = 100000;
+    //   myExport["Date Opened"] = new DateTime(2003, 12, 31);
+    //
+    //   myExport.AddRow();
+    //   myExport["Region"] = "Sydney \"in\" Australia";
+    //   myExport["Sales"] = 50000;
+    //   myExport["Date Opened"] = new DateTime(2005, 1, 1, 9, 30, 0);
+    //
+    // Then you can do any of the following three output options:
+    //   string myCsv = myExport.Export();
+    //   myExport.ExportToFile("Somefile.csv");
+    //   byte[] myCsvData = myExport.ExportToBytes();
+    
    	public class CsvExport
     {
         private List<string> mFields = new List<string>();
         private List<Dictionary<string, object>> mRows = new List<Dictionary<string, object>>();
         private readonly string mColumnSeparator;
         private readonly bool mIncludeColumnSeparatorDefinitionPreamble;
-        private List<double> mFrequencyList = new List<double>();
-        private double mStartMHz;
-        private double mStopMHz;
-        private double mStepMHz;
-        private int mRowCount;
 
         private Dictionary<string, object> CurrentRow { get { return mRows[mRows.Count - 1]; } }
-        public double StartMHz { get { return mStartMHz; } set { mStartMHz = value; } }
-        public double StopMHz { get { return mStopMHz; } set { mStopMHz = value; } }
-        public double StepMHz { get { return mStepMHz; } set { mStepMHz = value; } }
-        public int TotalRows { get { return mRowCount; } set { mRowCount = value; } }
+ 
 
         public CsvExport(string columnSeparator = ",", bool includeColumnSeparatorDefinitionPreamble = true)
         {
             mColumnSeparator = columnSeparator;
-            mIncludeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;
+            mIncludeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;  
         }
         
         public object this[string field]
@@ -153,38 +142,5 @@ namespace RFEOnSite
             var data = Encoding.UTF8.GetBytes(Export());
             return Encoding.UTF8.GetPreamble().Concat(data).ToArray();
         }
-
-
-        public bool ExportCsvFile()
-        {
-
-            string frequency;
-            List<double> frequencyList = new List<double>();
-
-            frequencyList.Clear();
-
-            for (int step = 0; step < 112; step++)
-            {
-
-                frequencyList.Add(mStartMHz + (step * mStepMHz));
-            }
-            for (int sweepIndex = 0; sweepIndex < mRowCount; sweepIndex++)
-            {
-                AddRow();
-
-                for (int index = 0; index != 112; index++)
-                {
-                    frequency = frequencyList[index].ToString();
-
-                    //this.[frequency] = SweepDdm.GetDbmAt(index).ToString();
-                }
-            }
-
-            ExportToFile("path");
-
-
-            return true;
-        }
-
     }
 }

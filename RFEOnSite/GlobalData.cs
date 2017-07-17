@@ -6,7 +6,7 @@ namespace RFEOnSite
     public class GlobalData
     {
         private Charts mChart;
-        //private CsvExport mCsvExport;
+        private CsvExport mCsvExport;
         private Decibels mDecibels;
         private FileOps mFileOps;
         private List<string> mRawSweepData;
@@ -22,7 +22,7 @@ namespace RFEOnSite
         public GlobalData()
         {
             mChart = new Charts();
-            //mCsvExport = new CsvExport();
+            mCsvExport = new CsvExport();
             mDecibels = new Decibels();
             mFileOps = new FileOps();
             mRFE = new RFExplorer();
@@ -38,7 +38,7 @@ namespace RFEOnSite
 
 
         public Charts Graph { get { return mChart; } set { mChart = value; } }
-        //public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
+        public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
         public Decibels Data { get { return mDecibels; } }
         public FileOps FileOps { get { return mFileOps; } set { mFileOps = value; } }
         public List<string> ExplorerSweepData { get { return mRawSweepData; } }
