@@ -226,11 +226,48 @@ namespace RFEOnSite
                 prompt.Dispose();
             }
 
-            if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
+           
+            if (CheckBoxSaveCsvFiles.Checked)
             {
-                gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop Folder to Store CSV Files";
-                gRFEOnSite.FileOps.FolderDialog.ShowDialog();
+                if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
+                {
+                    gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop SubFolder to Store CSV Files for location:\n\n   " + TextBoxSweepLocation.Text;
+                    gRFEOnSite.FileOps.FolderDialog.ShowDialog();
+                }
+
+                string fileName = TextBoxSweepLocation.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
+
+                string dateString = gRFEOnSite.FileOps.RunStartTime.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
+
+                string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
+
+                string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
+
+                string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
+
+                TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + extra;
+
+
+
+                string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
+
+                gRFEOnSite.FileOps.Path = filePath;
+
+                gRFEOnSite.FileOps.ExportCsvFile(
+                        gRFEOnSite.Graph.MinX,
+                        gRFEOnSite.Graph.MaxX,
+                        gRFEOnSite.ExplorerSweepData);
+
+                gRFEOnSite.FileOps.FileCounter++;
             }
+
+
+
+            if (gRFEOnSite.Graph.GraphAverage || gRFEOnSite.Graph.GraphPeak)
+            {
+                gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
+            }
+
 
             //*****************************************************
             // SETUP AND GET NEXT SWEEP
@@ -282,42 +319,7 @@ namespace RFEOnSite
                 }
             }
 
-            if (CheckBoxSaveCsvFiles.Checked)
-            {
-                string fileName = TextBoxSweepLocation.Text + "-" + gRFEOnSite.ExplorerSweepData.Count.ToString("D3") + " ";
-
-                string dateString = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
-
-                string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
-
-                string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
-
-                string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
-
-                TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + extra;
-
-
-
-                string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
-
-                gRFEOnSite.FileOps.Path = filePath;
-
-                gRFEOnSite.FileOps.ExportCsvFile(
-                        gRFEOnSite.Graph.MinX,
-                        gRFEOnSite.Graph.MaxX,
-                        gRFEOnSite.ExplorerSweepData);
-
-
-
-
-                if (gRFEOnSite.Graph.GraphAverage || gRFEOnSite.Graph.GraphPeak)
-                {
-                    gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
-                }
-
-                ButtonStartSweeps.Enabled = true;
-
-            }
+            ButtonStartSweeps.Enabled = true;
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -366,8 +368,6 @@ namespace RFEOnSite
             // ***********************************************************
             // ***********************************************************
 
-            //mUIMethods.SendExplorerConfiguration();
-
             double startMHz = Convert.ToDouble(TextBoxStartFrequency.Text);
             double stopMHz = Convert.ToDouble(TextBoxStopFrequency.Text);
             double stepKHZ = Convert.ToDouble(TextBoxStepSize.Text);
@@ -390,13 +390,11 @@ namespace RFEOnSite
         private void ButtonStartSweeps_Click(object sender, EventArgs e)
         {
             ButtonStartSweeps.Enabled = false;
+            gRFEOnSite.FileOps.FileCounter = 1;
+            gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
+            gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
 
             gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
-
-            //while (!(mConfigurationState == eConfigState.eExplorerValid))
-            //{
-            //    System.Threading.Thread.Sleep(100);
-            //}
 
             if (gRFEOnSite.WhoopPresetActive)
             {
@@ -429,7 +427,6 @@ namespace RFEOnSite
 
                     gRFEOnSite.Graph.MinX = pair.SweepStart;
                     gRFEOnSite.Graph.MaxX = pair.SweepStop;
-                    //gRFEOnSite.Graph.StepX = 0.10;
 
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -441,14 +438,12 @@ namespace RFEOnSite
             }
             else
             {
-                if (CheckBoxChartAverage.Checked || CheckBoxChartPeak.Checked)
-                {
-                    TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
-                    TaskProgressBar.Step = 1;
-                    TaskProgressBar.Value = 0;
+                TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
+                TaskProgressBar.Step = 1;
+                TaskProgressBar.Value = 0;
 
-                    gRFEOnSite.Explorer.Capture = true;
-                }
+                gRFEOnSite.Explorer.Capture = true;
+
             }
         }
 

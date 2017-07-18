@@ -16,6 +16,9 @@ namespace RFEOnSite
         private int mSweepCount;
         private string mFileName;
 
+        private int mFileCount;
+        private DateTime mRunStartTime;
+
         public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
         public Decibels SweepDdm { get { return mDbm; } set { mDbm = value; } }
         public FolderBrowserDialog FolderDialog { get { return mFolderDialog; } set { mFolderDialog = value; } }
@@ -24,8 +27,10 @@ namespace RFEOnSite
         public double StopMHz { get { return mStopMHz; } set { mStopMHz = value; } }
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public string Path { get { return mFileName; } set { mFileName = value; } }
-        
 
+        
+        public int FileCounter { get { return mFileCount; } set { mFileCount = value; } }
+        public DateTime RunStartTime { get { return mRunStartTime; } set { mRunStartTime = value; } }
 
         public FileOps()
         {

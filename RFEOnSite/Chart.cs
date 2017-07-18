@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RFEOnSite
@@ -126,6 +127,8 @@ namespace RFEOnSite
 
             mSeriesPeak = new Series();
             mSeriesAverage = new Series();
+            mSeriesPeak.Color = Color.Blue;
+            mSeriesAverage.Color = Color.Green;
 
             mSeriesPeak.ChartType = SeriesChartType.Spline;
             mSeriesAverage.ChartType = SeriesChartType.Spline;
