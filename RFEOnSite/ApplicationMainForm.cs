@@ -13,17 +13,7 @@ namespace RFEOnSite
     public partial class MainForm : Form
     {
         public GlobalData gRFEOnSite;
-        //private UIMethods mUIMethods;
-
-        //private eConfigState mConfigurationState;
-
-        //public TextBox StartFrequency { get { return TextBoxStartFrequency; } set { TextBoxStartFrequency = value; } }
-        //public TextBox StopFrequency { get { return TextBoxStopFrequency; } set { TextBoxStopFrequency = value; } }
-        //public TextBox StepSize { get { return TextBoxStepSize; } set { TextBoxStepSize = value; } }
-
-
-
-
+        
         public MainForm()
         {
 
@@ -48,7 +38,13 @@ namespace RFEOnSite
 
             InitializeChartUI();
 
+            // Navigate to and set User's Desktop as current working Directory
+            // Force Dialog to Desktop ONLY
             gRFEOnSite.FileOps.FolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            gRFEOnSite.FileOps.CreateEnterDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+
+            // Navigate to, Create if needed, and Enter SurveyData Desktop/SurveyData
+            gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
 
             LabelCsvRootText.Text = "Root Folder for CSV Files:";
 
@@ -105,8 +101,6 @@ namespace RFEOnSite
             gRFEOnSite.Graph.Chart.Series.Add(gRFEOnSite.Graph.Series);
 
             PanelChart.Controls.Add(gRFEOnSite.Graph.Chart);
-
-            //mUIMethods = new UIMethods(this);
         }
 
 
@@ -202,26 +196,29 @@ namespace RFEOnSite
 
                 Label textLabel = new Label() { Left = 50, Top = 20, Text = "Survey Location:" };
                 TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 350 };
-                Button confirmation = new Button() { Text = "Ok", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
+                Button confirmation = new Button() { Text = "OK", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
                 confirmation.Click += (sender, e) => { prompt.Close(); };
                 prompt.Controls.Add(textBox);
                 prompt.Controls.Add(confirmation);
                 prompt.Controls.Add(textLabel);
                 prompt.AcceptButton = confirmation;
 
-                if (prompt.ShowDialog(this) == DialogResult.OK)
+                while (!gRFEOnSite.FileOps.IsValidPath(TextBoxSweepLocation.Text) )
                 {
-                    // Read the contents of testDialog's TextBox.
-                    TextBoxSweepLocation.Text = textBox.Text;
-                    if (TextBoxSweepLocation.Text == "")
+                    if (prompt.ShowDialog(this) == DialogResult.OK)
                     {
-                        TextBoxSweepLocation.Text = "Enter Collection Location Identifier";
+                        // Read the contents of testDialog's TextBox.
+                        TextBoxSweepLocation.Text = textBox.Text;
+                        if (TextBoxSweepLocation.Text == "")
+                        {
+                            TextBoxSweepLocation.Text = "Enter Collection Location Identifier";
+                        }
                     }
-                }
-                else
-                {
-                    // User closed DialogBox by "X";
-                    CheckBoxSaveCsvFiles.Checked = false;
+                    else
+                    {
+                        // User closed DialogBox by "X";
+                        CheckBoxSaveCsvFiles.Checked = false;
+                    }
                 }
                 prompt.Dispose();
             }
@@ -231,6 +228,9 @@ namespace RFEOnSite
             {
                 if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
                 {
+                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = gRFEOnSite.FileOps.PeekCwdDirectory();
+                    gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxSweepLocation.Text);
+
                     gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop SubFolder to Store CSV Files for location:\n\n   " + TextBoxSweepLocation.Text;
                     gRFEOnSite.FileOps.FolderDialog.ShowDialog();
                 }
@@ -243,20 +243,16 @@ namespace RFEOnSite
 
                 string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
 
-                string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
+                //string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
+                string extra = "-" + NumericUpDownSweeps.Text + " Omni.csv";
 
                 TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + extra;
-
-
 
                 string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
 
                 gRFEOnSite.FileOps.Path = filePath;
 
-                gRFEOnSite.FileOps.ExportCsvFile(
-                        gRFEOnSite.Graph.MinX,
-                        gRFEOnSite.Graph.MaxX,
-                        gRFEOnSite.ExplorerSweepData);
+                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData);
 
                 gRFEOnSite.FileOps.FileCounter++;
             }
@@ -267,7 +263,11 @@ namespace RFEOnSite
             {
                 gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
             }
-
+            
+            if (gRFEOnSite.FileOps.FileCounter == gRFEOnSite.PresetTable.Count() + 1)
+            {
+                LabelTask.Text = "Done";
+            }
 
             //*****************************************************
             // SETUP AND GET NEXT SWEEP
@@ -315,8 +315,13 @@ namespace RFEOnSite
                     TaskProgressBar.Value = 0;
 
                     gRFEOnSite.Explorer.Capture = true;
+                    LabelTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetTable.Count();
                     break;
                 }
+            }
+            else
+            {
+                LabelTask.Text = "Done";
             }
 
             ButtonStartSweeps.Enabled = true;
@@ -403,6 +408,8 @@ namespace RFEOnSite
                 {
                     gRFEOnSite.PresetTableIndex++;
 
+                    LabelTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetTable.Count();
+
                     switch (pair.SweepBand)
                     {
                         case eBand.e700:
@@ -438,6 +445,7 @@ namespace RFEOnSite
             }
             else
             {
+                LabelTask.Text = "1 of 1";
                 TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                 TaskProgressBar.Step = 1;
                 TaskProgressBar.Value = 0;
@@ -687,6 +695,12 @@ namespace RFEOnSite
         private void RadioButtonGenerator_CheckedChanged(object sender, EventArgs e)
         {
             buttonDocumentation.Text = "RFE Generator Documentation";
+        }
+
+        private void ButtonCancelSweeps_Click(object sender, EventArgs e)
+        {
+            gRFEOnSite.Explorer.SweepCount = 1;
+            gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetTable.Count();
         }
     }
 }

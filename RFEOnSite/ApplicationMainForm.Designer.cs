@@ -74,6 +74,9 @@ namespace RFEOnSite
             this.LabelStartSweeps = new System.Windows.Forms.Label();
             this.NumericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
             this.GroupBoxSweepControl = new System.Windows.Forms.GroupBox();
+            this.LabelTask = new System.Windows.Forms.Label();
+            this.LabelExecTask = new System.Windows.Forms.Label();
+            this.ButtonCancelSweeps = new System.Windows.Forms.Button();
             this.LabelProgressWriteCsvFile = new System.Windows.Forms.Label();
             this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
             this.TextBoxCsvFileName = new System.Windows.Forms.TextBox();
@@ -96,6 +99,7 @@ namespace RFEOnSite
             this.Button2 = new System.Windows.Forms.Button();
             this.Button1 = new System.Windows.Forms.Button();
             this.labelCopyright = new System.Windows.Forms.Label();
+            this.checkBoxRadial = new System.Windows.Forms.CheckBox();
             this.GroupBoxConfiguration.SuspendLayout();
             this.GroupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
@@ -201,6 +205,7 @@ namespace RFEOnSite
             // 
             // GroupBoxConfiguration
             // 
+            this.GroupBoxConfiguration.Controls.Add(this.checkBoxRadial);
             this.GroupBoxConfiguration.Controls.Add(this.ButtonGetConfiguration);
             this.GroupBoxConfiguration.Controls.Add(this.labelPresets);
             this.GroupBoxConfiguration.Controls.Add(this.ComboBoxPreset);
@@ -236,7 +241,7 @@ namespace RFEOnSite
             // ButtonGetConfiguration
             // 
             this.ButtonGetConfiguration.Enabled = false;
-            this.ButtonGetConfiguration.Location = new System.Drawing.Point(274, 43);
+            this.ButtonGetConfiguration.Location = new System.Drawing.Point(274, 34);
             this.ButtonGetConfiguration.Name = "ButtonGetConfiguration";
             this.ButtonGetConfiguration.Size = new System.Drawing.Size(75, 23);
             this.ButtonGetConfiguration.TabIndex = 27;
@@ -272,7 +277,7 @@ namespace RFEOnSite
             // LabelRightSmaAttenuationText
             // 
             this.LabelRightSmaAttenuationText.AutoSize = true;
-            this.LabelRightSmaAttenuationText.Location = new System.Drawing.Point(166, 161);
+            this.LabelRightSmaAttenuationText.Location = new System.Drawing.Point(186, 161);
             this.LabelRightSmaAttenuationText.Name = "LabelRightSmaAttenuationText";
             this.LabelRightSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
             this.LabelRightSmaAttenuationText.TabIndex = 24;
@@ -282,9 +287,9 @@ namespace RFEOnSite
             // TextBoxRightSmaAttentuationValue
             // 
             this.TextBoxRightSmaAttentuationValue.Enabled = false;
-            this.TextBoxRightSmaAttentuationValue.Location = new System.Drawing.Point(144, 157);
+            this.TextBoxRightSmaAttentuationValue.Location = new System.Drawing.Point(157, 157);
             this.TextBoxRightSmaAttentuationValue.Name = "TextBoxRightSmaAttentuationValue";
-            this.TextBoxRightSmaAttentuationValue.Size = new System.Drawing.Size(20, 20);
+            this.TextBoxRightSmaAttentuationValue.Size = new System.Drawing.Size(29, 20);
             this.TextBoxRightSmaAttentuationValue.TabIndex = 23;
             this.TextBoxRightSmaAttentuationValue.Text = "0";
             this.TextBoxRightSmaAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -293,17 +298,17 @@ namespace RFEOnSite
             // LabelRightAttentaion
             // 
             this.LabelRightAttentaion.AutoSize = true;
-            this.LabelRightAttentaion.Location = new System.Drawing.Point(33, 161);
+            this.LabelRightAttentaion.Location = new System.Drawing.Point(4, 161);
             this.LabelRightAttentaion.Name = "LabelRightAttentaion";
-            this.LabelRightAttentaion.Size = new System.Drawing.Size(110, 13);
+            this.LabelRightAttentaion.Size = new System.Drawing.Size(154, 13);
             this.LabelRightAttentaion.TabIndex = 22;
-            this.LabelRightAttentaion.Text = "Right SMA Attenuator";
+            this.LabelRightAttentaion.Text = "Right SMA Gain(-)/Attenuation:";
             this.LabelRightAttentaion.Click += new System.EventHandler(this.LabelRightAttentaion_Click);
             // 
             // LabelLeftSmaAttenuationText
             // 
             this.LabelLeftSmaAttenuationText.AutoSize = true;
-            this.LabelLeftSmaAttenuationText.Location = new System.Drawing.Point(166, 135);
+            this.LabelLeftSmaAttenuationText.Location = new System.Drawing.Point(186, 135);
             this.LabelLeftSmaAttenuationText.Name = "LabelLeftSmaAttenuationText";
             this.LabelLeftSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
             this.LabelLeftSmaAttenuationText.TabIndex = 21;
@@ -313,9 +318,9 @@ namespace RFEOnSite
             // TextBoxLeftSmaAttenuationValue
             // 
             this.TextBoxLeftSmaAttenuationValue.Enabled = false;
-            this.TextBoxLeftSmaAttenuationValue.Location = new System.Drawing.Point(144, 131);
+            this.TextBoxLeftSmaAttenuationValue.Location = new System.Drawing.Point(157, 131);
             this.TextBoxLeftSmaAttenuationValue.Name = "TextBoxLeftSmaAttenuationValue";
-            this.TextBoxLeftSmaAttenuationValue.Size = new System.Drawing.Size(20, 20);
+            this.TextBoxLeftSmaAttenuationValue.Size = new System.Drawing.Size(29, 20);
             this.TextBoxLeftSmaAttenuationValue.TabIndex = 20;
             this.TextBoxLeftSmaAttenuationValue.Text = "0";
             this.TextBoxLeftSmaAttenuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -324,11 +329,11 @@ namespace RFEOnSite
             // LabelLeftAttenution
             // 
             this.LabelLeftAttenution.AutoSize = true;
-            this.LabelLeftAttenution.Location = new System.Drawing.Point(40, 135);
+            this.LabelLeftAttenution.Location = new System.Drawing.Point(11, 135);
             this.LabelLeftAttenution.Name = "LabelLeftAttenution";
-            this.LabelLeftAttenution.Size = new System.Drawing.Size(103, 13);
+            this.LabelLeftAttenution.Size = new System.Drawing.Size(147, 13);
             this.LabelLeftAttenution.TabIndex = 19;
-            this.LabelLeftAttenution.Text = "Left SMA Attenuator";
+            this.LabelLeftAttenution.Text = "Left SMA Gain(-)/Attenuation:";
             // 
             // TextBoxStepSize
             // 
@@ -405,7 +410,7 @@ namespace RFEOnSite
             // ButtonSetConfiguration
             // 
             this.ButtonSetConfiguration.Enabled = false;
-            this.ButtonSetConfiguration.Location = new System.Drawing.Point(274, 72);
+            this.ButtonSetConfiguration.Location = new System.Drawing.Point(274, 63);
             this.ButtonSetConfiguration.Name = "ButtonSetConfiguration";
             this.ButtonSetConfiguration.Size = new System.Drawing.Size(75, 23);
             this.ButtonSetConfiguration.TabIndex = 10;
@@ -569,6 +574,9 @@ namespace RFEOnSite
             // 
             // GroupBoxSweepControl
             // 
+            this.GroupBoxSweepControl.Controls.Add(this.LabelTask);
+            this.GroupBoxSweepControl.Controls.Add(this.LabelExecTask);
+            this.GroupBoxSweepControl.Controls.Add(this.ButtonCancelSweeps);
             this.GroupBoxSweepControl.Controls.Add(this.LabelProgressWriteCsvFile);
             this.GroupBoxSweepControl.Controls.Add(this.TaskProgressBar);
             this.GroupBoxSweepControl.Controls.Add(this.LabelStartSweeps);
@@ -581,6 +589,33 @@ namespace RFEOnSite
             this.GroupBoxSweepControl.TabIndex = 16;
             this.GroupBoxSweepControl.TabStop = false;
             this.GroupBoxSweepControl.Text = "Sweep Control";
+            // 
+            // LabelTask
+            // 
+            this.LabelTask.AutoSize = true;
+            this.LabelTask.Location = new System.Drawing.Point(313, 29);
+            this.LabelTask.Name = "LabelTask";
+            this.LabelTask.Size = new System.Drawing.Size(0, 13);
+            this.LabelTask.TabIndex = 20;
+            // 
+            // LabelExecTask
+            // 
+            this.LabelExecTask.AutoSize = true;
+            this.LabelExecTask.Location = new System.Drawing.Point(223, 29);
+            this.LabelExecTask.Name = "LabelExecTask";
+            this.LabelExecTask.Size = new System.Drawing.Size(84, 13);
+            this.LabelExecTask.TabIndex = 19;
+            this.LabelExecTask.Text = "Executing Task:";
+            // 
+            // ButtonCancelSweeps
+            // 
+            this.ButtonCancelSweeps.Location = new System.Drawing.Point(214, 53);
+            this.ButtonCancelSweeps.Name = "ButtonCancelSweeps";
+            this.ButtonCancelSweeps.Size = new System.Drawing.Size(145, 23);
+            this.ButtonCancelSweeps.TabIndex = 18;
+            this.ButtonCancelSweeps.Text = "Cancel";
+            this.ButtonCancelSweeps.UseVisualStyleBackColor = true;
+            this.ButtonCancelSweeps.Click += new System.EventHandler(this.ButtonCancelSweeps_Click);
             // 
             // LabelProgressWriteCsvFile
             // 
@@ -804,11 +839,22 @@ namespace RFEOnSite
             // 
             this.labelCopyright.AutoSize = true;
             this.labelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelCopyright.Location = new System.Drawing.Point(557, 614);
+            this.labelCopyright.Location = new System.Drawing.Point(632, 614);
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(207, 13);
             this.labelCopyright.TabIndex = 25;
             this.labelCopyright.Text = "Copyright 2017 - Skyhawk Consulting, Inc.";
+            // 
+            // checkBoxRadial
+            // 
+            this.checkBoxRadial.AutoSize = true;
+            this.checkBoxRadial.Enabled = false;
+            this.checkBoxRadial.Location = new System.Drawing.Point(283, 92);
+            this.checkBoxRadial.Name = "checkBoxRadial";
+            this.checkBoxRadial.Size = new System.Drawing.Size(56, 17);
+            this.checkBoxRadial.TabIndex = 28;
+            this.checkBoxRadial.Text = "Radial";
+            this.checkBoxRadial.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -913,6 +959,10 @@ namespace RFEOnSite
         private Button buttonDocumentation;
         private Label labelCopyright;
         private Button ButtonGetConfiguration;
+        private Button ButtonCancelSweeps;
+        private Label LabelTask;
+        private Label LabelExecTask;
+        private CheckBox checkBoxRadial;
     }
 }
 

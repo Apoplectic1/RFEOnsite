@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -15,9 +18,9 @@ namespace RFEOnSite
         private double mStopMHz;
         private int mSweepCount;
         private string mFileName;
-
         private int mFileCount;
         private DateTime mRunStartTime;
+        private Stack mCwdQueue;
 
         public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
         public Decibels SweepDdm { get { return mDbm; } set { mDbm = value; } }
@@ -27,8 +30,6 @@ namespace RFEOnSite
         public double StopMHz { get { return mStopMHz; } set { mStopMHz = value; } }
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public string Path { get { return mFileName; } set { mFileName = value; } }
-
-        
         public int FileCounter { get { return mFileCount; } set { mFileCount = value; } }
         public DateTime RunStartTime { get { return mRunStartTime; } set { mRunStartTime = value; } }
 
@@ -36,10 +37,192 @@ namespace RFEOnSite
         {
             mFolderDialog = new FolderBrowserDialog();
             mFileName = string.Empty;
+            mCwdQueue = new Stack();
+        }
+        
+        public string PeekCwdDirectory()
+        {
+            return mCwdQueue.Peek().ToString();
+        }
+        public bool CheckDirectory(string relativePath)
+        {
+            string cwd;
+            string checkPath;
+
+            cwd = Directory.GetCurrentDirectory();
+
+            checkPath = System.IO.Path.Combine(cwd, relativePath);
+
+            return Directory.Exists(checkPath);
+
+        }
+        public string CleanCreateEnterDirectory(string relativePath)
+        {
+            string cwd = Directory.GetCurrentDirectory();
+            string errorMessage3 = "Can't Enter directory: " + relativePath + "\nCleanCreateCleanCreateEnterDirectory()";
+
+            string deletePath;
+
+            mCwdQueue.Push(cwd.ToString());
+            try
+            {
+                deletePath = System.IO.Path.Combine(cwd, relativePath);
+                if (Directory.Exists(deletePath))
+                {
+                    // Clean up - DELETE - the directories created by THIS program. Need to ask: "Are you sure?"
+                    Directory.Delete(deletePath, true);
+                }
+            }
+            catch (Exception)
+            {
+                string errorMessage1 = "Can't Delete directory: " + relativePath + "\nfrom:\n" + cwd;
+                MessageBox.Show(errorMessage1);
+                Application.Exit();
+            }
+
+            try
+            {
+                Directory.CreateDirectory(System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath)));
+            }
+            catch (Exception)
+            {
+                string errorMessage2 = "Can't Create directory: " + relativePath + "\nin:\n" + cwd;
+                MessageBox.Show(errorMessage2);
+                Application.Exit();
+            }
+
+            try
+            {
+                string errorMessage2 = "Can't Enter directory: " + relativePath + "\nfrom:\n" + cwd;
+                Directory.SetCurrentDirectory(System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath)));
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show(errorMessage3);
+                Application.Exit();
+            }
+            return mCwdQueue.Peek().ToString();
+        }
+
+        public void RecusiveDeleteDirectory(string relativePath)
+        {
+            string sDeletePath, sCwd;
+
+            sCwd = Directory.GetCurrentDirectory();
+
+            sDeletePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(sCwd, relativePath));
+
+            if (!Directory.Exists(sDeletePath))
+            {
+                return;
+            }
+
+            try
+            {
+                Directory.Delete(sDeletePath, true);
+            }
+            catch
+            {
+                string errorMessage1 = "Can't Delete Directory(s): " + sDeletePath;
+                MessageBox.Show(errorMessage1);
+                Application.Exit();
+            }
+
+        }
+
+        public string GetFullPathFromRelativePath(string relativePath)
+        {
+            string cwd = Directory.GetCurrentDirectory();
+            string dir = System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath));
+            return dir;
+        }
+
+        public string CreateEnterDirectory(string relativePath)
+        {
+            string cwd = Directory.GetCurrentDirectory();
+            mCwdQueue.Push(cwd.ToString());
+            Directory.CreateDirectory(System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath)));
+            Directory.SetCurrentDirectory(System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath)));
+
+            cwd = Directory.GetCurrentDirectory();
+
+            return mCwdQueue.Peek().ToString();
+        }
+
+        private string Push(string relativePath)
+        {
+            string cwd = Directory.GetCurrentDirectory();
+            string errorMessage = "Can't enter directory: " + relativePath + " Push()";
+
+            mCwdQueue.Push(cwd.ToString());
+            try
+            {
+                Directory.Delete(System.IO.Path.Combine(cwd, relativePath), true);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(errorMessage, e.ToString());
+                Application.Exit();
+            }
+
+            string newCwd = System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath));
+
+            Directory.SetCurrentDirectory(newCwd);
+            return mCwdQueue.Peek().ToString();
+        }
+
+        public string PushDirectory(string relativePath)
+        {
+            string cwd = Directory.GetCurrentDirectory();
+
+            mCwdQueue.Push(cwd.ToString());
+
+            string newCwd = System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath));
+
+            Directory.SetCurrentDirectory(newCwd);
+
+            return newCwd;
+        }
+
+        public string PopDirectory()
+        {
+            string cwd = mCwdQueue.Pop().ToString();
+            Directory.SetCurrentDirectory(System.IO.Path.GetFullPath(cwd));
+            return cwd;
+        }
+
+        public bool IsValidPath(string path)
+        {
+
+            bool isValid = !string.IsNullOrEmpty(path) &&
+                !path.Contains(" ") &&
+                !path.Contains(".") &&
+                path.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) < 0;
+
+            if (!isValid)
+            {
+                string message;
+                string caption = "Illegal Characters Found Surevy Location Identifier:";
+                message = path;
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the Exception MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+
+                return false;
+            }
+
+            return true;
         }
 
 
-
+        // *****************************************************************************************
+        // *****************************************************************************************
+        // ** Write CsvFiles from Swept List Data
+        // *****************************************************************************************
+        // *****************************************************************************************
         public bool ExportCsvFile(double start, double stop, List<string> data)
         {
             mCsvExport = new CsvExport();
