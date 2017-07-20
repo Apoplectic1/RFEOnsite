@@ -62,7 +62,7 @@ namespace RFEOnSite
         public bool Whoop850 { get { return mWhoop850; } set { mWhoop850 = value; } }
         public bool WhoopAWS { get { return mWhoopAWS; } set { mWhoopAWS = value; } }
         public bool WhoopPCS { get { return mWhoopPCS; } set { mWhoopPCS = value; } }
-        public bool WhoopPresetActive { get { return mPresetActive; } set { mPresetActive = value; } }
+        public bool PresetActive { get { return mPresetActive; } set { mPresetActive = value; } }
         public int PresetTableIndex { get { return mTableIndex; } set { mTableIndex = value; } }
         public bool RadialSurvey { get { return mRadialSurvey; } set { mRadialSurvey = value; } }
         public int RadialDegrees { get { return mRadialDegrees; } set { mRadialDegrees = value; } }

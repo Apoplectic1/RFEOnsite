@@ -82,7 +82,7 @@ namespace RFEOnSite
             this.CheckBoxAutoIncrement = new System.Windows.Forms.CheckBox();
             this.TextBoxClient = new System.Windows.Forms.TextBox();
             this.NumericUpDownLocation = new System.Windows.Forms.NumericUpDown();
-            this.GroupBox2 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxSerialize = new System.Windows.Forms.GroupBox();
             this.Button2 = new System.Windows.Forms.Button();
             this.Button1 = new System.Windows.Forms.Button();
             this.labelCopyright = new System.Windows.Forms.Label();
@@ -115,7 +115,7 @@ namespace RFEOnSite
             this.GroupBoxCsvConfiguration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLocation)).BeginInit();
-            this.GroupBox2.SuspendLayout();
+            this.GroupBoxSerialize.SuspendLayout();
             this.GroupBoxConfiguration.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -342,6 +342,7 @@ namespace RFEOnSite
             // 
             // ButtonCancelSweeps
             // 
+            this.ButtonCancelSweeps.Enabled = false;
             this.ButtonCancelSweeps.Location = new System.Drawing.Point(152, 53);
             this.ButtonCancelSweeps.Name = "ButtonCancelSweeps";
             this.ButtonCancelSweeps.Size = new System.Drawing.Size(114, 23);
@@ -697,16 +698,17 @@ namespace RFEOnSite
             0});
             this.NumericUpDownLocation.ValueChanged += new System.EventHandler(this.NumericUpDownLocation_ValueChanged);
             // 
-            // GroupBox2
+            // GroupBoxSerialize
             // 
-            this.GroupBox2.Controls.Add(this.Button2);
-            this.GroupBox2.Controls.Add(this.Button1);
-            this.GroupBox2.Location = new System.Drawing.Point(679, 471);
-            this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(157, 161);
-            this.GroupBox2.TabIndex = 24;
-            this.GroupBox2.TabStop = false;
-            this.GroupBox2.Text = "Program Configuration";
+            this.GroupBoxSerialize.Controls.Add(this.Button2);
+            this.GroupBoxSerialize.Controls.Add(this.Button1);
+            this.GroupBoxSerialize.Enabled = false;
+            this.GroupBoxSerialize.Location = new System.Drawing.Point(679, 471);
+            this.GroupBoxSerialize.Name = "GroupBoxSerialize";
+            this.GroupBoxSerialize.Size = new System.Drawing.Size(157, 161);
+            this.GroupBoxSerialize.TabIndex = 24;
+            this.GroupBoxSerialize.TabStop = false;
+            this.GroupBoxSerialize.Text = "Program Configuration";
             // 
             // Button2
             // 
@@ -977,7 +979,7 @@ namespace RFEOnSite
             this.Controls.Add(this.GroupBoxSerialConnection);
             this.Controls.Add(this.GroupBoxConfiguration);
             this.Controls.Add(this.labelCopyright);
-            this.Controls.Add(this.GroupBox2);
+            this.Controls.Add(this.GroupBoxSerialize);
             this.Controls.Add(this.GroupBoxSweepControl);
             this.Controls.Add(this.GroupBoxCsvConfiguration);
             this.Controls.Add(this.ChartPanel);
@@ -996,7 +998,7 @@ namespace RFEOnSite
             this.GroupBoxCsvConfiguration.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLocation)).EndInit();
-            this.GroupBox2.ResumeLayout(false);
+            this.GroupBoxSerialize.ResumeLayout(false);
             this.GroupBoxConfiguration.ResumeLayout(false);
             this.GroupBoxConfiguration.PerformLayout();
             this.ResumeLayout(false);
@@ -1038,7 +1040,7 @@ namespace RFEOnSite
         private RadioButton RadioButtonGenerator;
         private RadioButton RadioButtonAnalyzer;
         private Label LabelProgressWriteCsvFile;
-        private GroupBox GroupBox2;
+        private GroupBox GroupBoxSerialize;
         private Button Button2;
         private Button Button1;
         private Button buttonDocumentation;
