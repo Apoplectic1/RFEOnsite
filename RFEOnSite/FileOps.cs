@@ -138,6 +138,29 @@ namespace RFEOnSite
             return dir;
         }
 
+        public string SetCurrentDirectory(string relativePath)
+        {
+            string cwd = Directory.GetCurrentDirectory();
+            Directory.CreateDirectory(System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath)));
+            Directory.SetCurrentDirectory(System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, relativePath)));
+
+            cwd = Directory.GetCurrentDirectory();
+
+            mCwdQueue.Push(cwd.ToString());
+
+            return mCwdQueue.Peek().ToString();
+        }
+        public string PopToDirectory(int stackIndex)
+        {
+            while (mCwdQueue.Count > stackIndex)
+            {
+                PopDirectory();
+            }
+
+            return mCwdQueue.Peek().ToString();
+
+        }
+
         public string CreateEnterDirectory(string relativePath)
         {
             string cwd = Directory.GetCurrentDirectory();

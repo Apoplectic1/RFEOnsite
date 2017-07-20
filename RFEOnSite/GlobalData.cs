@@ -12,37 +12,42 @@ namespace RFEOnSite
         private List<string> mRawSweepData;
         private RFExplorer mRFE;
         private WhoopTable mWhoopDownlinkTable;
+        private bool mPresetActive;
+        private bool mRadialSurvey;
         private bool mWhoop700;
         private bool mWhoop850;
         private bool mWhoopAWS;
         private bool mWhoopPCS;
-        private bool mPresetActive;
-        private int mTableIndex;
-        private bool mRadialSurvey;
-        private int mRadialDegrees;
-
-        private double mRightAntennaGain;
         private double mLeftAntennaGain;
+        private double mRightAntennaGain;
+        private int mRadialDegrees;
+        private int mTableIndex;
+        private string mClient;
+        private string mCollectionLocation;
+        private string mCollectionSite;
 
         public GlobalData()
         {
             mChart = new Charts();
+            mClient = "Client";
+            mCollectionLocation = "Location";
+            mCollectionSite = "ID";
             mCsvExport = new CsvExport();
             mDecibels = new Decibels();
             mFileOps = new FileOps();
+            mLeftAntennaGain = 5;
+            mPresetActive = false;
             mRFE = new RFExplorer();
+            mRadialDegrees = 0;
+            mRadialSurvey = false;
             mRawSweepData = new List<string>();
+            mRightAntennaGain = 5;
+            mTableIndex = 0;
             mWhoop700 = true;
             mWhoop850 = true;
             mWhoopAWS = true;
             mWhoopDownlinkTable = new WhoopTable();
             mWhoopPCS = true;
-            mPresetActive = false;
-            mTableIndex = 0;
-            mRadialSurvey = false;
-            mRadialDegrees = 0;
-            mRightAntennaGain = 5;
-            mLeftAntennaGain = 5;
         }
 
 
@@ -63,7 +68,9 @@ namespace RFEOnSite
         public int RadialDegrees { get { return mRadialDegrees; } set { mRadialDegrees = value; } }
         public double RightAntennaGain { get { return mRightAntennaGain; } set { mRightAntennaGain = value; } }
         public double LeftAntennaGain { get { return mLeftAntennaGain; } set { mLeftAntennaGain = value; } }
-
+        public string Client { get { return mClient; } set { mClient = value; } }
+        public string Location { get { return mCollectionLocation; } set { mCollectionLocation = value; } }
+        public string Site { get { return mCollectionSite; } set { mCollectionSite = value; } }
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };

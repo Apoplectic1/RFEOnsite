@@ -41,14 +41,17 @@ namespace RFEOnSite
             // Navigate to and set User's Desktop as current working Directory
             // Force Dialog to Desktop ONLY
             gRFEOnSite.FileOps.FolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-            gRFEOnSite.FileOps.CreateEnterDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            gRFEOnSite.FileOps.SetCurrentDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
             // Navigate to, Create if needed, and Enter SurveyData Desktop/SurveyData
-            gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
+            //gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
 
             LabelCsvRootText.Text = "Root Folder for CSV Files:";
 
             ButtonSetConfiguration.Enabled = false;
+            LabelAtAutoIncrement.Enabled = false;
+            NumericUpDownLocation.Enabled = false;
+            CheckBoxAutoIncrement.Enabled = false;
         }
 
         private void InitializeChartUI()
@@ -180,84 +183,92 @@ namespace RFEOnSite
             // If we do: send some sort of signal to get next frequency pair scanning in worker thread
 
             // If Save CSV Files, Housekeeping to get a valid location
-            while (CheckBoxSaveCsvFiles.Checked && TextBoxSweepLocation.Text == "Enter Collection Location Identifier")
-            {
-                Form prompt = new Form();
+            //while (CheckBoxSaveCsvFiles.Checked && TextBoxCollectionLocation.Text == "Collection Location")
+            //{
+            //    Form prompt = new Form();
 
-                prompt.Width = 500;
-                prompt.Height = 150;
-                prompt.MaximizeBox = false;
-                prompt.MinimizeBox = false;
-                prompt.TopMost = true;
-                prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
-                prompt.Text = "Enter a location identifier for the current Sweep(s):";
-                prompt.StartPosition = FormStartPosition.CenterParent;
+            //    prompt.Width = 500;
+            //    prompt.Height = 150;
+            //    prompt.MaximizeBox = false;
+            //    prompt.MinimizeBox = false;
+            //    prompt.TopMost = true;
+            //    prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
+            //    prompt.Text = "Enter a location identifier for the current Sweep(s):";
+            //    prompt.StartPosition = FormStartPosition.CenterParent;
 
-                Label textLabel = new Label() { Left = 50, Top = 20, Text = "Survey Location:" };
-                TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 350 };
-                Button confirmation = new Button() { Text = "OK", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
-                Label azimuthLabel = new Label() { Left = 50, Top = 77, Text = "Azimuth Radial:" };
-                NumericUpDown azimuth = new NumericUpDown() { Left = 132, Top = 75, Width = 80, DecimalPlaces = 0 };
-                Label degreesLabel = new Label() { Left = 200, Top = 77, Width = 130, Text = "Degrees True North" };
+            //    Label textLabel = new Label() { Left = 50, Top = 20, Text = "Survey Location:" };
+            //    TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 350 };
+            //    Button confirmation = new Button() { Text = "OK", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
+            //    Label azimuthLabel = new Label() { Left = 50, Top = 77, Text = "Azimuth Radial:" };
+            //    NumericUpDown azimuth = new NumericUpDown() { Left = 132, Top = 75, Width = 80, DecimalPlaces = 0 };
+            //    Label degreesLabel = new Label() { Left = 200, Top = 77, Width = 130, Text = "Degrees True North" };
 
-                confirmation.Click += (sender, e) => { prompt.Close(); };
-                prompt.Controls.Add(textBox);
-                prompt.Controls.Add(confirmation);
-                prompt.Controls.Add(textLabel);
-                prompt.AcceptButton = confirmation;
+            //    confirmation.Click += (sender, e) => { prompt.Close(); };
+            //    prompt.Controls.Add(textBox);
+            //    prompt.Controls.Add(confirmation);
+            //    prompt.Controls.Add(textLabel);
+            //    prompt.AcceptButton = confirmation;
 
 
-                if (gRFEOnSite.RadialSurvey)
-                {
-                    prompt.Controls.Add(azimuthLabel);
-                    prompt.Controls.Add(azimuth);
-                    prompt.Controls.Add(degreesLabel);
-                }
+            //    if (gRFEOnSite.RadialSurvey)
+            //    {
+            //        prompt.Controls.Add(azimuthLabel);
+            //        prompt.Controls.Add(azimuth);
+            //        prompt.Controls.Add(degreesLabel);
+            //    }
                 
-                confirmation.Click += (sender, e) => { prompt.Close(); };
-                prompt.Controls.Add(textBox);
-                prompt.Controls.Add(confirmation);
-                prompt.Controls.Add(textLabel);
-                prompt.AcceptButton = confirmation;
+            //    confirmation.Click += (sender, e) => { prompt.Close(); };
+            //    prompt.Controls.Add(textBox);
+            //    prompt.Controls.Add(confirmation);
+            //    prompt.Controls.Add(textLabel);
+            //    prompt.AcceptButton = confirmation;
 
-                while (!gRFEOnSite.FileOps.IsValidPath(TextBoxSweepLocation.Text) )
-                {
-                    if (prompt.ShowDialog(this) == DialogResult.OK)
-                    {
-                        // Read the contents of testDialog's TextBox.
-                        TextBoxSweepLocation.Text = textBox.Text;
-                        if (TextBoxSweepLocation.Text == "")
-                        {
-                            TextBoxSweepLocation.Text = "Enter Collection Location Identifier";
-                        }
+            //    while (!gRFEOnSite.FileOps.IsValidPath(TextBoxCollectionLocation.Text) )
+            //    {
+            //        if (prompt.ShowDialog(this) == DialogResult.OK)
+            //        {
+            //            // Read the contents of testDialog's TextBox.
+            //            TextBoxCollectionLocation.Text = textBox.Text;
+            //            if (TextBoxCollectionLocation.Text == "")
+            //            {
+            //                TextBoxCollectionLocation.Text = "Collection Location";
+            //            }
 
-                        if (gRFEOnSite.RadialSurvey)
-                        {
-                            gRFEOnSite.RadialDegrees = (int)azimuth.Value;
-                        }
-                    }
-                    else
-                    {
-                        // User closed DialogBox by "X";
-                        CheckBoxSaveCsvFiles.Checked = false;
-                    }
-                }
-                prompt.Dispose();
-            }
+            //            if (gRFEOnSite.RadialSurvey)
+            //            {
+            //                gRFEOnSite.RadialDegrees = (int)azimuth.Value;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            // User closed DialogBox by "X";
+            //            CheckBoxSaveCsvFiles.Checked = false;
+            //        }
+            //    }
+            //    prompt.Dispose();
+            //}
 
 
             if (CheckBoxSaveCsvFiles.Checked)
             {
-                if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
+                //if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
+                //{
+                //    gRFEOnSite.FileOps.FolderDialog.SelectedPath = gRFEOnSite.FileOps.PeekCwdDirectory();
+                //    //gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionLocation.Text);
+
+                //    gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop SubFolder to Store CSV Files for location:\n\n   " + TextBoxCollectionLocation.Text;
+                //    gRFEOnSite.FileOps.FolderDialog.ShowDialog();
+                //}
+                string fileName;
+
+                if (gRFEOnSite.WhoopPresetActive)
                 {
-                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = gRFEOnSite.FileOps.PeekCwdDirectory();
-                    gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxSweepLocation.Text);
-
-                    gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop SubFolder to Store CSV Files for location:\n\n   " + TextBoxSweepLocation.Text;
-                    gRFEOnSite.FileOps.FolderDialog.ShowDialog();
+                     fileName = TextBoxCollectionLocation.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
                 }
-
-                string fileName = TextBoxSweepLocation.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
+                else
+                {
+                    fileName = TextBoxCollectionLocation.Text + " ";
+                }
 
                 string dateString = gRFEOnSite.FileOps.RunStartTime.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
 
@@ -276,7 +287,9 @@ namespace RFEOnSite
                         NumericUpDownSweeps.Text + " Omni.csv";
                 }
                 
-                string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
+                //string filePath = gRFEOnSite.FileOps.PeekCwdDirectory() + "\\" + TextBoxCsvFileName.Text;
+
+                string filePath = TextBoxCsvFileName.Text;
 
                 gRFEOnSite.FileOps.Path = filePath;
 
@@ -389,7 +402,14 @@ namespace RFEOnSite
             ButtonSetConfiguration.Enabled = true;
             ButtonGetConfiguration.Enabled = true;
             ComboBoxPreset.Enabled = true;
-            //mConfigurationState = eConfigState.eInvalid;
+            GroupBoxConfiguration.Enabled = true;
+            GroupBoxCsvConfiguration.Enabled = true;
+            GroupBoxSweepControl.Enabled = true;
+            PanelChart.Enabled = true;
+            GroupBoxChart.Enabled = true;
+            ChartPanel.Enabled = true;
+
+            ButtonStartSweeps.Enabled = true;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
@@ -426,6 +446,27 @@ namespace RFEOnSite
             gRFEOnSite.FileOps.FileCounter = 1;
             gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
             gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
+
+            if (CheckBoxSaveCsvFiles.Checked)
+            {
+                gRFEOnSite.FileOps.PopToDirectory(1);
+                gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
+                gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxClient.Text);
+                gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionLocation.Text);
+                if (CheckBoxAutoIncrement.Checked)
+                {
+                    gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString());
+                }
+                else
+                {
+                    gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text);
+                }
+                
+                gRFEOnSite.FileOps.CreateEnterDirectory(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo));
+            }
+            
+
+
 
             gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
 
@@ -487,19 +528,33 @@ namespace RFEOnSite
         {
             if (CheckBoxSaveCsvFiles.Checked)
             {
-                TextBoxSweepLocation.Enabled = true;
+                TextBoxCollectionLocation.Enabled = true;
                 TextBoxCsvFileName.Enabled = true;
                 LabelCsvRootText.Enabled = true;
-                LabelRootDirectory.Enabled = true;
                 LabelProgressWriteCsvFile.Enabled = true;
+                CheckBoxAutoIncrement.Enabled = true;
+                TextBoxClient.Enabled = true;
+                TextBoxCollectionSite.Enabled = true;
+                LabelCsvCollectionSite.Enabled = true;
+                LabelCsvDirectory.Enabled = true;
+                LabelCsvLocation.Enabled = true;
+                LabelProgressWriteCsvFile.Enabled = true;
+
+                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
             }
             else
             {
-                TextBoxSweepLocation.Enabled = false;
+                TextBoxCollectionLocation.Enabled = false;
                 TextBoxCsvFileName.Enabled = false;
                 LabelCsvRootText.Enabled = false;
-                LabelRootDirectory.Enabled = false;
                 LabelProgressWriteCsvFile.Enabled = true;
+                CheckBoxAutoIncrement.Enabled = false;
+                TextBoxClient.Enabled = false;
+                TextBoxCollectionSite.Enabled = false;
+                LabelCsvCollectionSite.Enabled = false;
+                LabelCsvDirectory.Enabled = false;
+                LabelCsvLocation.Enabled = false;
+                LabelProgressWriteCsvFile.Enabled = false;
             }
         }
 
@@ -520,10 +575,11 @@ namespace RFEOnSite
 
         private void TextBoxSweepLocation_TextChanged(object sender, EventArgs e)
         {
+            LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
 
-            ToolTip1.SetToolTip(TextBoxSweepLocation, "Enter a short site collection location identifier " +
-                "for data that is about to be collected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
-                    " store collected data in CSV Files.");
+            //ToolTip1.SetToolTip(TextBoxCollectionLocation, "Enter a short site collection location identifier " +
+            //    "for data that is about to be collected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
+            //        " store collected data in CSV Files.");
         }
 
         private void CheckBoxChartAutoScale_CheckedChanged(object sender, EventArgs e)
@@ -675,9 +731,10 @@ namespace RFEOnSite
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void ButtonGetConfiguration_Click(object sender, EventArgs e)
         {
             gRFEOnSite.Explorer.RequestConfiguration();
+            ButtonStartSweeps.Enabled = true;
         }
 
         private void TextBoxStartFrequency_TextChanged(object sender, EventArgs e)
@@ -743,6 +800,50 @@ namespace RFEOnSite
         private void CheckBoxRadial_CheckedChanged(object sender, EventArgs e)
         {
             gRFEOnSite.RadialSurvey = CheckBoxRadial.Checked;
+        }
+
+        private void LabelRootDirectory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxAutoIncrement_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBoxAutoIncrement.Checked)
+            {
+                LabelAtAutoIncrement.Enabled = true;
+                NumericUpDownLocation.Enabled = true;
+                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
+
+            }
+            else
+            {
+                LabelAtAutoIncrement.Enabled = false;
+                NumericUpDownLocation.Enabled = false;
+                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
+            }
+        }
+
+        private void TextBoxCollectionSite_TextChanged(object sender, EventArgs e)
+        {
+            if (CheckBoxAutoIncrement.Checked)
+            {
+                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
+            }
+            else
+            {
+                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
+            }
+        }
+
+        private void TextBoxClient_TextChanged(object sender, EventArgs e)
+        {
+            LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
+        }
+
+        private void NumericUpDownLocation_ValueChanged(object sender, EventArgs e)
+        {
+            LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
         }
     }
 }
