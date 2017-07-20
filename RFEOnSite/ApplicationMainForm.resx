@@ -126,6 +126,9 @@
 RBW is determined internally by table lookup using the current Span (stop MHz minus start MHz) as the RBW table index. 
 The RBW table is limited and will automaticlly choose the 'best' value.</value>
   </data>
+  <data name="CheckBoxRadial.ToolTip" xml:space="preserve">
+    <value>When checked, the survey is directional.\n\nA radial survey will use a different (specific) directory structure to store .csv files and uses a different location naming convention than an Omni directional survey.</value>
+  </data>
   <data name="ComboBoxPreset.ToolTip" xml:space="preserve">
     <value>Choose a Preset to sweep manually or sweep using a predefined set of frequency range(s).
 

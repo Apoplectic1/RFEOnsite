@@ -182,21 +182,38 @@ namespace RFEOnSite
             // If Save CSV Files, Housekeeping to get a valid location
             while (CheckBoxSaveCsvFiles.Checked && TextBoxSweepLocation.Text == "Enter Collection Location Identifier")
             {
-                Form prompt = new Form()
-                {
-                    Width = 500,
-                    Height = 150,
-                    MaximizeBox = false,
-                    MinimizeBox = false,
-                    TopMost = true,
-                    FormBorderStyle = FormBorderStyle.FixedDialog,
-                    Text = "Enter a location identifier for the current Sweep(s):",
-                    StartPosition = FormStartPosition.CenterParent
-                };
+                Form prompt = new Form();
+
+                prompt.Width = 500;
+                prompt.Height = 150;
+                prompt.MaximizeBox = false;
+                prompt.MinimizeBox = false;
+                prompt.TopMost = true;
+                prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
+                prompt.Text = "Enter a location identifier for the current Sweep(s):";
+                prompt.StartPosition = FormStartPosition.CenterParent;
 
                 Label textLabel = new Label() { Left = 50, Top = 20, Text = "Survey Location:" };
                 TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 350 };
                 Button confirmation = new Button() { Text = "OK", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
+                Label azimuthLabel = new Label() { Left = 50, Top = 77, Text = "Azimuth Radial:" };
+                NumericUpDown azimuth = new NumericUpDown() { Left = 132, Top = 75, Width = 80, DecimalPlaces = 0 };
+                Label degreesLabel = new Label() { Left = 200, Top = 77, Width = 130, Text = "Degrees True North" };
+
+                confirmation.Click += (sender, e) => { prompt.Close(); };
+                prompt.Controls.Add(textBox);
+                prompt.Controls.Add(confirmation);
+                prompt.Controls.Add(textLabel);
+                prompt.AcceptButton = confirmation;
+
+
+                if (gRFEOnSite.RadialSurvey)
+                {
+                    prompt.Controls.Add(azimuthLabel);
+                    prompt.Controls.Add(azimuth);
+                    prompt.Controls.Add(degreesLabel);
+                }
+                
                 confirmation.Click += (sender, e) => { prompt.Close(); };
                 prompt.Controls.Add(textBox);
                 prompt.Controls.Add(confirmation);
@@ -213,6 +230,11 @@ namespace RFEOnSite
                         {
                             TextBoxSweepLocation.Text = "Enter Collection Location Identifier";
                         }
+
+                        if (gRFEOnSite.RadialSurvey)
+                        {
+                            gRFEOnSite.RadialDegrees = (int)azimuth.Value;
+                        }
                     }
                     else
                     {
@@ -223,7 +245,7 @@ namespace RFEOnSite
                 prompt.Dispose();
             }
 
-           
+
             if (CheckBoxSaveCsvFiles.Checked)
             {
                 if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
@@ -242,12 +264,18 @@ namespace RFEOnSite
                 string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
 
                 string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
-
-                //string extra = "-" + NumericUpDownSweeps.Text + " at 000 Degrees.csv";
-                string extra = "-" + NumericUpDownSweeps.Text + " Omni.csv";
-
-                TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + extra;
-
+                
+                if (gRFEOnSite.RadialSurvey)
+                {
+                    TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" + 
+                        NumericUpDownSweeps.Text + " at " + gRFEOnSite.RadialDegrees.ToString("D3") + " Degrees.csv";
+                }
+                else
+                {
+                    TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" + 
+                        NumericUpDownSweeps.Text + " Omni.csv";
+                }
+                
                 string filePath = gRFEOnSite.FileOps.FolderDialog.SelectedPath + "\\" + TextBoxCsvFileName.Text;
 
                 gRFEOnSite.FileOps.Path = filePath;
@@ -503,29 +531,30 @@ namespace RFEOnSite
             gRFEOnSite.Graph.AutoScale = CheckBoxChartAutoScale.Checked;
         }
 
-        private void LabelRightAttentaion_Click(object sender, EventArgs e)
+        private void TextBoxLeftAntennaGain_TextChanged(object sender, EventArgs e)
         {
-
+            double gain;
+            if (Double.TryParse(TextBoxLeftAntennaGain.Text, out gain))
+            {
+                gRFEOnSite.LeftAntennaGain = gain;
+            }
+            else
+            {
+                TextBoxLeftAntennaGain.Text = "";
+            }
         }
 
-        private void TextBoxLeftSMAAttenuationValue_TextChanged(object sender, EventArgs e)
+        private void TextBoxRightAntennaGain_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void LabelLeftSMAAttenuationText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LabelRightSMAAttenuationText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBoxRightSMAAttentuationValue_TextChanged(object sender, EventArgs e)
-        {
-
+            double gain;
+            if (Double.TryParse(TextBoxRightAntennaGain.Text, out gain))
+            {
+                gRFEOnSite.RightAntennaGain = gain;
+            }
+            else
+            {
+                TextBoxRightAntennaGain.Text = "";
+            }
         }
 
         private void ComboBoxPreset_IndexChanged(object sender, EventArgs e)
@@ -657,7 +686,7 @@ namespace RFEOnSite
             bool bStatus;
 
             bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start);
-            bStatus &= Double.TryParse(TextBoxStopFrequency.Text, out stop);
+            Double.TryParse(TextBoxStopFrequency.Text, out stop);
 
             if (bStatus)
             {
@@ -667,6 +696,10 @@ namespace RFEOnSite
                     TextBoxStepSize.Text = stepSize.ToString("F0");
                 }
             }
+            else
+            {
+                TextBoxStartFrequency.Text = "";
+            }
         }
 
         private void TextBoxStopFrequency_TextChanged(object sender, EventArgs e)
@@ -674,8 +707,8 @@ namespace RFEOnSite
             double start, stop, stepSize;
             bool bStatus;
 
-            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start);
-            bStatus &= Double.TryParse(TextBoxStopFrequency.Text, out stop);
+            bStatus = Double.TryParse(TextBoxStopFrequency.Text, out start);
+            Double.TryParse(TextBoxStopFrequency.Text, out stop);
 
             if (bStatus)
             {
@@ -684,6 +717,10 @@ namespace RFEOnSite
                     stepSize = (stop - start) / .1120;
                     TextBoxStepSize.Text = stepSize.ToString("F0");
                 }
+            }
+            else
+            {
+                TextBoxStopFrequency.Text = "";
             }
         }
 
@@ -701,6 +738,11 @@ namespace RFEOnSite
         {
             gRFEOnSite.Explorer.SweepCount = 1;
             gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetTable.Count();
+        }
+
+        private void CheckBoxRadial_CheckedChanged(object sender, EventArgs e)
+        {
+            gRFEOnSite.RadialSurvey = CheckBoxRadial.Checked;
         }
     }
 }

@@ -18,6 +18,11 @@ namespace RFEOnSite
         private bool mWhoopPCS;
         private bool mPresetActive;
         private int mTableIndex;
+        private bool mRadialSurvey;
+        private int mRadialDegrees;
+
+        private double mRightAntennaGain;
+        private double mLeftAntennaGain;
 
         public GlobalData()
         {
@@ -34,6 +39,10 @@ namespace RFEOnSite
             mWhoopPCS = true;
             mPresetActive = false;
             mTableIndex = 0;
+            mRadialSurvey = false;
+            mRadialDegrees = 0;
+            mRightAntennaGain = 5;
+            mLeftAntennaGain = 5;
         }
 
 
@@ -50,7 +59,11 @@ namespace RFEOnSite
         public bool WhoopPCS { get { return mWhoopPCS; } set { mWhoopPCS = value; } }
         public bool WhoopPresetActive { get { return mPresetActive; } set { mPresetActive = value; } }
         public int PresetTableIndex { get { return mTableIndex; } set { mTableIndex = value; } }
-        
+        public bool RadialSurvey { get { return mRadialSurvey; } set { mRadialSurvey = value; } }
+        public int RadialDegrees { get { return mRadialDegrees; } set { mRadialDegrees = value; } }
+        public double RightAntennaGain { get { return mRightAntennaGain; } set { mRightAntennaGain = value; } }
+        public double LeftAntennaGain { get { return mLeftAntennaGain; } set { mLeftAntennaGain = value; } }
+
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };

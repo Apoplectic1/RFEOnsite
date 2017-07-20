@@ -43,15 +43,16 @@ namespace RFEOnSite
             this.Label2 = new System.Windows.Forms.Label();
             this.LabelFrequencyStep = new System.Windows.Forms.Label();
             this.GroupBoxConfiguration = new System.Windows.Forms.GroupBox();
+            this.CheckBoxRadial = new System.Windows.Forms.CheckBox();
             this.ButtonGetConfiguration = new System.Windows.Forms.Button();
             this.labelPresets = new System.Windows.Forms.Label();
             this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
-            this.LabelRightSmaAttenuationText = new System.Windows.Forms.Label();
-            this.TextBoxRightSmaAttentuationValue = new System.Windows.Forms.TextBox();
-            this.LabelRightAttentaion = new System.Windows.Forms.Label();
-            this.LabelLeftSmaAttenuationText = new System.Windows.Forms.Label();
-            this.TextBoxLeftSmaAttenuationValue = new System.Windows.Forms.TextBox();
-            this.LabelLeftAttenution = new System.Windows.Forms.Label();
+            this.LabelRightAntennaGainUnit = new System.Windows.Forms.Label();
+            this.TextBoxRightAntennaGain = new System.Windows.Forms.TextBox();
+            this.LabelRightAntennaGain = new System.Windows.Forms.Label();
+            this.LabelLeftAntennaGainUnit = new System.Windows.Forms.Label();
+            this.TextBoxLeftAntennaGain = new System.Windows.Forms.TextBox();
+            this.LabelLeftAntennaGain = new System.Windows.Forms.Label();
             this.TextBoxStepSize = new System.Windows.Forms.TextBox();
             this.TextBoxRBW = new System.Windows.Forms.TextBox();
             this.LabelStopMHz = new System.Windows.Forms.Label();
@@ -99,7 +100,8 @@ namespace RFEOnSite
             this.Button2 = new System.Windows.Forms.Button();
             this.Button1 = new System.Windows.Forms.Button();
             this.labelCopyright = new System.Windows.Forms.Label();
-            this.checkBoxRadial = new System.Windows.Forms.CheckBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.GroupBoxConfiguration.SuspendLayout();
             this.GroupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
@@ -110,6 +112,7 @@ namespace RFEOnSite
             this.GroupBoxChart.SuspendLayout();
             this.GroupBox1.SuspendLayout();
             this.GroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ButtonFindCOMPorts
@@ -205,16 +208,16 @@ namespace RFEOnSite
             // 
             // GroupBoxConfiguration
             // 
-            this.GroupBoxConfiguration.Controls.Add(this.checkBoxRadial);
+            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxRadial);
             this.GroupBoxConfiguration.Controls.Add(this.ButtonGetConfiguration);
             this.GroupBoxConfiguration.Controls.Add(this.labelPresets);
             this.GroupBoxConfiguration.Controls.Add(this.ComboBoxPreset);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelRightSmaAttenuationText);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxRightSmaAttentuationValue);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelRightAttentaion);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftSmaAttenuationText);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxLeftSmaAttenuationValue);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAttenution);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelRightAntennaGainUnit);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxRightAntennaGain);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelRightAntennaGain);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAntennaGainUnit);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxLeftAntennaGain);
+            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAntennaGain);
             this.GroupBoxConfiguration.Controls.Add(this.TextBoxStepSize);
             this.GroupBoxConfiguration.Controls.Add(this.TextBoxRBW);
             this.GroupBoxConfiguration.Controls.Add(this.LabelStopMHz);
@@ -237,6 +240,18 @@ namespace RFEOnSite
             this.GroupBoxConfiguration.TabIndex = 10;
             this.GroupBoxConfiguration.TabStop = false;
             this.GroupBoxConfiguration.Text = "Current Configuration";
+            // 
+            // CheckBoxRadial
+            // 
+            this.CheckBoxRadial.AutoSize = true;
+            this.CheckBoxRadial.Location = new System.Drawing.Point(283, 92);
+            this.CheckBoxRadial.Name = "CheckBoxRadial";
+            this.CheckBoxRadial.Size = new System.Drawing.Size(56, 17);
+            this.CheckBoxRadial.TabIndex = 28;
+            this.CheckBoxRadial.Text = "Radial";
+            this.ToolTip1.SetToolTip(this.CheckBoxRadial, resources.GetString("CheckBoxRadial.ToolTip"));
+            this.CheckBoxRadial.UseVisualStyleBackColor = true;
+            this.CheckBoxRadial.CheckedChanged += new System.EventHandler(this.CheckBoxRadial_CheckedChanged);
             // 
             // ButtonGetConfiguration
             // 
@@ -274,66 +289,67 @@ namespace RFEOnSite
             this.ToolTip1.SetToolTip(this.ComboBoxPreset, resources.GetString("ComboBoxPreset.ToolTip"));
             this.ComboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPreset_IndexChanged);
             // 
-            // LabelRightSmaAttenuationText
+            // LabelRightAntennaGainUnit
             // 
-            this.LabelRightSmaAttenuationText.AutoSize = true;
-            this.LabelRightSmaAttenuationText.Location = new System.Drawing.Point(186, 161);
-            this.LabelRightSmaAttenuationText.Name = "LabelRightSmaAttenuationText";
-            this.LabelRightSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
-            this.LabelRightSmaAttenuationText.TabIndex = 24;
-            this.LabelRightSmaAttenuationText.Text = "dB";
-            this.LabelRightSmaAttenuationText.Click += new System.EventHandler(this.LabelRightSMAAttenuationText_Click);
+            this.LabelRightAntennaGainUnit.AutoSize = true;
+            this.LabelRightAntennaGainUnit.Enabled = false;
+            this.LabelRightAntennaGainUnit.Location = new System.Drawing.Point(167, 161);
+            this.LabelRightAntennaGainUnit.Name = "LabelRightAntennaGainUnit";
+            this.LabelRightAntennaGainUnit.Size = new System.Drawing.Size(20, 13);
+            this.LabelRightAntennaGainUnit.TabIndex = 24;
+            this.LabelRightAntennaGainUnit.Text = "dB";
             // 
             // TextBoxRightSmaAttentuationValue
             // 
-            this.TextBoxRightSmaAttentuationValue.Enabled = false;
-            this.TextBoxRightSmaAttentuationValue.Location = new System.Drawing.Point(157, 157);
-            this.TextBoxRightSmaAttentuationValue.Name = "TextBoxRightSmaAttentuationValue";
-            this.TextBoxRightSmaAttentuationValue.Size = new System.Drawing.Size(29, 20);
-            this.TextBoxRightSmaAttentuationValue.TabIndex = 23;
-            this.TextBoxRightSmaAttentuationValue.Text = "0";
-            this.TextBoxRightSmaAttentuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TextBoxRightSmaAttentuationValue.TextChanged += new System.EventHandler(this.TextBoxRightSMAAttentuationValue_TextChanged);
+            this.TextBoxRightAntennaGain.Enabled = false;
+            this.TextBoxRightAntennaGain.Location = new System.Drawing.Point(126, 157);
+            this.TextBoxRightAntennaGain.Name = "TextBoxRightSmaAttentuationValue";
+            this.TextBoxRightAntennaGain.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxRightAntennaGain.TabIndex = 23;
+            this.TextBoxRightAntennaGain.Text = "0";
+            this.TextBoxRightAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxRightAntennaGain.TextChanged += new System.EventHandler(this.TextBoxRightAntennaGain_TextChanged);
             // 
-            // LabelRightAttentaion
+            // LabelRightAntennaGain
             // 
-            this.LabelRightAttentaion.AutoSize = true;
-            this.LabelRightAttentaion.Location = new System.Drawing.Point(4, 161);
-            this.LabelRightAttentaion.Name = "LabelRightAttentaion";
-            this.LabelRightAttentaion.Size = new System.Drawing.Size(154, 13);
-            this.LabelRightAttentaion.TabIndex = 22;
-            this.LabelRightAttentaion.Text = "Right SMA Gain(-)/Attenuation:";
-            this.LabelRightAttentaion.Click += new System.EventHandler(this.LabelRightAttentaion_Click);
+            this.LabelRightAntennaGain.AutoSize = true;
+            this.LabelRightAntennaGain.Enabled = false;
+            this.LabelRightAntennaGain.Location = new System.Drawing.Point(19, 161);
+            this.LabelRightAntennaGain.Name = "LabelRightAntennaGain";
+            this.LabelRightAntennaGain.Size = new System.Drawing.Size(100, 13);
+            this.LabelRightAntennaGain.TabIndex = 22;
+            this.LabelRightAntennaGain.Text = "Right Antenna Gain";
             // 
-            // LabelLeftSmaAttenuationText
+            // LabelLeftAntennaGainUnit
             // 
-            this.LabelLeftSmaAttenuationText.AutoSize = true;
-            this.LabelLeftSmaAttenuationText.Location = new System.Drawing.Point(186, 135);
-            this.LabelLeftSmaAttenuationText.Name = "LabelLeftSmaAttenuationText";
-            this.LabelLeftSmaAttenuationText.Size = new System.Drawing.Size(20, 13);
-            this.LabelLeftSmaAttenuationText.TabIndex = 21;
-            this.LabelLeftSmaAttenuationText.Text = "dB";
-            this.LabelLeftSmaAttenuationText.Click += new System.EventHandler(this.LabelLeftSMAAttenuationText_Click);
+            this.LabelLeftAntennaGainUnit.AutoSize = true;
+            this.LabelLeftAntennaGainUnit.Enabled = false;
+            this.LabelLeftAntennaGainUnit.Location = new System.Drawing.Point(167, 135);
+            this.LabelLeftAntennaGainUnit.Name = "LabelLeftAntennaGainUnit";
+            this.LabelLeftAntennaGainUnit.Size = new System.Drawing.Size(20, 13);
+            this.LabelLeftAntennaGainUnit.TabIndex = 21;
+            this.LabelLeftAntennaGainUnit.Text = "dB";
             // 
             // TextBoxLeftSmaAttenuationValue
             // 
-            this.TextBoxLeftSmaAttenuationValue.Enabled = false;
-            this.TextBoxLeftSmaAttenuationValue.Location = new System.Drawing.Point(157, 131);
-            this.TextBoxLeftSmaAttenuationValue.Name = "TextBoxLeftSmaAttenuationValue";
-            this.TextBoxLeftSmaAttenuationValue.Size = new System.Drawing.Size(29, 20);
-            this.TextBoxLeftSmaAttenuationValue.TabIndex = 20;
-            this.TextBoxLeftSmaAttenuationValue.Text = "0";
-            this.TextBoxLeftSmaAttenuationValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TextBoxLeftSmaAttenuationValue.TextChanged += new System.EventHandler(this.TextBoxLeftSMAAttenuationValue_TextChanged);
+            this.TextBoxLeftAntennaGain.Enabled = false;
+            this.TextBoxLeftAntennaGain.Location = new System.Drawing.Point(126, 131);
+            this.TextBoxLeftAntennaGain.Name = "TextBoxLeftSmaAttenuationValue";
+            this.TextBoxLeftAntennaGain.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxLeftAntennaGain.TabIndex = 20;
+            this.TextBoxLeftAntennaGain.Text = "0";
+            this.TextBoxLeftAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxLeftAntennaGain.TextChanged += new System.EventHandler(this.TextBoxLeftAntennaGain_TextChanged);
             // 
-            // LabelLeftAttenution
+            // LabelLeftAntennaGain
             // 
-            this.LabelLeftAttenution.AutoSize = true;
-            this.LabelLeftAttenution.Location = new System.Drawing.Point(11, 135);
-            this.LabelLeftAttenution.Name = "LabelLeftAttenution";
-            this.LabelLeftAttenution.Size = new System.Drawing.Size(147, 13);
-            this.LabelLeftAttenution.TabIndex = 19;
-            this.LabelLeftAttenution.Text = "Left SMA Gain(-)/Attenuation:";
+            this.LabelLeftAntennaGain.AutoSize = true;
+            this.LabelLeftAntennaGain.Enabled = false;
+            this.LabelLeftAntennaGain.Location = new System.Drawing.Point(26, 135);
+            this.LabelLeftAntennaGain.Name = "LabelLeftAntennaGain";
+            this.LabelLeftAntennaGain.Size = new System.Drawing.Size(93, 13);
+            this.LabelLeftAntennaGain.TabIndex = 19;
+            this.LabelLeftAntennaGain.Text = "Left Antenna Gain";
             // 
             // TextBoxStepSize
             // 
@@ -614,6 +630,8 @@ namespace RFEOnSite
             this.ButtonCancelSweeps.Size = new System.Drawing.Size(145, 23);
             this.ButtonCancelSweeps.TabIndex = 18;
             this.ButtonCancelSweeps.Text = "Cancel";
+            this.ToolTip1.SetToolTip(this.ButtonCancelSweeps, "Stops the current data collection and stores the any data collected (if enabled w" +
+        "ith \'Save  Collected CSV Files\'). ");
             this.ButtonCancelSweeps.UseVisualStyleBackColor = true;
             this.ButtonCancelSweeps.Click += new System.EventHandler(this.ButtonCancelSweeps_Click);
             // 
@@ -792,6 +810,8 @@ namespace RFEOnSite
             // 
             // GroupBox1
             // 
+            this.GroupBox1.Controls.Add(this.label1);
+            this.GroupBox1.Controls.Add(this.numericUpDown1);
             this.GroupBox1.Controls.Add(this.CheckBoxSaveCsvFiles);
             this.GroupBox1.Controls.Add(this.LabelRootDirectory);
             this.GroupBox1.Controls.Add(this.LabelCsvRootText);
@@ -845,16 +865,21 @@ namespace RFEOnSite
             this.labelCopyright.TabIndex = 25;
             this.labelCopyright.Text = "Copyright 2017 - Skyhawk Consulting, Inc.";
             // 
-            // checkBoxRadial
+            // numericUpDown1
             // 
-            this.checkBoxRadial.AutoSize = true;
-            this.checkBoxRadial.Enabled = false;
-            this.checkBoxRadial.Location = new System.Drawing.Point(283, 92);
-            this.checkBoxRadial.Name = "checkBoxRadial";
-            this.checkBoxRadial.Size = new System.Drawing.Size(56, 17);
-            this.checkBoxRadial.TabIndex = 28;
-            this.checkBoxRadial.Text = "Radial";
-            this.checkBoxRadial.UseVisualStyleBackColor = true;
+            this.numericUpDown1.Location = new System.Drawing.Point(296, 23);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(46, 20);
+            this.numericUpDown1.TabIndex = 18;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(255, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "label1";
             // 
             // MainForm
             // 
@@ -886,6 +911,7 @@ namespace RFEOnSite
             this.GroupBox1.ResumeLayout(false);
             this.GroupBox1.PerformLayout();
             this.GroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -901,16 +927,16 @@ namespace RFEOnSite
         private GroupBox GroupBoxConfiguration;
         private GroupBox GroupBoxSweepControl;
         private GroupBox GroupBoxSerialConnection;
-        private Label LabelRightAttentaion;
-        private Label LabelRightSmaAttenuationText;
+        private Label LabelRightAntennaGain;
+        private Label LabelRightAntennaGainUnit;
         private Label LabelStopFrequency;
         private Label Label2;
         private Label LabelDeviceText;
         private Label LabelModelText;
         private Label LabelFirmware;
         private Label LabelFirmwareText;
-        private Label LabelLeftAttenution;
-        private Label LabelLeftSmaAttenuationText;
+        private Label LabelLeftAntennaGain;
+        private Label LabelLeftAntennaGainUnit;
         private Label LabelFrequencyStep;
         private Label LabelRBW;
         private Label LabelRBWKhz;
@@ -927,8 +953,8 @@ namespace RFEOnSite
         private RadioButton RadioButtonSize;
         private RadioButton RadioButtonStart;
         private RadioButton RadioButtonStop;
-        private TextBox TextBoxLeftSmaAttenuationValue;
-        private TextBox TextBoxRightSmaAttentuationValue;
+        private TextBox TextBoxLeftAntennaGain;
+        private TextBox TextBoxRightAntennaGain;
         private TextBox TextBoxRBW;
         private TextBox TextBoxStartFrequency;
         private TextBox TextBoxStepSize;
@@ -962,7 +988,9 @@ namespace RFEOnSite
         private Button ButtonCancelSweeps;
         private Label LabelTask;
         private Label LabelExecTask;
-        private CheckBox checkBoxRadial;
+        private CheckBox CheckBoxRadial;
+        private Label label1;
+        private NumericUpDown numericUpDown1;
     }
 }
 
