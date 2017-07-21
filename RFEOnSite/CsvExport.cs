@@ -36,7 +36,7 @@ namespace RFEOnSite
         private Dictionary<string, object> CurrentRow { get { return mRows[mRows.Count - 1]; } }
  
 
-        public CsvExport(string columnSeparator = ",", bool includeColumnSeparatorDefinitionPreamble = true)
+        public CsvExport(string columnSeparator = ",", bool includeColumnSeparatorDefinitionPreamble = false)
         {
             mColumnSeparator = columnSeparator;
             mIncludeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;  

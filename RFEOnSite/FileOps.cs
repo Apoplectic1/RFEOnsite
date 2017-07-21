@@ -246,7 +246,7 @@ namespace RFEOnSite
         // ** Write CsvFiles from Swept List Data
         // *****************************************************************************************
         // *****************************************************************************************
-        public bool ExportCsvFile(double start, double stop, List<string> data)
+        public bool ExportCsvFile(double start, double stop, List<string> data, int programmedSweeps)
         {
             mCsvExport = new CsvExport();
 
@@ -262,7 +262,8 @@ namespace RFEOnSite
                 freq += stepMHz;
             }
 
-            for (int sweepIndex = 0; sweepIndex < data.Count; sweepIndex++)
+            //for (int sweepIndex = 0; sweepIndex < data.Count; sweepIndex++)
+            for (int sweepIndex = 0; sweepIndex < programmedSweeps - 50; sweepIndex++)
             {
                 mCsvExport.AddRow();
                 string row = data[sweepIndex];

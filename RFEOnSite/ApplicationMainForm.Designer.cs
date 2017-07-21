@@ -107,6 +107,7 @@ namespace RFEOnSite
             this.TextBoxStopFrequency = new System.Windows.Forms.TextBox();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
             this.LabelRBWKhz = new System.Windows.Forms.Label();
+            this.LabelActualSweeps = new System.Windows.Forms.Label();
             this.GroupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepControl.SuspendLayout();
@@ -298,13 +299,14 @@ namespace RFEOnSite
             this.NumericUpDownSweeps.TabIndex = 15;
             this.NumericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NumericUpDownSweeps.Value = new decimal(new int[] {
-            250,
+            350,
             0,
             0,
             0});
             // 
             // GroupBoxSweepControl
             // 
+            this.GroupBoxSweepControl.Controls.Add(this.LabelActualSweeps);
             this.GroupBoxSweepControl.Controls.Add(this.LabelTask);
             this.GroupBoxSweepControl.Controls.Add(this.LabelExecTask);
             this.GroupBoxSweepControl.Controls.Add(this.ButtonCancelSweeps);
@@ -971,6 +973,15 @@ namespace RFEOnSite
             this.LabelRBWKhz.TabIndex = 6;
             this.LabelRBWKhz.Text = "KHz";
             // 
+            // LabelActualSweeps
+            // 
+            this.LabelActualSweeps.AutoSize = true;
+            this.LabelActualSweeps.Location = new System.Drawing.Point(239, 114);
+            this.LabelActualSweeps.Name = "LabelActualSweeps";
+            this.LabelActualSweeps.Size = new System.Drawing.Size(0, 13);
+            this.LabelActualSweeps.TabIndex = 21;
+            this.LabelActualSweeps.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1085,6 +1096,7 @@ namespace RFEOnSite
         private Label LabelCsvLocation;
         private Label LabelCsvCollectionSite;
         private Label LabelCsvDirectory;
+        private Label LabelActualSweeps;
     }
 }
 

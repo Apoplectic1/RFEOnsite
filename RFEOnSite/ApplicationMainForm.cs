@@ -146,24 +146,15 @@ namespace RFEOnSite
 
         public void UIUpdateCallback_SweepData(List<string> sweepsFromExplorer)
         {
+#if DEBUG
+            LabelActualSweeps.Text = sweepsFromExplorer.Count.ToString();
+#endif
             // Executing on UI Thread with Series data gathered and consructed in passed from serial worker thread - which keeps righ on executing.
             // What is now stopping if mCapture is now false (set in thread). The thread will not capture more RF Explorer data until mCapture becomes true.
 
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
 
-            //#if DEBUG
-            //if (sweepsFromExplorer.Count != NumericUpDownSweeps.Value)
-            //{
-            //    string message;
-            //    string caption = "RF Explorer Sweep Error";
-            //    message = "The Explorer READ thread returned " + sweepsFromExplorer.Count.ToString() + " out of " + NumericUpDownSweeps.Value.ToString() + " expected sweeps.";
-            //    MessageBoxButtons buttons = MessageBoxButtons.OK;
-            //    DialogResult result;
 
-            //    // Displays the Exception MessageBox.
-            //    result = MessageBox.Show(message, caption, buttons);
-            //}
-            //#endif
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
             // This List is available to both the Charts and CsvEXport classes
@@ -273,7 +264,7 @@ namespace RFEOnSite
                 else
                 {
                     TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" + 
-                        NumericUpDownSweeps.Text + " Omni.csv";
+                        NumericUpDownSweeps.Text + " at 000 Degrees.csv";
                 }
                 
                 //string filePath = gRFEOnSite.FileOps.PeekCwdDirectory() + "\\" + TextBoxCsvFileName.Text;
@@ -282,7 +273,7 @@ namespace RFEOnSite
 
                 gRFEOnSite.FileOps.Path = filePath;
 
-                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData);
+                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData, (int)NumericUpDownSweeps.Value);
 
                 gRFEOnSite.FileOps.FileCounter++;
             }
