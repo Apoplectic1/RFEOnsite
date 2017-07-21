@@ -118,6 +118,8 @@ namespace RFEOnSite
             // *********************************************************************
             double stopMHz;
 
+            
+
             TextBoxStartFrequency.Text = fromSerialThread.StartMHz.ToString();
 
             stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
@@ -273,7 +275,7 @@ namespace RFEOnSite
 
                 gRFEOnSite.FileOps.Path = filePath;
 
-                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData, (int)NumericUpDownSweeps.Value);
+                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData);
 
                 gRFEOnSite.FileOps.FileCounter++;
             }

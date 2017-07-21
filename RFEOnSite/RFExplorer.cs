@@ -15,6 +15,9 @@ namespace RFEOnSite
         private bool mCapture;
         private bool mConfigured;
         private int mSweepCount;
+        private bool mSecondReturnedConfiguration; // For synchornization
+        private bool mFirstRetunedConfiguration;  // For synchornization
+        
 
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
@@ -30,6 +33,8 @@ namespace RFEOnSite
             mSweepCount = 0;
             mConfigured = false;
             mCapture = false;
+            mSecondReturnedConfiguration = false;
+            mFirstRetunedConfiguration = false;
         }
 
         public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)
@@ -46,6 +51,9 @@ namespace RFEOnSite
             //Start listening to data from the RF Explorer
             mReceiveThread = new Thread(() => ReceiveThread(configurationData, sweepData, nProgress));
             mReceiveThread.Start();
+
+            mSecondReturnedConfiguration = false;
+            mFirstRetunedConfiguration = false;
         }
 
         public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = -30, int amplitudeBottom = -110)
@@ -60,13 +68,14 @@ namespace RFEOnSite
 
             mReceivedSweep.Clear();
 
+            mSecondReturnedConfiguration = false;
+            mFirstRetunedConfiguration = false;
+
             start = (startMHz * 1000.0).ToString("0000000");
             stop = (stopMHz * 1000.0).ToString("0000000");
             top = amplitudeTop.ToString("000");
             bottom = amplitudeBottom.ToString("000");
 
-
-            //mSerialPort.SendCommand("CH"); // Hold Data
 
             // Select Proper RFE antenna Port
             if (startMHz >= 4850)
@@ -199,16 +208,37 @@ namespace RFEOnSite
                         // Look for Configuration string 
                         if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                         {
-                            mRFEConfiguration.ParseConfiguration(sNewLine);  
+                            if (mFirstRetunedConfiguration == false)
+                            {
+                                mFirstRetunedConfiguration = true;
+                                mSecondReturnedConfiguration = false;
+                            }
+                            else
+                            {
+                                mSecondReturnedConfiguration = true;
+                                mFirstRetunedConfiguration = false;
+                            }
 
-                            // Now actually Update UI thread with configuration information 
-                            // that was obtained from the RF Explorer in this thread 
-                            configurationProgress.Report(mRFEConfiguration); // This is not blocking and falls through. It "calls" the UI thread
-                            mReceivedSweep.Clear();
-                            sReceived = "";
-                            sNewText = "";
-                            sNewLine = "";
-                            mConfigured = true;
+                            // Attempt at synchronizing so the number of returned lines is what is expected
+                            // It looks like the Explorer returns TWO configuration repsonses after a set config command
+                            // The first is old and the second is new
+                            // Read set flags to find the second configuration response.
+                            if (mSecondReturnedConfiguration)
+                            {
+                                mRFEConfiguration.ParseConfiguration(sNewLine);
+
+                                // Now actually Update UI thread with configuration information 
+                                // that was obtained from the RF Explorer in this thread 
+                                configurationProgress.Report(mRFEConfiguration); // This is not blocking and falls through. It "calls" the UI thread
+
+                                mReceivedSweep.Clear();
+                                sReceived = "";
+                                sNewText = "";
+                                sNewLine = "";
+                                mConfigured = true;
+                                mSecondReturnedConfiguration = false;
+                                mFirstRetunedConfiguration = false;
+                            }
                         }
                     }
                 }
