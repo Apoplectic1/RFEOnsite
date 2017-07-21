@@ -109,21 +109,23 @@ namespace RFEOnSite
 
         public void UIUpdateCallback_RFE_Configuration(RFEConfiguration fromSerialThread)
         {
-            // Executing on UI Thread with Series data gathered and consructed in passed from serial worker thread
-
-            // *********************************************************************
-            // *********************************************************************
-            // Updates UI with configuration data read from the physical RF Explorer
-            // *********************************************************************
-            // *********************************************************************
-            double stopMHz;
-
-            
-
+            // ***********************************************************************************
+            // Updates UI with configuration data read from the physical RF Explorer worker thread
+            // fromSerialThread is constructed and populated by RFEConfiguration.cs
+            // ***********************************************************************************
+ 
             TextBoxStartFrequency.Text = fromSerialThread.StartMHz.ToString();
-
-            stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
+            double stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
             TextBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
+
+            if (TextBoxStartFrequency.Text == TextBoxStopFrequency.Text)
+            {
+                string caption = "Bogus RF Explorer Configuration Returned";
+                string message = "The returned starting and stopping frequencies are identical.\n\nEasy Fix:\n\t1. Disconnect the RF Explorer USB Cable.\n\t2. Cycle RF Explorer Power.\n\t3. Reconnect and try again.";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBox.Show(message, caption, buttons);
+                Application.Exit();
+            }
 
             TextBoxRBW.Text = Math.Round(fromSerialThread.RBWKHz, 2).ToString();
             TextBoxStepSize.Text = Math.Round(fromSerialThread.StepMHz * 1000.0, 2).ToString();
@@ -133,33 +135,42 @@ namespace RFEOnSite
 
             if (fromSerialThread.mMainModel == eModel.MODEL_6G)
             {
+                ButtonStartSweeps.Enabled = true;
+                GroupBoxSweepControl.Enabled = true;
+                ButtonSetConfiguration.Enabled = true;
                 RadioButtonAnalyzer.Checked = true;
                 RadioButtonGenerator.Checked = false;
                 RadioButtonGenerator.Enabled = false;
             }
             else
             {
+                ButtonStartSweeps.Enabled = false;
+                GroupBoxSweepControl.Enabled = false;
                 RadioButtonAnalyzer.Checked = false;
                 RadioButtonGenerator.Checked = true;
                 RadioButtonAnalyzer.Enabled = false;
             }
-
         }
 
         public void UIUpdateCallback_SweepData(List<string> sweepsFromExplorer)
         {
-#if DEBUG
-            LabelActualSweeps.Text = sweepsFromExplorer.Count.ToString();
-#endif
-            // Executing on UI Thread with Series data gathered and consructed in passed from serial worker thread - which keeps righ on executing.
-            // What is now stopping if mCapture is now false (set in thread). The thread will not capture more RF Explorer data until mCapture becomes true.
-
+            // ***********************************************************************************
+            // Updates UI with sweep data read from the physical RF Explorer worker thread
+            // fromSerialThread is constructed and populated by RFEConfiguration.cs
             // This gets called at the completion of the number of sweeps from the Explorer worker thread
+            // Thread mCapture is now false (set only in thread) stopping capture until set true 
+            // ***********************************************************************************
 
-
+            // save a copy of the table index; if it is the same at the end of this method,
+            // it means we walked through all the PresetTable entries (Only needed for Preset active)
+            int saveLocalState = gRFEOnSite.PresetTableIndex;
 
             // Copy Bytes to local list: gRFEOnSite.ExplorerSweepData
-            // This List is available to both the Charts and CsvEXport classes
+            // This List is available to both the Charts and CsvEXport classes and is an attempt a parallelism
+
+
+            LabelActualSweeps.Text = sweepsFromExplorer.Count.ToString(); // Show number of retured sweeps - Confidence
+
             gRFEOnSite.ExplorerSweepData.Clear();
             for (int i = 0; i < sweepsFromExplorer.Count; i++)
             {
@@ -169,129 +180,32 @@ namespace RFEOnSite
             // This really does appear to clear the thread mReceivedSweeps list 
             sweepsFromExplorer.Clear();
 
-            // See if we have more frequencies to scan
-            // If we don't: Just graph and/or csv save and then wait for the user to click something
-            // If we do: send some sort of signal to get next frequency pair scanning in worker thread
-
-            // If Save CSV Files, Housekeeping to get a valid location
-            //while (CheckBoxSaveCsvFiles.Checked && TextBoxCollectionLocation.Text == "Collection Location")
-            //{
-            //    Form prompt = new Form();
-
-            //    prompt.Width = 500;
-            //    prompt.Height = 150;
-            //    prompt.MaximizeBox = false;
-            //    prompt.MinimizeBox = false;
-            //    prompt.TopMost = true;
-            //    prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
-            //    prompt.Text = "Enter a location identifier for the current Sweep(s):";
-            //    prompt.StartPosition = FormStartPosition.CenterParent;
-
-            //    Label textLabel = new Label() { Left = 50, Top = 20, Text = "Survey Location:" };
-            //    TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 350 };
-            //    Button confirmation = new Button() { Text = "OK", Left = 300, Width = 100, Top = 75, DialogResult = DialogResult.OK };
-            //    Label azimuthLabel = new Label() { Left = 50, Top = 77, Text = "Azimuth Radial:" };
-            //    NumericUpDown azimuth = new NumericUpDown() { Left = 132, Top = 75, Width = 80, DecimalPlaces = 0 };
-            //    Label degreesLabel = new Label() { Left = 200, Top = 77, Width = 130, Text = "Degrees True North" };
-
-            //    confirmation.Click += (sender, e) => { prompt.Close(); };
-            //    prompt.Controls.Add(textBox);
-            //    prompt.Controls.Add(confirmation);
-            //    prompt.Controls.Add(textLabel);
-            //    prompt.AcceptButton = confirmation;
-
-
-            //    if (gRFEOnSite.RadialSurvey)
-            //    {
-            //        prompt.Controls.Add(azimuthLabel);
-            //        prompt.Controls.Add(azimuth);
-            //        prompt.Controls.Add(degreesLabel);
-            //    }
-                
-            //    confirmation.Click += (sender, e) => { prompt.Close(); };
-            //    prompt.Controls.Add(textBox);
-            //    prompt.Controls.Add(confirmation);
-            //    prompt.Controls.Add(textLabel);
-            //    prompt.AcceptButton = confirmation;
-
-            //    while (!gRFEOnSite.FileOps.IsValidPath(TextBoxCollectionLocation.Text) )
-            //    {
-            //        if (prompt.ShowDialog(this) == DialogResult.OK)
-            //        {
-            //            // Read the contents of testDialog's TextBox.
-            //            TextBoxCollectionLocation.Text = textBox.Text;
-            //            if (TextBoxCollectionLocation.Text == "")
-            //            {
-            //                TextBoxCollectionLocation.Text = "Collection Location";
-            //            }
-
-            //            if (gRFEOnSite.RadialSurvey)
-            //            {
-            //                gRFEOnSite.RadialDegrees = (int)azimuth.Value;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            // User closed DialogBox by "X";
-            //            CheckBoxSaveCsvFiles.Checked = false;
-            //        }
-            //    }
-            //    prompt.Dispose();
-            //}
-
-
             if (CheckBoxSaveCsvFiles.Checked)
             {
-                //if (gRFEOnSite.FileOps.FolderDialog.SelectedPath.Length == 0)
-                //{
-                //    gRFEOnSite.FileOps.FolderDialog.SelectedPath = gRFEOnSite.FileOps.PeekCwdDirectory();
-                //    //gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionLocation.Text);
-
-                //    gRFEOnSite.FileOps.FolderDialog.Description = "Create or Select Desktop SubFolder to Store CSV Files for location:\n\n   " + TextBoxCollectionLocation.Text;
-                //    gRFEOnSite.FileOps.FolderDialog.ShowDialog();
-                //}
                 string fileName = TextBoxCollectionLocation.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
-
                 string dateString = gRFEOnSite.FileOps.RunStartTime.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
-
                 string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
-
                 string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
                 
                 if (gRFEOnSite.RadialSurvey)
                 {
                     TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" + 
-                        NumericUpDownSweeps.Text + " at " + gRFEOnSite.RadialDegrees.ToString("D3") + " Degrees.csv";
+                        NumericUpDownSweeps.Text + " at " + gRFEOnSite.RadialDegrees.ToString("D3") + " .csv";
                 }
                 else
                 {
                     TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" + 
-                        NumericUpDownSweeps.Text + " at 000 Degrees.csv";
+                        NumericUpDownSweeps.Text + " at Omni.csv";
                 }
-                
-                //string filePath = gRFEOnSite.FileOps.PeekCwdDirectory() + "\\" + TextBoxCsvFileName.Text;
 
-                string filePath = TextBoxCsvFileName.Text;
-
-                gRFEOnSite.FileOps.Path = filePath;
-
+                gRFEOnSite.FileOps.Path = TextBoxCsvFileName.Text;
                 gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData);
-
+    
                 gRFEOnSite.FileOps.FileCounter++;
             }
 
-
-
-            if (gRFEOnSite.Graph.GraphAverage || gRFEOnSite.Graph.GraphPeak)
-            {
-                gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
-            }
-            
-            if (gRFEOnSite.FileOps.FileCounter == gRFEOnSite.PresetTable.Count() + 1)
-            {
-                LabelTask.Text = "Done";
-            }
-
+            gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
+       
             //*****************************************************
             // SETUP AND GET NEXT SWEEP
             //*****************************************************
@@ -302,9 +216,12 @@ namespace RFEOnSite
 
             if (gRFEOnSite.PresetActive)
             {
+                // This foreach cycles through each entry in PresetTable skipping entries that are disabled by the UI (in switch () {})
+                // Upon entry, it skips PresetTable entries that have already been processed or ignored
+
                 foreach (PresetTableEntry pair in gRFEOnSite.PresetTable.Skip(gRFEOnSite.PresetTableIndex))
                 {
-                    gRFEOnSite.PresetTableIndex++;
+                    gRFEOnSite.PresetTableIndex++; // Needs to be before the breaks to stay in step with foreach
 
                     switch (pair.SweepBand)
                     {
@@ -321,9 +238,13 @@ namespace RFEOnSite
                             if (!gRFEOnSite.WhoopAWS) continue;
                             break;
                         default:
-                            continue;
+                            MessageBox.Show("You broke something. ApplicationMainForm.cs\n " +
+                                "Callback: UIUpdateCallback_SweepData(List<string> sweepsFromExplorer)");
+                            Application.Exit();
+                            break;
                     }
 
+                    // We found a table entry to Sweep: Program the RF Explorer
                     gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
                     System.Threading.Thread.Sleep(100);
@@ -342,7 +263,7 @@ namespace RFEOnSite
                     break;
                 }
             }
-            else
+            else // Manual Sweep
             {
                 LabelTask.Text = "Done";
                 ButtonStartSweeps.Enabled = true;
@@ -358,25 +279,28 @@ namespace RFEOnSite
                 NumericUpDownSweeps.Enabled = true;
             }
 
-            if (gRFEOnSite.PresetTableIndex == gRFEOnSite.PresetTable.Count())
+            if (gRFEOnSite.PresetActive)
             {
-                LabelTask.Text = "Done";
-                
-               
-                if (CheckBoxAutoIncrement.Checked && CheckBoxSaveCsvFiles.Checked)
+                if (saveLocalState == gRFEOnSite.PresetTableIndex)
                 {
-                    if (ButtonCancelSweeps.Enabled)
+                    LabelTask.Text = "Done";
+
+
+                    if (CheckBoxAutoIncrement.Checked && CheckBoxSaveCsvFiles.Checked)
                     {
-                        NumericUpDownLocation.Value += 1;
+                        if (ButtonCancelSweeps.Enabled)
+                        {
+                            NumericUpDownLocation.Value += 1;
+                        }
                     }
+
+                    ButtonStartSweeps.Enabled = true;
+                    ButtonCancelSweeps.Enabled = false;
+
+                    GroupBoxCsvConfiguration.Enabled = true;
+                    GroupBoxConfiguration.Enabled = true;
+                    NumericUpDownSweeps.Enabled = true;
                 }
-
-                ButtonStartSweeps.Enabled = true;
-                ButtonCancelSweeps.Enabled = false;
-
-                GroupBoxCsvConfiguration.Enabled = true;
-                GroupBoxConfiguration.Enabled = true;
-                NumericUpDownSweeps.Enabled = true;
             }
         }
 
@@ -410,8 +334,6 @@ namespace RFEOnSite
                                     UpdateUISweepData,
                                     UpdateUIProgressBar));
 
-
-            ButtonSetConfiguration.Enabled = true;
             ButtonGetConfiguration.Enabled = true;
             ComboBoxPreset.Enabled = true;
             GroupBoxConfiguration.Enabled = true;
@@ -432,24 +354,44 @@ namespace RFEOnSite
             // Updates UI Graph with configuration data read from the UI
             // ***********************************************************
             // ***********************************************************
+            double startMHz;
+            double stopMHz;
+            double stepKHz;
+            bool bValidField;
 
-            double startMHz = Convert.ToDouble(TextBoxStartFrequency.Text);
-            double stopMHz = Convert.ToDouble(TextBoxStopFrequency.Text);
-            double stepKHZ = Convert.ToDouble(TextBoxStepSize.Text);
+            
+            bValidField = Double.TryParse(TextBoxStartFrequency.Text, out startMHz);
+            bValidField &= Double.TryParse(TextBoxStopFrequency.Text, out stopMHz);
+            bValidField &= Double.TryParse(TextBoxStepSize.Text, out stepKHz);
 
-            gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz, -80, -110);
+            if (bValidField)
+            {
+                if (stopMHz - startMHz < 0.2990 )
+                {
+                    string message;
+                    string caption = "Bogus RF Explorer Configuration Requested";
+                    message = "The entered starting and stopping frequencies are identical, negative or too close together.\n\nChoose a stoping frequency that is at least 300 KHz larger that the starting frequency.";
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result;
 
-            gRFEOnSite.Graph.MinX = startMHz;
-            gRFEOnSite.Graph.MaxX = stopMHz;
+                    // Displays the Exception MessageBox.
+                    result = MessageBox.Show(message, caption, buttons);
+                    return;
+                }
 
-            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
-            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+                ButtonStartSweeps.Enabled = false;
+                ButtonCancelSweeps.Enabled = false;
+                GroupBoxSweepControl.Enabled = false;
+                gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz, -80, -110);
 
-            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
+                gRFEOnSite.Graph.MinX = startMHz;
+                gRFEOnSite.Graph.MaxX = stopMHz;
 
-            ButtonStartSweeps.Enabled = true;
-            ButtonCancelSweeps.Enabled = false;
-            GroupBoxSweepControl.Enabled = true;
+                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+
+                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
+            }
         }
 
         private void ButtonStartSweeps_Click(object sender, EventArgs e)
@@ -463,6 +405,7 @@ namespace RFEOnSite
             GroupBoxCsvConfiguration.Enabled = false;
             GroupBoxConfiguration.Enabled = false;
             NumericUpDownSweeps.Enabled = false;
+            LabelActualSweeps.Text = "";
 
             if (CheckBoxSaveCsvFiles.Checked)
             {
@@ -754,20 +697,29 @@ namespace RFEOnSite
 
         private void ButtonGetConfiguration_Click(object sender, EventArgs e)
         {
-            double startMHz = Convert.ToDouble(TextBoxStartFrequency.Text);
-            double stopMHz = Convert.ToDouble(TextBoxStopFrequency.Text);
-            double stepKHZ = Convert.ToDouble(TextBoxStepSize.Text);
-
-            gRFEOnSite.Graph.MinX = startMHz;
-            gRFEOnSite.Graph.MaxX = stopMHz;
-
-            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
-            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
-
-            gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
             gRFEOnSite.Explorer.RequestConfiguration();
-            ButtonStartSweeps.Enabled = true;
-            GroupBoxSweepControl.Enabled = true;
+
+            //if (TextBoxStartFrequency.Text == string.Empty)
+            //{
+            //    gRFEOnSite.Explorer.RequestConfiguration();
+            //    return;
+            //}
+
+            //double startMHz = Convert.ToDouble(TextBoxStartFrequency.Text);
+            //double stopMHz = Convert.ToDouble(TextBoxStopFrequency.Text);
+            //double stepKHZ = Convert.ToDouble(TextBoxStepSize.Text);
+
+            //gRFEOnSite.Graph.MinX = startMHz;
+            //gRFEOnSite.Graph.MaxX = stopMHz;
+
+            //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+            //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+
+            //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
+
+            
+            //ButtonStartSweeps.Enabled = true;
+            //GroupBoxSweepControl.Enabled = true;
         }
 
         private void TextBoxStartFrequency_TextChanged(object sender, EventArgs e)
@@ -816,17 +768,18 @@ namespace RFEOnSite
 
         private void RadioButtonAnalyzer_CheckedChanged(object sender, EventArgs e)
         {
-            buttonDocumentation.Text = "RF Explorer Documentation";
+            ButtonDocumentation.Text = "RF Explorer Documentation";
         }
 
         private void RadioButtonGenerator_CheckedChanged(object sender, EventArgs e)
         {
-            buttonDocumentation.Text = "RFE Generator Documentation";
+            ButtonDocumentation.Text = "RFE Generator Documentation";
         }
 
         private void ButtonCancelSweeps_Click(object sender, EventArgs e)
         {
             ButtonCancelSweeps.Enabled = false;
+            LabelTask.Text = "Done";
 
             gRFEOnSite.Explorer.SweepCount = 1;
             gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetTable.Count();
@@ -839,11 +792,18 @@ namespace RFEOnSite
                     NumericUpDownLocation.Value -= 1;
                 }
             }
+
+            ButtonStartSweeps.Enabled = true;
+            ButtonCancelSweeps.Enabled = false;
+
+            GroupBoxCsvConfiguration.Enabled = true;
+            GroupBoxConfiguration.Enabled = true;
+            NumericUpDownSweeps.Enabled = true;
         }
 
         private void CheckBoxRadial_CheckedChanged(object sender, EventArgs e)
         {
-            gRFEOnSite.RadialSurvey = CheckBoxRadial.Checked;
+            gRFEOnSite.RadialSurvey = CheckBoxRadialAzimuth.Checked;
         }
 
         private void CheckBoxAutoIncrement_CheckedChanged(object sender, EventArgs e)

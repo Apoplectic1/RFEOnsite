@@ -92,7 +92,7 @@ namespace RFEOnSite
             mChart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
             mChart.ChartAreas[0].AxisY.Maximum = mMaxY;
             mChart.ChartAreas[0].AxisY.Minimum = mMinY;
-            
+
 
             mChart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
             mChart.Titles.Add(mTitle);
@@ -215,9 +215,12 @@ namespace RFEOnSite
             }
             else
             {
-               int index = mChart.Series.IndexOf(seriesName);
+                int index = mChart.Series.IndexOf(seriesName);
 
-               mChart.Series.RemoveAt(index);
+                if (index >= 0)
+                {
+                    mChart.Series.RemoveAt(index);
+                }
             }
         }
     }

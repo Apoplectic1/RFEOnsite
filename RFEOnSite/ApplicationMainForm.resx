@@ -120,7 +120,7 @@
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="CheckBoxRadial.ToolTip" xml:space="preserve">
+  <data name="CheckBoxRadialAzimuth.ToolTip" xml:space="preserve">
     <value>When checked, the survey is directional.\n\nA radial survey will use a different (specific) directory structure to store .csv files and uses a different location naming convention than an Omni directional survey.</value>
   </data>
   <data name="ButtonStartSweeps.ToolTip" xml:space="preserve">
