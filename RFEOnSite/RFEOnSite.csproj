@@ -30,8 +30,8 @@
     <MinimumRequiredVersion>1.1.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
-    <ApplicationVersion>1.3.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.3.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -131,6 +131,12 @@
     <Compile Include="Chart.cs" />
     <Compile Include="Decibels.cs" />
     <Compile Include="FileOps.cs" />
+    <Compile Include="FullDownlinkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FullDownlinkForm.Designer.cs">
+      <DependentUpon>FullDownlinkForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,6 +154,9 @@
     <EmbeddedResource Include="ApplicationMainForm.resx">
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FullDownlinkForm.resx">
+      <DependentUpon>FullDownlinkForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

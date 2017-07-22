@@ -12,12 +12,14 @@ namespace RFEOnSite
         private List<string> mRawSweepData;
         private RFExplorer mRFE;
         private WhoopTable mWhoopDownlinkTable;
+        private DownlinkTable mDownlinkTable;
         private bool mPresetActive;
+        private ePreset mPresetType;
         private bool mRadialSurvey;
-        private bool mWhoop700;
-        private bool mWhoop850;
-        private bool mWhoopAWS;
-        private bool mWhoopPCS;
+        private bool mSweep700;
+        private bool mSweep850;
+        private bool mSweepAWS;
+        private bool mSweepPCS;
         private double mLeftAntennaGain;
         private double mRightAntennaGain;
         private int mRadialDegrees;
@@ -43,11 +45,13 @@ namespace RFEOnSite
             mRawSweepData = new List<string>();
             mRightAntennaGain = 5;
             mTableIndex = 0;
-            mWhoop700 = true;
-            mWhoop850 = true;
-            mWhoopAWS = true;
+            mSweep700 = true;
+            mSweep850 = true;
+            mSweepAWS = true;
             mWhoopDownlinkTable = new WhoopTable();
-            mWhoopPCS = true;
+            mDownlinkTable = new DownlinkTable();
+            mSweepPCS = true;
+            mPresetType = ePreset.eManual;
         }
 
 
@@ -57,13 +61,15 @@ namespace RFEOnSite
         public FileOps FileOps { get { return mFileOps; } set { mFileOps = value; } }
         public List<string> ExplorerSweepData { get { return mRawSweepData; } }
         public RFExplorer Explorer { get { return mRFE; } set { mRFE = value; } }
-        public WhoopTable PresetTable { get { return mWhoopDownlinkTable; } }
-        public bool Whoop700 { get { return mWhoop700; } set { mWhoop700 = value; } }
-        public bool Whoop850 { get { return mWhoop850; } set { mWhoop850 = value; } }
-        public bool WhoopAWS { get { return mWhoopAWS; } set { mWhoopAWS = value; } }
-        public bool WhoopPCS { get { return mWhoopPCS; } set { mWhoopPCS = value; } }
+        public WhoopTable PresetWhoopDownlinkTable { get { return mWhoopDownlinkTable; } }
+        public DownlinkTable PresetDownlinkTable { get { return mDownlinkTable; } }
+        public bool Sweep700 { get { return mSweep700; } set { mSweep700 = value; } }
+        public bool Sweep850 { get { return mSweep850; } set { mSweep850 = value; } }
+        public bool SweepAWS { get { return mSweepAWS; } set { mSweepAWS = value; } }
+        public bool SweepPCS { get { return mSweepPCS; } set { mSweepPCS = value; } }
         public bool PresetActive { get { return mPresetActive; } set { mPresetActive = value; } }
         public int PresetTableIndex { get { return mTableIndex; } set { mTableIndex = value; } }
+        public ePreset PresetType { get { return mPresetType; } set { mPresetType = value; } }
         public bool RadialSurvey { get { return mRadialSurvey; } set { mRadialSurvey = value; } }
         public int RadialDegrees { get { return mRadialDegrees; } set { mRadialDegrees = value; } }
         public double RightAntennaGain { get { return mRightAntennaGain; } set { mRightAntennaGain = value; } }
@@ -74,6 +80,8 @@ namespace RFEOnSite
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };
+    public enum ePreset { eManual, eWhoopDownlink, eFullDownlink };
+
 
     public class PresetTableEntry
     {
@@ -121,6 +129,51 @@ namespace RFEOnSite
             mPairs.Add(new PresetTableEntry(2127.4, 2138.6, eBand.eAWS));
             mPairs.Add(new PresetTableEntry(2138.6, 2149.8, eBand.eAWS));
             mPairs.Add(new PresetTableEntry(2149.8, 2161.0, eBand.eAWS));
+        }
+
+        public IEnumerator<PresetTableEntry> GetEnumerator()
+        {
+            return mPairs.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return mPairs.GetEnumerator();
+        }
+    }
+    public class DownlinkTable : IEnumerable<PresetTableEntry>
+    {
+        public List<PresetTableEntry> mPairs;
+
+        public DownlinkTable()
+        {
+            mPairs = new List<PresetTableEntry>();
+
+            mPairs.Add(new PresetTableEntry(714.0, 725.2, eBand.e700));
+            mPairs.Add(new PresetTableEntry(725.2, 736.4, eBand.e700));
+            mPairs.Add(new PresetTableEntry(736.4, 747.6, eBand.e700));
+            mPairs.Add(new PresetTableEntry(747.6, 758.8, eBand.e700));
+            mPairs.Add(new PresetTableEntry(758.8, 770.0, eBand.e700));
+
+            mPairs.Add(new PresetTableEntry(865.0, 876.2, eBand.e850));
+            mPairs.Add(new PresetTableEntry(876.2, 887.4, eBand.e850));
+            mPairs.Add(new PresetTableEntry(887.4, 898.6, eBand.e850));
+
+            mPairs.Add(new PresetTableEntry(1929.0, 1940.2, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1940.2, 1951.4, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1951.4, 1962.6, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1962.6, 1973.8, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1973.8, 1985.0, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1985.0, 1996.2, eBand.ePCS));
+
+
+            mPairs.Add(new PresetTableEntry(2105.0, 2116.2, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2116.2, 2127.4, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2127.4, 2138.6, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2138.6, 2149.8, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2149.8, 2161.0, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2161.0, 2172.2, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2172.2, 2183.4, eBand.eAWS));
         }
 
         public IEnumerator<PresetTableEntry> GetEnumerator()

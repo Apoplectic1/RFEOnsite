@@ -547,8 +547,9 @@ namespace RFEOnSite
             this.ComboBoxPreset.Enabled = false;
             this.ComboBoxPreset.FormattingEnabled = true;
             this.ComboBoxPreset.Items.AddRange(new object[] {
-            "Manual Configuration",
-            "Whoop Downlink"});
+            "Manual",
+            "Whoop Downlink",
+            "Full Downlink"});
             this.ComboBoxPreset.Location = new System.Drawing.Point(216, 179);
             this.ComboBoxPreset.Name = "ComboBoxPreset";
             this.ComboBoxPreset.Size = new System.Drawing.Size(135, 21);
