@@ -36,6 +36,7 @@ namespace RFEOnSite
             this.LabelRFEComPort = new System.Windows.Forms.Label();
             this.CheckBoxRadialAzimuth = new System.Windows.Forms.CheckBox();
             this.GroupBoxSerialConnection = new System.Windows.Forms.GroupBox();
+            this.ButtonCloseSerialPort = new System.Windows.Forms.Button();
             this.ButtonDocumentation = new System.Windows.Forms.Button();
             this.RadioButtonGenerator = new System.Windows.Forms.RadioButton();
             this.RadioButtonAnalyzer = new System.Windows.Forms.RadioButton();
@@ -72,6 +73,7 @@ namespace RFEOnSite
             this.TextBoxRBW = new System.Windows.Forms.TextBox();
             this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
             this.ButtonGetConfiguration = new System.Windows.Forms.Button();
+            this.LabelStopFrequency = new System.Windows.Forms.Label();
             this.GroupBoxCsvConfiguration = new System.Windows.Forms.GroupBox();
             this.LabelCsvDirectory = new System.Windows.Forms.Label();
             this.LabelRadialAzimuth = new System.Windows.Forms.Label();
@@ -95,19 +97,21 @@ namespace RFEOnSite
             this.LabelLeftAntennaGainUnit = new System.Windows.Forms.Label();
             this.TextBoxLeftAntennaGain = new System.Windows.Forms.TextBox();
             this.LabelLeftAntennaGain = new System.Windows.Forms.Label();
-            this.TextBoxStepSize = new System.Windows.Forms.TextBox();
+            this.TextBoxStepFrequency = new System.Windows.Forms.TextBox();
             this.LabelStopFrequencyUnit = new System.Windows.Forms.Label();
             this.labelStartFrequencyUnit = new System.Windows.Forms.Label();
-            this.RadioButtonSize = new System.Windows.Forms.RadioButton();
-            this.RadioButtonStop = new System.Windows.Forms.RadioButton();
-            this.RadioButtonStart = new System.Windows.Forms.RadioButton();
             this.LabelFrequencyStepUnit = new System.Windows.Forms.Label();
             this.LabelStartFrequency = new System.Windows.Forms.Label();
             this.LabelFrequencyStep = new System.Windows.Forms.Label();
             this.TextBoxStartFrequency = new System.Windows.Forms.TextBox();
             this.TextBoxStopFrequency = new System.Windows.Forms.TextBox();
-            this.LabelStopFrequency = new System.Windows.Forms.Label();
             this.LabelRBWUnit = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.CheckBoxHoldStart = new System.Windows.Forms.CheckBox();
+            this.CheckBoxHoldStop = new System.Windows.Forms.CheckBox();
+            this.CheckBoxHoldStep = new System.Windows.Forms.CheckBox();
             this.GroupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepControl.SuspendLayout();
@@ -118,6 +122,7 @@ namespace RFEOnSite
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLocation)).BeginInit();
             this.GroupBoxSerialize.SuspendLayout();
             this.GroupBoxConfiguration.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonFindCOMPorts
@@ -153,6 +158,7 @@ namespace RFEOnSite
             // 
             // GroupBoxSerialConnection
             // 
+            this.GroupBoxSerialConnection.Controls.Add(this.ButtonCloseSerialPort);
             this.GroupBoxSerialConnection.Controls.Add(this.ButtonDocumentation);
             this.GroupBoxSerialConnection.Controls.Add(this.RadioButtonGenerator);
             this.GroupBoxSerialConnection.Controls.Add(this.RadioButtonAnalyzer);
@@ -164,12 +170,22 @@ namespace RFEOnSite
             this.GroupBoxSerialConnection.Controls.Add(this.LabelDeviceText);
             this.GroupBoxSerialConnection.Controls.Add(this.ButtonFindCOMPorts);
             this.GroupBoxSerialConnection.Controls.Add(this.LabelRFEComPort);
-            this.GroupBoxSerialConnection.Location = new System.Drawing.Point(14, 8);
+            this.GroupBoxSerialConnection.Location = new System.Drawing.Point(14, 26);
             this.GroupBoxSerialConnection.Name = "GroupBoxSerialConnection";
             this.GroupBoxSerialConnection.Size = new System.Drawing.Size(376, 153);
             this.GroupBoxSerialConnection.TabIndex = 12;
             this.GroupBoxSerialConnection.TabStop = false;
             this.GroupBoxSerialConnection.Text = "RF Explorer Connection";
+            // 
+            // ButtonCloseSerialPort
+            // 
+            this.ButtonCloseSerialPort.Location = new System.Drawing.Point(293, 25);
+            this.ButtonCloseSerialPort.Name = "ButtonCloseSerialPort";
+            this.ButtonCloseSerialPort.Size = new System.Drawing.Size(71, 24);
+            this.ButtonCloseSerialPort.TabIndex = 17;
+            this.ButtonCloseSerialPort.Text = "Disconnect";
+            this.ButtonCloseSerialPort.UseVisualStyleBackColor = true;
+            this.ButtonCloseSerialPort.Click += new System.EventHandler(this.ButtonCloseSerialPort_Click);
             // 
             // ButtonDocumentation
             // 
@@ -208,7 +224,7 @@ namespace RFEOnSite
             // LabelModel
             // 
             this.LabelModel.AutoSize = true;
-            this.LabelModel.Location = new System.Drawing.Point(226, 100);
+            this.LabelModel.Location = new System.Drawing.Point(218, 128);
             this.LabelModel.Name = "LabelModel";
             this.LabelModel.Size = new System.Drawing.Size(39, 13);
             this.LabelModel.TabIndex = 13;
@@ -217,7 +233,7 @@ namespace RFEOnSite
             // LabelDevice
             // 
             this.LabelDevice.AutoSize = true;
-            this.LabelDevice.Location = new System.Drawing.Point(221, 77);
+            this.LabelDevice.Location = new System.Drawing.Point(213, 105);
             this.LabelDevice.Name = "LabelDevice";
             this.LabelDevice.Size = new System.Drawing.Size(44, 13);
             this.LabelDevice.TabIndex = 12;
@@ -226,7 +242,7 @@ namespace RFEOnSite
             // LabelFirmwareText
             // 
             this.LabelFirmwareText.AutoSize = true;
-            this.LabelFirmwareText.Location = new System.Drawing.Point(268, 54);
+            this.LabelFirmwareText.Location = new System.Drawing.Point(260, 82);
             this.LabelFirmwareText.Name = "LabelFirmwareText";
             this.LabelFirmwareText.Size = new System.Drawing.Size(27, 13);
             this.LabelFirmwareText.TabIndex = 5;
@@ -236,7 +252,7 @@ namespace RFEOnSite
             // LabelFirmware
             // 
             this.LabelFirmware.AutoSize = true;
-            this.LabelFirmware.Location = new System.Drawing.Point(213, 54);
+            this.LabelFirmware.Location = new System.Drawing.Point(205, 82);
             this.LabelFirmware.Name = "LabelFirmware";
             this.LabelFirmware.Size = new System.Drawing.Size(52, 13);
             this.LabelFirmware.TabIndex = 4;
@@ -245,7 +261,7 @@ namespace RFEOnSite
             // LabelModelText
             // 
             this.LabelModelText.AutoSize = true;
-            this.LabelModelText.Location = new System.Drawing.Point(268, 100);
+            this.LabelModelText.Location = new System.Drawing.Point(260, 128);
             this.LabelModelText.Name = "LabelModelText";
             this.LabelModelText.Size = new System.Drawing.Size(27, 13);
             this.LabelModelText.TabIndex = 3;
@@ -254,7 +270,7 @@ namespace RFEOnSite
             // LabelDeviceText
             // 
             this.LabelDeviceText.AutoSize = true;
-            this.LabelDeviceText.Location = new System.Drawing.Point(268, 77);
+            this.LabelDeviceText.Location = new System.Drawing.Point(260, 105);
             this.LabelDeviceText.Name = "LabelDeviceText";
             this.LabelDeviceText.Size = new System.Drawing.Size(27, 13);
             this.LabelDeviceText.TabIndex = 2;
@@ -280,6 +296,7 @@ namespace RFEOnSite
             this.LabelStartSweeps.Size = new System.Drawing.Size(45, 13);
             this.LabelStartSweeps.TabIndex = 14;
             this.LabelStartSweeps.Text = "Sweeps";
+            this.ToolTip1.SetToolTip(this.LabelStartSweeps, "Fill each FFT bin with the selected number of samples.");
             // 
             // NumericUpDownSweeps
             // 
@@ -317,7 +334,7 @@ namespace RFEOnSite
             this.GroupBoxSweepControl.Controls.Add(this.NumericUpDownSweeps);
             this.GroupBoxSweepControl.Controls.Add(this.TextBoxCsvFileName);
             this.GroupBoxSweepControl.Enabled = false;
-            this.GroupBoxSweepControl.Location = new System.Drawing.Point(399, 474);
+            this.GroupBoxSweepControl.Location = new System.Drawing.Point(399, 492);
             this.GroupBoxSweepControl.Name = "GroupBoxSweepControl";
             this.GroupBoxSweepControl.Size = new System.Drawing.Size(274, 158);
             this.GroupBoxSweepControl.TabIndex = 16;
@@ -417,7 +434,7 @@ namespace RFEOnSite
             this.ChartPanel.Controls.Add(this.CheckBoxChartAutoScale);
             this.ChartPanel.Controls.Add(this.GroupBoxChart);
             this.ChartPanel.Enabled = false;
-            this.ChartPanel.Location = new System.Drawing.Point(399, 8);
+            this.ChartPanel.Location = new System.Drawing.Point(399, 26);
             this.ChartPanel.Name = "ChartPanel";
             this.ChartPanel.Size = new System.Drawing.Size(437, 457);
             this.ChartPanel.TabIndex = 21;
@@ -432,6 +449,7 @@ namespace RFEOnSite
             this.CheckBoxChartPeak.Size = new System.Drawing.Size(51, 17);
             this.CheckBoxChartPeak.TabIndex = 3;
             this.CheckBoxChartPeak.Text = "Peak";
+            this.ToolTip1.SetToolTip(this.CheckBoxChartPeak, "For each FFT bin, find and display the maximum power for that bin.");
             this.CheckBoxChartPeak.UseVisualStyleBackColor = true;
             this.CheckBoxChartPeak.CheckedChanged += new System.EventHandler(this.CheckBoxChartPeak_CheckedChanged);
             // 
@@ -445,6 +463,7 @@ namespace RFEOnSite
             this.CheckBoxChartAverage.Size = new System.Drawing.Size(66, 17);
             this.CheckBoxChartAverage.TabIndex = 2;
             this.CheckBoxChartAverage.Text = "Average";
+            this.ToolTip1.SetToolTip(this.CheckBoxChartAverage, "For each FFT bin, compute and display the average power for that bin.");
             this.CheckBoxChartAverage.UseVisualStyleBackColor = true;
             this.CheckBoxChartAverage.CheckedChanged += new System.EventHandler(this.CheckBoxChartAverage_CheckedChanged);
             // 
@@ -458,6 +477,8 @@ namespace RFEOnSite
             this.CheckBoxChartAutoScale.Size = new System.Drawing.Size(78, 17);
             this.CheckBoxChartAutoScale.TabIndex = 1;
             this.CheckBoxChartAutoScale.Text = "Auto Scale";
+            this.ToolTip1.SetToolTip(this.CheckBoxChartAutoScale, "When checked, scale the plot data to fill the graph area. Unchecked will only plo" +
+        "t captured data points between -30 dBm and -110 dBm.");
             this.CheckBoxChartAutoScale.UseVisualStyleBackColor = true;
             this.CheckBoxChartAutoScale.CheckedChanged += new System.EventHandler(this.CheckBoxChartAutoScale_CheckedChanged);
             // 
@@ -522,7 +543,7 @@ namespace RFEOnSite
             // ButtonSetConfiguration
             // 
             this.ButtonSetConfiguration.Enabled = false;
-            this.ButtonSetConfiguration.Location = new System.Drawing.Point(273, 69);
+            this.ButtonSetConfiguration.Location = new System.Drawing.Point(268, 23);
             this.ButtonSetConfiguration.Name = "ButtonSetConfiguration";
             this.ButtonSetConfiguration.Size = new System.Drawing.Size(85, 46);
             this.ButtonSetConfiguration.TabIndex = 10;
@@ -539,7 +560,8 @@ namespace RFEOnSite
             this.TextBoxRBW.Size = new System.Drawing.Size(40, 20);
             this.TextBoxRBW.TabIndex = 17;
             this.TextBoxRBW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ToolTip1.SetToolTip(this.TextBoxRBW, "RBW is not directly settable and is based on Span.");
+            this.ToolTip1.SetToolTip(this.TextBoxRBW, "RBW is not directly settable. It is determined by table lookup in the RF Explorer" +
+        " and is based on Span.");
             // 
             // ComboBoxPreset
             // 
@@ -560,14 +582,25 @@ namespace RFEOnSite
             // ButtonGetConfiguration
             // 
             this.ButtonGetConfiguration.Enabled = false;
-            this.ButtonGetConfiguration.Location = new System.Drawing.Point(273, 23);
+            this.ButtonGetConfiguration.Location = new System.Drawing.Point(278, 84);
             this.ButtonGetConfiguration.Name = "ButtonGetConfiguration";
-            this.ButtonGetConfiguration.Size = new System.Drawing.Size(85, 46);
+            this.ButtonGetConfiguration.Size = new System.Drawing.Size(65, 31);
             this.ButtonGetConfiguration.TabIndex = 27;
-            this.ButtonGetConfiguration.Text = "Get Explorer Configuration";
+            this.ButtonGetConfiguration.Text = "Get Config";
             this.ToolTip1.SetToolTip(this.ButtonGetConfiguration, "Request and display the current RF Explorer configuration.");
             this.ButtonGetConfiguration.UseVisualStyleBackColor = true;
             this.ButtonGetConfiguration.Click += new System.EventHandler(this.ButtonGetConfiguration_Click);
+            // 
+            // LabelStopFrequency
+            // 
+            this.LabelStopFrequency.AutoSize = true;
+            this.LabelStopFrequency.Location = new System.Drawing.Point(37, 51);
+            this.LabelStopFrequency.Name = "LabelStopFrequency";
+            this.LabelStopFrequency.Size = new System.Drawing.Size(82, 13);
+            this.LabelStopFrequency.TabIndex = 4;
+            this.LabelStopFrequency.Text = "Stop Frequency";
+            this.ToolTip1.SetToolTip(this.LabelStopFrequency, "The frequency at which to stop sampling - plus one bin. The RF Explorer always sa" +
+        "mples using 112 bins. Each Bin ");
             // 
             // GroupBoxCsvConfiguration
             // 
@@ -587,7 +620,7 @@ namespace RFEOnSite
             this.GroupBoxCsvConfiguration.Controls.Add(this.TextBoxCollectionLocation);
             this.GroupBoxCsvConfiguration.Controls.Add(this.SweepPanel);
             this.GroupBoxCsvConfiguration.Enabled = false;
-            this.GroupBoxCsvConfiguration.Location = new System.Drawing.Point(14, 397);
+            this.GroupBoxCsvConfiguration.Location = new System.Drawing.Point(14, 415);
             this.GroupBoxCsvConfiguration.Name = "GroupBoxCsvConfiguration";
             this.GroupBoxCsvConfiguration.Size = new System.Drawing.Size(376, 234);
             this.GroupBoxCsvConfiguration.TabIndex = 23;
@@ -746,7 +779,7 @@ namespace RFEOnSite
             // 
             this.LabelCopyright.AutoSize = true;
             this.LabelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LabelCopyright.Location = new System.Drawing.Point(631, 637);
+            this.LabelCopyright.Location = new System.Drawing.Point(631, 658);
             this.LabelCopyright.Name = "LabelCopyright";
             this.LabelCopyright.Size = new System.Drawing.Size(207, 13);
             this.LabelCopyright.TabIndex = 25;
@@ -754,6 +787,9 @@ namespace RFEOnSite
             // 
             // GroupBoxConfiguration
             // 
+            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxHoldStep);
+            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxHoldStop);
+            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxHoldStart);
             this.GroupBoxConfiguration.Controls.Add(this.ButtonGetConfiguration);
             this.GroupBoxConfiguration.Controls.Add(this.LabelPresets);
             this.GroupBoxConfiguration.Controls.Add(this.ComboBoxPreset);
@@ -763,13 +799,10 @@ namespace RFEOnSite
             this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAntennaGainUnit);
             this.GroupBoxConfiguration.Controls.Add(this.TextBoxLeftAntennaGain);
             this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAntennaGain);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStepSize);
+            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStepFrequency);
             this.GroupBoxConfiguration.Controls.Add(this.TextBoxRBW);
             this.GroupBoxConfiguration.Controls.Add(this.LabelStopFrequencyUnit);
             this.GroupBoxConfiguration.Controls.Add(this.labelStartFrequencyUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonSize);
-            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonStop);
-            this.GroupBoxConfiguration.Controls.Add(this.RadioButtonStart);
             this.GroupBoxConfiguration.Controls.Add(this.ButtonSetConfiguration);
             this.GroupBoxConfiguration.Controls.Add(this.LabelFrequencyStepUnit);
             this.GroupBoxConfiguration.Controls.Add(this.LabelStartFrequency);
@@ -780,7 +813,7 @@ namespace RFEOnSite
             this.GroupBoxConfiguration.Controls.Add(this.LabelRBWUnit);
             this.GroupBoxConfiguration.Controls.Add(this.LabelRBW);
             this.GroupBoxConfiguration.Enabled = false;
-            this.GroupBoxConfiguration.Location = new System.Drawing.Point(14, 171);
+            this.GroupBoxConfiguration.Location = new System.Drawing.Point(14, 189);
             this.GroupBoxConfiguration.Name = "GroupBoxConfiguration";
             this.GroupBoxConfiguration.Size = new System.Drawing.Size(376, 216);
             this.GroupBoxConfiguration.TabIndex = 10;
@@ -858,13 +891,14 @@ namespace RFEOnSite
             this.LabelLeftAntennaGain.TabIndex = 19;
             this.LabelLeftAntennaGain.Text = "Left Antenna Gain";
             // 
-            // TextBoxStepSize
+            // TextBoxStepFrequency
             // 
-            this.TextBoxStepSize.Location = new System.Drawing.Point(125, 95);
-            this.TextBoxStepSize.Name = "TextBoxStepSize";
-            this.TextBoxStepSize.Size = new System.Drawing.Size(40, 20);
-            this.TextBoxStepSize.TabIndex = 18;
-            this.TextBoxStepSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBoxStepFrequency.Enabled = false;
+            this.TextBoxStepFrequency.Location = new System.Drawing.Point(125, 95);
+            this.TextBoxStepFrequency.Name = "TextBoxStepFrequency";
+            this.TextBoxStepFrequency.Size = new System.Drawing.Size(40, 20);
+            this.TextBoxStepFrequency.TabIndex = 18;
+            this.TextBoxStepFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // LabelStopFrequencyUnit
             // 
@@ -883,42 +917,6 @@ namespace RFEOnSite
             this.labelStartFrequencyUnit.Size = new System.Drawing.Size(29, 13);
             this.labelStartFrequencyUnit.TabIndex = 15;
             this.labelStartFrequencyUnit.Text = "MHz";
-            // 
-            // RadioButtonSize
-            // 
-            this.RadioButtonSize.AutoSize = true;
-            this.RadioButtonSize.Enabled = false;
-            this.RadioButtonSize.Location = new System.Drawing.Point(210, 97);
-            this.RadioButtonSize.Name = "RadioButtonSize";
-            this.RadioButtonSize.Size = new System.Drawing.Size(52, 17);
-            this.RadioButtonSize.TabIndex = 14;
-            this.RadioButtonSize.TabStop = true;
-            this.RadioButtonSize.Text = "Solve";
-            this.RadioButtonSize.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonStop
-            // 
-            this.RadioButtonStop.AutoSize = true;
-            this.RadioButtonStop.Enabled = false;
-            this.RadioButtonStop.Location = new System.Drawing.Point(210, 49);
-            this.RadioButtonStop.Name = "RadioButtonStop";
-            this.RadioButtonStop.Size = new System.Drawing.Size(52, 17);
-            this.RadioButtonStop.TabIndex = 12;
-            this.RadioButtonStop.TabStop = true;
-            this.RadioButtonStop.Text = "Solve";
-            this.RadioButtonStop.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonStart
-            // 
-            this.RadioButtonStart.AutoSize = true;
-            this.RadioButtonStart.Enabled = false;
-            this.RadioButtonStart.Location = new System.Drawing.Point(210, 25);
-            this.RadioButtonStart.Name = "RadioButtonStart";
-            this.RadioButtonStart.Size = new System.Drawing.Size(52, 17);
-            this.RadioButtonStart.TabIndex = 11;
-            this.RadioButtonStart.TabStop = true;
-            this.RadioButtonStart.Text = "Solve";
-            this.RadioButtonStart.UseVisualStyleBackColor = true;
             // 
             // LabelFrequencyStepUnit
             // 
@@ -949,6 +947,7 @@ namespace RFEOnSite
             // 
             // TextBoxStartFrequency
             // 
+            this.TextBoxStartFrequency.Enabled = false;
             this.TextBoxStartFrequency.Location = new System.Drawing.Point(125, 23);
             this.TextBoxStartFrequency.Name = "TextBoxStartFrequency";
             this.TextBoxStartFrequency.Size = new System.Drawing.Size(40, 20);
@@ -958,21 +957,13 @@ namespace RFEOnSite
             // 
             // TextBoxStopFrequency
             // 
+            this.TextBoxStopFrequency.Enabled = false;
             this.TextBoxStopFrequency.Location = new System.Drawing.Point(125, 47);
             this.TextBoxStopFrequency.Name = "TextBoxStopFrequency";
             this.TextBoxStopFrequency.Size = new System.Drawing.Size(40, 20);
             this.TextBoxStopFrequency.TabIndex = 7;
             this.TextBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TextBoxStopFrequency.TextChanged += new System.EventHandler(this.TextBoxStopFrequency_TextChanged);
-            // 
-            // LabelStopFrequency
-            // 
-            this.LabelStopFrequency.AutoSize = true;
-            this.LabelStopFrequency.Location = new System.Drawing.Point(37, 51);
-            this.LabelStopFrequency.Name = "LabelStopFrequency";
-            this.LabelStopFrequency.Size = new System.Drawing.Size(82, 13);
-            this.LabelStopFrequency.TabIndex = 4;
-            this.LabelStopFrequency.Text = "Stop Frequency";
             // 
             // LabelRBWUnit
             // 
@@ -983,11 +974,66 @@ namespace RFEOnSite
             this.LabelRBWUnit.TabIndex = 6;
             this.LabelRBWUnit.Text = "KHz";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemFile});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(848, 24);
+            this.menuStrip1.TabIndex = 26;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItemFile
+            // 
+            this.toolStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
+            this.toolStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
+            this.toolStripMenuItemFile.Text = "File";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 22);
+            this.toolStripMenuItem1.Text = "Exit";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItemFileExit_Click);
+            // 
+            // CheckBoxHoldStart
+            // 
+            this.CheckBoxHoldStart.AutoSize = true;
+            this.CheckBoxHoldStart.Location = new System.Drawing.Point(208, 25);
+            this.CheckBoxHoldStart.Name = "CheckBoxHoldStart";
+            this.CheckBoxHoldStart.Size = new System.Drawing.Size(48, 17);
+            this.CheckBoxHoldStart.TabIndex = 28;
+            this.CheckBoxHoldStart.Text = "Hold";
+            this.CheckBoxHoldStart.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxHoldStop
+            // 
+            this.CheckBoxHoldStop.AutoSize = true;
+            this.CheckBoxHoldStop.Location = new System.Drawing.Point(208, 49);
+            this.CheckBoxHoldStop.Name = "CheckBoxHoldStop";
+            this.CheckBoxHoldStop.Size = new System.Drawing.Size(48, 17);
+            this.CheckBoxHoldStop.TabIndex = 29;
+            this.CheckBoxHoldStop.Text = "Hold";
+            this.CheckBoxHoldStop.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxHoldStep
+            // 
+            this.CheckBoxHoldStep.AutoSize = true;
+            this.CheckBoxHoldStep.Location = new System.Drawing.Point(208, 97);
+            this.CheckBoxHoldStep.Name = "CheckBoxHoldStep";
+            this.CheckBoxHoldStep.Size = new System.Drawing.Size(48, 17);
+            this.CheckBoxHoldStep.TabIndex = 30;
+            this.CheckBoxHoldStep.Text = "Hold";
+            this.CheckBoxHoldStep.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(848, 658);
+            this.ClientSize = new System.Drawing.Size(848, 680);
             this.Controls.Add(this.GroupBoxSerialConnection);
             this.Controls.Add(this.GroupBoxConfiguration);
             this.Controls.Add(this.LabelCopyright);
@@ -995,6 +1041,8 @@ namespace RFEOnSite
             this.Controls.Add(this.GroupBoxSweepControl);
             this.Controls.Add(this.GroupBoxCsvConfiguration);
             this.Controls.Add(this.ChartPanel);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "OnSite";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -1013,6 +1061,8 @@ namespace RFEOnSite
             this.GroupBoxSerialize.ResumeLayout(false);
             this.GroupBoxConfiguration.ResumeLayout(false);
             this.GroupBoxConfiguration.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1076,13 +1126,10 @@ namespace RFEOnSite
         private Label LabelLeftAntennaGainUnit;
         private TextBox TextBoxLeftAntennaGain;
         private Label LabelLeftAntennaGain;
-        private TextBox TextBoxStepSize;
+        private TextBox TextBoxStepFrequency;
         private TextBox TextBoxRBW;
         private Label LabelStopFrequencyUnit;
         private Label labelStartFrequencyUnit;
-        private RadioButton RadioButtonSize;
-        private RadioButton RadioButtonStop;
-        private RadioButton RadioButtonStart;
         private Button ButtonSetConfiguration;
         private Label LabelFrequencyStepUnit;
         private Label LabelStartFrequency;
@@ -1098,6 +1145,13 @@ namespace RFEOnSite
         private Label LabelCsvCollectionSite;
         private Label LabelCsvDirectory;
         private Label LabelActualSweeps;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem toolStripMenuItemFile;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private Button ButtonCloseSerialPort;
+        private CheckBox CheckBoxHoldStep;
+        private CheckBox CheckBoxHoldStop;
+        private CheckBox CheckBoxHoldStart;
     }
 }
 

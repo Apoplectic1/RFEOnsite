@@ -1,15 +1,16 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RFE-SerialTest")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("RF Explorer OnSite")]
+[assembly: AssemblyDescription("Site survey application to collect cellular dBm data for subsequent post-processing")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Skyhawk Consulting, Inc.")]
-[assembly: AssemblyProduct("RFE-SerialTest")]
+[assembly: AssemblyProduct("RFEOnSite")]
 [assembly: AssemblyCopyright("Copyright © SkyhawkConsulting, Inc. 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -34,3 +35,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("en-US")]
+

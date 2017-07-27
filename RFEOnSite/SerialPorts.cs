@@ -160,6 +160,21 @@ namespace RFEOnSite
             }
         }
 
+        public void DisconnectPort()
+        {
+            try
+            {
+                mRFEConnected = false;
+                mSerialPort.Close();
+            }
+            catch
+            {
+
+            }
+        }
+
+
+
         public void SendCommand_RequestConfigData()
         {
             SendCommand("C0");

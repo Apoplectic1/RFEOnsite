@@ -114,9 +114,19 @@ namespace RFEOnSite
             // fromSerialThread is constructed and populated by RFEConfiguration.cs
             // ***********************************************************************************
 
-            TextBoxStartFrequency.Text = fromSerialThread.StartMHz.ToString();
+            double startMHz = fromSerialThread.StartMHz;
+            TextBoxStartFrequency.Text = startMHz.ToString();
             double stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
             TextBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
+
+            TextBoxRBW.Text = Math.Round(fromSerialThread.RBWKHz, 2).ToString();
+            //TextBoxStepFrequency.Text = Math.Round(fromSerialThread.StepMHz * 1000.0, 2).ToString();
+            TextBoxStepFrequency.Text = (fromSerialThread.StepMHz * 1000.0).ToString("F2");
+
+            LabelDeviceText.Text = fromSerialThread.mMainModel.ToString();
+            LabelModelText.Text = fromSerialThread.mExpansionModel.ToString();
+            LabelFirmwareText.Text = fromSerialThread.FirmwareVersion;
+
 
             if (TextBoxStartFrequency.Text == TextBoxStopFrequency.Text)
             {
@@ -127,11 +137,12 @@ namespace RFEOnSite
                 Application.Exit();
             }
 
-            TextBoxRBW.Text = Math.Round(fromSerialThread.RBWKHz, 2).ToString();
-            TextBoxStepSize.Text = Math.Round(fromSerialThread.StepMHz * 1000.0, 2).ToString();
-            LabelDeviceText.Text = fromSerialThread.mMainModel.ToString();
-            LabelModelText.Text = fromSerialThread.mExpansionModel.ToString();
-            LabelFirmwareText.Text = fromSerialThread.FirmwareVersion;
+            gRFEOnSite.Explorer.WaitingForConfigurationCallBack = false;
+
+            gRFEOnSite.StartFrequency = startMHz;
+            gRFEOnSite.StopFrequency = stopMHz;
+            gRFEOnSite.ResolutionBandWidth = fromSerialThread.RBWKHz;
+            gRFEOnSite.FrequencyStepSize = fromSerialThread.StepMHz;
 
             if (fromSerialThread.mMainModel == eModel.MODEL_6G)
             {
@@ -144,6 +155,15 @@ namespace RFEOnSite
                 RadioButtonAnalyzer.Checked = true;
                 RadioButtonGenerator.Checked = false;
                 RadioButtonGenerator.Enabled = false;
+
+
+                gRFEOnSite.Graph.MinX = gRFEOnSite.StartFrequency;
+                gRFEOnSite.Graph.MaxX = gRFEOnSite.StopFrequency;
+
+                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+
+                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
             }
             else
             {
@@ -198,12 +218,12 @@ namespace RFEOnSite
                 }
 
                 gRFEOnSite.FileOps.Path = TextBoxCsvFileName.Text;
-                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.Graph.MinX, gRFEOnSite.Graph.MaxX, gRFEOnSite.ExplorerSweepData);
+                gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.StartFrequency, gRFEOnSite.StopFrequency, gRFEOnSite.FrequencyStepSize, gRFEOnSite.ExplorerSweepData);
 
                 gRFEOnSite.FileOps.FileCounter++;
             }
 
-            gRFEOnSite.Graph.DrawChart(gRFEOnSite.ExplorerSweepData);
+            gRFEOnSite.Graph.DrawChart(gRFEOnSite.Graph.GraphPeak, gRFEOnSite.Graph.GraphAverage, gRFEOnSite.ExplorerSweepData);
 
             //*****************************************************
             // SETUP AND GET NEXT SWEEP
@@ -378,7 +398,7 @@ namespace RFEOnSite
             IProgress<List<string>> UpdateUISweepData = new Progress<List<string>>(SWEEPS => UIUpdateCallback_SweepData(SWEEPS));
             IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
 
-            await Task.Factory.StartNew(() => gRFEOnSite.Explorer.AttachSerialPortAndReceiveDataThread(
+            await Task.Factory.StartNew(() => gRFEOnSite.Explorer.CreateReceiveDataThread(
                                     UpdateUIControls,
                                     UpdateUISweepData,
                                     UpdateUIProgressBar));
@@ -391,6 +411,7 @@ namespace RFEOnSite
             GroupBoxChart.Enabled = true;
             ChartPanel.Enabled = true;
 
+            gRFEOnSite.Explorer.RequestConfiguration();
 
             ButtonStartSweeps.Enabled = true;
         }
@@ -411,7 +432,7 @@ namespace RFEOnSite
 
             bValidField = Double.TryParse(TextBoxStartFrequency.Text, out startMHz);
             bValidField &= Double.TryParse(TextBoxStopFrequency.Text, out stopMHz);
-            bValidField &= Double.TryParse(TextBoxStepSize.Text, out stepKHz);
+            bValidField &= Double.TryParse(TextBoxStepFrequency.Text, out stepKHz);
 
             if (bValidField)
             {
@@ -427,19 +448,14 @@ namespace RFEOnSite
                     result = MessageBox.Show(message, caption, buttons);
                     return;
                 }
+                
 
                 ButtonStartSweeps.Enabled = false;
                 ButtonCancelSweeps.Enabled = false;
                 GroupBoxSweepControl.Enabled = false;
+
+                gRFEOnSite.Explorer.WaitingForConfigurationCallBack = true;
                 gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz, -80, -110);
-
-                gRFEOnSite.Graph.MinX = startMHz;
-                gRFEOnSite.Graph.MaxX = stopMHz;
-
-                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
-                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
-
-                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
             }
         }
 
@@ -680,11 +696,15 @@ namespace RFEOnSite
                 TextBoxStartFrequency.Enabled = false;
                 TextBoxStopFrequency.Enabled = false;
                 TextBoxRBW.Enabled = false;
-                TextBoxStepSize.Enabled = false;
+                TextBoxStepFrequency.Enabled = false;
                 ButtonSetConfiguration.Enabled = false;
                 ButtonGetConfiguration.Enabled = false;
                 GroupBoxSweepControl.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
+
+                CheckBoxHoldStart.Enabled = false;
+                CheckBoxHoldStep.Enabled = false;
+                CheckBoxHoldStop.Enabled = false;
 
                 using (WhoopNodeForm mWhoopNodeDownlinkForm = new WhoopNodeForm())
                 {
@@ -713,7 +733,7 @@ namespace RFEOnSite
                         TextBoxStartFrequency.Enabled = true;
                         TextBoxStopFrequency.Enabled = true;
                         TextBoxRBW.Enabled = true;
-                        TextBoxStepSize.Enabled = true;
+                        TextBoxStepFrequency.Enabled = true;
                         ButtonSetConfiguration.Enabled = true;
                     }
                 }
@@ -729,9 +749,12 @@ namespace RFEOnSite
                 TextBoxStartFrequency.Enabled = true;
                 TextBoxStopFrequency.Enabled = true;
                 TextBoxRBW.Enabled = true;
-                TextBoxStepSize.Enabled = true;
+                TextBoxStepFrequency.Enabled = true;
                 ButtonSetConfiguration.Enabled = true;
                 ButtonGetConfiguration.Enabled = true;
+                CheckBoxHoldStart.Enabled = true;
+                CheckBoxHoldStep.Enabled = true;
+                CheckBoxHoldStop.Enabled = true;
                 return;
             }
 
@@ -742,10 +765,14 @@ namespace RFEOnSite
                 TextBoxStartFrequency.Enabled = false;
                 TextBoxStopFrequency.Enabled = false;
                 TextBoxRBW.Enabled = false;
-                TextBoxStepSize.Enabled = false;
+                TextBoxStepFrequency.Enabled = false;
                 ButtonSetConfiguration.Enabled = false;
                 ButtonGetConfiguration.Enabled = false;
                 GroupBoxSweepControl.Enabled = true;
+
+                CheckBoxHoldStart.Enabled = false;
+                CheckBoxHoldStep.Enabled = false;
+                CheckBoxHoldStop.Enabled = false;
 
                 using (FullDownlinkForm mFullDownlinkForm = new FullDownlinkForm())
                 {
@@ -774,7 +801,7 @@ namespace RFEOnSite
                         TextBoxStartFrequency.Enabled = true;
                         TextBoxStopFrequency.Enabled = true;
                         TextBoxRBW.Enabled = true;
-                        TextBoxStepSize.Enabled = true;
+                        TextBoxStepFrequency.Enabled = true;
                         ButtonSetConfiguration.Enabled = true;
                     }
                 }
@@ -856,7 +883,7 @@ namespace RFEOnSite
                 if (stop > start)
                 {
                     stepSize = (stop - start) / .1120;
-                    TextBoxStepSize.Text = stepSize.ToString("F0");
+                    TextBoxStepFrequency.Text = stepSize.ToString("F0");
                 }
             }
             else
@@ -878,7 +905,7 @@ namespace RFEOnSite
                 if (stop > start)
                 {
                     stepSize = (stop - start) / .1120;
-                    TextBoxStepSize.Text = stepSize.ToString("F0");
+                    TextBoxStepFrequency.Text = stepSize.ToString("F0");
                 }
             }
             else
@@ -967,6 +994,29 @@ namespace RFEOnSite
         private void NumericUpDownLocation_ValueChanged(object sender, EventArgs e)
         {
             LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
+        }
+
+        private void toolStripMenuItemFileExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ButtonCloseSerialPort_Click(object sender, EventArgs e)
+        {
+            DialogResult diag = MessageBox.Show("Disconnect RF Explorer - Are you Sure?\n\nBetter to close application and start again.", "Asking for Trouble...", MessageBoxButtons.OKCancel);
+            if (diag == DialogResult.OK)
+            {
+                gRFEOnSite.Explorer.DestroyReceiveDataThread();
+                gRFEOnSite.Explorer.DisconnectSerialPort();
+                ButtonFindCOMPorts.Enabled = true;
+                ButtonFindCOMPorts.BackColor = Color.Red;
+                ButtonFindCOMPorts.Text = "Connect RF Explorer";
+
+                TextBoxStartFrequency.Text = "";
+                TextBoxStopFrequency.Text = "";
+                TextBoxRBW.Text = "";
+                TextBoxStepFrequency.Text = "";
+            }
         }
     }
 }

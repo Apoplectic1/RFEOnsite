@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>RFE_OnSite</RootNamespace>
     <AssemblyName>RFEOnSite</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -27,10 +27,11 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>RF Explorer OnSite</ProductName>
     <PublisherName>Skyhawk Consulting, Inc.</PublisherName>
-    <MinimumRequiredVersion>1.1.0.0</MinimumRequiredVersion>
+    <SuiteName>SkyhawkConsulting</SuiteName>
+    <MinimumRequiredVersion>1.3.2.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.3.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

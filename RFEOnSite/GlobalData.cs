@@ -28,6 +28,16 @@ namespace RFEOnSite
         private string mCollectionLocation;
         private string mCollectionSite;
 
+        private double mStartMHz;
+        private double mStopMHz;
+        private double mResolutionBandwidth;
+        private double mStepSize;
+
+        public double StartFrequency { get { return mStartMHz; } set { mStartMHz = value; } }
+        public double StopFrequency { get { return mStopMHz; } set { mStopMHz = value; } }
+        public double ResolutionBandWidth { get { return mResolutionBandwidth; } set { mResolutionBandwidth = value; } }
+        public double FrequencyStepSize { get { return mStepSize; } set { mStepSize = value; } }
+
         public GlobalData()
         {
             mChart = new Charts();

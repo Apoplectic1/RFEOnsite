@@ -101,7 +101,7 @@ namespace RFEOnSite
             mChart.Palette = ChartColorPalette.Bright;
         }
 
-        public void DrawChart(List<string> stringData)
+        public void DrawChart(bool maxChart, bool avgChart, List<string> stringData)
         {
             double frequency;
 
@@ -111,8 +111,8 @@ namespace RFEOnSite
 
 
             Decibels dBm = new Decibels();
-            DataPoint dpMaxY;
-            DataPoint dpMinY;
+            DataPoint dpMaxY = new DataPoint();
+            DataPoint dpMinY = new DataPoint();
 
             mFrequencyList.Clear();
             mStepX = (MaxX - MinX) / 112.0;
@@ -125,14 +125,19 @@ namespace RFEOnSite
 
             RemoveChartSeries("All");
 
-            mSeriesPeak = new Series();
-            mSeriesAverage = new Series();
-            mSeriesPeak.Color = Color.Blue;
-            mSeriesAverage.Color = Color.Green;
+            if (avgChart)
+            {
+                mSeriesAverage = new Series();
+                mSeriesAverage.Color = Color.Green;
+                mSeriesAverage.ChartType = SeriesChartType.Spline;
+            }
 
-            mSeriesPeak.ChartType = SeriesChartType.Spline;
-            mSeriesAverage.ChartType = SeriesChartType.Spline;
-
+            if (maxChart)
+            {
+                mSeriesPeak = new Series();
+                mSeriesPeak.Color = Color.Blue;
+                mSeriesPeak.ChartType = SeriesChartType.Spline;
+            }
             // Walk across each Sweep Column
             for (int index = 0; index != 112; index++)
             {
@@ -142,28 +147,55 @@ namespace RFEOnSite
                     dBm.ExplorerDbmToList(stringData[sweepIndex][index + 3]);
                 }
 
+                if (maxChart)
+                {
+                    mSeriesPeak.Points.AddXY(mFrequencyList[index], dBm.MaxdBmList());
+                }
 
-                mSeriesPeak.Points.AddXY(mFrequencyList[index], dBm.MaxdBmList());
-                mSeriesAverage.Points.AddXY(mFrequencyList[index], dBm.AveragedBmList());
+                if (avgChart)
+                {
+                    mSeriesAverage.Points.AddXY(mFrequencyList[index], dBm.AveragedBmList());
+                }
 
                 dBm.Clear();
             }
 
-            mSeriesPeak.LabelBackColor = System.Drawing.Color.White;
-            mSeriesAverage.LabelBackColor = System.Drawing.Color.White;
+            if (maxChart)
+            {
+                mSeriesPeak.LabelBackColor = System.Drawing.Color.White;
+                dpMaxY = mSeriesPeak.Points.FindMaxByValue();
+                dpMaxY.Label = dpMaxY.YValues[0].ToString() + " Peak";
+                dpMaxY.Font = new System.Drawing.Font("Arial", 10f);
+                dpMaxY.MarkerColor = System.Drawing.Color.Blue;
+                dpMaxY.MarkerSize = 5;
+                dpMaxY.MarkerStyle = MarkerStyle.Circle;
+            }
 
-            dpMaxY = mSeriesPeak.Points.FindMaxByValue();
-            dpMaxY.Label = dpMaxY.YValues[0].ToString() + " Peak";
-            dpMaxY.Font = new System.Drawing.Font("Arial", 10f);
-            dpMaxY.MarkerColor = System.Drawing.Color.MediumBlue;
-            dpMaxY.MarkerSize = 5;
-            dpMaxY.MarkerStyle = MarkerStyle.Circle;
+            if (avgChart && !maxChart)
+            {
+                mSeriesAverage.LabelBackColor = System.Drawing.Color.White;
+                dpMaxY = mSeriesAverage.Points.FindMaxByValue();
+                dpMaxY.Label = Math.Round(dpMaxY.YValues[0], 1).ToString() + " Avg Peak";
+                dpMaxY.Font = new System.Drawing.Font("Arial", 10f);
+                dpMaxY.MarkerColor = System.Drawing.Color.Green;
+                dpMaxY.MarkerSize = 5;
+                dpMaxY.MarkerStyle = MarkerStyle.Circle;
+            }
 
             if (mAutoScale)
             {
                 double maxY = dpMaxY.YValues[0];
 
-                dpMinY = mSeriesAverage.Points.FindMinByValue();
+                if (avgChart)
+                {
+                    dpMinY = mSeriesAverage.Points.FindMinByValue();
+                }
+
+                if (!avgChart)
+                {
+                    dpMinY = mSeriesPeak.Points.FindMinByValue();
+                }
+
                 double minY = dpMinY.YValues[0];
 
                 double temp = (maxY - (maxY % mTickIntervalY));
@@ -176,6 +208,7 @@ namespace RFEOnSite
                 }
 
                 mChart.ChartAreas[0].AxisY.Minimum = minY;
+
             }
             else
             {

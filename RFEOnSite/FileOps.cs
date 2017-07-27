@@ -246,7 +246,7 @@ namespace RFEOnSite
         // ** Write CsvFiles from Swept List Data
         // *****************************************************************************************
         // *****************************************************************************************
-        public bool ExportCsvFile(double start, double stop, List<string> data)
+        public bool ExportCsvFile(double start, double stop, double stepSize,  List<string> data)
         {
             mCsvExport = new CsvExport();
 
@@ -255,12 +255,12 @@ namespace RFEOnSite
 
             frequencyList.Clear();
 
-            double stepMHz = (stop - start) / 112.0;
+            //double stepMHz = stepSize / 1000.0;
             double freq = start;
             for (int step = 0; step < 112; step++)
             {
                 frequencyList.Add(freq);
-                freq += stepMHz;
+                freq += stepSize;
             }
 
             for (int sweepIndex = 0; sweepIndex < data.Count; sweepIndex++)
@@ -270,7 +270,7 @@ namespace RFEOnSite
 
                 for (int index = 0; index != 112; index++)
                 {
-                    frequency = frequencyList[index].ToString("F1");
+                    frequency = frequencyList[index].ToString("F8");
                     Int32 dBm = Convert.ToInt16(row[index + 3]);
 
                     mCsvExport[frequency] = (-(Convert.ToDouble(dBm) / 2.0)).ToString("F1");

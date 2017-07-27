@@ -17,11 +17,13 @@ namespace RFEOnSite
         private int mSweepCount;
         private bool mSecondReturnedConfiguration; // For synchornization
         private bool mFirstRetunedConfiguration;  // For synchornization
-        
+        private bool mWaitingForConfigurationFlag;
 
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
         public List<string> SweepData { get { return mReceivedSweep; } }
+
+        public bool WaitingForConfigurationCallBack { get { return mWaitingForConfigurationFlag; } set { mWaitingForConfigurationFlag = value; } }
 
 
 
@@ -35,6 +37,7 @@ namespace RFEOnSite
             mCapture = false;
             mSecondReturnedConfiguration = false;
             mFirstRetunedConfiguration = false;
+            mWaitingForConfigurationFlag = true;
         }
 
         public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)
@@ -46,7 +49,7 @@ namespace RFEOnSite
             UpdateUIComPortText.Report(mSerialPort.ConnectedPortName);
         }
 
-        public void AttachSerialPortAndReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<List<string>> sweepData, IProgress<int> nProgress)
+        public void CreateReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<List<string>> sweepData, IProgress<int> nProgress)
         {
             //Start listening to data from the RF Explorer
             mReceiveThread = new Thread(() => ReceiveThread(configurationData, sweepData, nProgress));
@@ -54,6 +57,15 @@ namespace RFEOnSite
 
             mSecondReturnedConfiguration = false;
             mFirstRetunedConfiguration = false;
+        }
+
+        public void DestroyReceiveDataThread()
+        {
+            mCapture = false;
+            mConfigured = false;
+            mReceivedSweep.Clear();
+
+            mReceiveThread.Abort();
         }
 
         public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = -30, int amplitudeBottom = -110)
@@ -100,6 +112,12 @@ namespace RFEOnSite
             mSerialPort.SendCommand("C0"); // Request Config Data
 
         }
+        public void DisconnectSerialPort()
+        {
+            //mSerialPort.RFEConnected = false;
+            mSerialPort.DisconnectPort();
+        }
+
         public void RequestConfiguration()
         {
             mSerialPort.SendCommand("C0"); // Request Config Data
@@ -125,14 +143,18 @@ namespace RFEOnSite
                     {
                         sNewText = mSerialPort.Port.ReadExisting();
                     }
+                    Monitor.Exit(mSerialPort);
                 }
                 catch (IOException) { }
                 catch (TimeoutException) { }
                 catch (Exception) { }
-                finally
-                {
-                    Monitor.Exit(mSerialPort);
-                }
+                //finally
+                //{
+                //    if (mSerialPort.RFEConnected)
+                //    {
+                //        //Monitor.Exit(mSerialPort);
+                //    }
+                //}
 
                 if (sNewText.Length > 0)
                 {
