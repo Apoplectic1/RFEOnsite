@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Skyhawk Consulting, Inc.")]
 [assembly: AssemblyProduct("RFEOnSite")]
-[assembly: AssemblyCopyright("Copyright © SkyhawkConsulting, Inc. 2017")]
+[assembly: AssemblyCopyright("SkyhawkConsulting, Inc. ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
