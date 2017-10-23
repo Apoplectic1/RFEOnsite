@@ -51,7 +51,7 @@ namespace RFEOnSite
             this.NumericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
             this.GroupBoxSweepControl = new System.Windows.Forms.GroupBox();
             this.LabelActualSweeps = new System.Windows.Forms.Label();
-            this.LabelTask = new System.Windows.Forms.Label();
+            this.LabelTaskCount = new System.Windows.Forms.Label();
             this.LabelExecTask = new System.Windows.Forms.Label();
             this.ButtonCancelSweeps = new System.Windows.Forms.Button();
             this.LabelProgressWriteCsvFile = new System.Windows.Forms.Label();
@@ -90,6 +90,9 @@ namespace RFEOnSite
             this.ButtonRecallProgramState = new System.Windows.Forms.Button();
             this.LabelCopyright = new System.Windows.Forms.Label();
             this.GroupBoxConfiguration = new System.Windows.Forms.GroupBox();
+            this.CheckBoxHoldStep = new System.Windows.Forms.CheckBox();
+            this.CheckBoxHoldStop = new System.Windows.Forms.CheckBox();
+            this.CheckBoxHoldStart = new System.Windows.Forms.CheckBox();
             this.LabelPresets = new System.Windows.Forms.Label();
             this.LabelRightAntennaGainUnit = new System.Windows.Forms.Label();
             this.TextBoxRightAntennaGain = new System.Windows.Forms.TextBox();
@@ -109,9 +112,6 @@ namespace RFEOnSite
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CheckBoxHoldStart = new System.Windows.Forms.CheckBox();
-            this.CheckBoxHoldStop = new System.Windows.Forms.CheckBox();
-            this.CheckBoxHoldStep = new System.Windows.Forms.CheckBox();
             this.GroupBoxSerialConnection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepControl.SuspendLayout();
@@ -316,7 +316,7 @@ namespace RFEOnSite
             this.NumericUpDownSweeps.TabIndex = 15;
             this.NumericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NumericUpDownSweeps.Value = new decimal(new int[] {
-            250,
+            100,
             0,
             0,
             0});
@@ -324,7 +324,7 @@ namespace RFEOnSite
             // GroupBoxSweepControl
             // 
             this.GroupBoxSweepControl.Controls.Add(this.LabelActualSweeps);
-            this.GroupBoxSweepControl.Controls.Add(this.LabelTask);
+            this.GroupBoxSweepControl.Controls.Add(this.LabelTaskCount);
             this.GroupBoxSweepControl.Controls.Add(this.LabelExecTask);
             this.GroupBoxSweepControl.Controls.Add(this.ButtonCancelSweeps);
             this.GroupBoxSweepControl.Controls.Add(this.LabelProgressWriteCsvFile);
@@ -350,14 +350,14 @@ namespace RFEOnSite
             this.LabelActualSweeps.TabIndex = 21;
             this.LabelActualSweeps.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // LabelTask
+            // LabelTaskCount
             // 
-            this.LabelTask.AutoSize = true;
-            this.LabelTask.Location = new System.Drawing.Point(223, 30);
-            this.LabelTask.Name = "LabelTask";
-            this.LabelTask.Size = new System.Drawing.Size(24, 13);
-            this.LabelTask.TabIndex = 20;
-            this.LabelTask.Text = "Idle";
+            this.LabelTaskCount.AutoSize = true;
+            this.LabelTaskCount.Location = new System.Drawing.Point(223, 30);
+            this.LabelTaskCount.Name = "LabelTaskCount";
+            this.LabelTaskCount.Size = new System.Drawing.Size(24, 13);
+            this.LabelTaskCount.TabIndex = 20;
+            this.LabelTaskCount.Text = "Idle";
             // 
             // LabelExecTask
             // 
@@ -820,6 +820,36 @@ namespace RFEOnSite
             this.GroupBoxConfiguration.TabStop = false;
             this.GroupBoxConfiguration.Text = "Current Configuration";
             // 
+            // CheckBoxHoldStep
+            // 
+            this.CheckBoxHoldStep.AutoSize = true;
+            this.CheckBoxHoldStep.Location = new System.Drawing.Point(208, 97);
+            this.CheckBoxHoldStep.Name = "CheckBoxHoldStep";
+            this.CheckBoxHoldStep.Size = new System.Drawing.Size(48, 17);
+            this.CheckBoxHoldStep.TabIndex = 30;
+            this.CheckBoxHoldStep.Text = "Hold";
+            this.CheckBoxHoldStep.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxHoldStop
+            // 
+            this.CheckBoxHoldStop.AutoSize = true;
+            this.CheckBoxHoldStop.Location = new System.Drawing.Point(208, 49);
+            this.CheckBoxHoldStop.Name = "CheckBoxHoldStop";
+            this.CheckBoxHoldStop.Size = new System.Drawing.Size(48, 17);
+            this.CheckBoxHoldStop.TabIndex = 29;
+            this.CheckBoxHoldStop.Text = "Hold";
+            this.CheckBoxHoldStop.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxHoldStart
+            // 
+            this.CheckBoxHoldStart.AutoSize = true;
+            this.CheckBoxHoldStart.Location = new System.Drawing.Point(208, 25);
+            this.CheckBoxHoldStart.Name = "CheckBoxHoldStart";
+            this.CheckBoxHoldStart.Size = new System.Drawing.Size(48, 17);
+            this.CheckBoxHoldStart.TabIndex = 28;
+            this.CheckBoxHoldStart.Text = "Hold";
+            this.CheckBoxHoldStart.UseVisualStyleBackColor = true;
+            // 
             // LabelPresets
             // 
             this.LabelPresets.AutoSize = true;
@@ -999,36 +1029,6 @@ namespace RFEOnSite
             this.toolStripMenuItem1.Text = "Exit";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItemFileExit_Click);
             // 
-            // CheckBoxHoldStart
-            // 
-            this.CheckBoxHoldStart.AutoSize = true;
-            this.CheckBoxHoldStart.Location = new System.Drawing.Point(208, 25);
-            this.CheckBoxHoldStart.Name = "CheckBoxHoldStart";
-            this.CheckBoxHoldStart.Size = new System.Drawing.Size(48, 17);
-            this.CheckBoxHoldStart.TabIndex = 28;
-            this.CheckBoxHoldStart.Text = "Hold";
-            this.CheckBoxHoldStart.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxHoldStop
-            // 
-            this.CheckBoxHoldStop.AutoSize = true;
-            this.CheckBoxHoldStop.Location = new System.Drawing.Point(208, 49);
-            this.CheckBoxHoldStop.Name = "CheckBoxHoldStop";
-            this.CheckBoxHoldStop.Size = new System.Drawing.Size(48, 17);
-            this.CheckBoxHoldStop.TabIndex = 29;
-            this.CheckBoxHoldStop.Text = "Hold";
-            this.CheckBoxHoldStop.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxHoldStep
-            // 
-            this.CheckBoxHoldStep.AutoSize = true;
-            this.CheckBoxHoldStep.Location = new System.Drawing.Point(208, 97);
-            this.CheckBoxHoldStep.Name = "CheckBoxHoldStep";
-            this.CheckBoxHoldStep.Size = new System.Drawing.Size(48, 17);
-            this.CheckBoxHoldStep.TabIndex = 30;
-            this.CheckBoxHoldStep.Text = "Hold";
-            this.CheckBoxHoldStep.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1108,7 +1108,7 @@ namespace RFEOnSite
         private Button ButtonDocumentation;
         private Label LabelCopyright;
         private Button ButtonCancelSweeps;
-        private Label LabelTask;
+        private Label LabelTaskCount;
         private Label LabelExecTask;
         private CheckBox CheckBoxRadialAzimuth;
         private NumericUpDown NumericUpDownLocation;

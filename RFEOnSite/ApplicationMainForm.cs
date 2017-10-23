@@ -279,7 +279,7 @@ namespace RFEOnSite
                         TaskProgressBar.Value = 0;
 
                         gRFEOnSite.Explorer.Capture = true;
-                        LabelTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
+                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
                         break;
                     }
                 }
@@ -327,14 +327,14 @@ namespace RFEOnSite
                         TaskProgressBar.Value = 0;
 
                         gRFEOnSite.Explorer.Capture = true;
-                        LabelTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
+                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
                         return;
                     }
                 }
             }
             else // Manual Sweep
             {
-                LabelTask.Text = "Done";
+                LabelTaskCount.Text = "Done";
                 ButtonStartSweeps.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
 
@@ -352,7 +352,7 @@ namespace RFEOnSite
             if (gRFEOnSite.PresetActive)
             {
 
-                LabelTask.Text = "Done";
+                LabelTaskCount.Text = "Done";
 
 
                 if (CheckBoxAutoIncrement.Checked && CheckBoxSaveCsvFiles.Checked)
@@ -502,7 +502,7 @@ namespace RFEOnSite
                     {
                         gRFEOnSite.PresetTableIndex++;
 
-                        LabelTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
+                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
 
                         switch (pair.SweepBand)
                         {
@@ -545,7 +545,7 @@ namespace RFEOnSite
                     {
                         gRFEOnSite.PresetTableIndex++;
 
-                        LabelTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
+                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
 
                         switch (pair.SweepBand)
                         {
@@ -583,7 +583,7 @@ namespace RFEOnSite
             }
             else
             {
-                LabelTask.Text = "1 of 1";
+                LabelTaskCount.Text = "1 of 1";
                 TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                 TaskProgressBar.Step = 1;
                 TaskProgressBar.Value = 0;
@@ -927,7 +927,7 @@ namespace RFEOnSite
         private void ButtonCancelSweeps_Click(object sender, EventArgs e)
         {
             ButtonCancelSweeps.Enabled = false;
-            LabelTask.Text = "Done";
+            LabelTaskCount.Text = "Done";
 
             gRFEOnSite.Explorer.SweepCount = 1;
             gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetWhoopDownlinkTable.Count();

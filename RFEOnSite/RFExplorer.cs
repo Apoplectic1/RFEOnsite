@@ -22,7 +22,6 @@ namespace RFEOnSite
         public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
         public bool Capture { get { return mCapture; } set { mCapture = value; } }
         public List<string> SweepData { get { return mReceivedSweep; } }
-
         public bool WaitingForConfigurationCallBack { get { return mWaitingForConfigurationFlag; } set { mWaitingForConfigurationFlag = value; } }
 
 
