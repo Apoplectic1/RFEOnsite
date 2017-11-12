@@ -134,6 +134,7 @@ namespace RFEOnSite
         
         public void ExportToFile(string path)
         {
+            // Creates a new file, writes a collection of strings to the file, and then closes the file.
             File.WriteAllLines(path, ExportToLines(), Encoding.UTF8);
         }
 

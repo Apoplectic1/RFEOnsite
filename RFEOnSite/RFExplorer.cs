@@ -64,7 +64,10 @@ namespace RFEOnSite
             mConfigured = false;
             mReceivedSweep.Clear();
 
-            mReceiveThread.Abort();
+            if (mReceiveThread != null)
+            {
+                mReceiveThread.Abort();
+            }
         }
 
         public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = -30, int amplitudeBottom = -110)

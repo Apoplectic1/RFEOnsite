@@ -21,6 +21,8 @@ namespace RFEOnSite
 
             InitializeComponent();
 
+            this.FormClosing += new FormClosingEventHandler(this.MainForm_FormClosing);
+
             // Versioning Text at top of Application Window
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
             {
@@ -53,6 +55,7 @@ namespace RFEOnSite
             NumericUpDownLocation.Enabled = false;
             CheckBoxAutoIncrement.Enabled = false;
         }
+
 
         private void InitializeChartUI()
         {
@@ -220,6 +223,7 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.Path = TextBoxCsvFileName.Text;
                 gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.StartFrequency, gRFEOnSite.StopFrequency, gRFEOnSite.FrequencyStepSize, gRFEOnSite.ExplorerSweepData);
 
+
                 gRFEOnSite.FileOps.FileCounter++;
             }
 
@@ -280,7 +284,7 @@ namespace RFEOnSite
 
                         gRFEOnSite.Explorer.Capture = true;
                         LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
-                        break;
+                        return;
                     }
                 }
 
@@ -448,7 +452,7 @@ namespace RFEOnSite
                     result = MessageBox.Show(message, caption, buttons);
                     return;
                 }
-                
+
 
                 ButtonStartSweeps.Enabled = false;
                 ButtonCancelSweeps.Enabled = false;
@@ -629,6 +633,22 @@ namespace RFEOnSite
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+
+        }
+
+        private void MainForm_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            //Display a MsgBox asking the user to close the form.
+            if (MessageBox.Show("Are you sure you want to close the Application?", "Close RFEOnSite?",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                // Cancel the Closing event
+                e.Cancel = true;
+                return;
+            }
+
+            gRFEOnSite.Explorer.DestroyReceiveDataThread();
+            gRFEOnSite.Explorer.DisconnectSerialPort();
         }
 
         private void ConfigurationPanel_Paint(object sender, PaintEventArgs e)
@@ -1003,7 +1023,7 @@ namespace RFEOnSite
 
         private void ButtonCloseSerialPort_Click(object sender, EventArgs e)
         {
-            DialogResult diag = MessageBox.Show("Disconnect RF Explorer - Are you Sure?\n\nBetter to close application and start again.", "Asking for Trouble...", MessageBoxButtons.OKCancel);
+            DialogResult diag = MessageBox.Show("Disconnect RF Explorer - Are you Sure?", "Disconnect?", MessageBoxButtons.OKCancel);
             if (diag == DialogResult.OK)
             {
                 gRFEOnSite.Explorer.DestroyReceiveDataThread();
