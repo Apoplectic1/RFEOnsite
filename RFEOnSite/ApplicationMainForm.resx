@@ -131,10 +131,6 @@ CSV FILES
 If the 'Save to CSV Files' checkbox is active, csv files will be saved in the selected sub-folder on the user's Desktop.
 File names for any saved CSV files will appear in the 'CSV File:' text area below.</value>
   </data>
-  <data name="LabelCsvRootText.ToolTip" xml:space="preserve">
-    <value>If CSV File capture is enabled, the captured files will be placed in sub-folders on the user's Desktop.
-The Desktop root folder is not changable - select different sub-folders to differentiate between collection locations.</value>
-  </data>
   <data name="LabelRBW.ToolTip" xml:space="preserve">
     <value>Resolution Bandwidth is not directly programmable on the RF Explorer.
 
@@ -156,7 +152,7 @@ Enables entry of the configuration text fields to manually select frequencies to
 Whoop Downlink
 This preset will automatically sweep all of the downlink frequencies that the Whoop node's are capable of handeling.</value>
   </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>116, 17</value>
   </metadata>
 </root>
