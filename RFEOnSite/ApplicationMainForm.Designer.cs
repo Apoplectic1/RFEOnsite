@@ -71,6 +71,7 @@ namespace RFEOnSite
             this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
             this.ButtonGetConfiguration = new System.Windows.Forms.Button();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
+            this.ButtonCaptureImageOmni = new System.Windows.Forms.Button();
             this.GroupBoxCsvConfiguration = new System.Windows.Forms.GroupBox();
             this.GroupBoxClientInformation = new System.Windows.Forms.GroupBox();
             this.TextBoxClient = new System.Windows.Forms.TextBox();
@@ -117,6 +118,9 @@ namespace RFEOnSite
             this.TabControlMainOmniDirectional = new System.Windows.Forms.TabPage();
             this.TabControlMainRadial = new System.Windows.Forms.TabPage();
             this.LabelTrueNorthText = new System.Windows.Forms.Label();
+            this.TabControlSiteImage = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepControl.SuspendLayout();
             this.ChartPanel.SuspendLayout();
@@ -134,6 +138,8 @@ namespace RFEOnSite
             this.TabControlMainConnection.SuspendLayout();
             this.TabControlMainOmniDirectional.SuspendLayout();
             this.TabControlMainRadial.SuspendLayout();
+            this.TabControlSiteImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ButtonFindCOMPorts
@@ -143,7 +149,7 @@ namespace RFEOnSite
             this.ButtonFindCOMPorts.FlatAppearance.BorderSize = 5;
             this.ButtonFindCOMPorts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.ButtonFindCOMPorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ButtonFindCOMPorts.Font = new System.Drawing.Font("Lato", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonFindCOMPorts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ButtonFindCOMPorts.Location = new System.Drawing.Point(75, 19);
             this.ButtonFindCOMPorts.Name = "ButtonFindCOMPorts";
             this.ButtonFindCOMPorts.Size = new System.Drawing.Size(155, 73);
@@ -165,10 +171,10 @@ namespace RFEOnSite
             // 
             this.CheckBoxRadialAzimuth.AutoSize = true;
             this.CheckBoxRadialAzimuth.Enabled = false;
-            this.CheckBoxRadialAzimuth.Font = new System.Drawing.Font("Lato", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBoxRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckBoxRadialAzimuth.Location = new System.Drawing.Point(161, 45);
             this.CheckBoxRadialAzimuth.Name = "CheckBoxRadialAzimuth";
-            this.CheckBoxRadialAzimuth.Size = new System.Drawing.Size(193, 37);
+            this.CheckBoxRadialAzimuth.Size = new System.Drawing.Size(202, 35);
             this.CheckBoxRadialAzimuth.TabIndex = 28;
             this.CheckBoxRadialAzimuth.Text = "Radial Survey";
             this.ToolTip1.SetToolTip(this.CheckBoxRadialAzimuth, resources.GetString("CheckBoxRadialAzimuth.ToolTip"));
@@ -202,7 +208,7 @@ namespace RFEOnSite
             this.RadioButtonGenerator.BackColor = System.Drawing.Color.Transparent;
             this.RadioButtonGenerator.Location = new System.Drawing.Point(75, 261);
             this.RadioButtonGenerator.Name = "RadioButtonGenerator";
-            this.RadioButtonGenerator.Size = new System.Drawing.Size(145, 23);
+            this.RadioButtonGenerator.Size = new System.Drawing.Size(148, 24);
             this.RadioButtonGenerator.TabIndex = 15;
             this.RadioButtonGenerator.TabStop = true;
             this.RadioButtonGenerator.Text = "Signal Generator";
@@ -215,7 +221,7 @@ namespace RFEOnSite
             this.RadioButtonAnalyzer.BackColor = System.Drawing.Color.Transparent;
             this.RadioButtonAnalyzer.Location = new System.Drawing.Point(75, 233);
             this.RadioButtonAnalyzer.Name = "RadioButtonAnalyzer";
-            this.RadioButtonAnalyzer.Size = new System.Drawing.Size(159, 23);
+            this.RadioButtonAnalyzer.Size = new System.Drawing.Size(161, 24);
             this.RadioButtonAnalyzer.TabIndex = 14;
             this.RadioButtonAnalyzer.TabStop = true;
             this.RadioButtonAnalyzer.Text = "Spectrum Analyzer";
@@ -228,7 +234,7 @@ namespace RFEOnSite
             this.LabelModel.BackColor = System.Drawing.Color.Transparent;
             this.LabelModel.Location = new System.Drawing.Point(186, 142);
             this.LabelModel.Name = "LabelModel";
-            this.LabelModel.Size = new System.Drawing.Size(58, 19);
+            this.LabelModel.Size = new System.Drawing.Size(56, 20);
             this.LabelModel.TabIndex = 13;
             this.LabelModel.Text = "Model:";
             // 
@@ -238,7 +244,7 @@ namespace RFEOnSite
             this.LabelDevice.BackColor = System.Drawing.Color.Transparent;
             this.LabelDevice.Location = new System.Drawing.Point(183, 123);
             this.LabelDevice.Name = "LabelDevice";
-            this.LabelDevice.Size = new System.Drawing.Size(61, 19);
+            this.LabelDevice.Size = new System.Drawing.Size(61, 20);
             this.LabelDevice.TabIndex = 12;
             this.LabelDevice.Text = "Device:";
             // 
@@ -248,7 +254,7 @@ namespace RFEOnSite
             this.LabelFirmwareText.BackColor = System.Drawing.Color.Transparent;
             this.LabelFirmwareText.Location = new System.Drawing.Point(250, 104);
             this.LabelFirmwareText.Name = "LabelFirmwareText";
-            this.LabelFirmwareText.Size = new System.Drawing.Size(38, 19);
+            this.LabelFirmwareText.Size = new System.Drawing.Size(35, 20);
             this.LabelFirmwareText.TabIndex = 5;
             this.LabelFirmwareText.Text = "N/A";
             this.LabelFirmwareText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -259,7 +265,7 @@ namespace RFEOnSite
             this.LabelFirmware.BackColor = System.Drawing.Color.Transparent;
             this.LabelFirmware.Location = new System.Drawing.Point(164, 104);
             this.LabelFirmware.Name = "LabelFirmware";
-            this.LabelFirmware.Size = new System.Drawing.Size(80, 19);
+            this.LabelFirmware.Size = new System.Drawing.Size(78, 20);
             this.LabelFirmware.TabIndex = 4;
             this.LabelFirmware.Text = "Firmware:";
             // 
@@ -269,7 +275,7 @@ namespace RFEOnSite
             this.LabelModelText.BackColor = System.Drawing.Color.Transparent;
             this.LabelModelText.Location = new System.Drawing.Point(250, 142);
             this.LabelModelText.Name = "LabelModelText";
-            this.LabelModelText.Size = new System.Drawing.Size(38, 19);
+            this.LabelModelText.Size = new System.Drawing.Size(35, 20);
             this.LabelModelText.TabIndex = 3;
             this.LabelModelText.Text = "N/A";
             // 
@@ -279,7 +285,7 @@ namespace RFEOnSite
             this.LabelDeviceText.BackColor = System.Drawing.Color.Transparent;
             this.LabelDeviceText.Location = new System.Drawing.Point(250, 123);
             this.LabelDeviceText.Name = "LabelDeviceText";
-            this.LabelDeviceText.Size = new System.Drawing.Size(38, 19);
+            this.LabelDeviceText.Size = new System.Drawing.Size(35, 20);
             this.LabelDeviceText.TabIndex = 2;
             this.LabelDeviceText.Text = "N/A";
             // 
@@ -290,7 +296,7 @@ namespace RFEOnSite
             this.ButtonStartSweeps.FlatAppearance.BorderSize = 3;
             this.ButtonStartSweeps.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOliveGreen;
             this.ButtonStartSweeps.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ButtonStartSweeps.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonStartSweeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ButtonStartSweeps.Location = new System.Drawing.Point(86, 55);
             this.ButtonStartSweeps.Name = "ButtonStartSweeps";
             this.ButtonStartSweeps.Size = new System.Drawing.Size(114, 28);
@@ -303,17 +309,17 @@ namespace RFEOnSite
             // LabelStartSweeps
             // 
             this.LabelStartSweeps.AutoSize = true;
-            this.LabelStartSweeps.Font = new System.Drawing.Font("Lato", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelStartSweeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelStartSweeps.Location = new System.Drawing.Point(16, 22);
             this.LabelStartSweeps.Name = "LabelStartSweeps";
-            this.LabelStartSweeps.Size = new System.Drawing.Size(88, 25);
+            this.LabelStartSweeps.Size = new System.Drawing.Size(94, 25);
             this.LabelStartSweeps.TabIndex = 14;
             this.LabelStartSweeps.Text = "Sweeps:";
             this.ToolTip1.SetToolTip(this.LabelStartSweeps, "Fill each FFT bin with the selected number of samples.");
             // 
             // NumericUpDownSweeps
             // 
-            this.NumericUpDownSweeps.Font = new System.Drawing.Font("Lato", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDownSweeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDownSweeps.Location = new System.Drawing.Point(118, 18);
             this.NumericUpDownSweeps.Maximum = new decimal(new int[] {
             10000,
@@ -326,7 +332,7 @@ namespace RFEOnSite
             0,
             0});
             this.NumericUpDownSweeps.Name = "NumericUpDownSweeps";
-            this.NumericUpDownSweeps.Size = new System.Drawing.Size(91, 33);
+            this.NumericUpDownSweeps.Size = new System.Drawing.Size(91, 31);
             this.NumericUpDownSweeps.TabIndex = 15;
             this.NumericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NumericUpDownSweeps.Value = new decimal(new int[] {
@@ -349,7 +355,7 @@ namespace RFEOnSite
             this.GroupBoxSweepControl.Controls.Add(this.NumericUpDownSweeps);
             this.GroupBoxSweepControl.Controls.Add(this.TextBoxCsvFileName);
             this.GroupBoxSweepControl.Enabled = false;
-            this.GroupBoxSweepControl.Font = new System.Drawing.Font("Lato", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBoxSweepControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBoxSweepControl.Location = new System.Drawing.Point(550, 490);
             this.GroupBoxSweepControl.Name = "GroupBoxSweepControl";
             this.GroupBoxSweepControl.Size = new System.Drawing.Size(437, 170);
@@ -360,29 +366,29 @@ namespace RFEOnSite
             // LabelActualSweeps
             // 
             this.LabelActualSweeps.AutoSize = true;
-            this.LabelActualSweeps.Location = new System.Drawing.Point(239, 114);
+            this.LabelActualSweeps.Location = new System.Drawing.Point(384, 114);
             this.LabelActualSweeps.Name = "LabelActualSweeps";
-            this.LabelActualSweeps.Size = new System.Drawing.Size(0, 19);
+            this.LabelActualSweeps.Size = new System.Drawing.Size(0, 20);
             this.LabelActualSweeps.TabIndex = 21;
-            this.LabelActualSweeps.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelActualSweeps.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LabelTaskCount
             // 
             this.LabelTaskCount.AutoSize = true;
-            this.LabelTaskCount.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTaskCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelTaskCount.Location = new System.Drawing.Point(353, 25);
             this.LabelTaskCount.Name = "LabelTaskCount";
-            this.LabelTaskCount.Size = new System.Drawing.Size(34, 19);
+            this.LabelTaskCount.Size = new System.Drawing.Size(35, 20);
             this.LabelTaskCount.TabIndex = 20;
             this.LabelTaskCount.Text = "Idle";
             // 
             // LabelExecTask
             // 
             this.LabelExecTask.AutoSize = true;
-            this.LabelExecTask.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelExecTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelExecTask.Location = new System.Drawing.Point(231, 25);
             this.LabelExecTask.Name = "LabelExecTask";
-            this.LabelExecTask.Size = new System.Drawing.Size(116, 19);
+            this.LabelExecTask.Size = new System.Drawing.Size(121, 20);
             this.LabelExecTask.TabIndex = 19;
             this.LabelExecTask.Text = "Executing Task:";
             // 
@@ -390,7 +396,7 @@ namespace RFEOnSite
             // 
             this.ButtonCancelSweeps.BackColor = System.Drawing.Color.Yellow;
             this.ButtonCancelSweeps.Enabled = false;
-            this.ButtonCancelSweeps.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonCancelSweeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ButtonCancelSweeps.Location = new System.Drawing.Point(274, 55);
             this.ButtonCancelSweeps.Name = "ButtonCancelSweeps";
             this.ButtonCancelSweeps.Size = new System.Drawing.Size(114, 28);
@@ -407,7 +413,7 @@ namespace RFEOnSite
             this.LabelProgressWriteCsvFile.Enabled = false;
             this.LabelProgressWriteCsvFile.Location = new System.Drawing.Point(15, 114);
             this.LabelProgressWriteCsvFile.Name = "LabelProgressWriteCsvFile";
-            this.LabelProgressWriteCsvFile.Size = new System.Drawing.Size(68, 19);
+            this.LabelProgressWriteCsvFile.Size = new System.Drawing.Size(84, 20);
             this.LabelProgressWriteCsvFile.TabIndex = 17;
             this.LabelProgressWriteCsvFile.Text = "CSV File:";
             // 
@@ -421,21 +427,21 @@ namespace RFEOnSite
             // TextBoxCsvFileName
             // 
             this.TextBoxCsvFileName.Enabled = false;
-            this.TextBoxCsvFileName.Font = new System.Drawing.Font("Lato", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxCsvFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCsvFileName.Location = new System.Drawing.Point(6, 135);
             this.TextBoxCsvFileName.Name = "TextBoxCsvFileName";
             this.TextBoxCsvFileName.ReadOnly = true;
-            this.TextBoxCsvFileName.Size = new System.Drawing.Size(422, 23);
+            this.TextBoxCsvFileName.Size = new System.Drawing.Size(422, 22);
             this.TextBoxCsvFileName.TabIndex = 1;
             this.TextBoxCsvFileName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // CheckBoxSaveCsvFiles
             // 
             this.CheckBoxSaveCsvFiles.AutoSize = true;
-            this.CheckBoxSaveCsvFiles.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBoxSaveCsvFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckBoxSaveCsvFiles.Location = new System.Drawing.Point(9, 21);
             this.CheckBoxSaveCsvFiles.Name = "CheckBoxSaveCsvFiles";
-            this.CheckBoxSaveCsvFiles.Size = new System.Drawing.Size(259, 23);
+            this.CheckBoxSaveCsvFiles.Size = new System.Drawing.Size(265, 24);
             this.CheckBoxSaveCsvFiles.TabIndex = 17;
             this.CheckBoxSaveCsvFiles.Text = "Save Collected Data to CSV Files";
             this.ToolTip1.SetToolTip(this.CheckBoxSaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
@@ -503,7 +509,7 @@ namespace RFEOnSite
             this.GroupBoxChart.BackColor = System.Drawing.SystemColors.ControlLight;
             this.GroupBoxChart.Controls.Add(this.PanelChart);
             this.GroupBoxChart.Enabled = false;
-            this.GroupBoxChart.Font = new System.Drawing.Font("Lato", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBoxChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBoxChart.Location = new System.Drawing.Point(0, 5);
             this.GroupBoxChart.Name = "GroupBoxChart";
             this.GroupBoxChart.Size = new System.Drawing.Size(434, 448);
@@ -513,9 +519,9 @@ namespace RFEOnSite
             // 
             // PanelChart
             // 
-            this.PanelChart.Location = new System.Drawing.Point(6, 19);
+            this.PanelChart.Location = new System.Drawing.Point(6, 25);
             this.PanelChart.Name = "PanelChart";
-            this.PanelChart.Size = new System.Drawing.Size(418, 377);
+            this.PanelChart.Size = new System.Drawing.Size(418, 371);
             this.PanelChart.TabIndex = 0;
             // 
             // ToolTip1
@@ -527,10 +533,10 @@ namespace RFEOnSite
             // TextBoxCollectionLocation
             // 
             this.TextBoxCollectionLocation.Enabled = false;
-            this.TextBoxCollectionLocation.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxCollectionLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCollectionLocation.Location = new System.Drawing.Point(8, 60);
             this.TextBoxCollectionLocation.Name = "TextBoxCollectionLocation";
-            this.TextBoxCollectionLocation.Size = new System.Drawing.Size(341, 27);
+            this.TextBoxCollectionLocation.Size = new System.Drawing.Size(341, 26);
             this.TextBoxCollectionLocation.TabIndex = 2;
             this.TextBoxCollectionLocation.Text = "Collection Location";
             this.ToolTip1.SetToolTip(this.TextBoxCollectionLocation, "Enter a short site collection location identifier for data that is about to be co" +
@@ -544,7 +550,7 @@ namespace RFEOnSite
             this.LabelRBW.BackColor = System.Drawing.Color.Transparent;
             this.LabelRBW.Location = new System.Drawing.Point(4, 75);
             this.LabelRBW.Name = "LabelRBW";
-            this.LabelRBW.Size = new System.Drawing.Size(164, 19);
+            this.LabelRBW.Size = new System.Drawing.Size(164, 20);
             this.LabelRBW.TabIndex = 5;
             this.LabelRBW.Text = "Resolution Bandwidth";
             this.ToolTip1.SetToolTip(this.LabelRBW, resources.GetString("LabelRBW.ToolTip"));
@@ -566,7 +572,7 @@ namespace RFEOnSite
             this.TextBoxRBW.Location = new System.Drawing.Point(168, 71);
             this.TextBoxRBW.Name = "TextBoxRBW";
             this.TextBoxRBW.ReadOnly = true;
-            this.TextBoxRBW.Size = new System.Drawing.Size(56, 27);
+            this.TextBoxRBW.Size = new System.Drawing.Size(56, 26);
             this.TextBoxRBW.TabIndex = 17;
             this.TextBoxRBW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTip1.SetToolTip(this.TextBoxRBW, "RBW is not directly settable. It is determined by table lookup in the RF Explorer" +
@@ -576,7 +582,7 @@ namespace RFEOnSite
             // 
             this.ComboBoxPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxPreset.Enabled = false;
-            this.ComboBoxPreset.Font = new System.Drawing.Font("Lato", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBoxPreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxPreset.FormattingEnabled = true;
             this.ComboBoxPreset.Items.AddRange(new object[] {
             "Manual",
@@ -584,7 +590,7 @@ namespace RFEOnSite
             "Full Downlink"});
             this.ComboBoxPreset.Location = new System.Drawing.Point(133, 231);
             this.ComboBoxPreset.Name = "ComboBoxPreset";
-            this.ComboBoxPreset.Size = new System.Drawing.Size(213, 31);
+            this.ComboBoxPreset.Size = new System.Drawing.Size(213, 32);
             this.ComboBoxPreset.TabIndex = 25;
             this.ToolTip1.SetToolTip(this.ComboBoxPreset, resources.GetString("ComboBoxPreset.ToolTip"));
             this.ComboBoxPreset.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPreset_IndexChanged);
@@ -605,13 +611,26 @@ namespace RFEOnSite
             // 
             this.LabelStopFrequency.AutoSize = true;
             this.LabelStopFrequency.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStopFrequency.Location = new System.Drawing.Point(49, 51);
+            this.LabelStopFrequency.Location = new System.Drawing.Point(46, 51);
             this.LabelStopFrequency.Name = "LabelStopFrequency";
-            this.LabelStopFrequency.Size = new System.Drawing.Size(119, 19);
+            this.LabelStopFrequency.Size = new System.Drawing.Size(122, 20);
             this.LabelStopFrequency.TabIndex = 4;
             this.LabelStopFrequency.Text = "Stop Frequency";
             this.ToolTip1.SetToolTip(this.LabelStopFrequency, "The frequency at which to stop sampling - plus one bin. The RF Explorer always sa" +
         "mples using 112 bins. Each Bin ");
+            // 
+            // ButtonCaptureImageOmni
+            // 
+            this.ButtonCaptureImageOmni.BackColor = System.Drawing.SystemColors.Highlight;
+            this.ButtonCaptureImageOmni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonCaptureImageOmni.Location = new System.Drawing.Point(7, 6);
+            this.ButtonCaptureImageOmni.Name = "ButtonCaptureImageOmni";
+            this.ButtonCaptureImageOmni.Size = new System.Drawing.Size(141, 50);
+            this.ButtonCaptureImageOmni.TabIndex = 44;
+            this.ButtonCaptureImageOmni.Text = "Capture Frame";
+            this.ToolTip1.SetToolTip(this.ButtonCaptureImageOmni, "Captures an image and stores it with the current location sweep data.");
+            this.ButtonCaptureImageOmni.UseVisualStyleBackColor = false;
+            this.ButtonCaptureImageOmni.Click += new System.EventHandler(this.ButtonCaptureImageOmni_Click);
             // 
             // GroupBoxCsvConfiguration
             // 
@@ -622,7 +641,7 @@ namespace RFEOnSite
             this.GroupBoxCsvConfiguration.Controls.Add(this.CheckBoxSaveCsvFiles);
             this.GroupBoxCsvConfiguration.Enabled = false;
             this.GroupBoxCsvConfiguration.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GroupBoxCsvConfiguration.Font = new System.Drawing.Font("Lato", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBoxCsvConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBoxCsvConfiguration.Location = new System.Drawing.Point(14, 379);
             this.GroupBoxCsvConfiguration.Name = "GroupBoxCsvConfiguration";
             this.GroupBoxCsvConfiguration.Size = new System.Drawing.Size(526, 292);
@@ -644,10 +663,10 @@ namespace RFEOnSite
             // TextBoxClient
             // 
             this.TextBoxClient.Enabled = false;
-            this.TextBoxClient.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxClient.Location = new System.Drawing.Point(8, 27);
             this.TextBoxClient.Name = "TextBoxClient";
-            this.TextBoxClient.Size = new System.Drawing.Size(341, 27);
+            this.TextBoxClient.Size = new System.Drawing.Size(341, 26);
             this.TextBoxClient.TabIndex = 20;
             this.TextBoxClient.Text = "Client";
             this.TextBoxClient.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
@@ -659,7 +678,7 @@ namespace RFEOnSite
             this.GroupBoxFloorOrId.Controls.Add(this.RadioButtonAutoTextDecrement);
             this.GroupBoxFloorOrId.Controls.Add(this.NumericUpDownAutoText);
             this.GroupBoxFloorOrId.Controls.Add(this.TextBoxAutoLabel);
-            this.GroupBoxFloorOrId.Font = new System.Drawing.Font("Lato", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBoxFloorOrId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBoxFloorOrId.Location = new System.Drawing.Point(72, 159);
             this.GroupBoxFloorOrId.Name = "GroupBoxFloorOrId";
             this.GroupBoxFloorOrId.Size = new System.Drawing.Size(355, 57);
@@ -670,7 +689,7 @@ namespace RFEOnSite
             // ButtonFloorId
             // 
             this.ButtonFloorId.BackColor = System.Drawing.Color.Olive;
-            this.ButtonFloorId.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonFloorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ButtonFloorId.Location = new System.Drawing.Point(192, 20);
             this.ButtonFloorId.Name = "ButtonFloorId";
             this.ButtonFloorId.Size = new System.Drawing.Size(75, 29);
@@ -682,10 +701,10 @@ namespace RFEOnSite
             // RadioButtonAutoTextIncrement
             // 
             this.RadioButtonAutoTextIncrement.AutoSize = true;
-            this.RadioButtonAutoTextIncrement.Font = new System.Drawing.Font("Lato", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioButtonAutoTextIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioButtonAutoTextIncrement.Location = new System.Drawing.Point(273, 34);
             this.RadioButtonAutoTextIncrement.Name = "RadioButtonAutoTextIncrement";
-            this.RadioButtonAutoTextIncrement.Size = new System.Drawing.Size(74, 17);
+            this.RadioButtonAutoTextIncrement.Size = new System.Drawing.Size(72, 17);
             this.RadioButtonAutoTextIncrement.TabIndex = 41;
             this.RadioButtonAutoTextIncrement.Text = "Increment";
             this.RadioButtonAutoTextIncrement.UseVisualStyleBackColor = true;
@@ -694,10 +713,10 @@ namespace RFEOnSite
             // 
             this.RadioButtonAutoTextDecrement.AutoSize = true;
             this.RadioButtonAutoTextDecrement.Checked = true;
-            this.RadioButtonAutoTextDecrement.Font = new System.Drawing.Font("Lato", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioButtonAutoTextDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioButtonAutoTextDecrement.Location = new System.Drawing.Point(273, 17);
             this.RadioButtonAutoTextDecrement.Name = "RadioButtonAutoTextDecrement";
-            this.RadioButtonAutoTextDecrement.Size = new System.Drawing.Size(79, 17);
+            this.RadioButtonAutoTextDecrement.Size = new System.Drawing.Size(77, 17);
             this.RadioButtonAutoTextDecrement.TabIndex = 40;
             this.RadioButtonAutoTextDecrement.TabStop = true;
             this.RadioButtonAutoTextDecrement.Text = "Decrement";
@@ -706,7 +725,7 @@ namespace RFEOnSite
             // NumericUpDownAutoText
             // 
             this.NumericUpDownAutoText.Cursor = System.Windows.Forms.Cursors.Default;
-            this.NumericUpDownAutoText.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDownAutoText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDownAutoText.Location = new System.Drawing.Point(142, 21);
             this.NumericUpDownAutoText.Minimum = new decimal(new int[] {
             1,
@@ -714,7 +733,7 @@ namespace RFEOnSite
             0,
             0});
             this.NumericUpDownAutoText.Name = "NumericUpDownAutoText";
-            this.NumericUpDownAutoText.Size = new System.Drawing.Size(46, 27);
+            this.NumericUpDownAutoText.Size = new System.Drawing.Size(46, 26);
             this.NumericUpDownAutoText.TabIndex = 39;
             this.NumericUpDownAutoText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NumericUpDownAutoText.Value = new decimal(new int[] {
@@ -726,10 +745,10 @@ namespace RFEOnSite
             // 
             // TextBoxAutoLabel
             // 
-            this.TextBoxAutoLabel.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxAutoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxAutoLabel.Location = new System.Drawing.Point(6, 21);
             this.TextBoxAutoLabel.Name = "TextBoxAutoLabel";
-            this.TextBoxAutoLabel.Size = new System.Drawing.Size(132, 27);
+            this.TextBoxAutoLabel.Size = new System.Drawing.Size(132, 26);
             this.TextBoxAutoLabel.TabIndex = 37;
             this.TextBoxAutoLabel.Text = "Floor";
             this.TextBoxAutoLabel.TextChanged += new System.EventHandler(this.TextBoxAutoLabel_TextChanged);
@@ -739,7 +758,7 @@ namespace RFEOnSite
             this.GroupBoxCollectionSiteMarker.Controls.Add(this.TextBoxCollectionSite);
             this.GroupBoxCollectionSiteMarker.Controls.Add(this.CheckBoxAutoIncrement);
             this.GroupBoxCollectionSiteMarker.Controls.Add(this.NumericUpDownLocation);
-            this.GroupBoxCollectionSiteMarker.Font = new System.Drawing.Font("Lato", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBoxCollectionSiteMarker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBoxCollectionSiteMarker.Location = new System.Drawing.Point(72, 227);
             this.GroupBoxCollectionSiteMarker.Name = "GroupBoxCollectionSiteMarker";
             this.GroupBoxCollectionSiteMarker.Size = new System.Drawing.Size(356, 48);
@@ -750,10 +769,10 @@ namespace RFEOnSite
             // TextBoxCollectionSite
             // 
             this.TextBoxCollectionSite.Enabled = false;
-            this.TextBoxCollectionSite.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxCollectionSite.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCollectionSite.Location = new System.Drawing.Point(6, 20);
             this.TextBoxCollectionSite.Name = "TextBoxCollectionSite";
-            this.TextBoxCollectionSite.Size = new System.Drawing.Size(132, 27);
+            this.TextBoxCollectionSite.Size = new System.Drawing.Size(132, 26);
             this.TextBoxCollectionSite.TabIndex = 30;
             this.TextBoxCollectionSite.Text = "M";
             this.TextBoxCollectionSite.TextChanged += new System.EventHandler(this.TextBoxCollectionSite_TextChanged);
@@ -762,10 +781,10 @@ namespace RFEOnSite
             // 
             this.CheckBoxAutoIncrement.AutoSize = true;
             this.CheckBoxAutoIncrement.Enabled = false;
-            this.CheckBoxAutoIncrement.Font = new System.Drawing.Font("Lato", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBoxAutoIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckBoxAutoIncrement.Location = new System.Drawing.Point(224, 25);
             this.CheckBoxAutoIncrement.Name = "CheckBoxAutoIncrement";
-            this.CheckBoxAutoIncrement.Size = new System.Drawing.Size(104, 17);
+            this.CheckBoxAutoIncrement.Size = new System.Drawing.Size(101, 17);
             this.CheckBoxAutoIncrement.TabIndex = 29;
             this.CheckBoxAutoIncrement.Text = "Auto Increment ";
             this.CheckBoxAutoIncrement.UseVisualStyleBackColor = true;
@@ -774,7 +793,7 @@ namespace RFEOnSite
             // NumericUpDownLocation
             // 
             this.NumericUpDownLocation.Enabled = false;
-            this.NumericUpDownLocation.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDownLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDownLocation.Location = new System.Drawing.Point(142, 20);
             this.NumericUpDownLocation.Minimum = new decimal(new int[] {
             1,
@@ -782,7 +801,7 @@ namespace RFEOnSite
             0,
             0});
             this.NumericUpDownLocation.Name = "NumericUpDownLocation";
-            this.NumericUpDownLocation.Size = new System.Drawing.Size(46, 27);
+            this.NumericUpDownLocation.Size = new System.Drawing.Size(46, 26);
             this.NumericUpDownLocation.TabIndex = 18;
             this.NumericUpDownLocation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NumericUpDownLocation.Value = new decimal(new int[] {
@@ -797,11 +816,11 @@ namespace RFEOnSite
             this.LabelRadialAzimuth.AutoSize = true;
             this.LabelRadialAzimuth.BackColor = System.Drawing.Color.White;
             this.LabelRadialAzimuth.Enabled = false;
-            this.LabelRadialAzimuth.Font = new System.Drawing.Font("Lato", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelRadialAzimuth.ForeColor = System.Drawing.Color.Black;
             this.LabelRadialAzimuth.Location = new System.Drawing.Point(128, 103);
             this.LabelRadialAzimuth.Name = "LabelRadialAzimuth";
-            this.LabelRadialAzimuth.Size = new System.Drawing.Size(259, 39);
+            this.LabelRadialAzimuth.Size = new System.Drawing.Size(262, 37);
             this.LabelRadialAzimuth.TabIndex = 35;
             this.LabelRadialAzimuth.Text = "Azimuth Degrees";
             this.LabelRadialAzimuth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -809,7 +828,7 @@ namespace RFEOnSite
             // NumericUpDownRadialAzimuth
             // 
             this.NumericUpDownRadialAzimuth.Enabled = false;
-            this.NumericUpDownRadialAzimuth.Font = new System.Drawing.Font("Lato", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDownRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDownRadialAzimuth.Location = new System.Drawing.Point(155, 174);
             this.NumericUpDownRadialAzimuth.Maximum = new decimal(new int[] {
             359,
@@ -817,7 +836,7 @@ namespace RFEOnSite
             0,
             0});
             this.NumericUpDownRadialAzimuth.Name = "NumericUpDownRadialAzimuth";
-            this.NumericUpDownRadialAzimuth.Size = new System.Drawing.Size(204, 52);
+            this.NumericUpDownRadialAzimuth.Size = new System.Drawing.Size(204, 49);
             this.NumericUpDownRadialAzimuth.TabIndex = 34;
             this.NumericUpDownRadialAzimuth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -826,11 +845,11 @@ namespace RFEOnSite
             this.LabelCsvDirectory.AutoSize = true;
             this.LabelCsvDirectory.BackColor = System.Drawing.Color.Transparent;
             this.LabelCsvDirectory.Enabled = false;
-            this.LabelCsvDirectory.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCsvDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelCsvDirectory.Location = new System.Drawing.Point(125, 4);
             this.LabelCsvDirectory.Name = "LabelCsvDirectory";
             this.LabelCsvDirectory.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.LabelCsvDirectory.Size = new System.Drawing.Size(0, 19);
+            this.LabelCsvDirectory.Size = new System.Drawing.Size(0, 20);
             this.LabelCsvDirectory.TabIndex = 36;
             // 
             // LabelCopyright
@@ -886,7 +905,7 @@ namespace RFEOnSite
             this.CheckBoxHoldStep.Enabled = false;
             this.CheckBoxHoldStep.Location = new System.Drawing.Point(272, 97);
             this.CheckBoxHoldStep.Name = "CheckBoxHoldStep";
-            this.CheckBoxHoldStep.Size = new System.Drawing.Size(62, 23);
+            this.CheckBoxHoldStep.Size = new System.Drawing.Size(61, 24);
             this.CheckBoxHoldStep.TabIndex = 30;
             this.CheckBoxHoldStep.Text = "Hold";
             this.CheckBoxHoldStep.UseVisualStyleBackColor = false;
@@ -898,7 +917,7 @@ namespace RFEOnSite
             this.CheckBoxHoldStop.Enabled = false;
             this.CheckBoxHoldStop.Location = new System.Drawing.Point(272, 49);
             this.CheckBoxHoldStop.Name = "CheckBoxHoldStop";
-            this.CheckBoxHoldStop.Size = new System.Drawing.Size(62, 23);
+            this.CheckBoxHoldStop.Size = new System.Drawing.Size(61, 24);
             this.CheckBoxHoldStop.TabIndex = 29;
             this.CheckBoxHoldStop.Text = "Hold";
             this.CheckBoxHoldStop.UseVisualStyleBackColor = false;
@@ -910,7 +929,7 @@ namespace RFEOnSite
             this.CheckBoxHoldStart.Enabled = false;
             this.CheckBoxHoldStart.Location = new System.Drawing.Point(272, 25);
             this.CheckBoxHoldStart.Name = "CheckBoxHoldStart";
-            this.CheckBoxHoldStart.Size = new System.Drawing.Size(62, 23);
+            this.CheckBoxHoldStart.Size = new System.Drawing.Size(61, 24);
             this.CheckBoxHoldStart.TabIndex = 28;
             this.CheckBoxHoldStart.Text = "Hold";
             this.CheckBoxHoldStart.UseVisualStyleBackColor = false;
@@ -919,10 +938,10 @@ namespace RFEOnSite
             // 
             this.LabelPresets.AutoSize = true;
             this.LabelPresets.BackColor = System.Drawing.Color.Transparent;
-            this.LabelPresets.Font = new System.Drawing.Font("Lato", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPresets.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelPresets.Location = new System.Drawing.Point(196, 199);
             this.LabelPresets.Name = "LabelPresets";
-            this.LabelPresets.Size = new System.Drawing.Size(91, 29);
+            this.LabelPresets.Size = new System.Drawing.Size(95, 29);
             this.LabelPresets.TabIndex = 26;
             this.LabelPresets.Text = "Presets";
             // 
@@ -933,7 +952,7 @@ namespace RFEOnSite
             this.LabelRightAntennaGainUnit.Enabled = false;
             this.LabelRightAntennaGainUnit.Location = new System.Drawing.Point(224, 161);
             this.LabelRightAntennaGainUnit.Name = "LabelRightAntennaGainUnit";
-            this.LabelRightAntennaGainUnit.Size = new System.Drawing.Size(28, 19);
+            this.LabelRightAntennaGainUnit.Size = new System.Drawing.Size(29, 20);
             this.LabelRightAntennaGainUnit.TabIndex = 24;
             this.LabelRightAntennaGainUnit.Text = "dB";
             // 
@@ -942,7 +961,7 @@ namespace RFEOnSite
             this.TextBoxRightAntennaGain.Enabled = false;
             this.TextBoxRightAntennaGain.Location = new System.Drawing.Point(168, 157);
             this.TextBoxRightAntennaGain.Name = "TextBoxRightAntennaGain";
-            this.TextBoxRightAntennaGain.Size = new System.Drawing.Size(56, 27);
+            this.TextBoxRightAntennaGain.Size = new System.Drawing.Size(56, 26);
             this.TextBoxRightAntennaGain.TabIndex = 23;
             this.TextBoxRightAntennaGain.Text = "0";
             this.TextBoxRightAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -953,9 +972,9 @@ namespace RFEOnSite
             this.LabelRightAntennaGain.AutoSize = true;
             this.LabelRightAntennaGain.BackColor = System.Drawing.Color.Transparent;
             this.LabelRightAntennaGain.Enabled = false;
-            this.LabelRightAntennaGain.Location = new System.Drawing.Point(22, 161);
+            this.LabelRightAntennaGain.Location = new System.Drawing.Point(18, 161);
             this.LabelRightAntennaGain.Name = "LabelRightAntennaGain";
-            this.LabelRightAntennaGain.Size = new System.Drawing.Size(146, 19);
+            this.LabelRightAntennaGain.Size = new System.Drawing.Size(150, 20);
             this.LabelRightAntennaGain.TabIndex = 22;
             this.LabelRightAntennaGain.Text = "Right Antenna Gain";
             // 
@@ -966,7 +985,7 @@ namespace RFEOnSite
             this.LabelLeftAntennaGainUnit.Enabled = false;
             this.LabelLeftAntennaGainUnit.Location = new System.Drawing.Point(224, 135);
             this.LabelLeftAntennaGainUnit.Name = "LabelLeftAntennaGainUnit";
-            this.LabelLeftAntennaGainUnit.Size = new System.Drawing.Size(28, 19);
+            this.LabelLeftAntennaGainUnit.Size = new System.Drawing.Size(29, 20);
             this.LabelLeftAntennaGainUnit.TabIndex = 21;
             this.LabelLeftAntennaGainUnit.Text = "dB";
             // 
@@ -975,7 +994,7 @@ namespace RFEOnSite
             this.TextBoxLeftAntennaGain.Enabled = false;
             this.TextBoxLeftAntennaGain.Location = new System.Drawing.Point(168, 131);
             this.TextBoxLeftAntennaGain.Name = "TextBoxLeftAntennaGain";
-            this.TextBoxLeftAntennaGain.Size = new System.Drawing.Size(56, 27);
+            this.TextBoxLeftAntennaGain.Size = new System.Drawing.Size(56, 26);
             this.TextBoxLeftAntennaGain.TabIndex = 20;
             this.TextBoxLeftAntennaGain.Text = "0";
             this.TextBoxLeftAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -986,9 +1005,9 @@ namespace RFEOnSite
             this.LabelLeftAntennaGain.AutoSize = true;
             this.LabelLeftAntennaGain.BackColor = System.Drawing.Color.Transparent;
             this.LabelLeftAntennaGain.Enabled = false;
-            this.LabelLeftAntennaGain.Location = new System.Drawing.Point(33, 135);
+            this.LabelLeftAntennaGain.Location = new System.Drawing.Point(28, 135);
             this.LabelLeftAntennaGain.Name = "LabelLeftAntennaGain";
-            this.LabelLeftAntennaGain.Size = new System.Drawing.Size(135, 19);
+            this.LabelLeftAntennaGain.Size = new System.Drawing.Size(140, 20);
             this.LabelLeftAntennaGain.TabIndex = 19;
             this.LabelLeftAntennaGain.Text = "Left Antenna Gain";
             // 
@@ -997,7 +1016,7 @@ namespace RFEOnSite
             this.TextBoxStepFrequency.Enabled = false;
             this.TextBoxStepFrequency.Location = new System.Drawing.Point(168, 95);
             this.TextBoxStepFrequency.Name = "TextBoxStepFrequency";
-            this.TextBoxStepFrequency.Size = new System.Drawing.Size(56, 27);
+            this.TextBoxStepFrequency.Size = new System.Drawing.Size(56, 26);
             this.TextBoxStepFrequency.TabIndex = 18;
             this.TextBoxStepFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1007,7 +1026,7 @@ namespace RFEOnSite
             this.LabelStopFrequencyUnit.BackColor = System.Drawing.Color.Transparent;
             this.LabelStopFrequencyUnit.Location = new System.Drawing.Point(224, 51);
             this.LabelStopFrequencyUnit.Name = "LabelStopFrequencyUnit";
-            this.LabelStopFrequencyUnit.Size = new System.Drawing.Size(43, 19);
+            this.LabelStopFrequencyUnit.Size = new System.Drawing.Size(42, 20);
             this.LabelStopFrequencyUnit.TabIndex = 16;
             this.LabelStopFrequencyUnit.Text = "MHz";
             // 
@@ -1017,7 +1036,7 @@ namespace RFEOnSite
             this.LabelStartFrequencyUnit.BackColor = System.Drawing.Color.Transparent;
             this.LabelStartFrequencyUnit.Location = new System.Drawing.Point(224, 27);
             this.LabelStartFrequencyUnit.Name = "LabelStartFrequencyUnit";
-            this.LabelStartFrequencyUnit.Size = new System.Drawing.Size(43, 19);
+            this.LabelStartFrequencyUnit.Size = new System.Drawing.Size(42, 20);
             this.LabelStartFrequencyUnit.TabIndex = 15;
             this.LabelStartFrequencyUnit.Text = "MHz";
             // 
@@ -1027,7 +1046,7 @@ namespace RFEOnSite
             this.LabelFrequencyStepUnit.BackColor = System.Drawing.Color.Transparent;
             this.LabelFrequencyStepUnit.Location = new System.Drawing.Point(224, 99);
             this.LabelFrequencyStepUnit.Name = "LabelFrequencyStepUnit";
-            this.LabelFrequencyStepUnit.Size = new System.Drawing.Size(39, 19);
+            this.LabelFrequencyStepUnit.Size = new System.Drawing.Size(39, 20);
             this.LabelFrequencyStepUnit.TabIndex = 9;
             this.LabelFrequencyStepUnit.Text = "KHz";
             // 
@@ -1035,9 +1054,9 @@ namespace RFEOnSite
             // 
             this.LabelStartFrequency.AutoSize = true;
             this.LabelStartFrequency.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStartFrequency.Location = new System.Drawing.Point(47, 27);
+            this.LabelStartFrequency.Location = new System.Drawing.Point(45, 27);
             this.LabelStartFrequency.Name = "LabelStartFrequency";
-            this.LabelStartFrequency.Size = new System.Drawing.Size(121, 19);
+            this.LabelStartFrequency.Size = new System.Drawing.Size(123, 20);
             this.LabelStartFrequency.TabIndex = 2;
             this.LabelStartFrequency.Text = "Start Frequency";
             // 
@@ -1045,9 +1064,9 @@ namespace RFEOnSite
             // 
             this.LabelFrequencyStep.AutoSize = true;
             this.LabelFrequencyStep.BackColor = System.Drawing.Color.Transparent;
-            this.LabelFrequencyStep.Location = new System.Drawing.Point(50, 99);
+            this.LabelFrequencyStep.Location = new System.Drawing.Point(46, 99);
             this.LabelFrequencyStep.Name = "LabelFrequencyStep";
-            this.LabelFrequencyStep.Size = new System.Drawing.Size(118, 19);
+            this.LabelFrequencyStep.Size = new System.Drawing.Size(122, 20);
             this.LabelFrequencyStep.TabIndex = 8;
             this.LabelFrequencyStep.Text = "Frequency Step";
             // 
@@ -1056,7 +1075,7 @@ namespace RFEOnSite
             this.TextBoxStartFrequency.Enabled = false;
             this.TextBoxStartFrequency.Location = new System.Drawing.Point(168, 23);
             this.TextBoxStartFrequency.Name = "TextBoxStartFrequency";
-            this.TextBoxStartFrequency.Size = new System.Drawing.Size(56, 27);
+            this.TextBoxStartFrequency.Size = new System.Drawing.Size(56, 26);
             this.TextBoxStartFrequency.TabIndex = 3;
             this.TextBoxStartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TextBoxStartFrequency.TextChanged += new System.EventHandler(this.TextBoxStartFrequency_TextChanged);
@@ -1066,7 +1085,7 @@ namespace RFEOnSite
             this.TextBoxStopFrequency.Enabled = false;
             this.TextBoxStopFrequency.Location = new System.Drawing.Point(168, 47);
             this.TextBoxStopFrequency.Name = "TextBoxStopFrequency";
-            this.TextBoxStopFrequency.Size = new System.Drawing.Size(56, 27);
+            this.TextBoxStopFrequency.Size = new System.Drawing.Size(56, 26);
             this.TextBoxStopFrequency.TabIndex = 7;
             this.TextBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TextBoxStopFrequency.TextChanged += new System.EventHandler(this.TextBoxStopFrequency_TextChanged);
@@ -1077,7 +1096,7 @@ namespace RFEOnSite
             this.LabelRBWUnit.BackColor = System.Drawing.Color.Transparent;
             this.LabelRBWUnit.Location = new System.Drawing.Point(224, 75);
             this.LabelRBWUnit.Name = "LabelRBWUnit";
-            this.LabelRBWUnit.Size = new System.Drawing.Size(39, 19);
+            this.LabelRBWUnit.Size = new System.Drawing.Size(39, 20);
             this.LabelRBWUnit.TabIndex = 6;
             this.LabelRBWUnit.Text = "KHz";
             // 
@@ -1111,12 +1130,14 @@ namespace RFEOnSite
             this.TabControlMain.Controls.Add(this.TabControlMainConnection);
             this.TabControlMain.Controls.Add(this.TabControlMainOmniDirectional);
             this.TabControlMain.Controls.Add(this.TabControlMainRadial);
-            this.TabControlMain.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TabControlMain.Controls.Add(this.TabControlSiteImage);
+            this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.TabControlMain.Location = new System.Drawing.Point(12, 27);
             this.TabControlMain.Name = "TabControlMain";
             this.TabControlMain.SelectedIndex = 0;
             this.TabControlMain.Size = new System.Drawing.Size(532, 346);
             this.TabControlMain.TabIndex = 37;
+            this.TabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
             // TabControlMainConnection
             // 
@@ -1134,10 +1155,10 @@ namespace RFEOnSite
             this.TabControlMainConnection.Controls.Add(this.LabelFirmware);
             this.TabControlMainConnection.Controls.Add(this.LabelDeviceText);
             this.TabControlMainConnection.Controls.Add(this.LabelModelText);
-            this.TabControlMainConnection.Location = new System.Drawing.Point(4, 28);
+            this.TabControlMainConnection.Location = new System.Drawing.Point(4, 29);
             this.TabControlMainConnection.Name = "TabControlMainConnection";
             this.TabControlMainConnection.Padding = new System.Windows.Forms.Padding(3);
-            this.TabControlMainConnection.Size = new System.Drawing.Size(524, 314);
+            this.TabControlMainConnection.Size = new System.Drawing.Size(524, 313);
             this.TabControlMainConnection.TabIndex = 0;
             this.TabControlMainConnection.Text = "Connection";
             // 
@@ -1147,7 +1168,7 @@ namespace RFEOnSite
             this.LabelPortText.BackColor = System.Drawing.Color.Transparent;
             this.LabelPortText.Location = new System.Drawing.Point(245, 33);
             this.LabelPortText.Name = "LabelPortText";
-            this.LabelPortText.Size = new System.Drawing.Size(44, 19);
+            this.LabelPortText.Size = new System.Drawing.Size(42, 20);
             this.LabelPortText.TabIndex = 18;
             this.LabelPortText.Text = "Port:";
             // 
@@ -1155,10 +1176,10 @@ namespace RFEOnSite
             // 
             this.TabControlMainOmniDirectional.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TabControlMainOmniDirectional.Controls.Add(this.GroupBoxConfiguration);
-            this.TabControlMainOmniDirectional.Location = new System.Drawing.Point(4, 28);
+            this.TabControlMainOmniDirectional.Location = new System.Drawing.Point(4, 29);
             this.TabControlMainOmniDirectional.Name = "TabControlMainOmniDirectional";
             this.TabControlMainOmniDirectional.Padding = new System.Windows.Forms.Padding(3);
-            this.TabControlMainOmniDirectional.Size = new System.Drawing.Size(524, 314);
+            this.TabControlMainOmniDirectional.Size = new System.Drawing.Size(524, 313);
             this.TabControlMainOmniDirectional.TabIndex = 1;
             this.TabControlMainOmniDirectional.Text = "OmniDirectional";
             // 
@@ -1169,9 +1190,9 @@ namespace RFEOnSite
             this.TabControlMainRadial.Controls.Add(this.LabelTrueNorthText);
             this.TabControlMainRadial.Controls.Add(this.CheckBoxRadialAzimuth);
             this.TabControlMainRadial.Controls.Add(this.NumericUpDownRadialAzimuth);
-            this.TabControlMainRadial.Location = new System.Drawing.Point(4, 28);
+            this.TabControlMainRadial.Location = new System.Drawing.Point(4, 29);
             this.TabControlMainRadial.Name = "TabControlMainRadial";
-            this.TabControlMainRadial.Size = new System.Drawing.Size(524, 314);
+            this.TabControlMainRadial.Size = new System.Drawing.Size(524, 313);
             this.TabControlMainRadial.TabIndex = 2;
             this.TabControlMainRadial.Text = "Radial";
             // 
@@ -1180,9 +1201,37 @@ namespace RFEOnSite
             this.LabelTrueNorthText.AutoSize = true;
             this.LabelTrueNorthText.Location = new System.Drawing.Point(215, 250);
             this.LabelTrueNorthText.Name = "LabelTrueNorthText";
-            this.LabelTrueNorthText.Size = new System.Drawing.Size(85, 19);
+            this.LabelTrueNorthText.Size = new System.Drawing.Size(84, 20);
             this.LabelTrueNorthText.TabIndex = 36;
             this.LabelTrueNorthText.Text = "True North";
+            // 
+            // TabControlSiteImage
+            // 
+            this.TabControlSiteImage.Controls.Add(this.textBox1);
+            this.TabControlSiteImage.Controls.Add(this.ButtonCaptureImageOmni);
+            this.TabControlSiteImage.Controls.Add(this.PictureBox);
+            this.TabControlSiteImage.Location = new System.Drawing.Point(4, 29);
+            this.TabControlSiteImage.Name = "TabControlSiteImage";
+            this.TabControlSiteImage.Padding = new System.Windows.Forms.Padding(3);
+            this.TabControlSiteImage.Size = new System.Drawing.Size(524, 313);
+            this.TabControlSiteImage.TabIndex = 3;
+            this.TabControlSiteImage.Text = "Location Camera";
+            this.TabControlSiteImage.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 251);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(232, 26);
+            this.textBox1.TabIndex = 46;
+            // 
+            // PictureBox
+            // 
+            this.PictureBox.Location = new System.Drawing.Point(244, 6);
+            this.PictureBox.Name = "PictureBox";
+            this.PictureBox.Size = new System.Drawing.Size(274, 301);
+            this.PictureBox.TabIndex = 45;
+            this.PictureBox.TabStop = false;
             // 
             // MainForm
             // 
@@ -1228,6 +1277,9 @@ namespace RFEOnSite
             this.TabControlMainOmniDirectional.ResumeLayout(false);
             this.TabControlMainRadial.ResumeLayout(false);
             this.TabControlMainRadial.PerformLayout();
+            this.TabControlSiteImage.ResumeLayout(false);
+            this.TabControlSiteImage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1322,6 +1374,10 @@ namespace RFEOnSite
         private Label LabelPortText;
         private GroupBox GroupBoxClientInformation;
         private Button ButtonFloorId;
+        private Button ButtonCaptureImageOmni;
+        private TabPage TabControlSiteImage;
+        private PictureBox PictureBox;
+        private TextBox textBox1;
     }
 }
 

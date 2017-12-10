@@ -33,6 +33,8 @@ namespace RFEOnSite
         private double mResolutionBandwidth;
         private double mStepSize;
 
+        private bool mCancelActive;
+
         public double StartFrequency { get { return mStartMHz; } set { mStartMHz = value; } }
         public double StopFrequency { get { return mStopMHz; } set { mStopMHz = value; } }
         public double ResolutionBandWidth { get { return mResolutionBandwidth; } set { mResolutionBandwidth = value; } }
@@ -62,6 +64,7 @@ namespace RFEOnSite
             mDownlinkTable = new DownlinkTable();
             mSweepPCS = true;
             mPresetType = ePreset.eManual;
+            mCancelActive = false;
         }
 
 
@@ -87,6 +90,8 @@ namespace RFEOnSite
         public string Client { get { return mClient; } set { mClient = value; } }
         public string Location { get { return mCollectionLocation; } set { mCollectionLocation = value; } }
         public string Site { get { return mCollectionSite; } set { mCollectionSite = value; } }
+        public bool CancelActive { get { return mCancelActive; } set { mCancelActive = value; } }
+
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };

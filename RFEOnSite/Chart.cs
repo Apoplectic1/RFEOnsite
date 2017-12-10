@@ -38,10 +38,8 @@ namespace RFEOnSite
         public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
         public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
         public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
-
         public double MinX { get { return mMinX; } set { mMinX = value; } }
         public double MinY { get { return mMinY; } set { mMinY = value; } }
-        //public double StepX { get { return mStepX; } set { mStepX = value; } }
 
 
         public Charts()

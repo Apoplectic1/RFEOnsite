@@ -8,6 +8,11 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static RFEOnSite.RFExplorer;
 
+using Emgu.CV;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using System.Drawing.Imaging;
+
 namespace RFEOnSite
 {
     public partial class MainForm : Form
@@ -21,7 +26,10 @@ namespace RFEOnSite
 
             InitializeComponent();
 
+            // User Events
             this.FormClosing += new FormClosingEventHandler(this.MainForm_FormClosing);
+           
+
 
             // Versioning Text at top of Application Window
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
@@ -139,6 +147,7 @@ namespace RFEOnSite
 
             gRFEOnSite.Explorer.WaitingForConfigurationCallBack = false;
 
+            // Table Updates Only
             gRFEOnSite.StartFrequency = startMHz;
             gRFEOnSite.StopFrequency = stopMHz;
             gRFEOnSite.ResolutionBandWidth = fromSerialThread.RBWKHz;
@@ -151,6 +160,7 @@ namespace RFEOnSite
                     ButtonStartSweeps.Enabled = true;
                     ButtonSetConfiguration.Enabled = true;
                 }
+
                 GroupBoxSweepControl.Enabled = true;
                 RadioButtonAnalyzer.Checked = true;
                 RadioButtonGenerator.Checked = false;
@@ -160,10 +170,12 @@ namespace RFEOnSite
                 gRFEOnSite.Graph.MinX = gRFEOnSite.StartFrequency;
                 gRFEOnSite.Graph.MaxX = gRFEOnSite.StopFrequency;
 
-                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
-                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
+                //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
+                //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
 
-                gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
+                //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
+
+                //gRFEOnSite.Graph.DrawChart(gRFEOnSite.Graph.GraphPeak, gRFEOnSite.Graph.GraphAverage, gRFEOnSite.ExplorerSweepData);
             }
             else
             {
@@ -270,16 +282,22 @@ namespace RFEOnSite
 
                         System.Threading.Thread.Sleep(100);
 
-                        gRFEOnSite.Graph.MinX = pair.SweepStart;
-                        gRFEOnSite.Graph.MaxX = pair.SweepStop;
-
                         gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
 
                         TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                         TaskProgressBar.Step = 1;
                         TaskProgressBar.Value = 0;
 
-                        gRFEOnSite.Explorer.Capture = true;
+                        if (gRFEOnSite.CancelActive)
+                        {
+                            gRFEOnSite.Explorer.Capture = false;
+                            gRFEOnSite.CancelActive = false;
+                        }
+                        else
+                        {
+                            gRFEOnSite.Explorer.Capture = true;
+                        }
+
                         LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
                         return;
                     }
@@ -318,16 +336,23 @@ namespace RFEOnSite
 
                         System.Threading.Thread.Sleep(100);
 
-                        gRFEOnSite.Graph.MinX = pair.SweepStart;
-                        gRFEOnSite.Graph.MaxX = pair.SweepStop;
-
                         gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
 
                         TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                         TaskProgressBar.Step = 1;
                         TaskProgressBar.Value = 0;
 
-                        gRFEOnSite.Explorer.Capture = true;
+
+                        if (gRFEOnSite.CancelActive)
+                        {
+                            gRFEOnSite.Explorer.Capture = false;
+                            gRFEOnSite.CancelActive = false;
+                        }
+                        else
+                        {
+                            gRFEOnSite.Explorer.Capture = true;
+                        }
+
                         LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
                         return;
                     }
@@ -371,7 +396,6 @@ namespace RFEOnSite
                 GroupBoxCsvConfiguration.Enabled = true;
                 GroupBoxConfiguration.Enabled = true;
                 NumericUpDownSweeps.Enabled = true;
-
             }
         }
 
@@ -530,9 +554,6 @@ namespace RFEOnSite
 
                         System.Threading.Thread.Sleep(100);
 
-                        gRFEOnSite.Graph.MinX = pair.SweepStart;
-                        gRFEOnSite.Graph.MaxX = pair.SweepStop;
-
                         TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                         TaskProgressBar.Step = 1;
                         TaskProgressBar.Value = 0;
@@ -572,8 +593,8 @@ namespace RFEOnSite
 
                         System.Threading.Thread.Sleep(100);
 
-                        gRFEOnSite.Graph.MinX = pair.SweepStart;
-                        gRFEOnSite.Graph.MaxX = pair.SweepStop;
+                        //gRFEOnSite.Graph.MinX = pair.SweepStart;
+                        //gRFEOnSite.Graph.MaxX = pair.SweepStop;
 
                         TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                         TaskProgressBar.Step = 1;
@@ -968,6 +989,8 @@ namespace RFEOnSite
                 }
             }
 
+            gRFEOnSite.CancelActive = true;
+
             ButtonStartSweeps.Enabled = true;
             ButtonCancelSweeps.Enabled = false;
 
@@ -1105,6 +1128,63 @@ namespace RFEOnSite
                     TextBoxCollectionSite.Text +
                     "-" +
                     NumericUpDownLocation.Value.ToString();
+            }
+        }
+
+        VideoCapture mCapture;
+        Mat mMat;
+
+        private void ButtonCaptureImageOmni_Click(object sender, EventArgs e)
+        {
+            Mat matTemp = new Mat();
+
+            matTemp = mCapture.QueryFrame();
+
+            ///PictureBox.SizeMode = PictureBoxSizeMode.Normal;
+
+            matTemp.Bitmap.Save(@"test1.png", ImageFormat.Png);
+            ////PictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+            //matTemp = null;
+        }
+
+        private void ProcessVideoFrame(object sender, EventArgs e)
+        {
+            try
+            {
+                mMat = mCapture.QueryFrame();
+
+                PictureBox.Image = mMat.Bitmap;
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabControlMain.SelectedTab.Text == "Location Camera")//your specific tabname
+            {
+                if (mCapture == null)
+                {
+                    mCapture = new VideoCapture();
+                }
+
+                if (mMat == null)
+                {
+                    mMat = new Mat();
+                }
+
+                Application.Idle += ProcessVideoFrame;
+                PictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+            }
+            else
+            {
+                mCapture = null;
+                mMat = null;
+                Application.Idle -= ProcessVideoFrame;
             }
         }
     }
