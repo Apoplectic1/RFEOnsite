@@ -12,6 +12,9 @@ using Emgu.CV;
 using Emgu.CV.UI;
 using Emgu.CV.Structure;
 using System.Drawing.Imaging;
+using System.Threading;
+using System.Media;
+using RFE_OnSite.Properties;
 
 namespace RFEOnSite
 {
@@ -28,7 +31,7 @@ namespace RFEOnSite
 
             // User Events
             this.FormClosing += new FormClosingEventHandler(this.MainForm_FormClosing);
-           
+
 
 
             // Versioning Text at top of Application Window
@@ -59,6 +62,12 @@ namespace RFEOnSite
             ButtonSetConfiguration.Enabled = false;
             NumericUpDownLocation.Enabled = false;
             CheckBoxAutoIncrement.Enabled = false;
+
+            TabControlSiteImage.Enabled = false;
+
+            Application.Idle += ProcessVideoFrame;
+            gRFEOnSite.CsvDirectoryValid = false;
+            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
 
@@ -169,13 +178,6 @@ namespace RFEOnSite
 
                 gRFEOnSite.Graph.MinX = gRFEOnSite.StartFrequency;
                 gRFEOnSite.Graph.MaxX = gRFEOnSite.StopFrequency;
-
-                //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Maximum = gRFEOnSite.Graph.MaxX;
-                //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Minimum = gRFEOnSite.Graph.MinX;
-
-                //gRFEOnSite.Graph.Chart.ChartAreas[0].AxisX.Interval = (gRFEOnSite.Graph.MaxX - gRFEOnSite.Graph.MinX) / 5;
-
-                //gRFEOnSite.Graph.DrawChart(gRFEOnSite.Graph.GraphPeak, gRFEOnSite.Graph.GraphAverage, gRFEOnSite.ExplorerSweepData);
             }
             else
             {
@@ -232,11 +234,11 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.Path = TextBoxCsvFileName.Text;
                 gRFEOnSite.FileOps.ExportCsvFile(gRFEOnSite.StartFrequency, gRFEOnSite.StopFrequency, gRFEOnSite.FrequencyStepSize, gRFEOnSite.ExplorerSweepData);
 
-
                 gRFEOnSite.FileOps.FileCounter++;
             }
 
             gRFEOnSite.Graph.DrawChart(gRFEOnSite.Graph.GraphPeak, gRFEOnSite.Graph.GraphAverage, gRFEOnSite.ExplorerSweepData);
+
 
             //*****************************************************
             // SETUP AND GET NEXT SWEEP
@@ -397,6 +399,22 @@ namespace RFEOnSite
                 GroupBoxConfiguration.Enabled = true;
                 NumericUpDownSweeps.Enabled = true;
             }
+
+
+            if (CheckBoxSaveCsvFiles.Checked)
+            {
+                TabControlMain.SelectedTab.Enabled = true;
+                gRFEOnSite.CsvDirectoryValid = true;
+                gRFEOnSite.CaptureImage = true;
+                ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;
+                gRFEOnSite.FileOps.PopDirectory(); // For Image Capture
+            }
+            else
+            {
+                TabControlMain.SelectedTab.Enabled = false;
+                ButtonCaptureImage.BackColor = Color.Gray;
+                ButtonCaptureImage.Refresh();
+            }
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -440,6 +458,8 @@ namespace RFEOnSite
             gRFEOnSite.Explorer.RequestConfiguration();
 
             ButtonStartSweeps.Enabled = true;
+
+            TabControlMain.SelectedTab.Enabled = false;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
@@ -489,6 +509,11 @@ namespace RFEOnSite
         {
             ButtonStartSweeps.Enabled = false;
             ButtonCancelSweeps.Enabled = true;
+            gRFEOnSite.CsvDirectoryValid = false;
+            gRFEOnSite.CaptureImage = false;
+            ButtonCaptureImage.BackColor = Color.Gray;
+            ButtonCaptureImage.Refresh();
+
 
             gRFEOnSite.FileOps.FileCounter = 1;
             gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
@@ -507,11 +532,25 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionLocation.Text);
                 if (CheckBoxAutoIncrement.Checked)
                 {
-                    gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString());
+                    if (ButtonFloorId.Text == "Next")
+                    {
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString());
+                    }
+                    else
+                    {
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString());
+                    }
                 }
                 else
                 {
-                    gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text);
+                    if (ButtonFloorId.Text == "Next")
+                    {
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text);
+                    }
+                    else
+                    {
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text);
+                    }
                 }
 
                 gRFEOnSite.FileOps.CreateEnterDirectory(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo));
@@ -593,9 +632,6 @@ namespace RFEOnSite
 
                         System.Threading.Thread.Sleep(100);
 
-                        //gRFEOnSite.Graph.MinX = pair.SweepStart;
-                        //gRFEOnSite.Graph.MaxX = pair.SweepStop;
-
                         TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                         TaskProgressBar.Step = 1;
                         TaskProgressBar.Value = 0;
@@ -651,11 +687,6 @@ namespace RFEOnSite
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-
-        }
 
         private void MainForm_FormClosing(Object sender, FormClosingEventArgs e)
         {
@@ -670,16 +701,6 @@ namespace RFEOnSite
 
             gRFEOnSite.Explorer.DestroyReceiveDataThread();
             gRFEOnSite.Explorer.DisconnectSerialPort();
-        }
-
-        private void ConfigurationPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void ConnectionPanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void TextBoxSweepLocation_TextChanged(object sender, EventArgs e)
@@ -1134,37 +1155,57 @@ namespace RFEOnSite
         VideoCapture mCapture;
         Mat mMat;
 
-        private void ButtonCaptureImageOmni_Click(object sender, EventArgs e)
+        private void ButtonCaptureImage_Click(object sender, EventArgs e)
         {
-            Mat matTemp = new Mat();
+            if (!gRFEOnSite.CsvDirectoryValid)
+            {
+                return;
+            }
 
-            matTemp = mCapture.QueryFrame();
+            ButtonCaptureImage.BackColor = Color.Green;
+            LabelCaptured.Text = "Captured";
+            LabelCaptured.Refresh();
+            ButtonCaptureImage.Refresh();
 
-            ///PictureBox.SizeMode = PictureBoxSizeMode.Normal;
+            SystemSounds.Asterisk.Play();
 
-            matTemp.Bitmap.Save(@"test1.png", ImageFormat.Png);
-            ////PictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            Thread.Sleep(500);
 
-            //matTemp = null;
+            mMat.Bitmap.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".png", ImageFormat.Png);
+
+            LabelCaptured.Text = "";
+            ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;
         }
 
         private void ProcessVideoFrame(object sender, EventArgs e)
         {
+            if (!gRFEOnSite.CaptureImage)
+            {
+                //ButtonCaptureImage.BackColor = Color.Gray;
+                //PictureBox.BackColor = Color.Gray;
+                return;
+            }
+
             try
             {
                 mMat = mCapture.QueryFrame();
-
                 PictureBox.Image = mMat.Bitmap;
             }
-            catch(Exception ex)
+            catch
             {
-
+                if (mCapture != null) mCapture.Dispose();
+                mCapture = null;
+                if (mMat != null) mMat.Dispose();
+                mMat = null;
             }
+
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabControlMain.SelectedTab.Text == "Location Camera")//your specific tabname
+
+
+            if (TabControlMain.SelectedTab.Text == "Location Camera") //specific tabname
             {
                 if (mCapture == null)
                 {
@@ -1176,15 +1217,26 @@ namespace RFEOnSite
                     mMat = new Mat();
                 }
 
-                Application.Idle += ProcessVideoFrame;
-                PictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-
+                if (gRFEOnSite.CsvDirectoryValid)
+                {
+                    gRFEOnSite.CaptureImage = true;
+                    TabControlMain.SelectedTab.Enabled = true;
+                    ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;
+                }
+                else
+                {
+                    gRFEOnSite.CaptureImage = false;
+                    TabControlMain.SelectedTab.Enabled = false;
+                    ButtonCaptureImage.BackColor = Color.Gray;
+                    ButtonCaptureImage.Refresh();
+                    return;
+                }
             }
             else
             {
-                mCapture = null;
-                mMat = null;
-                Application.Idle -= ProcessVideoFrame;
+                gRFEOnSite.CaptureImage = false;
+                ButtonCaptureImage.BackColor = Color.Gray;
+                PictureBox.BackColor = Color.Gray;
             }
         }
     }

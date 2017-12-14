@@ -33,12 +33,15 @@ namespace RFEOnSite
         private double mResolutionBandwidth;
         private double mStepSize;
 
-        private bool mCancelActive;
+        private bool mCancelActive; // global to stop and reset sweeps
+        private bool mCaptureImage;
+        private bool mCsvDirectoryValid;
 
         public double StartFrequency { get { return mStartMHz; } set { mStartMHz = value; } }
         public double StopFrequency { get { return mStopMHz; } set { mStopMHz = value; } }
         public double ResolutionBandWidth { get { return mResolutionBandwidth; } set { mResolutionBandwidth = value; } }
         public double FrequencyStepSize { get { return mStepSize; } set { mStepSize = value; } }
+
 
         public GlobalData()
         {
@@ -65,6 +68,8 @@ namespace RFEOnSite
             mSweepPCS = true;
             mPresetType = ePreset.eManual;
             mCancelActive = false;
+            mCsvDirectoryValid = false;
+            mCaptureImage = false;
         }
 
 
@@ -91,7 +96,8 @@ namespace RFEOnSite
         public string Location { get { return mCollectionLocation; } set { mCollectionLocation = value; } }
         public string Site { get { return mCollectionSite; } set { mCollectionSite = value; } }
         public bool CancelActive { get { return mCancelActive; } set { mCancelActive = value; } }
-
+        public bool CsvDirectoryValid { get { return mCsvDirectoryValid; } set { mCsvDirectoryValid = value; } }
+        public bool CaptureImage { get { return mCaptureImage; } set { mCaptureImage = value; } }
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };

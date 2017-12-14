@@ -71,7 +71,7 @@ namespace RFEOnSite
             this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
             this.ButtonGetConfiguration = new System.Windows.Forms.Button();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
-            this.ButtonCaptureImageOmni = new System.Windows.Forms.Button();
+            this.ButtonCaptureImage = new System.Windows.Forms.Button();
             this.GroupBoxCsvConfiguration = new System.Windows.Forms.GroupBox();
             this.GroupBoxClientInformation = new System.Windows.Forms.GroupBox();
             this.TextBoxClient = new System.Windows.Forms.TextBox();
@@ -119,8 +119,8 @@ namespace RFEOnSite
             this.TabControlMainRadial = new System.Windows.Forms.TabPage();
             this.LabelTrueNorthText = new System.Windows.Forms.Label();
             this.TabControlSiteImage = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.PictureBox = new System.Windows.Forms.PictureBox();
+            this.LabelCaptured = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepControl.SuspendLayout();
             this.ChartPanel.SuspendLayout();
@@ -619,18 +619,18 @@ namespace RFEOnSite
             this.ToolTip1.SetToolTip(this.LabelStopFrequency, "The frequency at which to stop sampling - plus one bin. The RF Explorer always sa" +
         "mples using 112 bins. Each Bin ");
             // 
-            // ButtonCaptureImageOmni
+            // ButtonCaptureImage
             // 
-            this.ButtonCaptureImageOmni.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ButtonCaptureImageOmni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonCaptureImageOmni.Location = new System.Drawing.Point(7, 6);
-            this.ButtonCaptureImageOmni.Name = "ButtonCaptureImageOmni";
-            this.ButtonCaptureImageOmni.Size = new System.Drawing.Size(141, 50);
-            this.ButtonCaptureImageOmni.TabIndex = 44;
-            this.ButtonCaptureImageOmni.Text = "Capture Frame";
-            this.ToolTip1.SetToolTip(this.ButtonCaptureImageOmni, "Captures an image and stores it with the current location sweep data.");
-            this.ButtonCaptureImageOmni.UseVisualStyleBackColor = false;
-            this.ButtonCaptureImageOmni.Click += new System.EventHandler(this.ButtonCaptureImageOmni_Click);
+            this.ButtonCaptureImage.BackColor = System.Drawing.Color.Gray;
+            this.ButtonCaptureImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonCaptureImage.Location = new System.Drawing.Point(9, 108);
+            this.ButtonCaptureImage.Name = "ButtonCaptureImage";
+            this.ButtonCaptureImage.Size = new System.Drawing.Size(141, 50);
+            this.ButtonCaptureImage.TabIndex = 44;
+            this.ButtonCaptureImage.Text = "Capture Frame";
+            this.ToolTip1.SetToolTip(this.ButtonCaptureImage, "Captures an image and stores it with the current location sweep data.");
+            this.ButtonCaptureImage.UseVisualStyleBackColor = false;
+            this.ButtonCaptureImage.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
             // 
             // GroupBoxCsvConfiguration
             // 
@@ -1207,8 +1207,8 @@ namespace RFEOnSite
             // 
             // TabControlSiteImage
             // 
-            this.TabControlSiteImage.Controls.Add(this.textBox1);
-            this.TabControlSiteImage.Controls.Add(this.ButtonCaptureImageOmni);
+            this.TabControlSiteImage.Controls.Add(this.LabelCaptured);
+            this.TabControlSiteImage.Controls.Add(this.ButtonCaptureImage);
             this.TabControlSiteImage.Controls.Add(this.PictureBox);
             this.TabControlSiteImage.Location = new System.Drawing.Point(4, 29);
             this.TabControlSiteImage.Name = "TabControlSiteImage";
@@ -1218,20 +1218,22 @@ namespace RFEOnSite
             this.TabControlSiteImage.Text = "Location Camera";
             this.TabControlSiteImage.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 251);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(232, 26);
-            this.textBox1.TabIndex = 46;
-            // 
             // PictureBox
             // 
-            this.PictureBox.Location = new System.Drawing.Point(244, 6);
+            this.PictureBox.Location = new System.Drawing.Point(157, 6);
             this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(274, 301);
+            this.PictureBox.Size = new System.Drawing.Size(361, 301);
             this.PictureBox.TabIndex = 45;
             this.PictureBox.TabStop = false;
+            // 
+            // LabelCaptured
+            // 
+            this.LabelCaptured.AutoSize = true;
+            this.LabelCaptured.Location = new System.Drawing.Point(42, 161);
+            this.LabelCaptured.Name = "LabelCaptured";
+            this.LabelCaptured.Size = new System.Drawing.Size(0, 20);
+            this.LabelCaptured.TabIndex = 48;
+            this.LabelCaptured.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
@@ -1249,7 +1251,6 @@ namespace RFEOnSite
             this.MainMenuStrip = this.MenuStrip1;
             this.Name = "MainForm";
             this.Text = "OnSite";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).EndInit();
             this.GroupBoxSweepControl.ResumeLayout(false);
             this.GroupBoxSweepControl.PerformLayout();
@@ -1374,10 +1375,10 @@ namespace RFEOnSite
         private Label LabelPortText;
         private GroupBox GroupBoxClientInformation;
         private Button ButtonFloorId;
-        private Button ButtonCaptureImageOmni;
+        private Button ButtonCaptureImage;
         private TabPage TabControlSiteImage;
         private PictureBox PictureBox;
-        private TextBox textBox1;
+        private Label LabelCaptured;
     }
 }
 
