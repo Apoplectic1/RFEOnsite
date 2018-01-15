@@ -1,7 +1,48 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RFE_OnSite.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Persist_SaveCsvCheckedState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Persist_ClientTextState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Client</Value>
+    </Setting>
+    <Setting Name="Persist_LocationTextState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Collection Location</Value>
+    </Setting>
+    <Setting Name="Persist_FloorTextState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Floor</Value>
+    </Setting>
+    <Setting Name="Persist_FloorNumberState" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Persist_MarkerTextState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">M</Value>
+    </Setting>
+    <Setting Name="Persist_MarkerNumberState" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Persist_MarkerIncrementState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Persist_FloorEnableState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enable</Value>
+    </Setting>
+    <Setting Name="Persist_FloorDecrementState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Persist_SweepsCountState" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="Persist_AutoScaleState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Persist_AverageState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Persist_PeakState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

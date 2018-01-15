@@ -32,8 +32,6 @@ namespace RFEOnSite
             // User Events
             this.FormClosing += new FormClosingEventHandler(this.MainForm_FormClosing);
 
-
-
             // Versioning Text at top of Application Window
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
             {
@@ -60,8 +58,8 @@ namespace RFEOnSite
             //gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
 
             ButtonSetConfiguration.Enabled = false;
-            NumericUpDownLocation.Enabled = false;
-            CheckBoxAutoIncrement.Enabled = false;
+            //NumericUpDownMarkerNumber.Enabled = false;
+            //CheckBoxAutoIncrementMarkerNumber.Enabled = false;
 
             TabControlSiteImage.Enabled = false;
 
@@ -89,14 +87,14 @@ namespace RFEOnSite
             // Use this to resize Client Area
             //this.ClientSize = new System.Drawing.Size(284, 262); 
 
-            Load += new EventHandler(Form1_Load);
+            Load += new EventHandler(MainForm_Load);
 
             ((ISupportInitialize)(gRFEOnSite.Graph.Chart)).EndInit();
 
             ResumeLayout(false);
         }
 
-        void Form1_Load(object sender, EventArgs e)
+        void MainForm_Load(object sender, EventArgs e)
         {
 
             // This builds a dummy chart on the GUI and adds a dummy point to draw and not show white space
@@ -122,7 +120,50 @@ namespace RFEOnSite
 
             PanelChart.Controls.Add(gRFEOnSite.Graph.Chart);
         }
+        private void MainForm_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            //Display a MsgBox asking the user to close the form.
+            if (MessageBox.Show("Are you sure you want to close the Application?", "Close RFEOnSite?",
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                // Cancel the Closing event
+                e.Cancel = true;
+                return;
+            }
 
+
+            GetUiPersistanceStates();
+
+            Settings.Default.Save();
+
+
+            gRFEOnSite.Explorer.DestroyReceiveDataThread();
+            gRFEOnSite.Explorer.DisconnectSerialPort();
+        }
+
+        void GetUiPersistanceStates()
+        {
+
+            Settings.Default.Persist_SaveCsvCheckedState = this.CheckBoxSaveCsvFiles.Checked;
+            Settings.Default.Persist_AutoScaleState = this.CheckBoxChartAutoScale.Checked;
+            Settings.Default.Persist_AverageState = this.CheckBoxChartAverage.Checked;
+            Settings.Default.Persist_ClientTextState = this.TextBoxClient.Text;
+            Settings.Default.Persist_FloorDecrementState = this.RadioButtonAutoTextDecrement.Checked;
+            Settings.Default.Persist_FloorEnableState = this.ButtonFloorId.Text;
+            Settings.Default.Persist_FloorNumberState = this.NumericUpDownMarkerNumber.Value;
+
+        }
+
+        void SetUiPersistanceStates()
+        {
+            this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
+            this.CheckBoxChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
+            this.CheckBoxChartAverage.Checked = Settings.Default.Persist_AverageState;
+            this.TextBoxClient.Text = Settings.Default.Persist_ClientTextState;
+            this.RadioButtonAutoTextDecrement.Checked = Settings.Default.Persist_FloorDecrementState;
+            this.ButtonFloorId.Text = Settings.Default.Persist_FloorEnableState;
+            this.NumericUpDownMarkerNumber.Value = Settings.Default.Persist_FloorNumberState;
+        }
 
         public void UIUpdateCallback_RFE_Configuration(RFEConfiguration fromSerialThread)
         {
@@ -170,7 +211,7 @@ namespace RFEOnSite
                     ButtonSetConfiguration.Enabled = true;
                 }
 
-                GroupBoxSweepControl.Enabled = true;
+                GroupBoxSweepConfiguration.Enabled = true;
                 RadioButtonAnalyzer.Checked = true;
                 RadioButtonGenerator.Checked = false;
                 RadioButtonGenerator.Enabled = false;
@@ -182,7 +223,7 @@ namespace RFEOnSite
             else
             {
                 ButtonStartSweeps.Enabled = false;
-                GroupBoxSweepControl.Enabled = false;
+                GroupBoxSweepConfiguration.Enabled = false;
                 RadioButtonAnalyzer.Checked = false;
                 RadioButtonGenerator.Checked = true;
                 RadioButtonAnalyzer.Enabled = false;
@@ -366,9 +407,9 @@ namespace RFEOnSite
                 ButtonStartSweeps.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
 
-                if (CheckBoxAutoIncrement.Checked && CheckBoxSaveCsvFiles.Checked)
+                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBoxSaveCsvFiles.Checked)
                 {
-                    NumericUpDownLocation.Value += 1;
+                    NumericUpDownMarkerNumber.Value += 1;
                 }
 
                 TabControlMain.Enabled = true;
@@ -384,11 +425,11 @@ namespace RFEOnSite
                 LabelTaskCount.Text = "Done";
 
 
-                if (CheckBoxAutoIncrement.Checked && CheckBoxSaveCsvFiles.Checked)
+                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBoxSaveCsvFiles.Checked)
                 {
                     if (ButtonCancelSweeps.Enabled)
                     {
-                        NumericUpDownLocation.Value += 1;
+                        NumericUpDownMarkerNumber.Value += 1;
                     }
                 }
 
@@ -447,19 +488,15 @@ namespace RFEOnSite
                                     UpdateUISweepData,
                                     UpdateUIProgressBar));
 
-            ButtonGetConfiguration.Enabled = true;
+            ButtonGetRfeConfiguration.Enabled = true;
             ComboBoxPreset.Enabled = true;
             GroupBoxConfiguration.Enabled = true;
-            GroupBoxCsvConfiguration.Enabled = true;
-            PanelChart.Enabled = true;
-            GroupBoxChart.Enabled = true;
-            ChartPanel.Enabled = true;
 
             gRFEOnSite.Explorer.RequestConfiguration();
 
-            ButtonStartSweeps.Enabled = true;
-
             TabControlMain.SelectedTab.Enabled = false;
+
+            GroupBoxCsvConfiguration.Enabled = true;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
@@ -498,7 +535,7 @@ namespace RFEOnSite
 
                 ButtonStartSweeps.Enabled = false;
                 ButtonCancelSweeps.Enabled = false;
-                GroupBoxSweepControl.Enabled = false;
+                GroupBoxSweepConfiguration.Enabled = false;
 
                 gRFEOnSite.Explorer.WaitingForConfigurationCallBack = true;
                 gRFEOnSite.Explorer.SendConfiguration(startMHz, stopMHz, -80, -110);
@@ -530,22 +567,22 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxClient.Text);
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionLocation.Text);
-                if (CheckBoxAutoIncrement.Checked)
+                if (CheckBoxAutoIncrementMarkerNumber.Checked)
                 {
                     if (ButtonFloorId.Text == "Next")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString());
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
                     }
                     else
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString());
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
                     }
                 }
                 else
                 {
                     if (ButtonFloorId.Text == "Next")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text);
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxCollectionSite.Text);
                     }
                     else
                     {
@@ -656,64 +693,24 @@ namespace RFEOnSite
         {
             if (CheckBoxSaveCsvFiles.Checked)
             {
-                TextBoxCollectionLocation.Enabled = true;
-                TextBoxCsvFileName.Enabled = true;
-                LabelProgressWriteCsvFile.Enabled = true;
-                CheckBoxAutoIncrement.Enabled = true;
-                TextBoxClient.Enabled = true;
-                TextBoxCollectionSite.Enabled = true;
-                LabelCsvDirectory.Enabled = true;
-                LabelProgressWriteCsvFile.Enabled = true;
-
-                if (ButtonFloorId.Text == "Next")
-                {
-                    LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
-                }
-                else
-                {
-                    LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
-                }
+                GroupBoxCsvInformation.Enabled = true;
             }
             else
             {
-                TextBoxCollectionLocation.Enabled = false;
-                TextBoxCsvFileName.Enabled = false;
-                LabelProgressWriteCsvFile.Enabled = true;
-                CheckBoxAutoIncrement.Enabled = false;
-                TextBoxClient.Enabled = false;
-                TextBoxCollectionSite.Enabled = false;
-                LabelCsvDirectory.Enabled = false;
-                LabelProgressWriteCsvFile.Enabled = false;
+                GroupBoxCsvInformation.Enabled = false;
             }
+
+            RefreshUI();
         }
 
 
-        private void MainForm_FormClosing(Object sender, FormClosingEventArgs e)
-        {
-            //Display a MsgBox asking the user to close the form.
-            if (MessageBox.Show("Are you sure you want to close the Application?", "Close RFEOnSite?",
-               MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                // Cancel the Closing event
-                e.Cancel = true;
-                return;
-            }
 
-            gRFEOnSite.Explorer.DestroyReceiveDataThread();
-            gRFEOnSite.Explorer.DisconnectSerialPort();
-        }
 
         private void TextBoxSweepLocation_TextChanged(object sender, EventArgs e)
         {
-            if (ButtonFloorId.Text == "Next")
-            {
-                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
-            }
-            else
-            {
-                LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxCollectionSite.Text;
-            }
-            NumericUpDownLocation.Value = 1;
+            NumericUpDownMarkerNumber.Value = 1;
+
+            RefreshUI();
 
             //ToolTip1.SetToolTip(TextBoxCollectionLocation, "Enter a short site collection location identifier " +
             //    "for data that is about to be collected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
@@ -756,6 +753,8 @@ namespace RFEOnSite
             if (ComboBoxPreset.SelectedItem == null)
                 return;
 
+            StripStatusLabelPreset.Text = "Preset: " + (string)ComboBoxPreset.SelectedItem;
+
             var item = (string)ComboBoxPreset.SelectedItem;
 
             if (item == "Whoop Downlink")
@@ -767,8 +766,8 @@ namespace RFEOnSite
                 TextBoxRBW.Enabled = false;
                 TextBoxStepFrequency.Enabled = false;
                 ButtonSetConfiguration.Enabled = false;
-                ButtonGetConfiguration.Enabled = false;
-                GroupBoxSweepControl.Enabled = true;
+                ButtonGetRfeConfiguration.Enabled = false;
+                GroupBoxSweepConfiguration.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
 
                 CheckBoxHoldStart.Enabled = false;
@@ -820,7 +819,7 @@ namespace RFEOnSite
                 TextBoxRBW.Enabled = true;
                 TextBoxStepFrequency.Enabled = true;
                 ButtonSetConfiguration.Enabled = true;
-                ButtonGetConfiguration.Enabled = true;
+                ButtonGetRfeConfiguration.Enabled = true;
                 CheckBoxHoldStart.Enabled = true;
                 CheckBoxHoldStep.Enabled = true;
                 CheckBoxHoldStop.Enabled = true;
@@ -836,8 +835,8 @@ namespace RFEOnSite
                 TextBoxRBW.Enabled = false;
                 TextBoxStepFrequency.Enabled = false;
                 ButtonSetConfiguration.Enabled = false;
-                ButtonGetConfiguration.Enabled = false;
-                GroupBoxSweepControl.Enabled = true;
+                ButtonGetRfeConfiguration.Enabled = false;
+                GroupBoxSweepConfiguration.Enabled = true;
 
                 CheckBoxHoldStart.Enabled = false;
                 CheckBoxHoldStep.Enabled = false;
@@ -1002,11 +1001,11 @@ namespace RFEOnSite
             gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetWhoopDownlinkTable.Count();
             NumericUpDownSweeps.Enabled = true;
 
-            if (CheckBoxSaveCsvFiles.Checked && CheckBoxAutoIncrement.Checked && !gRFEOnSite.PresetActive)
+            if (CheckBoxSaveCsvFiles.Checked && CheckBoxAutoIncrementMarkerNumber.Checked && !gRFEOnSite.PresetActive)
             {
-                if (NumericUpDownLocation.Value > 1)
+                if (NumericUpDownMarkerNumber.Value > 1)
                 {
-                    NumericUpDownLocation.Value -= 1;
+                    NumericUpDownMarkerNumber.Value -= 1;
                 }
             }
 
@@ -1027,13 +1026,13 @@ namespace RFEOnSite
 
         private void CheckBoxAutoIncrement_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBoxAutoIncrement.Checked)
+            if (CheckBoxAutoIncrementMarkerNumber.Checked)
             {
-                NumericUpDownLocation.Enabled = true;
+                NumericUpDownMarkerNumber.Enabled = true;
             }
             else
             {
-                NumericUpDownLocation.Enabled = false;
+                NumericUpDownMarkerNumber.Enabled = false;
             }
 
             RefreshUI();
@@ -1041,14 +1040,14 @@ namespace RFEOnSite
 
         private void TextBoxCollectionSite_TextChanged(object sender, EventArgs e)
         {
-            NumericUpDownLocation.Value = 1;
+            NumericUpDownMarkerNumber.Value = 1;
 
             RefreshUI();
         }
 
         private void TextBoxClient_TextChanged(object sender, EventArgs e)
         {
-            NumericUpDownLocation.Value = 1;
+            NumericUpDownMarkerNumber.Value = 1;
             RefreshUI();
         }
 
@@ -1057,10 +1056,10 @@ namespace RFEOnSite
             RefreshUI();
         }
 
-        private void TextBoxAutoLabel_TextChanged(object sender, EventArgs e)
+        private void TextBoxFloorLabel_TextChanged(object sender, EventArgs e)
         {
-            LabelCsvDirectory.Text = "Desktop\\SurveyData\\" + TextBoxClient.Text + "\\" + TextBoxCollectionLocation.Text + "\\" + TextBoxAutoLabel.Text + NumericUpDownAutoText.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownLocation.Value.ToString();
-            NumericUpDownLocation.Value = 1;
+            NumericUpDownMarkerNumber.Value = 1;
+            RefreshUI();
         }
 
         private void toolStripMenuItemFileExit_Click(object sender, EventArgs e)
@@ -1096,20 +1095,21 @@ namespace RFEOnSite
                 return;
             }
 
+            NumericUpDownMarkerNumber.Value = 1;
 
             if (RadioButtonAutoTextDecrement.Checked == true)
             {
-                if (NumericUpDownAutoText.Value == 1)
+                if (NumericUpDownFloorNumber.Value == 1)
                 {
                     DialogResult diag = MessageBox.Show(@"Trying to decrement Floor while Floor value is '1'. Enter different Floor or ID text or change the count such that it's value stays greater than one.", "Floor/ID Error", MessageBoxButtons.OK);
                     return;
                 }
 
-                NumericUpDownAutoText.Value = NumericUpDownAutoText.Value - 1;
+                NumericUpDownFloorNumber.Value = NumericUpDownFloorNumber.Value - 1;
             }
             else
             {
-                NumericUpDownAutoText.Value = NumericUpDownAutoText.Value + 1;
+                NumericUpDownFloorNumber.Value = NumericUpDownFloorNumber.Value + 1;
             }
 
             RefreshUI();
@@ -1123,32 +1123,41 @@ namespace RFEOnSite
 
         private void RefreshUI()
         {
+            if (!CheckBoxSaveCsvFiles.Checked)
+            {
+                StripStatusLabelDivision1.Text = "";
+                StripStatusLabelCsvDirectory.Text = "";
+                return;
+            }
+
+            StripStatusLabelDivision1.Text = "|";
+
             if (ButtonFloorId.Text == "Next")
             {
-                LabelCsvDirectory.Text =
-                    "Desktop\\SurveyData\\" +
+                StripStatusLabelCsvDirectory.Text =
+                    "CSV Directory: Desktop\\SurveyData\\" +
                     TextBoxClient.Text +
                     "\\" +
                     TextBoxCollectionLocation.Text +
                     "\\" +
-                    TextBoxAutoLabel.Text +
-                    NumericUpDownAutoText.Value.ToString() +
-                    " " +
+                    TextBoxFloorName.Text +
+                    NumericUpDownFloorNumber.Value.ToString() +
+                    "\\" +
                     TextBoxCollectionSite.Text +
                     "-" +
-                    NumericUpDownLocation.Value.ToString();
+                    NumericUpDownMarkerNumber.Value.ToString();
             }
             else
             {
-                LabelCsvDirectory.Text =
-                    "Desktop\\SurveyData\\" +
+                StripStatusLabelCsvDirectory.Text =
+                    "CSV Directory: Desktop\\SurveyData\\" +
                     TextBoxClient.Text +
                     "\\" +
                     TextBoxCollectionLocation.Text +
                     "\\" +
                     TextBoxCollectionSite.Text +
                     "-" +
-                    NumericUpDownLocation.Value.ToString();
+                    NumericUpDownMarkerNumber.Value.ToString();
             }
         }
 
@@ -1203,8 +1212,6 @@ namespace RFEOnSite
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
             if (TabControlMain.SelectedTab.Text == "Location Camera") //specific tabname
             {
                 if (mCapture == null)
@@ -1238,6 +1245,26 @@ namespace RFEOnSite
                 ButtonCaptureImage.BackColor = Color.Gray;
                 PictureBox.BackColor = Color.Gray;
             }
+        }
+
+        private void ButtonPersistRecal_Click(object sender, EventArgs e)
+        {
+            GetUiPersistanceStates();
+
+            RefreshUI();
+        }
+
+        private void ButtonPersistClear_Click(object sender, EventArgs e)
+        {
+            this.CheckBoxSaveCsvFiles.Checked = false;
+            this.CheckBoxChartAutoScale.Checked = false;
+            this.CheckBoxChartAverage.Checked = true;
+            this.TextBoxClient.Text = "Client";
+            this.RadioButtonAutoTextDecrement.Checked = true;
+            this.ButtonFloorId.Text = "Enable";
+            this.NumericUpDownMarkerNumber.Value = 1;
+
+            RefreshUI();
         }
     }
 }

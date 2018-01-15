@@ -12,7 +12,7 @@ namespace RFE_OnSite.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,6 +20,174 @@ namespace RFE_OnSite.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Persist_SaveCsvCheckedState {
+            get {
+                return ((bool)(this["Persist_SaveCsvCheckedState"]));
+            }
+            set {
+                this["Persist_SaveCsvCheckedState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Client")]
+        public string Persist_ClientTextState {
+            get {
+                return ((string)(this["Persist_ClientTextState"]));
+            }
+            set {
+                this["Persist_ClientTextState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Collection Location")]
+        public string Persist_LocationTextState {
+            get {
+                return ((string)(this["Persist_LocationTextState"]));
+            }
+            set {
+                this["Persist_LocationTextState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Floor")]
+        public string Persist_FloorTextState {
+            get {
+                return ((string)(this["Persist_FloorTextState"]));
+            }
+            set {
+                this["Persist_FloorTextState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal Persist_FloorNumberState {
+            get {
+                return ((decimal)(this["Persist_FloorNumberState"]));
+            }
+            set {
+                this["Persist_FloorNumberState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("M")]
+        public string Persist_MarkerTextState {
+            get {
+                return ((string)(this["Persist_MarkerTextState"]));
+            }
+            set {
+                this["Persist_MarkerTextState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal Persist_MarkerNumberState {
+            get {
+                return ((decimal)(this["Persist_MarkerNumberState"]));
+            }
+            set {
+                this["Persist_MarkerNumberState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Persist_MarkerIncrementState {
+            get {
+                return ((bool)(this["Persist_MarkerIncrementState"]));
+            }
+            set {
+                this["Persist_MarkerIncrementState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Enable")]
+        public string Persist_FloorEnableState {
+            get {
+                return ((string)(this["Persist_FloorEnableState"]));
+            }
+            set {
+                this["Persist_FloorEnableState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Persist_FloorDecrementState {
+            get {
+                return ((bool)(this["Persist_FloorDecrementState"]));
+            }
+            set {
+                this["Persist_FloorDecrementState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public decimal Persist_SweepsCountState {
+            get {
+                return ((decimal)(this["Persist_SweepsCountState"]));
+            }
+            set {
+                this["Persist_SweepsCountState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Persist_AutoScaleState {
+            get {
+                return ((bool)(this["Persist_AutoScaleState"]));
+            }
+            set {
+                this["Persist_AutoScaleState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Persist_AverageState {
+            get {
+                return ((bool)(this["Persist_AverageState"]));
+            }
+            set {
+                this["Persist_AverageState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Persist_PeakState {
+            get {
+                return ((bool)(this["Persist_PeakState"]));
+            }
+            set {
+                this["Persist_PeakState"] = value;
             }
         }
     }
