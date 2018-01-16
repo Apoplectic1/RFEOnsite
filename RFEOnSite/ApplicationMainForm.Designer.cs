@@ -870,7 +870,7 @@ namespace RFEOnSite
             this.LabelCopyright.Name = "LabelCopyright";
             this.LabelCopyright.Size = new System.Drawing.Size(207, 13);
             this.LabelCopyright.TabIndex = 25;
-            this.LabelCopyright.Text = "Copyright 2017 - Skyhawk Consulting, Inc.";
+            this.LabelCopyright.Text = "Copyright 2018 - Skyhawk Consulting, Inc.";
             // 
             // GroupBoxConfiguration
             // 
@@ -1131,8 +1131,9 @@ namespace RFEOnSite
             // MenuStripMenuItemPreset
             // 
             this.MenuStripMenuItemPreset.Name = "MenuStripMenuItemPreset";
-            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(92, 22);
+            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(152, 22);
             this.MenuStripMenuItemPreset.Text = "Exit";
+            this.MenuStripMenuItemPreset.Click += new System.EventHandler(this.MenuStripMenuItemPreset_Click);
             // 
             // TabControlMain
             // 

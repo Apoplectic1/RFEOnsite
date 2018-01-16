@@ -1328,5 +1328,10 @@ namespace RFEOnSite
             RefreshUI();
 
         }
+
+        private void MenuStripMenuItemPreset_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
