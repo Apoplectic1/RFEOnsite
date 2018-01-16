@@ -71,22 +71,21 @@ namespace RFEOnSite
             this.ButtonGetRfeConfiguration = new System.Windows.Forms.Button();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
             this.ButtonCaptureImage = new System.Windows.Forms.Button();
-            this.ButtonPersistRecall = new System.Windows.Forms.Button();
             this.ButtonPersistClear = new System.Windows.Forms.Button();
             this.GroupBoxCsvConfiguration = new System.Windows.Forms.GroupBox();
+            this.GroupBoxCsvInformation = new System.Windows.Forms.GroupBox();
             this.GroupBoxClientId = new System.Windows.Forms.GroupBox();
             this.TextBoxClient = new System.Windows.Forms.TextBox();
             this.GroupBoxFloorId = new System.Windows.Forms.GroupBox();
             this.ButtonFloorId = new System.Windows.Forms.Button();
-            this.RadioButtonAutoTextIncrement = new System.Windows.Forms.RadioButton();
-            this.RadioButtonAutoTextDecrement = new System.Windows.Forms.RadioButton();
+            this.RadioButtonFloorIncrement = new System.Windows.Forms.RadioButton();
+            this.RadioButtonFloorDecrement = new System.Windows.Forms.RadioButton();
             this.NumericUpDownFloorNumber = new System.Windows.Forms.NumericUpDown();
             this.TextBoxFloorName = new System.Windows.Forms.TextBox();
             this.GroupBoxMarkerId = new System.Windows.Forms.GroupBox();
-            this.TextBoxCollectionSite = new System.Windows.Forms.TextBox();
+            this.TextBoxMarkerName = new System.Windows.Forms.TextBox();
             this.CheckBoxAutoIncrementMarkerNumber = new System.Windows.Forms.CheckBox();
             this.NumericUpDownMarkerNumber = new System.Windows.Forms.NumericUpDown();
-            this.GroupBoxCsvInformation = new System.Windows.Forms.GroupBox();
             this.LabelRadialAzimuth = new System.Windows.Forms.Label();
             this.NumericUpDownRadialAzimuth = new System.Windows.Forms.NumericUpDown();
             this.LabelCopyright = new System.Windows.Forms.Label();
@@ -110,9 +109,9 @@ namespace RFEOnSite
             this.TextBoxStartFrequency = new System.Windows.Forms.TextBox();
             this.TextBoxStopFrequency = new System.Windows.Forms.TextBox();
             this.LabelRBWUnit = new System.Windows.Forms.Label();
-            this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemPreset = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripMainForm = new System.Windows.Forms.MenuStrip();
+            this.MenuStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripMenuItemPreset = new System.Windows.Forms.ToolStripMenuItem();
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabControlMainConnection = new System.Windows.Forms.TabPage();
             this.LabelPortText = new System.Windows.Forms.Label();
@@ -122,7 +121,7 @@ namespace RFEOnSite
             this.TabControlSiteImage = new System.Windows.Forms.TabPage();
             this.LabelCaptured = new System.Windows.Forms.Label();
             this.PictureBox = new System.Windows.Forms.PictureBox();
-            this.StatusStripMainForm = new System.Windows.Forms.StatusStrip();
+            this.StripStatusMainForm = new System.Windows.Forms.StatusStrip();
             this.StripStatusLabelPreset = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelDivision1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelCsvDirectory = new System.Windows.Forms.ToolStripStatusLabel();
@@ -130,22 +129,22 @@ namespace RFEOnSite
             this.GroupBoxSweepConfiguration.SuspendLayout();
             this.GroupBoxCurrentSweepChartConfiguration.SuspendLayout();
             this.GroupBoxCsvConfiguration.SuspendLayout();
+            this.GroupBoxCsvInformation.SuspendLayout();
             this.GroupBoxClientId.SuspendLayout();
             this.GroupBoxFloorId.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownFloorNumber)).BeginInit();
             this.GroupBoxMarkerId.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMarkerNumber)).BeginInit();
-            this.GroupBoxCsvInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).BeginInit();
             this.GroupBoxConfiguration.SuspendLayout();
-            this.MenuStrip1.SuspendLayout();
+            this.MenuStripMainForm.SuspendLayout();
             this.TabControlMain.SuspendLayout();
             this.TabControlMainConnection.SuspendLayout();
             this.TabControlMainOmniDirectional.SuspendLayout();
             this.TabControlMainRadial.SuspendLayout();
             this.TabControlSiteImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
-            this.StatusStripMainForm.SuspendLayout();
+            this.StripStatusMainForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonFindCOMPorts
@@ -489,8 +488,6 @@ namespace RFEOnSite
             // CheckBoxChartAutoScale
             // 
             this.CheckBoxChartAutoScale.AutoSize = true;
-            this.CheckBoxChartAutoScale.Checked = true;
-            this.CheckBoxChartAutoScale.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CheckBoxChartAutoScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckBoxChartAutoScale.Location = new System.Drawing.Point(10, 426);
             this.CheckBoxChartAutoScale.Name = "CheckBoxChartAutoScale";
@@ -533,7 +530,6 @@ namespace RFEOnSite
             // 
             // TextBoxCollectionLocation
             // 
-            this.TextBoxCollectionLocation.Enabled = false;
             this.TextBoxCollectionLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxCollectionLocation.Location = new System.Drawing.Point(8, 60);
             this.TextBoxCollectionLocation.Name = "TextBoxCollectionLocation";
@@ -633,39 +629,22 @@ namespace RFEOnSite
             this.ButtonCaptureImage.UseVisualStyleBackColor = false;
             this.ButtonCaptureImage.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
             // 
-            // ButtonPersistRecall
-            // 
-            this.ButtonPersistRecall.BackColor = System.Drawing.SystemColors.Control;
-            this.ButtonPersistRecall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonPersistRecall.Location = new System.Drawing.Point(395, 117);
-            this.ButtonPersistRecall.Name = "ButtonPersistRecall";
-            this.ButtonPersistRecall.Size = new System.Drawing.Size(108, 53);
-            this.ButtonPersistRecall.TabIndex = 44;
-            this.ButtonPersistRecall.Text = "Recall Fields";
-            this.ToolTip1.SetToolTip(this.ButtonPersistRecall, "Populate Client/CSV Fields with last entered data.");
-            this.ButtonPersistRecall.UseVisualStyleBackColor = false;
-            this.ButtonPersistRecall.Click += new System.EventHandler(this.ButtonPersistRecal_Click);
-            // 
             // ButtonPersistClear
             // 
             this.ButtonPersistClear.BackColor = System.Drawing.SystemColors.Control;
             this.ButtonPersistClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonPersistClear.Location = new System.Drawing.Point(387, 146);
+            this.ButtonPersistClear.Location = new System.Drawing.Point(391, 46);
             this.ButtonPersistClear.Name = "ButtonPersistClear";
             this.ButtonPersistClear.Size = new System.Drawing.Size(108, 53);
             this.ButtonPersistClear.TabIndex = 45;
-            this.ButtonPersistClear.Text = "Clear Fields";
-            this.ToolTip1.SetToolTip(this.ButtonPersistClear, "Restores all fields to default values.");
+            this.ButtonPersistClear.Text = "Clear All Fields";
+            this.ToolTip1.SetToolTip(this.ButtonPersistClear, "Restores all fields to default values. Sets \"Manual\" Preset.");
             this.ButtonPersistClear.UseVisualStyleBackColor = false;
             this.ButtonPersistClear.Click += new System.EventHandler(this.ButtonPersistClear_Click);
             // 
             // GroupBoxCsvConfiguration
             // 
             this.GroupBoxCsvConfiguration.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.GroupBoxCsvConfiguration.Controls.Add(this.ButtonPersistRecall);
-            this.GroupBoxCsvConfiguration.Controls.Add(this.GroupBoxClientId);
-            this.GroupBoxCsvConfiguration.Controls.Add(this.GroupBoxFloorId);
-            this.GroupBoxCsvConfiguration.Controls.Add(this.GroupBoxMarkerId);
             this.GroupBoxCsvConfiguration.Controls.Add(this.CheckBoxSaveCsvFiles);
             this.GroupBoxCsvConfiguration.Controls.Add(this.GroupBoxCsvInformation);
             this.GroupBoxCsvConfiguration.Enabled = false;
@@ -678,11 +657,24 @@ namespace RFEOnSite
             this.GroupBoxCsvConfiguration.TabStop = false;
             this.GroupBoxCsvConfiguration.Text = "CSV File Storage";
             // 
+            // GroupBoxCsvInformation
+            // 
+            this.GroupBoxCsvInformation.Controls.Add(this.ButtonPersistClear);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxClientId);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxFloorId);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxMarkerId);
+            this.GroupBoxCsvInformation.Enabled = false;
+            this.GroupBoxCsvInformation.Location = new System.Drawing.Point(8, 51);
+            this.GroupBoxCsvInformation.Name = "GroupBoxCsvInformation";
+            this.GroupBoxCsvInformation.Size = new System.Drawing.Size(512, 262);
+            this.GroupBoxCsvInformation.TabIndex = 46;
+            this.GroupBoxCsvInformation.TabStop = false;
+            // 
             // GroupBoxClientId
             // 
             this.GroupBoxClientId.Controls.Add(this.TextBoxClient);
             this.GroupBoxClientId.Controls.Add(this.TextBoxCollectionLocation);
-            this.GroupBoxClientId.Location = new System.Drawing.Point(20, 67);
+            this.GroupBoxClientId.Location = new System.Drawing.Point(20, 16);
             this.GroupBoxClientId.Name = "GroupBoxClientId";
             this.GroupBoxClientId.Size = new System.Drawing.Size(358, 98);
             this.GroupBoxClientId.TabIndex = 43;
@@ -691,7 +683,6 @@ namespace RFEOnSite
             // 
             // TextBoxClient
             // 
-            this.TextBoxClient.Enabled = false;
             this.TextBoxClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxClient.Location = new System.Drawing.Point(8, 27);
             this.TextBoxClient.Name = "TextBoxClient";
@@ -703,12 +694,12 @@ namespace RFEOnSite
             // GroupBoxFloorId
             // 
             this.GroupBoxFloorId.Controls.Add(this.ButtonFloorId);
-            this.GroupBoxFloorId.Controls.Add(this.RadioButtonAutoTextIncrement);
-            this.GroupBoxFloorId.Controls.Add(this.RadioButtonAutoTextDecrement);
+            this.GroupBoxFloorId.Controls.Add(this.RadioButtonFloorIncrement);
+            this.GroupBoxFloorId.Controls.Add(this.RadioButtonFloorDecrement);
             this.GroupBoxFloorId.Controls.Add(this.NumericUpDownFloorNumber);
             this.GroupBoxFloorId.Controls.Add(this.TextBoxFloorName);
             this.GroupBoxFloorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxFloorId.Location = new System.Drawing.Point(20, 176);
+            this.GroupBoxFloorId.Location = new System.Drawing.Point(20, 121);
             this.GroupBoxFloorId.Name = "GroupBoxFloorId";
             this.GroupBoxFloorId.Size = new System.Drawing.Size(358, 63);
             this.GroupBoxFloorId.TabIndex = 42;
@@ -727,33 +718,36 @@ namespace RFEOnSite
             this.ButtonFloorId.UseVisualStyleBackColor = false;
             this.ButtonFloorId.Click += new System.EventHandler(this.ButtonFloorId_Click);
             // 
-            // RadioButtonAutoTextIncrement
+            // RadioButtonFloorIncrement
             // 
-            this.RadioButtonAutoTextIncrement.AutoSize = true;
-            this.RadioButtonAutoTextIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioButtonAutoTextIncrement.Location = new System.Drawing.Point(277, 38);
-            this.RadioButtonAutoTextIncrement.Name = "RadioButtonAutoTextIncrement";
-            this.RadioButtonAutoTextIncrement.Size = new System.Drawing.Size(72, 17);
-            this.RadioButtonAutoTextIncrement.TabIndex = 41;
-            this.RadioButtonAutoTextIncrement.Text = "Increment";
-            this.RadioButtonAutoTextIncrement.UseVisualStyleBackColor = true;
+            this.RadioButtonFloorIncrement.AutoSize = true;
+            this.RadioButtonFloorIncrement.Checked = true;
+            this.RadioButtonFloorIncrement.Enabled = false;
+            this.RadioButtonFloorIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioButtonFloorIncrement.Location = new System.Drawing.Point(277, 38);
+            this.RadioButtonFloorIncrement.Name = "RadioButtonFloorIncrement";
+            this.RadioButtonFloorIncrement.Size = new System.Drawing.Size(72, 17);
+            this.RadioButtonFloorIncrement.TabIndex = 41;
+            this.RadioButtonFloorIncrement.TabStop = true;
+            this.RadioButtonFloorIncrement.Text = "Increment";
+            this.RadioButtonFloorIncrement.UseVisualStyleBackColor = true;
             // 
-            // RadioButtonAutoTextDecrement
+            // RadioButtonFloorDecrement
             // 
-            this.RadioButtonAutoTextDecrement.AutoSize = true;
-            this.RadioButtonAutoTextDecrement.Checked = true;
-            this.RadioButtonAutoTextDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioButtonAutoTextDecrement.Location = new System.Drawing.Point(277, 21);
-            this.RadioButtonAutoTextDecrement.Name = "RadioButtonAutoTextDecrement";
-            this.RadioButtonAutoTextDecrement.Size = new System.Drawing.Size(77, 17);
-            this.RadioButtonAutoTextDecrement.TabIndex = 40;
-            this.RadioButtonAutoTextDecrement.TabStop = true;
-            this.RadioButtonAutoTextDecrement.Text = "Decrement";
-            this.RadioButtonAutoTextDecrement.UseVisualStyleBackColor = true;
+            this.RadioButtonFloorDecrement.AutoSize = true;
+            this.RadioButtonFloorDecrement.Enabled = false;
+            this.RadioButtonFloorDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioButtonFloorDecrement.Location = new System.Drawing.Point(277, 21);
+            this.RadioButtonFloorDecrement.Name = "RadioButtonFloorDecrement";
+            this.RadioButtonFloorDecrement.Size = new System.Drawing.Size(77, 17);
+            this.RadioButtonFloorDecrement.TabIndex = 40;
+            this.RadioButtonFloorDecrement.Text = "Decrement";
+            this.RadioButtonFloorDecrement.UseVisualStyleBackColor = true;
             // 
             // NumericUpDownFloorNumber
             // 
             this.NumericUpDownFloorNumber.Cursor = System.Windows.Forms.Cursors.Default;
+            this.NumericUpDownFloorNumber.Enabled = false;
             this.NumericUpDownFloorNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDownFloorNumber.Location = new System.Drawing.Point(142, 21);
             this.NumericUpDownFloorNumber.Minimum = new decimal(new int[] {
@@ -774,6 +768,7 @@ namespace RFEOnSite
             // 
             // TextBoxFloorName
             // 
+            this.TextBoxFloorName.Enabled = false;
             this.TextBoxFloorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxFloorName.Location = new System.Drawing.Point(6, 23);
             this.TextBoxFloorName.Name = "TextBoxFloorName";
@@ -784,32 +779,30 @@ namespace RFEOnSite
             // 
             // GroupBoxMarkerId
             // 
-            this.GroupBoxMarkerId.Controls.Add(this.TextBoxCollectionSite);
+            this.GroupBoxMarkerId.Controls.Add(this.TextBoxMarkerName);
             this.GroupBoxMarkerId.Controls.Add(this.CheckBoxAutoIncrementMarkerNumber);
             this.GroupBoxMarkerId.Controls.Add(this.NumericUpDownMarkerNumber);
             this.GroupBoxMarkerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxMarkerId.Location = new System.Drawing.Point(20, 244);
+            this.GroupBoxMarkerId.Location = new System.Drawing.Point(20, 191);
             this.GroupBoxMarkerId.Name = "GroupBoxMarkerId";
             this.GroupBoxMarkerId.Size = new System.Drawing.Size(358, 63);
             this.GroupBoxMarkerId.TabIndex = 37;
             this.GroupBoxMarkerId.TabStop = false;
             this.GroupBoxMarkerId.Text = "Collection Site Marker";
             // 
-            // TextBoxCollectionSite
+            // TextBoxMarkerName
             // 
-            this.TextBoxCollectionSite.Enabled = false;
-            this.TextBoxCollectionSite.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxCollectionSite.Location = new System.Drawing.Point(6, 27);
-            this.TextBoxCollectionSite.Name = "TextBoxCollectionSite";
-            this.TextBoxCollectionSite.Size = new System.Drawing.Size(132, 26);
-            this.TextBoxCollectionSite.TabIndex = 30;
-            this.TextBoxCollectionSite.Text = "M";
-            this.TextBoxCollectionSite.TextChanged += new System.EventHandler(this.TextBoxCollectionSite_TextChanged);
+            this.TextBoxMarkerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxMarkerName.Location = new System.Drawing.Point(6, 27);
+            this.TextBoxMarkerName.Name = "TextBoxMarkerName";
+            this.TextBoxMarkerName.Size = new System.Drawing.Size(132, 26);
+            this.TextBoxMarkerName.TabIndex = 30;
+            this.TextBoxMarkerName.Text = "M";
+            this.TextBoxMarkerName.TextChanged += new System.EventHandler(this.TextBoxCollectionSite_TextChanged);
             // 
             // CheckBoxAutoIncrementMarkerNumber
             // 
             this.CheckBoxAutoIncrementMarkerNumber.AutoSize = true;
-            this.CheckBoxAutoIncrementMarkerNumber.Enabled = false;
             this.CheckBoxAutoIncrementMarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckBoxAutoIncrementMarkerNumber.Location = new System.Drawing.Point(224, 32);
             this.CheckBoxAutoIncrementMarkerNumber.Name = "CheckBoxAutoIncrementMarkerNumber";
@@ -821,7 +814,6 @@ namespace RFEOnSite
             // 
             // NumericUpDownMarkerNumber
             // 
-            this.NumericUpDownMarkerNumber.Enabled = false;
             this.NumericUpDownMarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDownMarkerNumber.Location = new System.Drawing.Point(142, 25);
             this.NumericUpDownMarkerNumber.Minimum = new decimal(new int[] {
@@ -839,16 +831,6 @@ namespace RFEOnSite
             0,
             0});
             this.NumericUpDownMarkerNumber.ValueChanged += new System.EventHandler(this.NumericUpDownLocation_ValueChanged);
-            // 
-            // GroupBoxCsvInformation
-            // 
-            this.GroupBoxCsvInformation.Controls.Add(this.ButtonPersistClear);
-            this.GroupBoxCsvInformation.Enabled = false;
-            this.GroupBoxCsvInformation.Location = new System.Drawing.Point(8, 51);
-            this.GroupBoxCsvInformation.Name = "GroupBoxCsvInformation";
-            this.GroupBoxCsvInformation.Size = new System.Drawing.Size(512, 262);
-            this.GroupBoxCsvInformation.TabIndex = 46;
-            this.GroupBoxCsvInformation.TabStop = false;
             // 
             // LabelRadialAzimuth
             // 
@@ -1128,29 +1110,29 @@ namespace RFEOnSite
             this.LabelRBWUnit.TabIndex = 6;
             this.LabelRBWUnit.Text = "KHz";
             // 
-            // MenuStrip1
+            // MenuStripMainForm
             // 
-            this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemFile});
-            this.MenuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.Size = new System.Drawing.Size(1001, 24);
-            this.MenuStrip1.TabIndex = 26;
-            this.MenuStrip1.Text = "menuStrip1";
+            this.MenuStripMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStripMenuItemFile});
+            this.MenuStripMainForm.Location = new System.Drawing.Point(0, 0);
+            this.MenuStripMainForm.Name = "MenuStripMainForm";
+            this.MenuStripMainForm.Size = new System.Drawing.Size(1001, 24);
+            this.MenuStripMainForm.TabIndex = 26;
+            this.MenuStripMainForm.Text = "menuStrip1";
             // 
-            // toolStripMenuItemFile
+            // MenuStripMenuItemFile
             // 
-            this.toolStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItemPreset});
-            this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
-            this.toolStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
-            this.toolStripMenuItemFile.Text = "File";
+            this.MenuStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStripMenuItemPreset});
+            this.MenuStripMenuItemFile.Name = "MenuStripMenuItemFile";
+            this.MenuStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
+            this.MenuStripMenuItemFile.Text = "File";
             // 
-            // ToolStripMenuItemPreset
+            // MenuStripMenuItemPreset
             // 
-            this.ToolStripMenuItemPreset.Name = "ToolStripMenuItemPreset";
-            this.ToolStripMenuItemPreset.Size = new System.Drawing.Size(92, 22);
-            this.ToolStripMenuItemPreset.Text = "Exit";
+            this.MenuStripMenuItemPreset.Name = "MenuStripMenuItemPreset";
+            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(92, 22);
+            this.MenuStripMenuItemPreset.Text = "Exit";
             // 
             // TabControlMain
             // 
@@ -1262,17 +1244,17 @@ namespace RFEOnSite
             this.PictureBox.TabIndex = 45;
             this.PictureBox.TabStop = false;
             // 
-            // StatusStripMainForm
+            // StripStatusMainForm
             // 
-            this.StatusStripMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StripStatusMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StripStatusLabelPreset,
             this.StripStatusLabelDivision1,
             this.StripStatusLabelCsvDirectory});
-            this.StatusStripMainForm.Location = new System.Drawing.Point(0, 712);
-            this.StatusStripMainForm.Name = "StatusStripMainForm";
-            this.StatusStripMainForm.Size = new System.Drawing.Size(1001, 22);
-            this.StatusStripMainForm.TabIndex = 38;
-            this.StatusStripMainForm.Text = "StatusStripMainForm";
+            this.StripStatusMainForm.Location = new System.Drawing.Point(0, 712);
+            this.StripStatusMainForm.Name = "StripStatusMainForm";
+            this.StripStatusMainForm.Size = new System.Drawing.Size(1001, 22);
+            this.StripStatusMainForm.TabIndex = 38;
+            this.StripStatusMainForm.Text = "StatusStripMainForm";
             // 
             // StripStatusLabelPreset
             // 
@@ -1296,14 +1278,14 @@ namespace RFEOnSite
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1001, 734);
-            this.Controls.Add(this.StatusStripMainForm);
+            this.Controls.Add(this.StripStatusMainForm);
             this.Controls.Add(this.TabControlMain);
             this.Controls.Add(this.GroupBoxCurrentSweepChartConfiguration);
             this.Controls.Add(this.LabelCopyright);
             this.Controls.Add(this.GroupBoxSweepConfiguration);
             this.Controls.Add(this.GroupBoxCsvConfiguration);
-            this.Controls.Add(this.MenuStrip1);
-            this.MainMenuStrip = this.MenuStrip1;
+            this.Controls.Add(this.MenuStripMainForm);
+            this.MainMenuStrip = this.MenuStripMainForm;
             this.Name = "MainForm";
             this.Text = "OnSite";
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).EndInit();
@@ -1313,6 +1295,7 @@ namespace RFEOnSite
             this.GroupBoxCurrentSweepChartConfiguration.PerformLayout();
             this.GroupBoxCsvConfiguration.ResumeLayout(false);
             this.GroupBoxCsvConfiguration.PerformLayout();
+            this.GroupBoxCsvInformation.ResumeLayout(false);
             this.GroupBoxClientId.ResumeLayout(false);
             this.GroupBoxClientId.PerformLayout();
             this.GroupBoxFloorId.ResumeLayout(false);
@@ -1321,12 +1304,11 @@ namespace RFEOnSite
             this.GroupBoxMarkerId.ResumeLayout(false);
             this.GroupBoxMarkerId.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMarkerNumber)).EndInit();
-            this.GroupBoxCsvInformation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).EndInit();
             this.GroupBoxConfiguration.ResumeLayout(false);
             this.GroupBoxConfiguration.PerformLayout();
-            this.MenuStrip1.ResumeLayout(false);
-            this.MenuStrip1.PerformLayout();
+            this.MenuStripMainForm.ResumeLayout(false);
+            this.MenuStripMainForm.PerformLayout();
             this.TabControlMain.ResumeLayout(false);
             this.TabControlMainConnection.ResumeLayout(false);
             this.TabControlMainConnection.PerformLayout();
@@ -1336,8 +1318,8 @@ namespace RFEOnSite
             this.TabControlSiteImage.ResumeLayout(false);
             this.TabControlSiteImage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
-            this.StatusStripMainForm.ResumeLayout(false);
-            this.StatusStripMainForm.PerformLayout();
+            this.StripStatusMainForm.ResumeLayout(false);
+            this.StripStatusMainForm.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1378,7 +1360,7 @@ namespace RFEOnSite
         private Label LabelExecTask;
         private CheckBox CheckBoxRadialAzimuth;
         private NumericUpDown NumericUpDownMarkerNumber;
-        private TextBox TextBoxCollectionSite;
+        private TextBox TextBoxMarkerName;
         private CheckBox CheckBoxAutoIncrementMarkerNumber;
         private TextBox TextBoxClient;
         private GroupBox GroupBoxConfiguration;
@@ -1407,17 +1389,17 @@ namespace RFEOnSite
         private Label LabelRadialAzimuth;
         private NumericUpDown NumericUpDownRadialAzimuth;
         private Label LabelActualSweeps;
-        private MenuStrip MenuStrip1;
-        private ToolStripMenuItem toolStripMenuItemFile;
-        private ToolStripMenuItem ToolStripMenuItemPreset;
+        private MenuStrip MenuStripMainForm;
+        private ToolStripMenuItem MenuStripMenuItemFile;
+        private ToolStripMenuItem MenuStripMenuItemPreset;
         private Button ButtonCloseSerialPort;
         private CheckBox CheckBoxHoldStep;
         private CheckBox CheckBoxHoldStop;
         private CheckBox CheckBoxHoldStart;
         private TextBox TextBoxFloorName;
         private GroupBox GroupBoxFloorId;
-        private RadioButton RadioButtonAutoTextIncrement;
-        private RadioButton RadioButtonAutoTextDecrement;
+        private RadioButton RadioButtonFloorIncrement;
+        private RadioButton RadioButtonFloorDecrement;
         private NumericUpDown NumericUpDownFloorNumber;
         private GroupBox GroupBoxMarkerId;
         private TabControl TabControlMain;
@@ -1432,9 +1414,8 @@ namespace RFEOnSite
         private TabPage TabControlSiteImage;
         private PictureBox PictureBox;
         private Label LabelCaptured;
-        private Button ButtonPersistRecall;
         private Button ButtonPersistClear;
-        private StatusStrip StatusStripMainForm;
+        private StatusStrip StripStatusMainForm;
         private GroupBox GroupBoxCsvInformation;
         private GroupBox GroupBoxCurrentSweepChartConfiguration;
         private Panel PanelChart;

@@ -15,6 +15,7 @@ using System.Drawing.Imaging;
 using System.Threading;
 using System.Media;
 using RFE_OnSite.Properties;
+using System.Diagnostics;
 
 namespace RFEOnSite
 {
@@ -24,6 +25,10 @@ namespace RFEOnSite
 
         public MainForm()
         {
+
+            //if (Debugger.IsAttached)
+            //    Settings.Default.Reset();
+
 
             gRFEOnSite = new GlobalData();
 
@@ -119,6 +124,8 @@ namespace RFEOnSite
             gRFEOnSite.Graph.Chart.Series.Add(gRFEOnSite.Graph.Series);
 
             PanelChart.Controls.Add(gRFEOnSite.Graph.Chart);
+
+            RecallUiPersistanceStates();
         }
         private void MainForm_FormClosing(Object sender, FormClosingEventArgs e)
         {
@@ -131,38 +138,70 @@ namespace RFEOnSite
                 return;
             }
 
-
-            GetUiPersistanceStates();
-
+            SaveUiPersistanceStatesInternal();
             Settings.Default.Save();
-
 
             gRFEOnSite.Explorer.DestroyReceiveDataThread();
             gRFEOnSite.Explorer.DisconnectSerialPort();
         }
 
-        void GetUiPersistanceStates()
+        void SaveUiPersistanceStatesInternal()
         {
-
             Settings.Default.Persist_SaveCsvCheckedState = this.CheckBoxSaveCsvFiles.Checked;
+
+            Settings.Default.Persist_ClientTextState = this.TextBoxClient.Text;
+            Settings.Default.Persist_LocationTextState = this.TextBoxCollectionLocation.Text;
+
+            Settings.Default.Persist_FloorTextState = this.TextBoxFloorName.Text;
+            Settings.Default.Persist_FloorNumberState = this.NumericUpDownFloorNumber.Value;
+            Settings.Default.Persist_FloorEnableState = this.ButtonFloorId.Text;
+            Settings.Default.Persist_FloorDecrementState = this.RadioButtonFloorDecrement.Checked;
+
+            Settings.Default.Persist_MarkerTextState = this.TextBoxMarkerName.Text;
+            Settings.Default.Persist_MarkerNumberState = this.NumericUpDownMarkerNumber.Value;
+            Settings.Default.Persist_MarkerIncrementState = this.CheckBoxAutoIncrementMarkerNumber.Checked;
+
+
             Settings.Default.Persist_AutoScaleState = this.CheckBoxChartAutoScale.Checked;
             Settings.Default.Persist_AverageState = this.CheckBoxChartAverage.Checked;
-            Settings.Default.Persist_ClientTextState = this.TextBoxClient.Text;
-            Settings.Default.Persist_FloorDecrementState = this.RadioButtonAutoTextDecrement.Checked;
-            Settings.Default.Persist_FloorEnableState = this.ButtonFloorId.Text;
-            Settings.Default.Persist_FloorNumberState = this.NumericUpDownMarkerNumber.Value;
+            Settings.Default.Persist_PeakState = this.CheckBoxChartPeak.Checked;
+            Settings.Default.Persist_SweepsCountState = this.NumericUpDownSweeps.Value;
 
+            Settings.Default.Persist_Preset = this.ComboBoxPreset.SelectedItem.ToString();
         }
 
-        void SetUiPersistanceStates()
+        void RecallUiPersistanceStates()
         {
             this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
+            if (CheckBoxSaveCsvFiles.Checked)
+            {
+                GroupBoxCsvInformation.Enabled = true;
+            }
+            else
+            {
+                GroupBoxCsvInformation.Enabled = false;
+            }
+
+            this.TextBoxClient.Text = Settings.Default.Persist_ClientTextState;
+            this.TextBoxCollectionLocation.Text = Settings.Default.Persist_LocationTextState;
+
+            this.TextBoxFloorName.Text = Settings.Default.Persist_FloorTextState;
+            this.NumericUpDownFloorNumber.Value = Settings.Default.Persist_FloorNumberState;
+            this.ButtonFloorId.Text = Settings.Default.Persist_FloorEnableState;
+            this.RadioButtonFloorDecrement.Checked = Settings.Default.Persist_FloorDecrementState;
+            RadioButtonFloorIncrement.Checked = !RadioButtonFloorDecrement.Checked;
+
+            this.TextBoxMarkerName.Text = Settings.Default.Persist_MarkerTextState;
+            this.NumericUpDownMarkerNumber.Value = Settings.Default.Persist_MarkerNumberState;
+            this.CheckBoxAutoIncrementMarkerNumber.Checked = Settings.Default.Persist_MarkerIncrementState;
+
             this.CheckBoxChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
             this.CheckBoxChartAverage.Checked = Settings.Default.Persist_AverageState;
-            this.TextBoxClient.Text = Settings.Default.Persist_ClientTextState;
-            this.RadioButtonAutoTextDecrement.Checked = Settings.Default.Persist_FloorDecrementState;
-            this.ButtonFloorId.Text = Settings.Default.Persist_FloorEnableState;
-            this.NumericUpDownMarkerNumber.Value = Settings.Default.Persist_FloorNumberState;
+            this.CheckBoxChartPeak.Checked = Settings.Default.Persist_PeakState;
+            this.NumericUpDownSweeps.Value = Settings.Default.Persist_SweepsCountState;
+
+            //this.ComboBoxPreset.SelectedItem = Settings.Default.Persist_Preset;
+            this.ComboBoxPreset.SelectedItem = "Manual";
         }
 
         public void UIUpdateCallback_RFE_Configuration(RFEConfiguration fromSerialThread)
@@ -491,12 +530,17 @@ namespace RFEOnSite
             ButtonGetRfeConfiguration.Enabled = true;
             ComboBoxPreset.Enabled = true;
             GroupBoxConfiguration.Enabled = true;
+            GroupBoxCurrentSweepChartConfiguration.Enabled = true;
 
             gRFEOnSite.Explorer.RequestConfiguration();
 
             TabControlMain.SelectedTab.Enabled = false;
 
             GroupBoxCsvConfiguration.Enabled = true;
+
+            System.Threading.Thread.Sleep(2000);
+
+            this.TabControlMain.SelectedTab = TabControlMainOmniDirectional;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
@@ -571,22 +615,22 @@ namespace RFEOnSite
                 {
                     if (ButtonFloorId.Text == "Next")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxCollectionSite.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxMarkerName.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
                     }
                     else
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxMarkerName.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
                     }
                 }
                 else
                 {
                     if (ButtonFloorId.Text == "Next")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxCollectionSite.Text);
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxMarkerName.Text);
                     }
                     else
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionSite.Text);
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxMarkerName.Text);
                     }
                 }
 
@@ -1097,7 +1141,7 @@ namespace RFEOnSite
 
             NumericUpDownMarkerNumber.Value = 1;
 
-            if (RadioButtonAutoTextDecrement.Checked == true)
+            if (RadioButtonFloorDecrement.Checked == true)
             {
                 if (NumericUpDownFloorNumber.Value == 1)
                 {
@@ -1134,6 +1178,11 @@ namespace RFEOnSite
 
             if (ButtonFloorId.Text == "Next")
             {
+                TextBoxFloorName.Enabled = true;
+                NumericUpDownFloorNumber.Enabled = true;
+                RadioButtonFloorDecrement.Enabled = true;
+                RadioButtonFloorIncrement.Enabled = true;
+
                 StripStatusLabelCsvDirectory.Text =
                     "CSV Directory: Desktop\\SurveyData\\" +
                     TextBoxClient.Text +
@@ -1143,19 +1192,24 @@ namespace RFEOnSite
                     TextBoxFloorName.Text +
                     NumericUpDownFloorNumber.Value.ToString() +
                     "\\" +
-                    TextBoxCollectionSite.Text +
+                    TextBoxMarkerName.Text +
                     "-" +
                     NumericUpDownMarkerNumber.Value.ToString();
             }
             else
             {
+                TextBoxFloorName.Enabled = false;
+                NumericUpDownFloorNumber.Enabled = false;
+                RadioButtonFloorDecrement.Enabled = false;
+                RadioButtonFloorIncrement.Enabled = false;
+
                 StripStatusLabelCsvDirectory.Text =
                     "CSV Directory: Desktop\\SurveyData\\" +
                     TextBoxClient.Text +
                     "\\" +
                     TextBoxCollectionLocation.Text +
                     "\\" +
-                    TextBoxCollectionSite.Text +
+                    TextBoxMarkerName.Text +
                     "-" +
                     NumericUpDownMarkerNumber.Value.ToString();
             }
@@ -1190,8 +1244,6 @@ namespace RFEOnSite
         {
             if (!gRFEOnSite.CaptureImage)
             {
-                //ButtonCaptureImage.BackColor = Color.Gray;
-                //PictureBox.BackColor = Color.Gray;
                 return;
             }
 
@@ -1247,24 +1299,34 @@ namespace RFEOnSite
             }
         }
 
-        private void ButtonPersistRecal_Click(object sender, EventArgs e)
-        {
-            GetUiPersistanceStates();
-
-            RefreshUI();
-        }
-
         private void ButtonPersistClear_Click(object sender, EventArgs e)
         {
-            this.CheckBoxSaveCsvFiles.Checked = false;
+            //this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
+            this.TextBoxClient.Text = "Client";
+            this.TextBoxCollectionLocation.Text = "Collection Location";
+
+            this.TextBoxFloorName.Text = "Floor";
+            this.NumericUpDownFloorNumber.Value = 1;
+            this.ButtonFloorId.Text = "Enable";
+            this.RadioButtonFloorDecrement.Checked = false;
+            RadioButtonFloorIncrement.Checked = true;
+
+            this.TextBoxMarkerName.Text = "M";
+            this.NumericUpDownMarkerNumber.Value = 1;
+            //this.CheckBoxAutoIncrementMarkerNumber.Checked = false;
+
+
             this.CheckBoxChartAutoScale.Checked = false;
             this.CheckBoxChartAverage.Checked = true;
-            this.TextBoxClient.Text = "Client";
-            this.RadioButtonAutoTextDecrement.Checked = true;
-            this.ButtonFloorId.Text = "Enable";
-            this.NumericUpDownMarkerNumber.Value = 1;
+            this.CheckBoxChartPeak.Checked = true;
+            this.NumericUpDownSweeps.Value = 100;
+
+            //this.ComboBoxPreset.SelectedItem = "Manual";
+
+            this.TabControlMain.SelectedTab = TabControlMainOmniDirectional;
 
             RefreshUI();
+
         }
     }
 }

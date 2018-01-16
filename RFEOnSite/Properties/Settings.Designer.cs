@@ -25,18 +25,6 @@ namespace RFE_OnSite.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Persist_SaveCsvCheckedState {
-            get {
-                return ((bool)(this["Persist_SaveCsvCheckedState"]));
-            }
-            set {
-                this["Persist_SaveCsvCheckedState"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Client")]
         public string Persist_ClientTextState {
             get {
@@ -188,6 +176,30 @@ namespace RFE_OnSite.Properties {
             }
             set {
                 this["Persist_PeakState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Persist_SaveCsvCheckedState {
+            get {
+                return ((bool)(this["Persist_SaveCsvCheckedState"]));
+            }
+            set {
+                this["Persist_SaveCsvCheckedState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Persist_Preset {
+            get {
+                return ((string)(this["Persist_Preset"]));
+            }
+            set {
+                this["Persist_Preset"] = value;
             }
         }
     }

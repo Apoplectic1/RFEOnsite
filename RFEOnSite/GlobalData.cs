@@ -37,10 +37,15 @@ namespace RFEOnSite
         private bool mCaptureImage;
         private bool mCsvDirectoryValid;
 
+        private bool mApplicationInitialized;
+
+
         public double StartFrequency { get { return mStartMHz; } set { mStartMHz = value; } }
         public double StopFrequency { get { return mStopMHz; } set { mStopMHz = value; } }
         public double ResolutionBandWidth { get { return mResolutionBandwidth; } set { mResolutionBandwidth = value; } }
         public double FrequencyStepSize { get { return mStepSize; } set { mStepSize = value; } }
+
+
 
 
         public GlobalData()
@@ -70,9 +75,10 @@ namespace RFEOnSite
             mCancelActive = false;
             mCsvDirectoryValid = false;
             mCaptureImage = false;
+            mApplicationInitialized = false;
         }
 
-
+        public bool ApplicationInitialized { get { return mApplicationInitialized; } set { mApplicationInitialized = value; } }
         public Charts Graph { get { return mChart; } set { mChart = value; } }
         public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
         public Decibels Data { get { return mDecibels; } }

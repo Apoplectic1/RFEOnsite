@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RFE_OnSite.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Persist_SaveCsvCheckedState" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="Persist_ClientTextState" Type="System.String" Scope="User">
       <Value Profile="(Default)">Client</Value>
     </Setting>
@@ -43,6 +40,12 @@
     </Setting>
     <Setting Name="Persist_PeakState" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Persist_SaveCsvCheckedState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Persist_Preset" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
