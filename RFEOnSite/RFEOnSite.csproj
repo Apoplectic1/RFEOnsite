@@ -33,7 +33,7 @@
     <MinimumRequiredVersion>1.3.2.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>2.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -138,19 +138,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationMainForm.cs">
+    <Compile Include="Forms\Main Form\ApplicationMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ApplicationMainForm.Designer.cs">
+    <Compile Include="Forms\Main Form\ApplicationMainForm.Designer.cs">
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chart.cs" />
+    <Compile Include="Charts\BandSummayChart.cs" />
+    <Compile Include="Charts\Chart.cs" />
     <Compile Include="Decibels.cs" />
     <Compile Include="FileOps.cs" />
-    <Compile Include="FullDownlinkForm.cs">
+    <Compile Include="Forms\Full Downlink Form\FullDownlinkForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FullDownlinkForm.Designer.cs">
+    <Compile Include="Forms\Full Downlink Form\FullDownlinkForm.Designer.cs">
       <DependentUpon>FullDownlinkForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalData.cs" />
@@ -158,20 +159,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFExplorer.cs" />
     <Compile Include="RFEConfiguration.cs" />
-    <Compile Include="SerialPorts.cs" />
-    <Compile Include="CsvExport.cs" />
+    <Compile Include="Serial Interfacce\SerialPorts.cs" />
+    <Compile Include="CSV Export\CsvExport.cs" />
     <Compile Include="UIMethods.cs" />
-    <Compile Include="WhoopNodeForm.cs">
+    <Compile Include="Forms\Whoop Downlink Form\WhoopNodeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WhoopNodeForm.Designer.cs">
+    <Compile Include="Forms\Whoop Downlink Form\WhoopNodeForm.Designer.cs">
       <DependentUpon>WhoopNodeForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ApplicationMainForm.resx">
+    <EmbeddedResource Include="Forms\Main Form\ApplicationMainForm.resx">
       <DependentUpon>ApplicationMainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FullDownlinkForm.resx">
+    <EmbeddedResource Include="Forms\Full Downlink Form\FullDownlinkForm.resx">
       <DependentUpon>FullDownlinkForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -184,7 +185,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="WhoopNodeForm.resx">
+    <EmbeddedResource Include="Forms\Whoop Downlink Form\WhoopNodeForm.resx">
       <DependentUpon>WhoopNodeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

@@ -139,23 +139,41 @@ namespace RFEOnSite
         {
             mPairs = new List<PresetTableEntry>();
 
-            mPairs.Add(new PresetTableEntry(728.0, 739.2, eBand.e700));
-            mPairs.Add(new PresetTableEntry(739.2, 750.4, eBand.e700));
-            mPairs.Add(new PresetTableEntry(750.4, 761.6, eBand.e700));
-            mPairs.Add(new PresetTableEntry(865.0, 876.2, eBand.e850));
-            mPairs.Add(new PresetTableEntry(876.2, 887.4, eBand.e850));
-            mPairs.Add(new PresetTableEntry(887.4, 898.6, eBand.e850));
-            mPairs.Add(new PresetTableEntry(1929.0, 1940.2, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1940.2, 1951.4, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1951.4, 1962.6, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1962.6, 1973.8, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1973.8, 1985.0, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1985.0, 1996.2, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(2105.0, 2116.2, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2116.2, 2127.4, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2127.4, 2138.6, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2138.6, 2149.8, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2149.8, 2161.0, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(728.0, 739.2, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(739.2, 750.4, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(750.4, 761.6, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(865.0, 876.2, eBand.e850));
+            //mPairs.Add(new PresetTableEntry(876.2, 887.4, eBand.e850));
+            //mPairs.Add(new PresetTableEntry(887.4, 898.6, eBand.e850));
+            //mPairs.Add(new PresetTableEntry(1929.0, 1940.2, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1940.2, 1951.4, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1951.4, 1962.6, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1962.6, 1973.8, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1973.8, 1985.0, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1985.0, 1996.2, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(2105.0, 2116.2, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2116.2, 2127.4, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2127.4, 2138.6, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2138.6, 2149.8, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2149.8, 2161.0, eBand.eAWS));
+
+            mPairs.Add(new PresetTableEntry(728.0, 739.1, eBand.e700));
+            mPairs.Add(new PresetTableEntry(739.1, 750.2, eBand.e700));
+            mPairs.Add(new PresetTableEntry(750.2, 761.3, eBand.e700));
+            mPairs.Add(new PresetTableEntry(865.0, 876.1, eBand.e850));
+            mPairs.Add(new PresetTableEntry(876.1, 887.2, eBand.e850));
+            mPairs.Add(new PresetTableEntry(887.2, 898.3, eBand.e850));
+            mPairs.Add(new PresetTableEntry(1929.0, 1940.1, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1940.1, 1951.2, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1951.2, 1962.3, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1962.3, 1973.4, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1973.4, 1984.5, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1984.5, 1995.6, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(2105.0, 2116.1, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2116.1, 2127.2, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2127.2, 2138.3, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2138.3, 2149.4, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2149.4, 2160.5, eBand.eAWS));
         }
 
         public IEnumerator<PresetTableEntry> GetEnumerator()
@@ -176,31 +194,57 @@ namespace RFEOnSite
         {
             mPairs = new List<PresetTableEntry>();
 
-            mPairs.Add(new PresetTableEntry(714.0, 725.2, eBand.e700));
-            mPairs.Add(new PresetTableEntry(725.2, 736.4, eBand.e700));
-            mPairs.Add(new PresetTableEntry(736.4, 747.6, eBand.e700));
-            mPairs.Add(new PresetTableEntry(747.6, 758.8, eBand.e700));
-            mPairs.Add(new PresetTableEntry(758.8, 770.0, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(714.0, 725.2, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(725.2, 736.4, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(736.4, 747.6, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(747.6, 758.8, eBand.e700));
+            //mPairs.Add(new PresetTableEntry(758.8, 770.0, eBand.e700));
 
-            mPairs.Add(new PresetTableEntry(865.0, 876.2, eBand.e850));
-            mPairs.Add(new PresetTableEntry(876.2, 887.4, eBand.e850));
-            mPairs.Add(new PresetTableEntry(887.4, 898.6, eBand.e850));
+            //mPairs.Add(new PresetTableEntry(865.0, 876.2, eBand.e850));
+            //mPairs.Add(new PresetTableEntry(876.2, 887.4, eBand.e850));
+            //mPairs.Add(new PresetTableEntry(887.4, 898.6, eBand.e850));
 
-            mPairs.Add(new PresetTableEntry(1929.0, 1940.2, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1940.2, 1951.4, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1951.4, 1962.6, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1962.6, 1973.8, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1973.8, 1985.0, eBand.ePCS));
-            mPairs.Add(new PresetTableEntry(1985.0, 1996.2, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1929.0, 1940.2, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1940.2, 1951.4, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1951.4, 1962.6, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1962.6, 1973.8, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1973.8, 1985.0, eBand.ePCS));
+            //mPairs.Add(new PresetTableEntry(1985.0, 1996.2, eBand.ePCS));
 
 
-            mPairs.Add(new PresetTableEntry(2105.0, 2116.2, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2116.2, 2127.4, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2127.4, 2138.6, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2138.6, 2149.8, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2149.8, 2161.0, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2161.0, 2172.2, eBand.eAWS));
-            mPairs.Add(new PresetTableEntry(2172.2, 2183.4, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2105.0, 2116.2, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2116.2, 2127.4, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2127.4, 2138.6, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2138.6, 2149.8, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2149.8, 2161.0, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2161.0, 2172.2, eBand.eAWS));
+            //mPairs.Add(new PresetTableEntry(2172.2, 2183.4, eBand.eAWS));
+
+            mPairs.Add(new PresetTableEntry(714.0, 725.1, eBand.e700));
+            mPairs.Add(new PresetTableEntry(725.1, 736.2, eBand.e700));
+            mPairs.Add(new PresetTableEntry(736.2, 747.3, eBand.e700));
+            mPairs.Add(new PresetTableEntry(747.3, 758.4, eBand.e700));
+            mPairs.Add(new PresetTableEntry(758.4, 769.5, eBand.e700));
+
+            mPairs.Add(new PresetTableEntry(865.0, 876.1, eBand.e850));
+            mPairs.Add(new PresetTableEntry(876.1, 887.2, eBand.e850));
+            mPairs.Add(new PresetTableEntry(887.2, 898.3, eBand.e850));
+
+            mPairs.Add(new PresetTableEntry(1929.0, 1940.1, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1940.1, 1951.2, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1951.2, 1962.3, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1962.3, 1973.4, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1973.4, 1984.5, eBand.ePCS));
+            mPairs.Add(new PresetTableEntry(1984.5, 1995.6, eBand.ePCS));
+
+
+            mPairs.Add(new PresetTableEntry(2105.0, 2116.1, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2116.1, 2127.2, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2127.2, 2138.3, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2138.3, 2149.4, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2149.4, 2160.5, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2160.5, 2171.6, eBand.eAWS));
+            mPairs.Add(new PresetTableEntry(2171.6, 2182.7, eBand.eAWS));
         }
 
         public IEnumerator<PresetTableEntry> GetEnumerator()

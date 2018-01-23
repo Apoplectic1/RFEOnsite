@@ -12,5 +12,6 @@ namespace RFEOnSite
         {
             mMainForm = form;
         }
+
     }
 }

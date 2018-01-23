@@ -849,7 +849,7 @@ namespace RFEOnSite
                         ButtonSetConfiguration.Enabled = true;
                     }
                 }
-
+                //AddBandSummaryChart();
                 return;
             }
 
@@ -1328,6 +1328,7 @@ namespace RFEOnSite
             RefreshUI();
 
         }
+
 
         private void MenuStripMenuItemPreset_Click(object sender, EventArgs e)
         {
