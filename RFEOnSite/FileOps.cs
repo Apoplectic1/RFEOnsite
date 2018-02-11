@@ -246,7 +246,7 @@ namespace RFEOnSite
         // ** Write CsvFiles from Swept List Data
         // *****************************************************************************************
         // *****************************************************************************************
-        public bool ExportCsvFile(double start, double stop, double stepSize,  List<string> data)
+        public bool ExportCsvFile(double startMhz, double stopMhz, double stepSize,  List<string> data)
         {
             mCsvExport = new CsvExport();
 
@@ -256,7 +256,7 @@ namespace RFEOnSite
             frequencyList.Clear();
 
             //double stepMHz = stepSize / 1000.0;
-            double freq = start;
+            double freq = startMhz;
             for (int step = 0; step < 112; step++)
             {
                 frequencyList.Add(freq);

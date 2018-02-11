@@ -297,8 +297,44 @@ namespace RFEOnSite
             {
                 string fileName = TextBoxCollectionLocation.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
                 string dateString = gRFEOnSite.FileOps.RunStartTime.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
-                string rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
-                string rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
+
+                // Convert 714.3435 in MHz to string like 07143
+                // 714.0000  should be 07140
+                // The Text box may or may not have a decimal point
+                string rangeString1;
+                string rangeString2;
+
+                if (TextBoxStartFrequency.Text.Contains("."))
+                {
+                    rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
+                }
+                else
+                {
+                    rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text).ToString("D4") + "0to";
+                }
+               
+
+                if (TextBoxStopFrequency.Text.Contains("."))
+                {
+                    rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
+                }
+                else
+                {
+                    rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text).ToString("D4") + "0";
+                }
+
+
+                // *********************************
+                // *********************************
+                // This is a BAD way of fixing the file name
+
+                double tempStopMhz = Convert.ToDouble(rangeString2);
+                double tempStepSize = Convert.ToDouble(TextBoxStepFrequency.Text);
+                string tempRangeString2 = (tempStopMhz - (tempStepSize/100.0)).ToString();
+                rangeString2 = Convert.ToInt64(tempRangeString2.Replace(".", "")).ToString("D5");
+
+
+                //**********************************
 
                 if (gRFEOnSite.RadialSurvey)
                 {
@@ -1009,7 +1045,7 @@ namespace RFEOnSite
             double start, stop, stepSize;
             bool bStatus;
 
-            bStatus = Double.TryParse(TextBoxStopFrequency.Text, out start);
+            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start); // **** stop
             Double.TryParse(TextBoxStopFrequency.Text, out stop);
 
             if (bStatus)
