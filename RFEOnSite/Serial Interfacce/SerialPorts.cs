@@ -12,14 +12,13 @@ namespace RFEOnSite
     {
         private static string[] mEnumeratedComPortNames;
         private static string[] mConnectedPorts;
-        private string mConnectedPort;
         private SerialPort mSerialPort;
         private bool mRFEConnected;
 
         public string[] ComPortName { get { return mConnectedPorts; } }
         public bool RFEConnected { get { return mRFEConnected; } }
         public SerialPort Port { get { return mSerialPort; } set { mSerialPort = value; } }
-        public string ConnectedPortName { get { return mConnectedPort; } }
+        public string ConnectedPortName { get; private set; }
         private static bool IsConnectedPort(string sPortName)
         {
             foreach (string sPort in mEnumeratedComPortNames)
@@ -103,11 +102,11 @@ namespace RFEOnSite
 
             if (mConnectedPorts != null)
             {
-                mConnectedPort = String.Concat(mConnectedPorts);
+                ConnectedPortName = String.Concat(mConnectedPorts);
                 return true;
             }
 
-            mConnectedPort = "";
+            ConnectedPortName = "";
             return false;
         }
 

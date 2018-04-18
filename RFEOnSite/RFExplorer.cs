@@ -39,6 +39,7 @@ namespace RFEOnSite
             mWaitingForConfigurationFlag = true;
         }
 
+        //Background Thread to find and connect to serial port. Main Thread Awaits completion
         public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)
         {
             mSerialPort.FindSerialPorts();
@@ -199,15 +200,6 @@ namespace RFEOnSite
                                         progressBarProgress.Report(0);
                                     }
                                 }
-                                //else
-                                //{
-                                //    // Sweeping is now done so stop and report results using two Progress callbacks.
-                                //    mCapture = false;
-                                //    sReceived = "";
-                                //    sNewText = "";
-                                //    sweepData.Report(mReceivedSweep);
-                                //    progressBarProgress.Report(0);
-                                //}
                             }
                         }
                     }

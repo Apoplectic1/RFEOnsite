@@ -1370,5 +1370,15 @@ namespace RFEOnSite
         {
             Application.Exit();
         }
+
+        private void BaudRate_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://j3.rf-explorer.com/62-rfe/troubleshooting/104-troubleshooting-usb-drivers");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://j3.rf-explorer.com/download/sw/win/RFExplorer_USB_Driver.zip");
+        }
     }
 }

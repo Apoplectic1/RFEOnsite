@@ -104,6 +104,7 @@ namespace RFEOnSite
         public bool CancelActive { get { return mCancelActive; } set { mCancelActive = value; } }
         public bool CsvDirectoryValid { get { return mCsvDirectoryValid; } set { mCsvDirectoryValid = value; } }
         public bool CaptureImage { get { return mCaptureImage; } set { mCaptureImage = value; } }
+        public int BaudRate { get; set; }
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };
