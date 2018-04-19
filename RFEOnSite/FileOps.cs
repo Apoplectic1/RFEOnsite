@@ -11,7 +11,6 @@ namespace RFEOnSite
     public class FileOps
     {
         private Stack mCwdQueue;
-
         public CsvExport ExportCsv { get; set; }
         public Decibels SweepDdm { get; set; }
         public FolderBrowserDialog FolderDialog { get; set; }

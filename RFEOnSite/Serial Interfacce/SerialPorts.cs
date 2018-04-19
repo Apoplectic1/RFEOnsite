@@ -13,6 +13,7 @@ namespace RFEOnSite
         private static string[] mEnumeratedComPortNames;
         private static string[] mConnectedPorts;
 
+        public int BaudRate { get; set; } = 500000;
         public string[] ComPortName { get { return mConnectedPorts; } }
         public bool RFEConnected { get; private set; }
         public SerialPort Port { get; set; }
@@ -118,7 +119,7 @@ namespace RFEOnSite
             {
                 Monitor.Enter(Port);
 
-                Port.BaudRate = 500000;
+                Port.BaudRate = BaudRate;
                 Port.DataBits = 8;
                 Port.StopBits = StopBits.One;
                 Port.Parity = Parity.None;
@@ -142,8 +143,22 @@ namespace RFEOnSite
             catch (Exception)
             {
                 string message; // = obException.ToString();
-                string caption = "Serial Port Connection Error";
-                message = "After Application closes:\n\t1. Disconnect the RF Explorer USB cable.\n\t2. Cycle RF Explorer Power.\n\t3. Reconnect and try again.";
+                string caption = "USB Cable/Serial Port Connection Error";
+                message = "Most likely causes include:\n" +
+                    "\t1. USB Cable Connection or Faulty USB Cable.\n" +
+                    "\t2. Silicon Image USB Driver not Version 6.7.5\n" +
+                    "\t3. Connection Baud Rate setting mismatch.\n" +
+                    "\t    Connection assumes 500,000 Baud.\n" +
+                    "\n" +
+                    "After application closes:\n" +
+                    "\t1. Disconnect the RF Explorer USB cable.\n" + 
+                    "\t2. Cycle RF Explorer Power.\n" +
+                    "\t3. Verify Baud Rate in the Explorer configuration menu.\n" +
+                    "\t4. Reconnect USB cable and try again.\n" +
+                    "\t5. Click 'USB Trouble Shooting' button after restart.\n" + 
+                    "\t6. Complete USB driver removal and re-install.\n" +
+                    "\t7. Force 2400 Baud from 'USB Settings' Menu.\n" +
+                    "\t   Requires setting configuration menu to 2.4 kbps";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
@@ -152,7 +167,7 @@ namespace RFEOnSite
 
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                        Application.Exit();
+                        Environment.Exit(1);
                 }
             }
             finally

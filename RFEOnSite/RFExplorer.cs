@@ -21,7 +21,7 @@ namespace RFEOnSite
         public List<string> SweepData { get { return mReceivedSweep; } }
         public bool WaitingForConfigurationCallBack { get; set; }
 
-
+        public bool Force2400Baud { get; set; } = false;
 
         public RFExplorer()
         {
@@ -40,7 +40,14 @@ namespace RFEOnSite
         public void InitializeSerialConnection(IProgress<string> UpdateUIComPortText)
         {
             mSerialPort.FindSerialPorts();
-
+            if (Force2400Baud)
+            {
+                mSerialPort.BaudRate = 2400;
+            }
+            else
+            {
+                mSerialPort.BaudRate = 500000;
+            }
             mSerialPort.ConnectPort();
 
             UpdateUIComPortText.Report(mSerialPort.ConnectedPortName);

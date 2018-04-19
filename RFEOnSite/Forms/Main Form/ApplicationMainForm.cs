@@ -9,13 +9,10 @@ using System.Windows.Forms.DataVisualization.Charting;
 using static RFEOnSite.RFExplorer;
 
 using Emgu.CV;
-using Emgu.CV.UI;
-using Emgu.CV.Structure;
 using System.Drawing.Imaging;
 using System.Threading;
 using System.Media;
 using RFE_OnSite.Properties;
-using System.Diagnostics;
 
 namespace RFEOnSite
 {
@@ -168,6 +165,7 @@ namespace RFEOnSite
             Settings.Default.Persist_SweepsCountState = this.NumericUpDownSweeps.Value;
 
             Settings.Default.Persist_Preset = this.ComboBoxPreset.SelectedItem.ToString();
+            Settings.Default.Persist_2400State = this.force2400BaudToolStripMenuItem.Checked;
         }
 
         void RecallUiPersistanceStates()
@@ -199,6 +197,7 @@ namespace RFEOnSite
             this.CheckBoxChartAverage.Checked = Settings.Default.Persist_AverageState;
             this.CheckBoxChartPeak.Checked = Settings.Default.Persist_PeakState;
             this.NumericUpDownSweeps.Value = Settings.Default.Persist_SweepsCountState;
+            this.force2400BaudToolStripMenuItem.Checked = Settings.Default.Persist_2400State;
 
             //this.ComboBoxPreset.SelectedItem = Settings.Default.Persist_Preset;
             this.ComboBoxPreset.SelectedItem = "Manual";
@@ -539,14 +538,11 @@ namespace RFEOnSite
             // The thread then updates the GUI
             ButtonFindCOMPorts.Enabled = false;
 
+            gRFEOnSite.Explorer.Force2400Baud = force2400BaudToolStripMenuItem.Checked;
+
             IProgress<string> UIComPortLabel = new Progress<string>(s => LabelRFEComPort.Text = s);
             await Task.Factory.StartNew(() => gRFEOnSite.Explorer.InitializeSerialConnection(UIComPortLabel));
 
-            if (!LabelRFEComPort.Text.Contains("COM"))
-            {
-                ButtonFindCOMPorts.Text = "Not Found. Try Again.";
-                return;
-            }
 
             ButtonFindCOMPorts.Text = "Connected";
             ButtonFindCOMPorts.Enabled = false;
@@ -574,9 +570,40 @@ namespace RFEOnSite
 
             GroupBoxCsvConfiguration.Enabled = true;
 
-            System.Threading.Thread.Sleep(2000);
-
             
+            await Task.Delay(2000);
+
+
+            if (LabelFirmwareText.Text == @"N/A")
+            {
+                string message; // = obException.ToString();
+                string caption = "USB Cable/Serial Port Connection Error";
+                message = "Most likely causes include:\n" +
+                    "\t1. USB Cable Connection or Faulty USB Cable.\n" +
+                    "\t2. Silicon Image USB Driver not Version 6.7.5\n" +
+                    "\t3. Connection Baud Rate setting mismatch.\n" +
+                    "\t    Connection assumes 500,000 Baud.\n" +
+                    "\n" +
+                    "After application closes:\n" +
+                    "\t1. Disconnect the RF Explorer USB cable.\n" +
+                    "\t2. Cycle RF Explorer Power.\n" +
+                    "\t3. Verify Baud Rate in the Explorer configuration menu.\n" +
+                    "\t4. Reconnect USB cable and try again.\n" +
+                    "\t5. Click 'USB Trouble Shooting' button after restart.\n" +
+                    "\t6. Complete USB driver removal and re-install.\n" +
+                    "\t7. Force 2400 Baud from 'USB Settings' Menu.\n" +
+                    "\t   Requires setting USB configuration menu to 2.4 kbps";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the Exception MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    Environment.Exit(1);
+                }
+            }
 
             this.TabControlMain.SelectedTab = TabControlMainOmniDirectional;
         }
@@ -1255,6 +1282,7 @@ namespace RFEOnSite
 
         VideoCapture mCapture;
         Mat mMat;
+        Mat newMat;
 
         private void ButtonCaptureImage_Click(object sender, EventArgs e)
         {
@@ -1271,8 +1299,8 @@ namespace RFEOnSite
             SystemSounds.Asterisk.Play();
 
             Thread.Sleep(500);
-
-            mMat.Bitmap.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".png", ImageFormat.Png);
+            Bitmap resized = new Bitmap(mMat.Bitmap, new Size(mMat.Bitmap.Width * 4, mMat.Bitmap.Height * 4));
+            resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", ImageFormat.Jpeg);
 
             LabelCaptured.Text = "";
             ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;

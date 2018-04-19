@@ -30,7 +30,6 @@ namespace RFEOnSite
         public double StartFrequency { get; set; }
         public double StopFrequency { get; set; }
         public ePreset PresetType { get; set; }
-        public int BaudRate { get; set; }
         public int PresetTableIndex { get; set; }
         public int RadialDegrees { get; set; }
         public string Client { get; set; }

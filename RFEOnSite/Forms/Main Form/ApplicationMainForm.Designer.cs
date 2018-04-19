@@ -111,6 +111,8 @@ namespace RFEOnSite
             this.MenuStripMainForm = new System.Windows.Forms.MenuStrip();
             this.MenuStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripMenuItemPreset = new System.Windows.Forms.ToolStripMenuItem();
+            this.uSBSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.force2400BaudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabControlMainConnection = new System.Windows.Forms.TabPage();
             this.LabelPortText = new System.Windows.Forms.Label();
@@ -127,7 +129,6 @@ namespace RFEOnSite
             this.StripStatusLabelPreset = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelDivision1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelCsvDirectory = new System.Windows.Forms.ToolStripStatusLabel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepConfiguration.SuspendLayout();
             this.GroupBoxCurrentSweepChartConfiguration.SuspendLayout();
@@ -159,7 +160,7 @@ namespace RFEOnSite
             this.ButtonFindCOMPorts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.ButtonFindCOMPorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ButtonFindCOMPorts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonFindCOMPorts.Location = new System.Drawing.Point(81, 19);
+            this.ButtonFindCOMPorts.Location = new System.Drawing.Point(81, 36);
             this.ButtonFindCOMPorts.Name = "ButtonFindCOMPorts";
             this.ButtonFindCOMPorts.Size = new System.Drawing.Size(155, 73);
             this.ButtonFindCOMPorts.TabIndex = 0;
@@ -1114,7 +1115,8 @@ namespace RFEOnSite
             // MenuStripMainForm
             // 
             this.MenuStripMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuStripMenuItemFile});
+            this.MenuStripMenuItemFile,
+            this.uSBSettingsToolStripMenuItem});
             this.MenuStripMainForm.Location = new System.Drawing.Point(0, 0);
             this.MenuStripMainForm.Name = "MenuStripMainForm";
             this.MenuStripMainForm.Size = new System.Drawing.Size(1001, 24);
@@ -1136,6 +1138,26 @@ namespace RFEOnSite
             this.MenuStripMenuItemPreset.Text = "Exit";
             this.MenuStripMenuItemPreset.Click += new System.EventHandler(this.MenuStripMenuItemPreset_Click);
             // 
+            // uSBSettingsToolStripMenuItem
+            // 
+            this.uSBSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.force2400BaudToolStripMenuItem});
+            this.uSBSettingsToolStripMenuItem.Name = "uSBSettingsToolStripMenuItem";
+            this.uSBSettingsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.uSBSettingsToolStripMenuItem.Text = "USB Settings";
+            // 
+            // force2400BaudToolStripMenuItem
+            // 
+            this.force2400BaudToolStripMenuItem.AutoToolTip = true;
+            this.force2400BaudToolStripMenuItem.BackColor = System.Drawing.Color.Yellow;
+            this.force2400BaudToolStripMenuItem.CheckOnClick = true;
+            this.force2400BaudToolStripMenuItem.Name = "force2400BaudToolStripMenuItem";
+            this.force2400BaudToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.force2400BaudToolStripMenuItem.Text = "Force 2400 Baud";
+            this.force2400BaudToolStripMenuItem.ToolTipText = "Use as a last resort. This will result in very slow scans. \n\nYou must also manually set" +
+    " 2.4 kbps in the RF Explorer USB Baud configuration menu.\n\nNote that this setting" +
+    " is PERSISTED.";
+            // 
             // TabControlMain
             // 
             this.TabControlMain.Controls.Add(this.TabControlMainConnection);
@@ -1153,7 +1175,6 @@ namespace RFEOnSite
             // TabControlMainConnection
             // 
             this.TabControlMainConnection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.TabControlMainConnection.Controls.Add(this.checkBox1);
             this.TabControlMainConnection.Controls.Add(this.LabelPortText);
             this.TabControlMainConnection.Controls.Add(this.LabelModel);
             this.TabControlMainConnection.Controls.Add(this.LabelDevice);
@@ -1196,7 +1217,7 @@ namespace RFEOnSite
             this.GroupBoxDocumentation.Size = new System.Drawing.Size(455, 169);
             this.GroupBoxDocumentation.TabIndex = 21;
             this.GroupBoxDocumentation.TabStop = false;
-            this.GroupBoxDocumentation.Text = "Docunentation and USB Trouble Shooting";
+            this.GroupBoxDocumentation.Text = "Documentation and USB Trouble Shooting";
             // 
             // BaudRate
             // 
@@ -1310,17 +1331,6 @@ namespace RFEOnSite
             // 
             this.StripStatusLabelCsvDirectory.Name = "StripStatusLabelCsvDirectory";
             this.StripStatusLabelCsvDirectory.Size = new System.Drawing.Size(0, 17);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(108, 98);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(114, 24);
-            this.checkBox1.TabIndex = 22;
-            this.checkBox1.Text = "2400 BAUD";
-            this.ToolTip1.SetToolTip(this.checkBox1, "Check ");
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1476,7 +1486,8 @@ namespace RFEOnSite
         private Button BaudRate;
         private Button button1;
         private GroupBox GroupBoxDocumentation;
-        private CheckBox checkBox1;
+        private ToolStripMenuItem uSBSettingsToolStripMenuItem;
+        private ToolStripMenuItem force2400BaudToolStripMenuItem;
     }
 }
 
