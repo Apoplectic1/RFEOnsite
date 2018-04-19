@@ -67,30 +67,26 @@ namespace RFEOnSite
             public double mfMaxFreqMHz;
             public double mfMaxSpanMHz;
             public double mfMinFreqMHz;
-            private double mResolutionBandwidthKHz;
-            private double mfStartMHz;
-            private double mfStepMHz;
             public eCalculator eCalculator;
             public eMode eMode;
             public eModel mExpansionModel;
             public eModel mMainModel;
             public eConfigState mConfigurationState;
             public float fOffset_dB;
-            private string mFirmwareVersion;
             public string mSerialNumber;
             public List<double> mFreqencyList;
             public List<string> mSweepsFromExplorer;
-            
 
-            public double StartMHz{ get { return mfStartMHz; } }
-            public double StepMHz { get { return mfStepMHz; } }
-            public double RBWKHz { get { return mResolutionBandwidthKHz; } }
-            public string FirmwareVersion { get { return mFirmwareVersion; } set { mFirmwareVersion = value; } }
+
+            public double StartMHz { get; private set; }
+            public double StepMHz { get; private set; }
+            public double RBWKHz { get; private set; }
+            public string FirmwareVersion { get; set; }
 
             public RFEConfiguration()
             {
-                mfStartMHz = 0.0;
-                mfStepMHz = 0.0;
+                StartMHz = 0.0;
+                StepMHz = 0.0;
                 mAmplitudeTopDbm = 0.0;
                 mAmplitudeBottomDdm = 0.0;
                 mFreqSpectrumSteps = 0;
@@ -99,13 +95,13 @@ namespace RFEOnSite
                 mfMinFreqMHz = 0.0;
                 mfMaxFreqMHz = 0.0;
                 mfMaxSpanMHz = 0.0;
-                mResolutionBandwidthKHz = 0.0;
+                RBWKHz = 0.0;
                 fOffset_dB = 0.0f;
                 eCalculator = eCalculator.UNKNOWN;
                 mSerialNumber = String.Empty;
                 mMainModel = eModel.None;
                 mExpansionModel = eModel.None;
-                mFirmwareVersion = String.Empty;
+                FirmwareVersion = String.Empty;
                 mFreqencyList = new List<double>();
                 mSweepsFromExplorer = new List<string>();
 
@@ -117,7 +113,7 @@ namespace RFEOnSite
             {
                 mMainModel = (eModel)Convert.ToUInt16(sLine.Substring(6, 3));
                 mExpansionModel = (eModel)Convert.ToUInt16(sLine.Substring(10, 3));
-                mFirmwareVersion = sLine.Substring(14, 5);
+                FirmwareVersion = sLine.Substring(14, 5);
 
                 return true;
             }
@@ -134,8 +130,8 @@ namespace RFEOnSite
             public bool ParseConfiguration(string sLine)
             {
                 
-                mfStartMHz = Convert.ToInt32(sLine.Substring(6, 7)) / 1000.0;
-                mfStepMHz = Convert.ToInt32(sLine.Substring(14, 7)) / 1000000.0;
+                StartMHz = Convert.ToInt32(sLine.Substring(6, 7)) / 1000.0;
+                StepMHz = Convert.ToInt32(sLine.Substring(14, 7)) / 1000000.0;
                 mAmplitudeTopDbm = Convert.ToInt32(sLine.Substring(22, 4));
                 mAmplitudeBottomDdm = Convert.ToInt32(sLine.Substring(27, 4));
                 mFreqSpectrumSteps = Convert.ToUInt16(sLine.Substring(32, 4));
@@ -144,7 +140,7 @@ namespace RFEOnSite
                 mfMinFreqMHz = Convert.ToInt32(sLine.Substring(43, 7)) / 1000.0;
                 mfMaxFreqMHz = Convert.ToInt32(sLine.Substring(51, 7)) / 1000.0;
                 mfMaxSpanMHz = Convert.ToInt32(sLine.Substring(59, 7)) / 1000.0;
-                mResolutionBandwidthKHz = Convert.ToInt32(sLine.Substring(67, 5));
+                RBWKHz = Convert.ToInt32(sLine.Substring(67, 5));
                 eCalculator = (eCalculator)Convert.ToUInt16(sLine.Substring(73, 3));
 
                 mConfigurationState = eConfigState.eExplorerValid;

@@ -576,6 +576,8 @@ namespace RFEOnSite
 
             System.Threading.Thread.Sleep(2000);
 
+            
+
             this.TabControlMain.SelectedTab = TabControlMainOmniDirectional;
         }
 

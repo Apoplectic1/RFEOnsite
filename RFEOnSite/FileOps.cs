@@ -10,33 +10,23 @@ namespace RFEOnSite
 {
     public class FileOps
     {
-        private CsvExport mCsvExport;
-        private Decibels mDbm;
-        private FolderBrowserDialog mFolderDialog;
-        private double mStartMHz;
-        private double mStepMHz;
-        private double mStopMHz;
-        private int mSweepCount;
-        private string mFileName;
-        private int mFileCount;
-        private DateTime mRunStartTime;
         private Stack mCwdQueue;
 
-        public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
-        public Decibels SweepDdm { get { return mDbm; } set { mDbm = value; } }
-        public FolderBrowserDialog FolderDialog { get { return mFolderDialog; } set { mFolderDialog = value; } }
-        public double StartMHz { get { return mStartMHz; } set { mStartMHz = value; } }
-        public double StepMHz { get { return mStepMHz; } set { mStepMHz = value; } }
-        public double StopMHz { get { return mStopMHz; } set { mStopMHz = value; } }
-        public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
-        public string Path { get { return mFileName; } set { mFileName = value; } }
-        public int FileCounter { get { return mFileCount; } set { mFileCount = value; } }
-        public DateTime RunStartTime { get { return mRunStartTime; } set { mRunStartTime = value; } }
+        public CsvExport ExportCsv { get; set; }
+        public Decibels SweepDdm { get; set; }
+        public FolderBrowserDialog FolderDialog { get; set; }
+        public double StartMHz { get; set; }
+        public double StepMHz { get; set; }
+        public double StopMHz { get; set; }
+        public int SweepCount { get; set; }
+        public string Path { get; set; }
+        public int FileCounter { get; set; }
+        public DateTime RunStartTime { get; set; }
 
         public FileOps()
         {
-            mFolderDialog = new FolderBrowserDialog();
-            mFileName = string.Empty;
+            FolderDialog = new FolderBrowserDialog();
+            Path = string.Empty;
             mCwdQueue = new Stack();
         }
         
@@ -248,7 +238,7 @@ namespace RFEOnSite
         // *****************************************************************************************
         public bool ExportCsvFile(double startMhz, double stopMhz, double stepSize,  List<string> data)
         {
-            mCsvExport = new CsvExport();
+            ExportCsv = new CsvExport();
 
             string frequency;
             List<double> frequencyList = new List<double>();
@@ -265,7 +255,7 @@ namespace RFEOnSite
 
             for (int sweepIndex = 0; sweepIndex < data.Count; sweepIndex++)
             {
-                mCsvExport.AddRow();
+                ExportCsv.AddRow();
                 string row = data[sweepIndex];
 
                 for (int index = 0; index != 112; index++)
@@ -273,13 +263,13 @@ namespace RFEOnSite
                     frequency = frequencyList[index].ToString("F8");
                     Int32 dBm = Convert.ToInt16(row[index + 3]);
 
-                    mCsvExport[frequency] = (-(Convert.ToDouble(dBm) / 2.0)).ToString("F1");
+                    ExportCsv[frequency] = (-(Convert.ToDouble(dBm) / 2.0)).ToString("F1");
                 }
             }
 
-            mCsvExport.ExportToFile(mFileName);
+            ExportCsv.ExportToFile(Path);
 
-            mCsvExport = null;
+            ExportCsv = null;
 
             return true;
         }

@@ -12,13 +12,15 @@ namespace RFEOnSite
     {
         private static string[] mEnumeratedComPortNames;
         private static string[] mConnectedPorts;
-        private SerialPort mSerialPort;
-        private bool mRFEConnected;
 
         public string[] ComPortName { get { return mConnectedPorts; } }
-        public bool RFEConnected { get { return mRFEConnected; } }
-        public SerialPort Port { get { return mSerialPort; } set { mSerialPort = value; } }
+        public bool RFEConnected { get; private set; }
+        public SerialPort Port { get; set; }
         public string ConnectedPortName { get; private set; }
+
+
+
+
         private static bool IsConnectedPort(string sPortName)
         {
             foreach (string sPort in mEnumeratedComPortNames)
@@ -45,7 +47,7 @@ namespace RFEOnSite
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            mSerialPort = new SerialPort();
+            Port = new SerialPort();
 
             mEnumeratedComPortNames = System.IO.Ports.SerialPort.GetPortNames();
 
@@ -114,21 +116,21 @@ namespace RFEOnSite
         {
             try
             {
-                Monitor.Enter(mSerialPort);
+                Monitor.Enter(Port);
 
-                mSerialPort.BaudRate = 500000;
-                mSerialPort.DataBits = 8;
-                mSerialPort.StopBits = StopBits.One;
-                mSerialPort.Parity = Parity.None;
-                mSerialPort.PortName = String.Concat(mConnectedPorts);
-                mSerialPort.ReadTimeout = 100;
-                mSerialPort.WriteBufferSize = 1024;
-                mSerialPort.ReadBufferSize = 8192;
-                mSerialPort.Open();
-                mSerialPort.Handshake = Handshake.None;
-                mSerialPort.Encoding = Encoding.GetEncoding(28591); //Trick: use ASCII and binary together
+                Port.BaudRate = 500000;
+                Port.DataBits = 8;
+                Port.StopBits = StopBits.One;
+                Port.Parity = Parity.None;
+                Port.PortName = String.Concat(mConnectedPorts);
+                Port.ReadTimeout = 100;
+                Port.WriteBufferSize = 1024;
+                Port.ReadBufferSize = 8192;
+                Port.Open();
+                Port.Handshake = Handshake.None;
+                Port.Encoding = Encoding.GetEncoding(28591); //Trick: use ASCII and binary together
 
-                mRFEConnected = true;
+                RFEConnected = true;
 
                 OnPortConnected(new EventArgs());
                 Thread.Sleep(500);
@@ -155,7 +157,7 @@ namespace RFEOnSite
             }
             finally
             {
-                Monitor.Exit(mSerialPort);
+                Monitor.Exit(Port);
             }
         }
 
@@ -163,8 +165,8 @@ namespace RFEOnSite
         {
             try
             {
-                mRFEConnected = false;
-                mSerialPort.Close();
+                RFEConnected = false;
+                Port.Close();
             }
             catch
             {
@@ -186,15 +188,15 @@ namespace RFEOnSite
         /// <param name="sData">unformatted command from http://code.google.com/p/rfexplorer/wiki/RFExplorerRS232Interface </param>
         public void SendCommand(string sData)
         {
-            if (!mRFEConnected)
+            if (!RFEConnected)
             {
                 return;
             }
 
             try
             {
-                Monitor.Enter(mSerialPort);
-                mSerialPort.Write("#" + Convert.ToChar(sData.Length + 2) + sData);
+                Monitor.Enter(Port);
+                Port.Write("#" + Convert.ToChar(sData.Length + 2) + sData);
             }
             catch (Exception)
             {
@@ -202,7 +204,7 @@ namespace RFEOnSite
             }
             finally
             {
-                Monitor.Exit(mSerialPort);
+                Monitor.Exit(Port);
             }
         }
 

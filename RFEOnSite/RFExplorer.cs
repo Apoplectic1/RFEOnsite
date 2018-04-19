@@ -12,17 +12,14 @@ namespace RFEOnSite
         private RFEConfiguration mRFEConfiguration;
         private SerialPorts mSerialPort;
         private Thread mReceiveThread;
-        private bool mCapture;
         private bool mConfigured;
-        private int mSweepCount;
         private bool mSecondReturnedConfiguration; // For synchornization
         private bool mFirstRetunedConfiguration;  // For synchornization
-        private bool mWaitingForConfigurationFlag;
 
-        public int SweepCount { get { return mSweepCount; } set { mSweepCount = value; } }
-        public bool Capture { get { return mCapture; } set { mCapture = value; } }
+        public int SweepCount { get; set; }
+        public bool Capture { get; set; }
         public List<string> SweepData { get { return mReceivedSweep; } }
-        public bool WaitingForConfigurationCallBack { get { return mWaitingForConfigurationFlag; } set { mWaitingForConfigurationFlag = value; } }
+        public bool WaitingForConfigurationCallBack { get; set; }
 
 
 
@@ -31,12 +28,12 @@ namespace RFEOnSite
             mSerialPort = new SerialPorts();
             mReceivedSweep = new List<string>();
             mRFEConfiguration = new RFEConfiguration();
-            mSweepCount = 0;
+            SweepCount = 0;
             mConfigured = false;
-            mCapture = false;
+            Capture = false;
             mSecondReturnedConfiguration = false;
             mFirstRetunedConfiguration = false;
-            mWaitingForConfigurationFlag = true;
+            WaitingForConfigurationCallBack = true;
         }
 
         //Background Thread to find and connect to serial port. Main Thread Awaits completion
@@ -61,7 +58,7 @@ namespace RFEOnSite
 
         public void DestroyReceiveDataThread()
         {
-            mCapture = false;
+            Capture = false;
             mConfigured = false;
             mReceivedSweep.Clear();
 
@@ -78,7 +75,7 @@ namespace RFEOnSite
             string top;
             string bottom;
 
-            mCapture = false;
+            Capture = false;
             mConfigured = false;
 
             mReceivedSweep.Clear();
@@ -178,22 +175,22 @@ namespace RFEOnSite
 
                 if (sReceived.Length > 0)
                 {
-                    if (mConfigured && mCapture)
+                    if (mConfigured && Capture)
                     {
                         if (sNewLine.StartsWith("$S"))
                         {
                             if (sNewLine.Length == 115)
                             {
-                                if (mSweepCount > 0)
+                                if (SweepCount > 0)
                                 {   
                                     //Sweep until count is zero
-                                    progressBarProgress.Report(mSweepCount);
+                                    progressBarProgress.Report(SweepCount);
                                     mReceivedSweep.Add(sNewLine);
-                                    mSweepCount--;
+                                    SweepCount--;
 
-                                    if (mSweepCount == 0)
+                                    if (SweepCount == 0)
                                     {
-                                        mCapture = false;
+                                        Capture = false;
                                         sReceived = "";
                                         sNewText = "";
                                         sweepData.Report(mReceivedSweep);

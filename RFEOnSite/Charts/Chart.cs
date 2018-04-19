@@ -7,19 +7,10 @@ namespace RFEOnSite
 {
     public class Charts
     {
-        private Chart mChart;
         private List<double> mFrequencyList;
-        private Series mSeries;
         private Series mSeriesAverage;
         private Series mSeriesPeak;
         private Single mTitleFontSize;
-        private bool mAutoScale;
-        private bool mGraphAverage;
-        private bool mGraphPeak;
-        private double mMaxX;
-        private double mMaxY;
-        private double mMinX;
-        private double mMinY;
         private double mStepX;
         private double mTickIntervalX;
         private double mTickIntervalY;
@@ -31,32 +22,32 @@ namespace RFEOnSite
         private string mTitleX;
         private string mTitleY;
 
-        public Chart Chart { get { return mChart; } }
-        public Series Series { get { return mSeries; } set { mSeries = value; } }
-        public bool AutoScale { get { return mAutoScale; } set { mAutoScale = value; } }
-        public bool GraphAverage { get { return mGraphAverage; } set { mGraphAverage = value; } }
-        public bool GraphPeak { get { return mGraphPeak; } set { mGraphPeak = value; } }
-        public double MaxX { get { return mMaxX; } set { mMaxX = value; } }
-        public double MaxY { get { return mMaxY; } set { mMaxY = value; } }
-        public double MinX { get { return mMinX; } set { mMinX = value; } }
-        public double MinY { get { return mMinY; } set { mMinY = value; } }
+        public Chart Chart { get; }
+        public Series Series { get; set; }
+        public bool AutoScale { get; set; }
+        public bool GraphAverage { get; set; }
+        public bool GraphPeak { get; set; }
+        public double MaxX { get; set; }
+        public double MaxY { get; set; }
+        public double MinX { get; set; }
+        public double MinY { get; set; }
 
 
         public Charts()
         {
-            mAutoScale = false;
+            AutoScale = false;
             mBackColor = "#e0e0e0";
             mBand = string.Empty;
-            mChart = new Chart();
+            Chart = new Chart();
             mChartFont = "Arial";
             mForeColor = "#f0f0f0";
             mFrequencyList = new List<double>();
-            mGraphAverage = true;
-            mGraphPeak = true;
-            mMaxX = 2800;
-            mMaxY = -25;
-            mMinX = 0;
-            mMinY = -110;
+            GraphAverage = true;
+            GraphPeak = true;
+            MaxX = 2800;
+            MaxY = -25;
+            MinX = 0;
+            MinY = -110;
             mTickIntervalX = 200;
             mTickIntervalY = 10;
             mTitle = "Current Sweep Range";
@@ -68,44 +59,44 @@ namespace RFEOnSite
 
         public void BuildChart()
         {
-            mChart.Name = "RFE";
-            mChart.BackColor = System.Drawing.ColorTranslator.FromHtml(mBackColor);
-            mChart.ChartAreas.Add("");
+            Chart.Name = "RFE";
+            Chart.BackColor = System.Drawing.ColorTranslator.FromHtml(mBackColor);
+            Chart.ChartAreas.Add("");
 
-            mChart.ChartAreas[0].AxisX.Interval = mTickIntervalX;
-            mChart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
-            mChart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
-            mChart.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
-            mChart.ChartAreas[0].AxisX.Maximum = mMaxX;
-            mChart.ChartAreas[0].AxisX.Minimum = mMinX;
-            mChart.ChartAreas[0].AxisX.RoundAxisValues();
-            mChart.ChartAreas[0].AxisX.Title = mTitleX;
-            mChart.ChartAreas[0].AxisX.TitleFont = new System.Drawing.Font(mChartFont, 10F);
+            Chart.ChartAreas[0].AxisX.Interval = mTickIntervalX;
+            Chart.ChartAreas[0].AxisX.LabelStyle.Angle = -90;
+            Chart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
+            Chart.ChartAreas[0].AxisX.LabelStyle.Format = "F1";
+            Chart.ChartAreas[0].AxisX.Maximum = MaxX;
+            Chart.ChartAreas[0].AxisX.Minimum = MinX;
+            Chart.ChartAreas[0].AxisX.RoundAxisValues();
+            Chart.ChartAreas[0].AxisX.Title = mTitleX;
+            Chart.ChartAreas[0].AxisX.TitleFont = new System.Drawing.Font(mChartFont, 10F);
 
-            mChart.ChartAreas[0].AxisY.Interval = mTickIntervalY;
-            mChart.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
-            mChart.ChartAreas[0].AxisY.RoundAxisValues();
-            mChart.ChartAreas[0].AxisY.LabelStyle.Format = "F0";
-            mChart.ChartAreas[0].AxisY.Title = mTitleY;
-            mChart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
-            mChart.ChartAreas[0].AxisY.Maximum = mMaxY;
-            mChart.ChartAreas[0].AxisY.Minimum = mMinY;
+            Chart.ChartAreas[0].AxisY.Interval = mTickIntervalY;
+            Chart.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font(mChartFont, 10F);
+            Chart.ChartAreas[0].AxisY.RoundAxisValues();
+            Chart.ChartAreas[0].AxisY.LabelStyle.Format = "F0";
+            Chart.ChartAreas[0].AxisY.Title = mTitleY;
+            Chart.ChartAreas[0].AxisY.TitleFont = new System.Drawing.Font(mChartFont, 10F);
+            Chart.ChartAreas[0].AxisY.Maximum = MaxY;
+            Chart.ChartAreas[0].AxisY.Minimum = MinY;
 
 
-            mChart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
-            mChart.Titles.Add(mTitle);
-            mChart.Titles[0].Font = new System.Drawing.Font(mChartFont, mTitleFontSize);
+            Chart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
+            Chart.Titles.Add(mTitle);
+            Chart.Titles[0].Font = new System.Drawing.Font(mChartFont, mTitleFontSize);
 
-            mChart.Palette = ChartColorPalette.Bright;
+            Chart.Palette = ChartColorPalette.Bright;
         }
 
         public void DrawChart(bool maxChart, bool avgChart, List<string> stringData)
         {
             double frequency;
 
-            mChart.ChartAreas[0].AxisX.Maximum = mMaxX;
-            mChart.ChartAreas[0].AxisX.Minimum = mMinX;
-            mChart.ChartAreas[0].AxisX.Interval = (mMaxX - mMinX) / 5;
+            Chart.ChartAreas[0].AxisX.Maximum = MaxX;
+            Chart.ChartAreas[0].AxisX.Minimum = MinX;
+            Chart.ChartAreas[0].AxisX.Interval = (MaxX - MinX) / 5;
 
 
             Decibels dBm = new Decibels();
@@ -180,7 +171,7 @@ namespace RFEOnSite
                 dpMaxY.MarkerStyle = MarkerStyle.Circle;
             }
 
-            if (mAutoScale)
+            if (AutoScale)
             {
                 double maxY = dpMaxY.YValues[0];
 
@@ -198,31 +189,31 @@ namespace RFEOnSite
 
                 double temp = (maxY - (maxY % mTickIntervalY));
                 temp = (temp == maxY) ? temp + mTickIntervalY : temp;
-                mChart.ChartAreas[0].AxisY.Maximum = temp;
+                Chart.ChartAreas[0].AxisY.Maximum = temp;
 
                 if ((minY % mTickIntervalY) != 0)
                 {
                     minY = (minY - (minY % mTickIntervalY)) - mTickIntervalY;
                 }
 
-                mChart.ChartAreas[0].AxisY.Minimum = minY;
+                Chart.ChartAreas[0].AxisY.Minimum = minY;
 
             }
             else
             {
-                mChart.ChartAreas[0].AxisY.Maximum = -30;
-                mChart.ChartAreas[0].AxisY.Minimum = -110;
+                Chart.ChartAreas[0].AxisY.Maximum = -30;
+                Chart.ChartAreas[0].AxisY.Minimum = -110;
             }
 
 
 
-            if (mGraphPeak)
+            if (GraphPeak)
             {
-                mChart.Series.Add(mSeriesPeak);
+                Chart.Series.Add(mSeriesPeak);
             }
-            if (mGraphAverage)
+            if (GraphAverage)
             {
-                mChart.Series.Add(mSeriesAverage);
+                Chart.Series.Add(mSeriesAverage);
             }
         }
 
@@ -230,27 +221,27 @@ namespace RFEOnSite
         {
             int foundIndex;
 
-            foundIndex = mChart.Series.IndexOf(seriesName);
+            foundIndex = Chart.Series.IndexOf(seriesName);
 
-            mChart.Series[foundIndex].Enabled = state;
+            Chart.Series[foundIndex].Enabled = state;
         }
 
         public void RemoveChartSeries(string seriesName)
         {
             if (seriesName == "All")
             {
-                while (mChart.Series.Count > 0)
+                while (Chart.Series.Count > 0)
                 {
-                    mChart.Series.RemoveAt(0);
+                    Chart.Series.RemoveAt(0);
                 }
             }
             else
             {
-                int index = mChart.Series.IndexOf(seriesName);
+                int index = Chart.Series.IndexOf(seriesName);
 
                 if (index >= 0)
                 {
-                    mChart.Series.RemoveAt(index);
+                    Chart.Series.RemoveAt(index);
                 }
             }
         }

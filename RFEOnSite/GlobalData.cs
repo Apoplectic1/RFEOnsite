@@ -5,106 +5,69 @@ namespace RFEOnSite
 {
     public class GlobalData
     {
-        private Charts mChart;
-        private CsvExport mCsvExport;
-        private Decibels mDecibels;
-        private FileOps mFileOps;
-        private List<string> mRawSweepData;
-        private RFExplorer mRFE;
-        private WhoopTable mWhoopDownlinkTable;
-        private DownlinkTable mDownlinkTable;
-        private bool mPresetActive;
-        private ePreset mPresetType;
-        private bool mRadialSurvey;
-        private bool mSweep700;
-        private bool mSweep850;
-        private bool mSweepAWS;
-        private bool mSweepPCS;
-        private double mLeftAntennaGain;
-        private double mRightAntennaGain;
-        private int mRadialDegrees;
-        private int mTableIndex;
-        private string mClient;
-        private string mCollectionLocation;
-        private string mCollectionSite;
-
-        private double mStartMHz;
-        private double mStopMHz;
-        private double mResolutionBandwidth;
-        private double mStepSize;
-
-        private bool mCancelActive; // global to stop and reset sweeps
-        private bool mCaptureImage;
-        private bool mCsvDirectoryValid;
-
-        private bool mApplicationInitialized;
-
-
-        public double StartFrequency { get { return mStartMHz; } set { mStartMHz = value; } }
-        public double StopFrequency { get { return mStopMHz; } set { mStopMHz = value; } }
-        public double ResolutionBandWidth { get { return mResolutionBandwidth; } set { mResolutionBandwidth = value; } }
-        public double FrequencyStepSize { get { return mStepSize; } set { mStepSize = value; } }
-
-
+        public Charts Graph { get; set; }
+        public CsvExport ExportCsv { get; set; }
+        public Decibels Data { get; }
+        public DownlinkTable PresetDownlinkTable { get; }
+        public FileOps FileOps { get; set; }
+        public List<string> ExplorerSweepData { get; }
+        public RFExplorer Explorer { get; set; }
+        public WhoopTable PresetWhoopDownlinkTable { get; }
+        public bool ApplicationInitialized { get; set; }
+        public bool CancelActive { get; set; }
+        public bool CaptureImage { get; set; }
+        public bool CsvDirectoryValid { get; set; }
+        public bool PresetActive { get; set; }
+        public bool RadialSurvey { get; set; }
+        public bool Sweep700 { get; set; }
+        public bool Sweep850 { get; set; }
+        public bool SweepAWS { get; set; }
+        public bool SweepPCS { get; set; }
+        public double FrequencyStepSize { get; set; }
+        public double LeftAntennaGain { get; set; }
+        public double ResolutionBandWidth { get; set; }
+        public double RightAntennaGain { get; set; }
+        public double StartFrequency { get; set; }
+        public double StopFrequency { get; set; }
+        public ePreset PresetType { get; set; }
+        public int BaudRate { get; set; }
+        public int PresetTableIndex { get; set; }
+        public int RadialDegrees { get; set; }
+        public string Client { get; set; }
+        public string Location { get; set; }
+        public string Site { get; set; }
 
 
         public GlobalData()
         {
-            mChart = new Charts();
-            mClient = "Client";
-            mCollectionLocation = "Location";
-            mCollectionSite = "ID";
-            mCsvExport = new CsvExport();
-            mDecibels = new Decibels();
-            mFileOps = new FileOps();
-            mLeftAntennaGain = 5;
-            mPresetActive = false;
-            mRFE = new RFExplorer();
-            mRadialDegrees = 0;
-            mRadialSurvey = false;
-            mRawSweepData = new List<string>();
-            mRightAntennaGain = 5;
-            mTableIndex = 0;
-            mSweep700 = true;
-            mSweep850 = true;
-            mSweepAWS = true;
-            mWhoopDownlinkTable = new WhoopTable();
-            mDownlinkTable = new DownlinkTable();
-            mSweepPCS = true;
-            mPresetType = ePreset.eManual;
-            mCancelActive = false;
-            mCsvDirectoryValid = false;
-            mCaptureImage = false;
-            mApplicationInitialized = false;
+            ApplicationInitialized = false;
+            CancelActive = false;
+            CaptureImage = false;
+            Client = "Client";
+            CsvDirectoryValid = false;
+            Data = new Decibels();
+            Explorer = new RFExplorer();
+            ExplorerSweepData = new List<string>();
+            ExportCsv = new CsvExport();
+            FileOps = new FileOps();
+            Graph = new Charts();
+            LeftAntennaGain = 5;
+            Location = "Location";
+            PresetActive = false;
+            PresetDownlinkTable = new DownlinkTable();
+            PresetTableIndex = 0;
+            PresetType = ePreset.eManual;
+            PresetWhoopDownlinkTable = new WhoopTable();
+            RadialDegrees = 0;
+            RadialSurvey = false;
+            RightAntennaGain = 5;
+            Site = "ID";
+            Sweep700 = true;
+            Sweep850 = true;
+            SweepAWS = true;
+            SweepPCS = true;
         }
 
-        public bool ApplicationInitialized { get { return mApplicationInitialized; } set { mApplicationInitialized = value; } }
-        public Charts Graph { get { return mChart; } set { mChart = value; } }
-        public CsvExport ExportCsv { get { return mCsvExport; } set { mCsvExport = value; } }
-        public Decibels Data { get { return mDecibels; } }
-        public FileOps FileOps { get { return mFileOps; } set { mFileOps = value; } }
-        public List<string> ExplorerSweepData { get { return mRawSweepData; } }
-        public RFExplorer Explorer { get { return mRFE; } set { mRFE = value; } }
-        public WhoopTable PresetWhoopDownlinkTable { get { return mWhoopDownlinkTable; } }
-        public DownlinkTable PresetDownlinkTable { get { return mDownlinkTable; } }
-        public bool Sweep700 { get { return mSweep700; } set { mSweep700 = value; } }
-        public bool Sweep850 { get { return mSweep850; } set { mSweep850 = value; } }
-        public bool SweepAWS { get { return mSweepAWS; } set { mSweepAWS = value; } }
-        public bool SweepPCS { get { return mSweepPCS; } set { mSweepPCS = value; } }
-        public bool PresetActive { get { return mPresetActive; } set { mPresetActive = value; } }
-        public int PresetTableIndex { get { return mTableIndex; } set { mTableIndex = value; } }
-        public ePreset PresetType { get { return mPresetType; } set { mPresetType = value; } }
-        public bool RadialSurvey { get { return mRadialSurvey; } set { mRadialSurvey = value; } }
-        public int RadialDegrees { get { return mRadialDegrees; } set { mRadialDegrees = value; } }
-        public double RightAntennaGain { get { return mRightAntennaGain; } set { mRightAntennaGain = value; } }
-        public double LeftAntennaGain { get { return mLeftAntennaGain; } set { mLeftAntennaGain = value; } }
-        public string Client { get { return mClient; } set { mClient = value; } }
-        public string Location { get { return mCollectionLocation; } set { mCollectionLocation = value; } }
-        public string Site { get { return mCollectionSite; } set { mCollectionSite = value; } }
-        public bool CancelActive { get { return mCancelActive; } set { mCancelActive = value; } }
-        public bool CsvDirectoryValid { get { return mCsvDirectoryValid; } set { mCsvDirectoryValid = value; } }
-        public bool CaptureImage { get { return mCaptureImage; } set { mCaptureImage = value; } }
-        public int BaudRate { get; set; }
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };
@@ -113,23 +76,19 @@ namespace RFEOnSite
 
     public class PresetTableEntry
     {
-        private double mStart;
-        private double mStop;
-        private eBand mBand;
-
-        public double SweepStart { get { return mStart; } }
-        public double SweepStop { get { return mStop; } }
-        public eBand SweepBand { get { return mBand; } }
+        public double SweepStart { get; }
+        public double SweepStop { get; }
+        public eBand SweepBand { get; }
         public bool IsSweepBand (eBand band)
         {
-            return (mBand == band) ? true : false;
+            return (SweepBand == band) ? true : false;
         }
         
         public PresetTableEntry(double start, double stop, eBand band)
         {
-            this.mStart = start;
-            this.mStop = stop;
-            this.mBand = band;
+            this.SweepStart = start;
+            this.SweepStop = stop;
+            this.SweepBand = band;
         }
     }
     public class WhoopTable : IEnumerable<PresetTableEntry>
