@@ -86,9 +86,6 @@ namespace RFEOnSite
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
 
-            // Use this to resize Client Area
-            //this.ClientSize = new System.Drawing.Size(284, 262); 
-
             Load += new EventHandler(MainForm_Load);
 
             ((ISupportInitialize)(gRFEOnSite.Graph.Chart)).EndInit();
@@ -112,6 +109,7 @@ namespace RFEOnSite
                 gRFEOnSite.Graph.MaxX = Convert.ToInt32(TextBoxStopFrequency.Text);
             }
 
+            gRFEOnSite.Graph.ChartTitle = "Range: " + gRFEOnSite.Graph.MinX.ToString() + " to " + gRFEOnSite.Graph.MaxX + " MHz";
             gRFEOnSite.Graph.MaxY = -30;
             gRFEOnSite.Graph.MinY = -110;
             gRFEOnSite.Graph.BuildChart();
@@ -257,6 +255,7 @@ namespace RFEOnSite
 
                 gRFEOnSite.Graph.MinX = gRFEOnSite.StartFrequency;
                 gRFEOnSite.Graph.MaxX = gRFEOnSite.StopFrequency;
+                gRFEOnSite.Graph.ChartTitle = "Range: " + gRFEOnSite.Graph.MinX.ToString() + " to " + gRFEOnSite.Graph.MaxX + " MHz";
             }
             else
             {
@@ -670,6 +669,9 @@ namespace RFEOnSite
             TabControlMain.Enabled = false;
             LabelActualSweeps.Text = "";
 
+            int floorNumber = Convert.ToInt32(NumericUpDownFloorNumber.Value.ToString());
+            int markerNumber = Convert.ToInt32(NumericUpDownMarkerNumber.Value.ToString());
+
             if (CheckBoxSaveCsvFiles.Checked)
             {
                 gRFEOnSite.FileOps.PopToDirectory(1);
@@ -680,18 +682,19 @@ namespace RFEOnSite
                 {
                     if (ButtonFloorId.Text == "Next")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxMarkerName.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + "-" + floorNumber.ToString("D2") + " " + TextBoxMarkerName.Text + "-" +
+                            markerNumber.ToString("D2"));
                     }
                     else
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxMarkerName.Text + "-" + NumericUpDownMarkerNumber.Value.ToString());
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxMarkerName.Text + "-" + markerNumber.ToString("D2"));
                     }
                 }
                 else
                 {
                     if (ButtonFloorId.Text == "Next")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + NumericUpDownFloorNumber.Value.ToString() + " " + TextBoxMarkerName.Text);
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxFloorName.Text + "-" + floorNumber.ToString("D2") + " " + TextBoxMarkerName.Text);
                     }
                     else
                     {
@@ -1122,7 +1125,7 @@ namespace RFEOnSite
 
             ButtonStartSweeps.Enabled = true;
             ButtonCancelSweeps.Enabled = false;
-
+            TabControlMain.Enabled = true;
             GroupBoxCsvConfiguration.Enabled = true;
             GroupBoxConfiguration.Enabled = true;
             NumericUpDownSweeps.Enabled = true;
@@ -1248,6 +1251,9 @@ namespace RFEOnSite
                 RadioButtonFloorDecrement.Enabled = true;
                 RadioButtonFloorIncrement.Enabled = true;
 
+                int floorNumber = Convert.ToInt32(NumericUpDownFloorNumber.Value.ToString());
+                int markerNumber = Convert.ToInt32(NumericUpDownMarkerNumber.Value.ToString());
+
                 StripStatusLabelCsvDirectory.Text =
                     "CSV Directory: Desktop\\SurveyData\\" +
                     TextBoxClient.Text +
@@ -1255,11 +1261,11 @@ namespace RFEOnSite
                     TextBoxCollectionLocation.Text +
                     "\\" +
                     TextBoxFloorName.Text +
-                    NumericUpDownFloorNumber.Value.ToString() +
+                    floorNumber.ToString("D2") +
                     "\\" +
                     TextBoxMarkerName.Text +
                     "-" +
-                    NumericUpDownMarkerNumber.Value.ToString();
+                    markerNumber.ToString("D2");
             }
             else
             {
@@ -1268,6 +1274,8 @@ namespace RFEOnSite
                 RadioButtonFloorDecrement.Enabled = false;
                 RadioButtonFloorIncrement.Enabled = false;
 
+                int markerNumber = Convert.ToInt32(NumericUpDownMarkerNumber.Value.ToString());
+
                 StripStatusLabelCsvDirectory.Text =
                     "CSV Directory: Desktop\\SurveyData\\" +
                     TextBoxClient.Text +
@@ -1276,13 +1284,12 @@ namespace RFEOnSite
                     "\\" +
                     TextBoxMarkerName.Text +
                     "-" +
-                    NumericUpDownMarkerNumber.Value.ToString();
+                     markerNumber.ToString("D2");
             }
         }
 
         VideoCapture mCapture;
         Mat mMat;
-        Mat newMat;
 
         private void ButtonCaptureImage_Click(object sender, EventArgs e)
         {

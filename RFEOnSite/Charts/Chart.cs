@@ -18,7 +18,6 @@ namespace RFEOnSite
         private string mBand;
         private string mChartFont;
         private string mForeColor;
-        private string mTitle;
         private string mTitleX;
         private string mTitleY;
 
@@ -31,6 +30,7 @@ namespace RFEOnSite
         public double MaxY { get; set; }
         public double MinX { get; set; }
         public double MinY { get; set; }
+        public string ChartTitle { get; set; }
 
 
         public Charts()
@@ -50,7 +50,6 @@ namespace RFEOnSite
             MinY = -110;
             mTickIntervalX = 200;
             mTickIntervalY = 10;
-            mTitle = "Current Sweep Range";
             mTitleFontSize = 10F;
             mTitleX = "MHz";
             mTitleY = "dBm";
@@ -84,7 +83,7 @@ namespace RFEOnSite
 
 
             Chart.ForeColor = System.Drawing.ColorTranslator.FromHtml(mForeColor);
-            Chart.Titles.Add(mTitle);
+            Chart.Titles.Add(ChartTitle);
             Chart.Titles[0].Font = new System.Drawing.Font(mChartFont, mTitleFontSize);
 
             Chart.Palette = ChartColorPalette.Bright;
@@ -215,6 +214,10 @@ namespace RFEOnSite
             {
                 Chart.Series.Add(mSeriesAverage);
             }
+
+            Chart.Titles.Clear();
+
+            Chart.Titles.Add("Range: " + Chart.ChartAreas[0].AxisX.Minimum + " to " + Chart.ChartAreas[0].AxisX.Maximum + " MHz");
         }
 
         public void ShowSeries(string seriesName, bool state)

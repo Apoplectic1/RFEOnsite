@@ -373,7 +373,7 @@ namespace RFEOnSite
             // LabelActualSweeps
             // 
             this.LabelActualSweeps.AutoSize = true;
-            this.LabelActualSweeps.Location = new System.Drawing.Point(384, 144);
+            this.LabelActualSweeps.Location = new System.Drawing.Point(379, 144);
             this.LabelActualSweeps.Name = "LabelActualSweeps";
             this.LabelActualSweeps.Size = new System.Drawing.Size(0, 20);
             this.LabelActualSweeps.TabIndex = 21;
@@ -521,7 +521,7 @@ namespace RFEOnSite
             // 
             this.PanelChart.Location = new System.Drawing.Point(10, 25);
             this.PanelChart.Name = "PanelChart";
-            this.PanelChart.Size = new System.Drawing.Size(418, 388);
+            this.PanelChart.Size = new System.Drawing.Size(418, 415);
             this.PanelChart.TabIndex = 0;
             // 
             // ToolTip1
@@ -1152,11 +1152,11 @@ namespace RFEOnSite
             this.force2400BaudToolStripMenuItem.BackColor = System.Drawing.Color.Yellow;
             this.force2400BaudToolStripMenuItem.CheckOnClick = true;
             this.force2400BaudToolStripMenuItem.Name = "force2400BaudToolStripMenuItem";
-            this.force2400BaudToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.force2400BaudToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.force2400BaudToolStripMenuItem.Text = "Force 2400 Baud";
-            this.force2400BaudToolStripMenuItem.ToolTipText = "Use as a last resort. This will result in very slow scans. \n\nYou must also manually set" +
-    " 2.4 kbps in the RF Explorer USB Baud configuration menu.\n\nNote that this setting" +
-    " is PERSISTED.";
+            this.force2400BaudToolStripMenuItem.ToolTipText = "Use as a last resort. This will result in very slow scans. \n\nYou must also manual" +
+    "ly set 2.4 kbps in the RF Explorer USB Baud configuration menu.\n\nNote that this " +
+    "setting is PERSISTED.";
             // 
             // TabControlMain
             // 
