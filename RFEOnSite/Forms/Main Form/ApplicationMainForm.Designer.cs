@@ -125,6 +125,13 @@ namespace RFEOnSite
             this.TabControlSiteImage = new System.Windows.Forms.TabPage();
             this.LabelCaptured = new System.Windows.Forms.Label();
             this.PictureBox = new System.Windows.Forms.PictureBox();
+            this.TabControlCalibration = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.TextBoxCalibrationPointsPerSweepInterval = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TextBoxCalibrationSourceDbm = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ButtonCalibrationStart = new System.Windows.Forms.Button();
             this.StripStatusMainForm = new System.Windows.Forms.StatusStrip();
             this.StripStatusLabelPreset = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelDivision1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -149,6 +156,7 @@ namespace RFEOnSite
             this.TabControlMainRadial.SuspendLayout();
             this.TabControlSiteImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
+            this.TabControlCalibration.SuspendLayout();
             this.StripStatusMainForm.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -584,7 +592,8 @@ namespace RFEOnSite
             this.ComboBoxPreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBoxPreset.FormattingEnabled = true;
             this.ComboBoxPreset.Items.AddRange(new object[] {
-            "Manual",
+            "Continuous",
+            "Single",
             "Whoop Downlink",
             "Full Downlink"});
             this.ComboBoxPreset.Location = new System.Drawing.Point(133, 231);
@@ -866,9 +875,9 @@ namespace RFEOnSite
             // LabelCopyright
             // 
             this.LabelCopyright.AutoSize = true;
-            this.LabelCopyright.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.LabelCopyright.BackColor = System.Drawing.SystemColors.Control;
             this.LabelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LabelCopyright.Location = new System.Drawing.Point(771, 684);
+            this.LabelCopyright.Location = new System.Drawing.Point(771, 717);
             this.LabelCopyright.Name = "LabelCopyright";
             this.LabelCopyright.Size = new System.Drawing.Size(207, 13);
             this.LabelCopyright.TabIndex = 25;
@@ -1164,6 +1173,7 @@ namespace RFEOnSite
             this.TabControlMain.Controls.Add(this.TabControlMainOmniDirectional);
             this.TabControlMain.Controls.Add(this.TabControlMainRadial);
             this.TabControlMain.Controls.Add(this.TabControlSiteImage);
+            this.TabControlMain.Controls.Add(this.TabControlCalibration);
             this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.TabControlMain.Location = new System.Drawing.Point(12, 27);
             this.TabControlMain.Name = "TabControlMain";
@@ -1304,6 +1314,79 @@ namespace RFEOnSite
             this.PictureBox.TabIndex = 45;
             this.PictureBox.TabStop = false;
             // 
+            // TabControlCalibration
+            // 
+            this.TabControlCalibration.Controls.Add(this.label3);
+            this.TabControlCalibration.Controls.Add(this.TextBoxCalibrationPointsPerSweepInterval);
+            this.TabControlCalibration.Controls.Add(this.label2);
+            this.TabControlCalibration.Controls.Add(this.TextBoxCalibrationSourceDbm);
+            this.TabControlCalibration.Controls.Add(this.label1);
+            this.TabControlCalibration.Controls.Add(this.ButtonCalibrationStart);
+            this.TabControlCalibration.Location = new System.Drawing.Point(4, 29);
+            this.TabControlCalibration.Name = "TabControlCalibration";
+            this.TabControlCalibration.Padding = new System.Windows.Forms.Padding(3);
+            this.TabControlCalibration.Size = new System.Drawing.Size(524, 313);
+            this.TabControlCalibration.TabIndex = 4;
+            this.TabControlCalibration.Text = "Calibration";
+            this.TabControlCalibration.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(51, 190);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 20);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "label3";
+            // 
+            // TextBoxCalibrationPointsPerSweepInterval
+            // 
+            this.TextBoxCalibrationPointsPerSweepInterval.Location = new System.Drawing.Point(328, 102);
+            this.TextBoxCalibrationPointsPerSweepInterval.Name = "TextBoxCalibrationPointsPerSweepInterval";
+            this.TextBoxCalibrationPointsPerSweepInterval.Size = new System.Drawing.Size(33, 26);
+            this.TextBoxCalibrationPointsPerSweepInterval.TabIndex = 4;
+            this.TextBoxCalibrationPointsPerSweepInterval.Text = "3";
+            this.TextBoxCalibrationPointsPerSweepInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxCalibrationPointsPerSweepInterval.TextChanged += new System.EventHandler(this.TextBoxCalibrationPointsPerSweepInterval_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(43, 102);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(268, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Calibration Points per Sweep Interval";
+            // 
+            // TextBoxCalibrationSourceDbm
+            // 
+            this.TextBoxCalibrationSourceDbm.Location = new System.Drawing.Point(237, 61);
+            this.TextBoxCalibrationSourceDbm.Name = "TextBoxCalibrationSourceDbm";
+            this.TextBoxCalibrationSourceDbm.Size = new System.Drawing.Size(56, 26);
+            this.TextBoxCalibrationSourceDbm.TabIndex = 2;
+            this.TextBoxCalibrationSourceDbm.Text = "-75";
+            this.TextBoxCalibrationSourceDbm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxCalibrationSourceDbm.TextChanged += new System.EventHandler(this.TextBoxCalibrationSourceDbm_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(43, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(188, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Enter Signal Source dBm";
+            // 
+            // ButtonCalibrationStart
+            // 
+            this.ButtonCalibrationStart.Location = new System.Drawing.Point(218, 239);
+            this.ButtonCalibrationStart.Name = "ButtonCalibrationStart";
+            this.ButtonCalibrationStart.Size = new System.Drawing.Size(87, 33);
+            this.ButtonCalibrationStart.TabIndex = 0;
+            this.ButtonCalibrationStart.Text = "Start";
+            this.ButtonCalibrationStart.UseVisualStyleBackColor = true;
+            this.ButtonCalibrationStart.Click += new System.EventHandler(this.ButtonCalibrationStart_Click);
+            // 
             // StripStatusMainForm
             // 
             this.StripStatusMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1338,10 +1421,10 @@ namespace RFEOnSite
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1001, 734);
+            this.Controls.Add(this.LabelCopyright);
             this.Controls.Add(this.StripStatusMainForm);
             this.Controls.Add(this.TabControlMain);
             this.Controls.Add(this.GroupBoxCurrentSweepChartConfiguration);
-            this.Controls.Add(this.LabelCopyright);
             this.Controls.Add(this.GroupBoxSweepConfiguration);
             this.Controls.Add(this.GroupBoxCsvConfiguration);
             this.Controls.Add(this.MenuStripMainForm);
@@ -1380,6 +1463,8 @@ namespace RFEOnSite
             this.TabControlSiteImage.ResumeLayout(false);
             this.TabControlSiteImage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
+            this.TabControlCalibration.ResumeLayout(false);
+            this.TabControlCalibration.PerformLayout();
             this.StripStatusMainForm.ResumeLayout(false);
             this.StripStatusMainForm.PerformLayout();
             this.ResumeLayout(false);
@@ -1488,6 +1573,13 @@ namespace RFEOnSite
         private GroupBox GroupBoxDocumentation;
         private ToolStripMenuItem uSBSettingsToolStripMenuItem;
         private ToolStripMenuItem force2400BaudToolStripMenuItem;
+        private TabPage TabControlCalibration;
+        private Button ButtonCalibrationStart;
+        private Label label3;
+        private TextBox TextBoxCalibrationPointsPerSweepInterval;
+        private Label label2;
+        private TextBox TextBoxCalibrationSourceDbm;
+        private Label label1;
     }
 }
 

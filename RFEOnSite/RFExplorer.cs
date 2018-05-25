@@ -111,8 +111,8 @@ namespace RFEOnSite
             // Make sure Offset is zero
             mSerialPort.SendCommand("CO\x0");
 
-            // Reset Max Hold
-            mSerialPort.SendCommand("C+\x1"); // Calculator Mode -  
+            // Average
+            mSerialPort.SendCommand("C+\x2"); // Calculator Mode -  Average
 
             // Send final configuration and wait for the Explorer to return with configuration data
             mSerialPort.SendCommand("C2-F:" + start + "'" + stop + "," + top + "," + bottom);

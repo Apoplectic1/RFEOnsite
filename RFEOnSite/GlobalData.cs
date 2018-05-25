@@ -19,22 +19,23 @@ namespace RFEOnSite
         public bool CsvDirectoryValid { get; set; }
         public bool PresetActive { get; set; }
         public bool RadialSurvey { get; set; }
-        public bool Sweep700 { get; set; }
-        public bool Sweep850 { get; set; }
-        public bool SweepAWS { get; set; }
-        public bool SweepPCS { get; set; }
         public double FrequencyStepSize { get; set; }
         public double LeftAntennaGain { get; set; }
         public double ResolutionBandWidth { get; set; }
         public double RightAntennaGain { get; set; }
         public double StartFrequency { get; set; }
         public double StopFrequency { get; set; }
-        public ePreset PresetType { get; set; }
+        public ePreset PresetType { get; set; } = ePreset.eContinuous;
         public int PresetTableIndex { get; set; }
         public int RadialDegrees { get; set; }
         public string Client { get; set; }
         public string Location { get; set; }
         public string Site { get; set; }
+        public string SerialNumebr { get; set; } = string.Empty;
+
+        public bool CalibrationActive { get; set; } = false;
+        public double CalibarationSourceDbm { get; set; } = -75;
+        public int CalibrationPointsPerSweepInterval { get; set; } = 3;
 
 
         public GlobalData()
@@ -55,22 +56,18 @@ namespace RFEOnSite
             PresetActive = false;
             PresetDownlinkTable = new DownlinkTable();
             PresetTableIndex = 0;
-            PresetType = ePreset.eManual;
+            PresetType = ePreset.eSingle;
             PresetWhoopDownlinkTable = new WhoopTable();
             RadialDegrees = 0;
             RadialSurvey = false;
             RightAntennaGain = 5;
             Site = "ID";
-            Sweep700 = true;
-            Sweep850 = true;
-            SweepAWS = true;
-            SweepPCS = true;
         }
 
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };
-    public enum ePreset { eManual, eWhoopDownlink, eFullDownlink };
+    public enum ePreset { eContinuous, eSingle, eWhoopDownlink, eFullDownlink };
 
 
     public class PresetTableEntry
