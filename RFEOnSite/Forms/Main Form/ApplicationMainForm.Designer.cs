@@ -136,6 +136,7 @@ namespace RFEOnSite
             this.StripStatusLabelPreset = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelDivision1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelCsvDirectory = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ButtonPauseResume = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
             this.GroupBoxSweepConfiguration.SuspendLayout();
             this.GroupBoxCurrentSweepChartConfiguration.SuspendLayout();
@@ -1286,6 +1287,7 @@ namespace RFEOnSite
             // 
             // TabControlSiteImage
             // 
+            this.TabControlSiteImage.Controls.Add(this.ButtonPauseResume);
             this.TabControlSiteImage.Controls.Add(this.LabelCaptured);
             this.TabControlSiteImage.Controls.Add(this.ButtonCaptureImage);
             this.TabControlSiteImage.Controls.Add(this.PictureBox);
@@ -1414,6 +1416,15 @@ namespace RFEOnSite
             // 
             this.StripStatusLabelCsvDirectory.Name = "StripStatusLabelCsvDirectory";
             this.StripStatusLabelCsvDirectory.Size = new System.Drawing.Size(0, 17);
+            // 
+            // ButtonPauseResume
+            // 
+            this.ButtonPauseResume.Location = new System.Drawing.Point(34, 211);
+            this.ButtonPauseResume.Name = "ButtonPauseResume";
+            this.ButtonPauseResume.Size = new System.Drawing.Size(91, 32);
+            this.ButtonPauseResume.TabIndex = 49;
+            this.ButtonPauseResume.Text = "Pause";
+            this.ButtonPauseResume.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1580,6 +1591,7 @@ namespace RFEOnSite
         private Label label2;
         private TextBox TextBoxCalibrationSourceDbm;
         private Label label1;
+        private Button ButtonPauseResume;
     }
 }
 

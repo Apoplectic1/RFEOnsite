@@ -22,11 +22,6 @@ namespace RFEOnSite
 
         public MainForm()
         {
-
-            //if (Debugger.IsAttached)
-            //    Settings.Default.Reset();
-
-
             gRFEOnSite = new GlobalData();
 
             InitializeComponent();
