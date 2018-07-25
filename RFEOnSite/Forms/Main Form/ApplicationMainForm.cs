@@ -27,7 +27,7 @@ namespace RFEOnSite
             InitializeComponent();
 
             // User Events
-            this.FormClosing += new FormClosingEventHandler(this.MainForm_FormClosing);
+            FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
             // Versioning Text at top of Application Window
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
@@ -137,33 +137,33 @@ namespace RFEOnSite
 
         void SaveUiPersistanceStatesInternal()
         {
-            Settings.Default.Persist_SaveCsvCheckedState = this.CheckBoxSaveCsvFiles.Checked;
+            Settings.Default.Persist_SaveCsvCheckedState = CheckBoxSaveCsvFiles.Checked;
 
-            Settings.Default.Persist_ClientTextState = this.TextBoxClient.Text;
-            Settings.Default.Persist_LocationTextState = this.TextBoxCollectionLocation.Text;
+            Settings.Default.Persist_ClientTextState = TextBoxClient.Text;
+            Settings.Default.Persist_LocationTextState = TextBoxCollectionLocation.Text;
 
-            Settings.Default.Persist_FloorTextState = this.TextBoxFloorName.Text;
-            Settings.Default.Persist_FloorNumberState = this.NumericUpDownFloorNumber.Value;
-            Settings.Default.Persist_FloorEnableState = this.ButtonFloorId.Text;
-            Settings.Default.Persist_FloorDecrementState = this.RadioButtonFloorDecrement.Checked;
+            Settings.Default.Persist_FloorTextState = TextBoxFloorName.Text;
+            Settings.Default.Persist_FloorNumberState = NumericUpDownFloorNumber.Value;
+            Settings.Default.Persist_FloorEnableState = ButtonFloorId.Text;
+            Settings.Default.Persist_FloorDecrementState = RadioButtonFloorDecrement.Checked;
 
-            Settings.Default.Persist_MarkerTextState = this.TextBoxMarkerName.Text;
-            Settings.Default.Persist_MarkerNumberState = this.NumericUpDownMarkerNumber.Value;
-            Settings.Default.Persist_MarkerIncrementState = this.CheckBoxAutoIncrementMarkerNumber.Checked;
+            Settings.Default.Persist_MarkerTextState = TextBoxMarkerName.Text;
+            Settings.Default.Persist_MarkerNumberState = NumericUpDownMarkerNumber.Value;
+            Settings.Default.Persist_MarkerIncrementState = CheckBoxAutoIncrementMarkerNumber.Checked;
 
 
-            Settings.Default.Persist_AutoScaleState = this.CheckBoxChartAutoScale.Checked;
-            Settings.Default.Persist_AverageState = this.CheckBoxChartAverage.Checked;
-            Settings.Default.Persist_PeakState = this.CheckBoxChartPeak.Checked;
-            Settings.Default.Persist_SweepsCountState = this.NumericUpDownSweeps.Value;
+            Settings.Default.Persist_AutoScaleState = CheckBoxChartAutoScale.Checked;
+            Settings.Default.Persist_AverageState = CheckBoxChartAverage.Checked;
+            Settings.Default.Persist_PeakState = CheckBoxChartPeak.Checked;
+            Settings.Default.Persist_SweepsCountState = NumericUpDownSweeps.Value;
 
-            Settings.Default.Persist_Preset = this.ComboBoxPreset.SelectedItem.ToString();
-            Settings.Default.Persist_2400State = this.force2400BaudToolStripMenuItem.Checked;
+            Settings.Default.Persist_Preset = ComboBoxPreset.SelectedItem.ToString();
+            Settings.Default.Persist_2400State = force2400BaudToolStripMenuItem.Checked;
         }
 
         void RecallUiPersistanceStates()
         {
-            this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
+            CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
             if (CheckBoxSaveCsvFiles.Checked)
             {
                 GroupBoxCsvInformation.Enabled = true;
@@ -173,27 +173,27 @@ namespace RFEOnSite
                 GroupBoxCsvInformation.Enabled = false;
             }
 
-            this.TextBoxClient.Text = Settings.Default.Persist_ClientTextState;
-            this.TextBoxCollectionLocation.Text = Settings.Default.Persist_LocationTextState;
+            TextBoxClient.Text = Settings.Default.Persist_ClientTextState;
+            TextBoxCollectionLocation.Text = Settings.Default.Persist_LocationTextState;
 
-            this.TextBoxFloorName.Text = Settings.Default.Persist_FloorTextState;
-            this.NumericUpDownFloorNumber.Value = Settings.Default.Persist_FloorNumberState;
-            this.ButtonFloorId.Text = Settings.Default.Persist_FloorEnableState;
-            this.RadioButtonFloorDecrement.Checked = Settings.Default.Persist_FloorDecrementState;
+            TextBoxFloorName.Text = Settings.Default.Persist_FloorTextState;
+            NumericUpDownFloorNumber.Value = Settings.Default.Persist_FloorNumberState;
+            ButtonFloorId.Text = Settings.Default.Persist_FloorEnableState;
+            RadioButtonFloorDecrement.Checked = Settings.Default.Persist_FloorDecrementState;
             RadioButtonFloorIncrement.Checked = !RadioButtonFloorDecrement.Checked;
 
-            this.TextBoxMarkerName.Text = Settings.Default.Persist_MarkerTextState;
-            this.NumericUpDownMarkerNumber.Value = Settings.Default.Persist_MarkerNumberState;
-            this.CheckBoxAutoIncrementMarkerNumber.Checked = Settings.Default.Persist_MarkerIncrementState;
+            TextBoxMarkerName.Text = Settings.Default.Persist_MarkerTextState;
+            NumericUpDownMarkerNumber.Value = Settings.Default.Persist_MarkerNumberState;
+            CheckBoxAutoIncrementMarkerNumber.Checked = Settings.Default.Persist_MarkerIncrementState;
 
-            this.CheckBoxChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
-            this.CheckBoxChartAverage.Checked = Settings.Default.Persist_AverageState;
-            this.CheckBoxChartPeak.Checked = Settings.Default.Persist_PeakState;
-            this.NumericUpDownSweeps.Value = Settings.Default.Persist_SweepsCountState;
-            this.force2400BaudToolStripMenuItem.Checked = Settings.Default.Persist_2400State;
+            CheckBoxChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
+            CheckBoxChartAverage.Checked = Settings.Default.Persist_AverageState;
+            CheckBoxChartPeak.Checked = Settings.Default.Persist_PeakState;
+            NumericUpDownSweeps.Value = Settings.Default.Persist_SweepsCountState;
+            force2400BaudToolStripMenuItem.Checked = Settings.Default.Persist_2400State;
 
             //this.ComboBoxPreset.SelectedItem = Settings.Default.Persist_Preset;
-            this.ComboBoxPreset.SelectedItem = "Manual";
+            ComboBoxPreset.SelectedItem = "Manual";
         }
 
         public void UIUpdateCallback_RFE_Configuration(RFEConfiguration fromSerialThread)
@@ -605,7 +605,7 @@ namespace RFEOnSite
                 }
             }
 
-            this.TabControlMain.SelectedTab = TabControlMainOmniDirectional;
+            TabControlMain.SelectedTab = TabControlMainOmniDirectional;
 
             gRFEOnSite.Explorer.Capture = true;
         }
@@ -1384,28 +1384,28 @@ namespace RFEOnSite
         private void ButtonPersistClear_Click(object sender, EventArgs e)
         {
             //this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
-            this.TextBoxClient.Text = "Client";
-            this.TextBoxCollectionLocation.Text = "Collection Location";
+            TextBoxClient.Text = "Client";
+            TextBoxCollectionLocation.Text = "Collection Location";
 
-            this.TextBoxFloorName.Text = "Floor";
-            this.NumericUpDownFloorNumber.Value = 1;
-            this.ButtonFloorId.Text = "Enable";
-            this.RadioButtonFloorDecrement.Checked = false;
+            TextBoxFloorName.Text = "Floor";
+            NumericUpDownFloorNumber.Value = 1;
+            ButtonFloorId.Text = "Enable";
+            RadioButtonFloorDecrement.Checked = false;
             RadioButtonFloorIncrement.Checked = true;
 
-            this.TextBoxMarkerName.Text = "M";
-            this.NumericUpDownMarkerNumber.Value = 1;
+            TextBoxMarkerName.Text = "M";
+            NumericUpDownMarkerNumber.Value = 1;
             //this.CheckBoxAutoIncrementMarkerNumber.Checked = false;
 
 
-            this.CheckBoxChartAutoScale.Checked = false;
-            this.CheckBoxChartAverage.Checked = true;
-            this.CheckBoxChartPeak.Checked = true;
-            this.NumericUpDownSweeps.Value = 100;
+            CheckBoxChartAutoScale.Checked = false;
+            CheckBoxChartAverage.Checked = true;
+            CheckBoxChartPeak.Checked = true;
+            NumericUpDownSweeps.Value = 100;
 
             //this.ComboBoxPreset.SelectedItem = "Manual";
 
-            this.TabControlMain.SelectedTab = TabControlMainOmniDirectional;
+            TabControlMain.SelectedTab = TabControlMainOmniDirectional;
 
             RefreshUI();
 

@@ -82,9 +82,9 @@ namespace RFEOnSite
         
         public PresetTableEntry(double start, double stop, eBand band)
         {
-            this.SweepStart = start;
-            this.SweepStop = stop;
-            this.SweepBand = band;
+            SweepStart = start;
+            SweepStop = stop;
+            SweepBand = band;
         }
     }
     public class WhoopTable : IEnumerable<PresetTableEntry>
