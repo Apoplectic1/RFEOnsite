@@ -149,8 +149,11 @@ After configuring the device, select the number of sweeps and click 'Capture'</v
 Manual Configuration
 Enables entry of the configuration text fields to manually select frequencies to scan.
 
-Whoop Downlink
-This preset will automatically sweep all of the downlink frequencies that the Whoop node's are capable of handeling.</value>
+CP4 Downlink
+This preset will automatically sweep all of the downlink frequencies that CP4's are capable of handeling.
+
+Full Downlink
+Sweeps all Cellular Downlink Frequencies.</value>
   </data>
   <metadata name="MenuStripMainForm.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>116, 17</value>

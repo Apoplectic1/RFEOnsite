@@ -41,7 +41,7 @@ namespace RFEOnSite
                 Text = "RF Explorer OnSite - Version: " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd - HHMM");
             }
 
-            ComboBoxPreset.SelectedIndex = 0;
+            ComboBoxPreset.SelectedIndex = 1;
             //ComboBoxPreset.Enabled = false;
 
             InitializeChartUI();
@@ -369,9 +369,9 @@ namespace RFEOnSite
             // This gets the 'next' values and then sweeps with them
 
             // Upon entry, it skips PresetTable entries that have already been processed or ignored
-            if (gRFEOnSite.PresetType == ePreset.eWhoopDownlink)
+            if (gRFEOnSite.PresetType == ePreset.eCP4Downlink)
             {
-                foreach (PresetTableEntry pair in gRFEOnSite.PresetWhoopDownlinkTable.Skip(gRFEOnSite.PresetTableIndex))
+                foreach (PresetTableEntry pair in gRFEOnSite.PresetCP4DownlinkTable.Skip(gRFEOnSite.PresetTableIndex))
                 {
                     gRFEOnSite.PresetTableIndex++; // Needs to be before the breaks to stay in step with foreach
 
@@ -403,55 +403,55 @@ namespace RFEOnSite
                         }
                     }
 
-                    LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
+                    LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetCP4DownlinkTable.Count();
                     return;
                 }
-               
 
+            }
 
-                if (gRFEOnSite.PresetType == ePreset.eFullDownlink)
+            if (gRFEOnSite.PresetType == ePreset.eFullDownlink)
+            {
+                foreach (PresetTableEntry pair in gRFEOnSite.PresetDownlinkTable.Skip(gRFEOnSite.PresetTableIndex))
                 {
-                    foreach (PresetTableEntry pair in gRFEOnSite.PresetDownlinkTable.Skip(gRFEOnSite.PresetTableIndex))
+                    gRFEOnSite.PresetTableIndex++; // Needs to be before the breaks to stay in step with foreach
+
+                    // We found a table entry to Sweep: Program the RF Explorer
+                    gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
+
+                    Thread.Sleep(100);
+
+                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+
+                    TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
+                    TaskProgressBar.Step = 1;
+                    TaskProgressBar.Value = 0;
+
+
+                    if (gRFEOnSite.CancelActive)
                     {
-                        gRFEOnSite.PresetTableIndex++; // Needs to be before the breaks to stay in step with foreach
-
-                        // We found a table entry to Sweep: Program the RF Explorer
-                        gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
-
-                        Thread.Sleep(100);
-
-                        gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
-
-                        TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
-                        TaskProgressBar.Step = 1;
-                        TaskProgressBar.Value = 0;
-
-
-                        if (gRFEOnSite.CancelActive)
+                        gRFEOnSite.Explorer.Capture = false;
+                        gRFEOnSite.CancelActive = false;
+                    }
+                    else
+                    {
+                        if (gRFEOnSite.CalibrationActive)
                         {
-                            gRFEOnSite.Explorer.Capture = false;
-                            gRFEOnSite.CancelActive = false;
+                            ButtonCalibrationStart.Text = "Next";
                         }
                         else
                         {
-                            if (gRFEOnSite.CalibrationActive)
-                            {
-                                ButtonCalibrationStart.Text = "Next";
-                            }
-                            else
-                            {
-                                gRFEOnSite.Explorer.Capture = true;
-                            }
+                            gRFEOnSite.Explorer.Capture = true;
                         }
-
-                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
-                        return;
                     }
-                }
-            }
-            
 
-            if (gRFEOnSite.PresetType == ePreset.eSingle || gRFEOnSite.PresetType == ePreset.eContinuous)
+                    LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
+                    return;
+                }
+
+            }
+
+
+            if (gRFEOnSite.PresetType == ePreset.eSingle)
             {
                 LabelTaskCount.Text = "Done";
                 ButtonStartSweeps.Enabled = true;
@@ -466,24 +466,38 @@ namespace RFEOnSite
                 GroupBoxCsvConfiguration.Enabled = true;
                 GroupBoxConfiguration.Enabled = true;
                 NumericUpDownSweeps.Enabled = true;
+            }
 
 
 
-                if (gRFEOnSite.PresetType == ePreset.eContinuous)
+            if (gRFEOnSite.PresetType == ePreset.eContinuous)
+            {
+                LabelTaskCount.Text = "Done";
+                ButtonStartSweeps.Enabled = true;
+                //ButtonCancelSweeps.Enabled = false;
+
+                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBoxSaveCsvFiles.Checked)
                 {
-
-                    ////gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
-
-                    Thread.Sleep(100);
-
-                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
-
-                    TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
-                    TaskProgressBar.Step = 1;
-                    TaskProgressBar.Value = 0;
-
-                    gRFEOnSite.Explorer.Capture = true;
+                    NumericUpDownMarkerNumber.Value += 1;
                 }
+
+                TabControlMain.Enabled = true;
+                GroupBoxCsvConfiguration.Enabled = true;
+                GroupBoxConfiguration.Enabled = true;
+                NumericUpDownSweeps.Enabled = true;
+
+
+
+                Thread.Sleep(100);
+
+                gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+
+                TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
+                TaskProgressBar.Step = 1;
+                TaskProgressBar.Value = 0;
+
+                gRFEOnSite.Explorer.Capture = true;
+
             }
 
             // The only way we get here is by walking through every table entry - we have to be done
@@ -521,7 +535,7 @@ namespace RFEOnSite
                 TabControlMain.SelectedTab.Enabled = true;
                 gRFEOnSite.CsvDirectoryValid = true;
                 gRFEOnSite.CaptureImage = true;
-                ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;
+                ButtonCaptureImage.BackColor = SystemColors.Highlight;
                 gRFEOnSite.FileOps.PopDirectory(); // For Image Capture
             }
             else
@@ -655,90 +669,7 @@ namespace RFEOnSite
 
         private void ButtonStartSweeps_Click(object sender, EventArgs e)
         {
-
-            switch (gRFEOnSite.PresetType)
-            {
-                case ePreset.eContinuous:
-                    ButtonStartSweeps.Enabled = false;
-                    ButtonStartSweeps.Text = "Start";
-                    ButtonCancelSweeps.Enabled = true;
-                    ButtonCancelSweeps.Text = "Stop";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
-
-
-                    GroupBoxCsvConfiguration.Enabled = false;
-                    GroupBoxConfiguration.Enabled = true;
-                    NumericUpDownSweeps.Enabled = true;
-                    TabControlMain.Enabled = false;
-                    LabelActualSweeps.Text = "";
-                    break;
-
-                case ePreset.eSingle:
-                    ButtonStartSweeps.Enabled = false;
-                    ButtonStartSweeps.Text = "Capture";
-                    ButtonCancelSweeps.Enabled = true;
-                    ButtonCancelSweeps.Text = "Cancel";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
-
-
-                    gRFEOnSite.FileOps.FileCounter = 1;
-                    gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
-                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
-                    GroupBoxCsvConfiguration.Enabled = false;
-                    GroupBoxConfiguration.Enabled = false;
-                    NumericUpDownSweeps.Enabled = false;
-                    TabControlMain.Enabled = false;
-                    LabelActualSweeps.Text = "";
-                    break;
-
-                case ePreset.eWhoopDownlink:
-                    ButtonStartSweeps.Enabled = false;
-                    ButtonStartSweeps.Text = "Capture";
-                    ButtonCancelSweeps.Enabled = true;
-                    ButtonCancelSweeps.Text = "Cancel";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
-
-
-                    gRFEOnSite.FileOps.FileCounter = 1;
-                    gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
-                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
-                    GroupBoxCsvConfiguration.Enabled = false;
-                    GroupBoxConfiguration.Enabled = false;
-                    NumericUpDownSweeps.Enabled = false;
-                    TabControlMain.Enabled = false;
-                    LabelActualSweeps.Text = "";
-                    break;
-
-                case ePreset.eFullDownlink:
-                    ButtonStartSweeps.Enabled = false;
-                    ButtonStartSweeps.Text = "Capture";
-                    ButtonCancelSweeps.Enabled = true;
-                    ButtonCancelSweeps.Text = "Cancel";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
-
-
-                    gRFEOnSite.FileOps.FileCounter = 1;
-                    gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
-                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
-                    GroupBoxCsvConfiguration.Enabled = false;
-                    GroupBoxConfiguration.Enabled = false;
-                    NumericUpDownSweeps.Enabled = false;
-                    TabControlMain.Enabled = false;
-                    LabelActualSweeps.Text = "";
-                    break;
-            }
+            SetUIItemsEnabledState();
 
 
             int floorNumber = Convert.ToInt32(NumericUpDownFloorNumber.Value.ToString());
@@ -783,13 +714,13 @@ namespace RFEOnSite
             {
                 gRFEOnSite.PresetTableIndex = 0;
 
-                if (gRFEOnSite.PresetType == ePreset.eWhoopDownlink)
+                if (gRFEOnSite.PresetType == ePreset.eCP4Downlink)
                 {
-                    foreach (PresetTableEntry pair in gRFEOnSite.PresetWhoopDownlinkTable)
+                    foreach (PresetTableEntry pair in gRFEOnSite.PresetCP4DownlinkTable)
                     {
                         gRFEOnSite.PresetTableIndex++;
 
-                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
+                        LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetCP4DownlinkTable.Count();
 
                         gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
@@ -858,10 +789,6 @@ namespace RFEOnSite
             NumericUpDownMarkerNumber.Value = 1;
 
             RefreshUI();
-
-            //ToolTip1.SetToolTip(TextBoxCollectionLocation, "Enter a short site collection location identifier " +
-            //    "for data that is about to be collected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
-            //        " store collected data in CSV Files.");
         }
 
         private void CheckBoxChartAutoScale_CheckedChanged(object sender, EventArgs e)
@@ -930,9 +857,9 @@ namespace RFEOnSite
             }
 
 
-            if (item == "Whoop Downlink")
+            if (item == "CP4 Downlink")
             {
-                gRFEOnSite.PresetType = ePreset.eWhoopDownlink;
+                gRFEOnSite.PresetType = ePreset.eCP4Downlink;
 
                 TextBoxStartFrequency.Enabled = false;
                 TextBoxStopFrequency.Enabled = false;
@@ -1119,7 +1046,7 @@ namespace RFEOnSite
             LabelTaskCount.Text = "Done";
 
             gRFEOnSite.Explorer.SweepCount = 1;
-            gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetWhoopDownlinkTable.Count();
+            gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetCP4DownlinkTable.Count();
             NumericUpDownSweeps.Enabled = true;
 
             if (CheckBoxSaveCsvFiles.Checked && CheckBoxAutoIncrementMarkerNumber.Checked && !gRFEOnSite.PresetActive)
@@ -1129,8 +1056,9 @@ namespace RFEOnSite
                     NumericUpDownMarkerNumber.Value -= 1;
                 }
             }
+            gRFEOnSite.Explorer.Capture = false;
 
-            gRFEOnSite.CancelActive = true;
+            //gRFEOnSite.CancelActive = true;
 
             ButtonStartSweeps.Enabled = true;
             ButtonCancelSweeps.Enabled = false;
@@ -1138,6 +1066,8 @@ namespace RFEOnSite
             GroupBoxCsvConfiguration.Enabled = true;
             GroupBoxConfiguration.Enabled = true;
             NumericUpDownSweeps.Enabled = true;
+
+
         }
 
         private void CheckBoxRadial_CheckedChanged(object sender, EventArgs e)
@@ -1319,7 +1249,7 @@ namespace RFEOnSite
             resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", ImageFormat.Jpeg);
 
             LabelCaptured.Text = "";
-            ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;
+            ButtonCaptureImage.BackColor = SystemColors.Highlight;
         }
 
         private void ProcessVideoFrame(object sender, EventArgs e)
@@ -1362,7 +1292,7 @@ namespace RFEOnSite
                 {
                     gRFEOnSite.CaptureImage = true;
                     TabControlMain.SelectedTab.Enabled = true;
-                    ButtonCaptureImage.BackColor = System.Drawing.SystemColors.Highlight;
+                    ButtonCaptureImage.BackColor = SystemColors.Highlight;
                 }
                 else
                 {
@@ -1473,13 +1403,13 @@ namespace RFEOnSite
                 {
                     gRFEOnSite.PresetTableIndex = 0;
 
-                    if (gRFEOnSite.PresetType == ePreset.eWhoopDownlink)
+                    if (gRFEOnSite.PresetType == ePreset.eCP4Downlink)
                     {
-                        foreach (PresetTableEntry pair in gRFEOnSite.PresetWhoopDownlinkTable)
+                        foreach (PresetTableEntry pair in gRFEOnSite.PresetCP4DownlinkTable)
                         {
                             gRFEOnSite.PresetTableIndex++;
 
-                            LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetWhoopDownlinkTable.Count();
+                            LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetCP4DownlinkTable.Count();
 
                             gRFEOnSite.Explorer.SendConfiguration(pair.SweepStart, pair.SweepStop);
 
@@ -1531,6 +1461,93 @@ namespace RFEOnSite
             else
             {
                 gRFEOnSite.Explorer.Capture = true;
+            }
+        }
+
+        public void SetUIItemsEnabledState()
+        {
+            switch (gRFEOnSite.PresetType)
+            {
+                case ePreset.eContinuous:
+                    ButtonStartSweeps.Enabled = false;
+                    ButtonStartSweeps.Text = "Start";
+                    ButtonCancelSweeps.Enabled = true;
+                    ButtonCancelSweeps.Text = "Stop";
+                    gRFEOnSite.CsvDirectoryValid = false;
+                    gRFEOnSite.CaptureImage = false;
+                    ButtonCaptureImage.BackColor = Color.Gray;
+                    ButtonCaptureImage.Refresh();
+
+
+                    GroupBoxCsvConfiguration.Enabled = false;
+                    GroupBoxConfiguration.Enabled = true;
+                    NumericUpDownSweeps.Enabled = true;
+                    TabControlMain.Enabled = false;
+                    LabelActualSweeps.Text = "";
+                    break;
+
+                case ePreset.eSingle:
+                    ButtonStartSweeps.Enabled = false;
+                    ButtonStartSweeps.Text = "Capture";
+                    ButtonCancelSweeps.Enabled = true;
+                    ButtonCancelSweeps.Text = "Cancel";
+                    gRFEOnSite.CsvDirectoryValid = false;
+                    gRFEOnSite.CaptureImage = false;
+                    ButtonCaptureImage.BackColor = Color.Gray;
+                    ButtonCaptureImage.Refresh();
+
+
+                    gRFEOnSite.FileOps.FileCounter = 1;
+                    gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
+                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
+                    GroupBoxCsvConfiguration.Enabled = false;
+                    GroupBoxConfiguration.Enabled = false;
+                    NumericUpDownSweeps.Enabled = false;
+                    TabControlMain.Enabled = false;
+                    LabelActualSweeps.Text = "";
+                    break;
+
+                case ePreset.eCP4Downlink:
+                    ButtonStartSweeps.Enabled = false;
+                    ButtonStartSweeps.Text = "Capture";
+                    ButtonCancelSweeps.Enabled = true;
+                    ButtonCancelSweeps.Text = "Cancel";
+                    gRFEOnSite.CsvDirectoryValid = false;
+                    gRFEOnSite.CaptureImage = false;
+                    ButtonCaptureImage.BackColor = Color.Gray;
+                    ButtonCaptureImage.Refresh();
+
+
+                    gRFEOnSite.FileOps.FileCounter = 1;
+                    gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
+                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
+                    GroupBoxCsvConfiguration.Enabled = false;
+                    GroupBoxConfiguration.Enabled = false;
+                    NumericUpDownSweeps.Enabled = false;
+                    TabControlMain.Enabled = false;
+                    LabelActualSweeps.Text = "";
+                    break;
+
+                case ePreset.eFullDownlink:
+                    ButtonStartSweeps.Enabled = false;
+                    ButtonStartSweeps.Text = "Capture";
+                    ButtonCancelSweeps.Enabled = true;
+                    ButtonCancelSweeps.Text = "Cancel";
+                    gRFEOnSite.CsvDirectoryValid = false;
+                    gRFEOnSite.CaptureImage = false;
+                    ButtonCaptureImage.BackColor = Color.Gray;
+                    ButtonCaptureImage.Refresh();
+
+
+                    gRFEOnSite.FileOps.FileCounter = 1;
+                    gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
+                    gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
+                    GroupBoxCsvConfiguration.Enabled = false;
+                    GroupBoxConfiguration.Enabled = false;
+                    NumericUpDownSweeps.Enabled = false;
+                    TabControlMain.Enabled = false;
+                    LabelActualSweeps.Text = "";
+                    break;
             }
         }
     }

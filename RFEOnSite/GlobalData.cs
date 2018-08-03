@@ -12,7 +12,7 @@ namespace RFEOnSite
         public FileOps FileOps { get; set; }
         public List<string> ExplorerSweepData { get; }
         public RFExplorer Explorer { get; set; }
-        public WhoopTable PresetWhoopDownlinkTable { get; }
+        public CP4Table PresetCP4DownlinkTable { get; }
         public bool ApplicationInitialized { get; set; }
         public bool CancelActive { get; set; }
         public bool CaptureImage { get; set; }
@@ -57,7 +57,7 @@ namespace RFEOnSite
             PresetDownlinkTable = new DownlinkTable();
             PresetTableIndex = 0;
             PresetType = ePreset.eSingle;
-            PresetWhoopDownlinkTable = new WhoopTable();
+            PresetCP4DownlinkTable = new CP4Table();
             RadialDegrees = 0;
             RadialSurvey = false;
             RightAntennaGain = 5;
@@ -67,7 +67,7 @@ namespace RFEOnSite
     }
 
     public enum eBand { e700, e850, ePCS, eAWS, ePublicSafety };
-    public enum ePreset { eContinuous, eSingle, eWhoopDownlink, eFullDownlink };
+    public enum ePreset { eContinuous, eSingle, eCP4Downlink, eFullDownlink };
 
 
     public class PresetTableEntry
@@ -87,11 +87,11 @@ namespace RFEOnSite
             SweepBand = band;
         }
     }
-    public class WhoopTable : IEnumerable<PresetTableEntry>
+    public class CP4Table : IEnumerable<PresetTableEntry>
     {
         public List<PresetTableEntry> mPairs;
 
-        public WhoopTable()
+        public CP4Table()
         {
             mPairs = new List<PresetTableEntry>();
 

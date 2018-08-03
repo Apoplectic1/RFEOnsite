@@ -140,11 +140,12 @@ namespace RFEOnSite
                 Thread.Sleep(500);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 string message; // = obException.ToString();
                 string caption = "USB Cable/Serial Port Connection Error";
-                message = "Most likely causes include:\n" +
+                message = e.ToString() + "\n\n" +
+                    "Most likely causes include:\n" +
                     "\t1. USB Cable Connection or Faulty USB Cable.\n" +
                     "\t2. Silicon Image USB Driver not Version 6.7.5\n" +
                     "\t3. Connection Baud Rate setting mismatch.\n" +
@@ -158,7 +159,7 @@ namespace RFEOnSite
                     "\t5. Click 'USB Trouble Shooting' button after restart.\n" + 
                     "\t6. Complete USB driver removal and re-install.\n" +
                     "\t7. Force 2400 Baud from 'USB Settings' Menu.\n" +
-                    "\t   Requires setting configuration menu to 2.4 kbps";
+                    "\t   Note: REQUIRES setting the Explorer configuration to 2.4 kbps";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
 
