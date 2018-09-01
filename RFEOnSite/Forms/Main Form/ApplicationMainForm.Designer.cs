@@ -1307,6 +1307,7 @@ namespace RFEOnSite
             this.ButtonPauseResume.TabIndex = 49;
             this.ButtonPauseResume.Text = "Pause";
             this.ButtonPauseResume.UseVisualStyleBackColor = true;
+            this.ButtonPauseResume.Click += new System.EventHandler(this.ButtonPauseResume_Click);
             // 
             // LabelCaptured
             // 

@@ -1550,5 +1550,10 @@ namespace RFEOnSite
                     break;
             }
         }
+
+        private void ButtonPauseResume_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
