@@ -138,6 +138,7 @@ namespace RFEOnSite
             mPairs.Add(new PresetTableEntry(747.6, 758.7, eBand.e700));
             mPairs.Add(new PresetTableEntry(758.8, 769.9, eBand.e700));
 
+            mPairs.Add(new PresetTableEntry(850.6, 861.7, eBand.e850));
             mPairs.Add(new PresetTableEntry(865.0, 876.1, eBand.e850));
             mPairs.Add(new PresetTableEntry(876.2, 887.3, eBand.e850));
             mPairs.Add(new PresetTableEntry(887.4, 898.5, eBand.e850));
