@@ -182,7 +182,10 @@ namespace RFEOnSite
             try
             {
                 RFEConnected = false;
-                Port.Close();
+                if (Port != null)
+                {
+                    Port.Close();
+                }
             }
             catch
             {
