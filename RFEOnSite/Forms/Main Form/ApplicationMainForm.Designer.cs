@@ -1250,7 +1250,7 @@ namespace RFEOnSite
             this.button1.TabIndex = 20;
             this.button1.Text = "USB 6.7.5 Driver Download";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // TabControlMainOmniDirectional
             // 

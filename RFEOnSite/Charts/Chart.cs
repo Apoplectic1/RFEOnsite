@@ -115,16 +115,20 @@ namespace RFEOnSite
 
             if (avgChart)
             {
-                mSeriesAverage = new Series();
-                mSeriesAverage.Color = Color.Green;
-                mSeriesAverage.ChartType = SeriesChartType.Spline;
+                mSeriesAverage = new Series
+                {
+                    Color = Color.Green,
+                    ChartType = SeriesChartType.Spline
+                };
             }
 
             if (maxChart)
             {
-                mSeriesPeak = new Series();
-                mSeriesPeak.Color = Color.Blue;
-                mSeriesPeak.ChartType = SeriesChartType.Spline;
+                mSeriesPeak = new Series
+                {
+                    Color = Color.Blue,
+                    ChartType = SeriesChartType.Spline
+                };
             }
             // Walk across each Sweep Column
             for (int index = 0; index != 112; index++)

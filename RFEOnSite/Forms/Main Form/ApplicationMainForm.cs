@@ -13,13 +13,16 @@ using System.Drawing.Imaging;
 using System.Threading;
 using System.Media;
 using RFE_OnSite.Properties;
+using Emgu.CV.Structure;
 
 namespace RFEOnSite
 {
     public partial class MainForm : Form
     {
         public GlobalData gRFEOnSite;
-
+        private VideoCapture mCapture;
+        private Emgu.CV.Mat mMat;
+  
         public MainForm()
         {
             gRFEOnSite = new GlobalData();
@@ -626,21 +629,12 @@ namespace RFEOnSite
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
         {
-            // ***********************************************************
-            // ***********************************************************
-            // Updates the physical RF Explorer with data from UI and then
-            // Updates UI Graph with configuration data read from the UI
-            // ***********************************************************
-            // ***********************************************************
-            double startMHz;
-            double stopMHz;
-            double stepKHz;
             bool bValidField;
 
 
-            bValidField = Double.TryParse(TextBoxStartFrequency.Text, out startMHz);
-            bValidField &= Double.TryParse(TextBoxStopFrequency.Text, out stopMHz);
-            bValidField &= Double.TryParse(TextBoxStepFrequency.Text, out stepKHz);
+            bValidField = Double.TryParse(TextBoxStartFrequency.Text, out double startMHz);
+            bValidField &= Double.TryParse(TextBoxStopFrequency.Text, out double stopMHz);
+            bValidField &= Double.TryParse(TextBoxStepFrequency.Text, out double stepKHz);
 
             if (bValidField)
             {
@@ -798,8 +792,7 @@ namespace RFEOnSite
 
         private void TextBoxLeftAntennaGain_TextChanged(object sender, EventArgs e)
         {
-            double gain;
-            if (Double.TryParse(TextBoxLeftAntennaGain.Text, out gain))
+            if (Double.TryParse(TextBoxLeftAntennaGain.Text, out double gain))
             {
                 gRFEOnSite.LeftAntennaGain = gain;
             }
@@ -811,8 +804,7 @@ namespace RFEOnSite
 
         private void TextBoxRightAntennaGain_TextChanged(object sender, EventArgs e)
         {
-            double gain;
-            if (Double.TryParse(TextBoxRightAntennaGain.Text, out gain))
+            if (Double.TryParse(TextBoxRightAntennaGain.Text, out double gain))
             {
                 gRFEOnSite.RightAntennaGain = gain;
             }
@@ -988,11 +980,11 @@ namespace RFEOnSite
 
         private void TextBoxStartFrequency_TextChanged(object sender, EventArgs e)
         {
-            double start, stop, stepSize;
+            double stepSize;
             bool bStatus;
 
-            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start);
-            Double.TryParse(TextBoxStopFrequency.Text, out stop);
+            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out double start);
+            Double.TryParse(TextBoxStopFrequency.Text, out double stop);
 
             if (bStatus)
             {
@@ -1010,11 +1002,11 @@ namespace RFEOnSite
 
         private void TextBoxStopFrequency_TextChanged(object sender, EventArgs e)
         {
-            double start, stop, stepSize;
+            double stepSize;
             bool bStatus;
 
-            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out start); // **** stop
-            Double.TryParse(TextBoxStopFrequency.Text, out stop);
+            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out double start); // **** stop
+            Double.TryParse(TextBoxStopFrequency.Text, out double stop);
 
             if (bStatus)
             {
@@ -1113,7 +1105,7 @@ namespace RFEOnSite
             RefreshUI();
         }
 
-        private void toolStripMenuItemFileExit_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemFileExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -1227,8 +1219,7 @@ namespace RFEOnSite
             }
         }
 
-        VideoCapture mCapture;
-        Mat mMat;
+        
 
         private void ButtonCaptureImage_Click(object sender, EventArgs e)
         {
@@ -1243,6 +1234,7 @@ namespace RFEOnSite
             ButtonCaptureImage.Refresh();
 
             SystemSounds.Asterisk.Play();
+            mMat = new Mat();
 
             Thread.Sleep(500);
             Bitmap resized = new Bitmap(mMat.Bitmap, new Size(mMat.Bitmap.Width * 4, mMat.Bitmap.Height * 4));
@@ -1352,7 +1344,7 @@ namespace RFEOnSite
             System.Diagnostics.Process.Start("http://j3.rf-explorer.com/62-rfe/troubleshooting/104-troubleshooting-usb-drivers");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://j3.rf-explorer.com/download/sw/win/RFExplorer_USB_Driver.zip");
         }
