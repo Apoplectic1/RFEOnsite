@@ -880,9 +880,9 @@ namespace RFEOnSite
             this.LabelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LabelCopyright.Location = new System.Drawing.Point(771, 717);
             this.LabelCopyright.Name = "LabelCopyright";
-            this.LabelCopyright.Size = new System.Drawing.Size(207, 13);
+            this.LabelCopyright.Size = new System.Drawing.Size(209, 13);
             this.LabelCopyright.TabIndex = 25;
-            this.LabelCopyright.Text = "Copyright 2018 - Skyhawk Consulting, Inc.";
+            this.LabelCopyright.Text = "Copyright 2021 - Integra Network Solutions";
             // 
             // GroupBoxConfiguration
             // 
@@ -1144,7 +1144,7 @@ namespace RFEOnSite
             // MenuStripMenuItemPreset
             // 
             this.MenuStripMenuItemPreset.Name = "MenuStripMenuItemPreset";
-            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(92, 22);
+            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(93, 22);
             this.MenuStripMenuItemPreset.Text = "Exit";
             this.MenuStripMenuItemPreset.Click += new System.EventHandler(this.MenuStripMenuItemPreset_Click);
             // 

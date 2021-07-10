@@ -21,7 +21,7 @@ namespace RFEOnSite
     {
         public GlobalData gRFEOnSite;
         private VideoCapture mCapture;
-        private Emgu.CV.Mat mMat;
+        private Mat mMat;
   
         public MainForm()
         {
@@ -1237,7 +1237,10 @@ namespace RFEOnSite
             mMat = new Mat();
 
             Thread.Sleep(500);
-            Bitmap resized = new Bitmap(mMat.Bitmap, new Size(mMat.Bitmap.Width * 4, mMat.Bitmap.Height * 4));
+
+            Bitmap resized = new Bitmap(mMat.Width, mMat.Height);
+
+            //Bitmap resized = new Bitmap(mMat.Bitmap, new Size(mMat.Bitmap.Width * 4, mMat.Bitmap.Height * 4));
             resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", ImageFormat.Jpeg);
 
             LabelCaptured.Text = "";
@@ -1254,7 +1257,7 @@ namespace RFEOnSite
             try
             {
                 mMat = mCapture.QueryFrame();
-                PictureBox.Image = mMat.Bitmap;
+                PictureBox.Image = mMat.ToBitmap();
             }
             catch
             {
