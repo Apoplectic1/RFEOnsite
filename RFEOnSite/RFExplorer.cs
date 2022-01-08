@@ -155,13 +155,6 @@ namespace RFEOnSite
                 catch (IOException) { }
                 catch (TimeoutException) { }
                 catch (Exception) { }
-                //finally
-                //{
-                //    if (mSerialPort.RFEConnected)
-                //    {
-                //        //Monitor.Exit(mSerialPort);
-                //    }
-                //}
 
                 if (sNewText.Length > 0)
                 {
@@ -225,6 +218,7 @@ namespace RFEOnSite
                         {
                             mRFEConfiguration.ParseModelAndVersion(sNewLine);
                         }
+
                         // Look for Configuration string 
                         if ((sNewLine.StartsWith("#C2-F:")) && (sNewLine.Length == 81))
                         {
@@ -243,7 +237,10 @@ namespace RFEOnSite
                             // It looks like the Explorer returns TWO configuration repsonses after a set config command
                             // The first is old and the second is new
                             // Read set flags to find the second configuration response.
-                            if (mSecondReturnedConfiguration)
+
+                            bool configurationValid = mRFEConfiguration.mMainModel.Equals(eModel.MODEL_6G_PLUS) ? mFirstRetunedConfiguration : mSecondReturnedConfiguration;
+
+                            if (configurationValid)
                             {
                                 mRFEConfiguration.ParseConfiguration(sNewLine);
 

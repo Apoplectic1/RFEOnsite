@@ -239,7 +239,7 @@ namespace RFEOnSite
             gRFEOnSite.ResolutionBandWidth = fromSerialThread.RBWKHz;
             gRFEOnSite.FrequencyStepSize = fromSerialThread.StepMHz;
 
-            if (fromSerialThread.mMainModel == eModel.MODEL_6G)
+            if ((fromSerialThread.mMainModel == eModel.MODEL_6G) || (fromSerialThread.mMainModel == eModel.MODEL_6G_PLUS))
             {
                 if (!gRFEOnSite.PresetActive)
                 {
