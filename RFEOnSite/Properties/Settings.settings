@@ -45,10 +45,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Persist_Preset" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Single</Value>
     </Setting>
     <Setting Name="Persist_2400State" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Persist_AutoNext" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Enable</Value>
     </Setting>
   </Settings>
 </SettingsFile>

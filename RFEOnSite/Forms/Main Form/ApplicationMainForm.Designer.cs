@@ -46,7 +46,7 @@ namespace RFEOnSite
             this.Label_DeviceValue = new System.Windows.Forms.Label();
             this.ButtonStartSweeps = new System.Windows.Forms.Button();
             this.LabelStartSweeps = new System.Windows.Forms.Label();
-            this.NumericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_SweepControl_Sweeps = new System.Windows.Forms.NumericUpDown();
             this.GroupBox_SweepControl = new System.Windows.Forms.GroupBox();
             this.LabelActualSweeps = new System.Windows.Forms.Label();
             this.LabelTaskCount = new System.Windows.Forms.Label();
@@ -55,14 +55,14 @@ namespace RFEOnSite
             this.LabelProgressWriteCsvFile = new System.Windows.Forms.Label();
             this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
             this.TextBoxCsvFileName = new System.Windows.Forms.TextBox();
-            this.CheckBoxSaveCsvFiles = new System.Windows.Forms.CheckBox();
-            this.CheckBoxChartPeak = new System.Windows.Forms.CheckBox();
-            this.CheckBoxChartAverage = new System.Windows.Forms.CheckBox();
-            this.CheckBoxChartAutoScale = new System.Windows.Forms.CheckBox();
+            this.CheckBox_CSVFileStorage_SaveCsvFiles = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ReceivedSignalStrength_ChartPeak = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ReceivedSignalStrength_ChartAverage = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale = new System.Windows.Forms.CheckBox();
             this.GroupBox_ReceivedSignalStrength = new System.Windows.Forms.GroupBox();
             this.PanelChart = new System.Windows.Forms.Panel();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.TextBoxCollectionLocation = new System.Windows.Forms.TextBox();
+            this.TextBox_CSVFileStorage_CollectionLocationDescription = new System.Windows.Forms.TextBox();
             this.LabelRBW = new System.Windows.Forms.Label();
             this.ButtonSetConfiguration = new System.Windows.Forms.Button();
             this.TextBoxRBW = new System.Windows.Forms.TextBox();
@@ -70,14 +70,11 @@ namespace RFEOnSite
             this.ButtonGetRfeConfiguration = new System.Windows.Forms.Button();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
             this.ButtonCaptureImage = new System.Windows.Forms.Button();
-            this.ButtonPersistClear = new System.Windows.Forms.Button();
+            this.Button_CSVFileStorage_ResetAllFields = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_CollectionFloor_Enable = new System.Windows.Forms.Button();
             this.RadioButton_CSVFileStorage_FloorIncrement = new System.Windows.Forms.RadioButton();
             this.RadioButton_CSVFileStorage_FloorDecrement = new System.Windows.Forms.RadioButton();
             this.CheckBoxAutoIncrementMarkerNumber = new System.Windows.Forms.CheckBox();
-            this.CheckBoxHoldStep = new System.Windows.Forms.CheckBox();
-            this.CheckBoxHoldStop = new System.Windows.Forms.CheckBox();
-            this.CheckBoxHoldStart = new System.Windows.Forms.CheckBox();
             this.LabelStartFrequency = new System.Windows.Forms.Label();
             this.LabelFrequencyStep = new System.Windows.Forms.Label();
             this.TabControlMain = new System.Windows.Forms.TabControl();
@@ -90,18 +87,18 @@ namespace RFEOnSite
             this.GroupBox_OmniDirectional_CurrentConfiguration = new System.Windows.Forms.GroupBox();
             this.LabelRBWUnit = new System.Windows.Forms.Label();
             this.LabelPresets = new System.Windows.Forms.Label();
-            this.LabelRightAntennaGainUnit = new System.Windows.Forms.Label();
-            this.TextBoxRightAntennaGain = new System.Windows.Forms.TextBox();
-            this.LabelRightAntennaGain = new System.Windows.Forms.Label();
-            this.LabelLeftAntennaGainUnit = new System.Windows.Forms.Label();
-            this.TextBoxLeftAntennaGain = new System.Windows.Forms.TextBox();
-            this.LabelLeftAntennaGain = new System.Windows.Forms.Label();
-            this.TextBoxStepFrequency = new System.Windows.Forms.TextBox();
+            this.Label_CurrentConfiguration_RightAntennaGaindB = new System.Windows.Forms.Label();
+            this.TextBox_CurrentConfiguration_RightAntennaGain = new System.Windows.Forms.TextBox();
+            this.Label_CurrentConfiguration_RightAntennaGain = new System.Windows.Forms.Label();
+            this.Label_CurrentConfiguration_LeftAntennaGaindB = new System.Windows.Forms.Label();
+            this.TextBox_CurrentConfiguration_LeftAntennaGain = new System.Windows.Forms.TextBox();
+            this.Label_CurrentConfiguration_LeftAntennaGain = new System.Windows.Forms.Label();
+            this.TextBox_CurrentConfiguration_StepFrequency = new System.Windows.Forms.TextBox();
             this.LabelStopFrequencyUnit = new System.Windows.Forms.Label();
             this.LabelStartFrequencyUnit = new System.Windows.Forms.Label();
             this.LabelFrequencyStepUnit = new System.Windows.Forms.Label();
-            this.TextBoxStartFrequency = new System.Windows.Forms.TextBox();
-            this.TextBoxStopFrequency = new System.Windows.Forms.TextBox();
+            this.TextBox_CurrentConfiguration_StartFrequency = new System.Windows.Forms.TextBox();
+            this.TextBox_CurrentConfiguration_StopFrequency = new System.Windows.Forms.TextBox();
             this.TabControlMainRadial = new System.Windows.Forms.TabPage();
             this.LabelRadialAzimuth = new System.Windows.Forms.Label();
             this.LabelTrueNorthText = new System.Windows.Forms.Label();
@@ -119,11 +116,12 @@ namespace RFEOnSite
             this.ButtonCalibrationStart = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_Next = new System.Windows.Forms.Button();
             this.GroupBox_CSVFileStorage = new System.Windows.Forms.GroupBox();
+            this.Button_CSVFileStorage_ResetFloorAndMarkers = new System.Windows.Forms.Button();
             this.GroupBoxCsvInformation = new System.Windows.Forms.GroupBox();
             this.GroupBox_CSVFileStorage_AutoNext = new System.Windows.Forms.GroupBox();
-            this.GroupBoxClientId = new System.Windows.Forms.GroupBox();
-            this.TextBoxClient = new System.Windows.Forms.TextBox();
-            this.GroupBoxFloorId = new System.Windows.Forms.GroupBox();
+            this.GroupBox_CSVFileStorage_ClientInformation = new System.Windows.Forms.GroupBox();
+            this.TextBox_CSVFileStorage_Client = new System.Windows.Forms.TextBox();
+            this.GroupBox_CSVFileStorage_CollectionFloor = new System.Windows.Forms.GroupBox();
             this.NumericUpDown_CSVFileStorage_FloorNumber = new System.Windows.Forms.NumericUpDown();
             this.TextBox_CSVFileStorage_CollectionFloorName = new System.Windows.Forms.TextBox();
             this.GroupBox_CSVFileStorage_CollectionMarker = new System.Windows.Forms.GroupBox();
@@ -133,6 +131,7 @@ namespace RFEOnSite
             this.MenuStripMainForm = new System.Windows.Forms.MenuStrip();
             this.MenuStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripMenuItemPreset = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uSBSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.force2400BaudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StripStatusMainForm = new System.Windows.Forms.StatusStrip();
@@ -140,7 +139,7 @@ namespace RFEOnSite
             this.StripStatusLabelDivision1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelCsvDirectory = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_SweepControl_Sweeps)).BeginInit();
             this.GroupBox_SweepControl.SuspendLayout();
             this.GroupBox_ReceivedSignalStrength.SuspendLayout();
             this.TabControlMain.SuspendLayout();
@@ -156,8 +155,8 @@ namespace RFEOnSite
             this.GroupBox_CSVFileStorage.SuspendLayout();
             this.GroupBoxCsvInformation.SuspendLayout();
             this.GroupBox_CSVFileStorage_AutoNext.SuspendLayout();
-            this.GroupBoxClientId.SuspendLayout();
-            this.GroupBoxFloorId.SuspendLayout();
+            this.GroupBox_CSVFileStorage_ClientInformation.SuspendLayout();
+            this.GroupBox_CSVFileStorage_CollectionFloor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_FloorNumber)).BeginInit();
             this.GroupBox_CSVFileStorage_CollectionMarker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_MarkerNumber)).BeginInit();
@@ -342,25 +341,25 @@ namespace RFEOnSite
             this.LabelStartSweeps.Text = "Sweeps:";
             this.ToolTip1.SetToolTip(this.LabelStartSweeps, "Fill each FFT bin with the selected number of samples.");
             // 
-            // NumericUpDownSweeps
+            // NumericUpDown_SweepControl_Sweeps
             // 
-            this.NumericUpDownSweeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumericUpDownSweeps.Location = new System.Drawing.Point(118, 23);
-            this.NumericUpDownSweeps.Maximum = new decimal(new int[] {
+            this.NumericUpDown_SweepControl_Sweeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDown_SweepControl_Sweeps.Location = new System.Drawing.Point(118, 23);
+            this.NumericUpDown_SweepControl_Sweeps.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.NumericUpDownSweeps.Minimum = new decimal(new int[] {
+            this.NumericUpDown_SweepControl_Sweeps.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.NumericUpDownSweeps.Name = "NumericUpDownSweeps";
-            this.NumericUpDownSweeps.Size = new System.Drawing.Size(91, 31);
-            this.NumericUpDownSweeps.TabIndex = 15;
-            this.NumericUpDownSweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.NumericUpDownSweeps.Value = new decimal(new int[] {
+            this.NumericUpDown_SweepControl_Sweeps.Name = "NumericUpDown_SweepControl_Sweeps";
+            this.NumericUpDown_SweepControl_Sweeps.Size = new System.Drawing.Size(91, 31);
+            this.NumericUpDown_SweepControl_Sweeps.TabIndex = 15;
+            this.NumericUpDown_SweepControl_Sweeps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.NumericUpDown_SweepControl_Sweeps.Value = new decimal(new int[] {
             100,
             0,
             0,
@@ -377,7 +376,7 @@ namespace RFEOnSite
             this.GroupBox_SweepControl.Controls.Add(this.TaskProgressBar);
             this.GroupBox_SweepControl.Controls.Add(this.LabelStartSweeps);
             this.GroupBox_SweepControl.Controls.Add(this.ButtonStartSweeps);
-            this.GroupBox_SweepControl.Controls.Add(this.NumericUpDownSweeps);
+            this.GroupBox_SweepControl.Controls.Add(this.NumericUpDown_SweepControl_Sweeps);
             this.GroupBox_SweepControl.Controls.Add(this.TextBoxCsvFileName);
             this.GroupBox_SweepControl.Enabled = false;
             this.GroupBox_SweepControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -461,70 +460,70 @@ namespace RFEOnSite
             this.TextBoxCsvFileName.TabIndex = 1;
             this.TextBoxCsvFileName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // CheckBoxSaveCsvFiles
+            // CheckBox_CSVFileStorage_SaveCsvFiles
             // 
-            this.CheckBoxSaveCsvFiles.AutoSize = true;
-            this.CheckBoxSaveCsvFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxSaveCsvFiles.Location = new System.Drawing.Point(9, 27);
-            this.CheckBoxSaveCsvFiles.Name = "CheckBoxSaveCsvFiles";
-            this.CheckBoxSaveCsvFiles.Size = new System.Drawing.Size(265, 24);
-            this.CheckBoxSaveCsvFiles.TabIndex = 17;
-            this.CheckBoxSaveCsvFiles.Text = "Save Collected Data to CSV Files";
-            this.ToolTip1.SetToolTip(this.CheckBoxSaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.AutoSize = true;
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.Location = new System.Drawing.Point(9, 27);
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.Name = "CheckBox_CSVFileStorage_SaveCsvFiles";
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.Size = new System.Drawing.Size(265, 24);
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.TabIndex = 17;
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.Text = "Save Collected Data to CSV Files";
+            this.ToolTip1.SetToolTip(this.CheckBox_CSVFileStorage_SaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
         "e user\'s Desktop.");
-            this.CheckBoxSaveCsvFiles.UseVisualStyleBackColor = true;
-            this.CheckBoxSaveCsvFiles.CheckedChanged += new System.EventHandler(this.CheckBoxSaveCsvFiles_CheckedChanged);
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.UseVisualStyleBackColor = true;
+            this.CheckBox_CSVFileStorage_SaveCsvFiles.CheckedChanged += new System.EventHandler(this.CheckBoxSaveCsvFiles_CheckedChanged);
             // 
-            // CheckBoxChartPeak
+            // CheckBox_ReceivedSignalStrength_ChartPeak
             // 
-            this.CheckBoxChartPeak.AutoSize = true;
-            this.CheckBoxChartPeak.Checked = true;
-            this.CheckBoxChartPeak.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxChartPeak.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxChartPeak.Location = new System.Drawing.Point(363, 426);
-            this.CheckBoxChartPeak.Name = "CheckBoxChartPeak";
-            this.CheckBoxChartPeak.Size = new System.Drawing.Size(64, 24);
-            this.CheckBoxChartPeak.TabIndex = 3;
-            this.CheckBoxChartPeak.Text = "Peak";
-            this.ToolTip1.SetToolTip(this.CheckBoxChartPeak, "For each FFT bin, find and display the maximum power for that bin.");
-            this.CheckBoxChartPeak.UseVisualStyleBackColor = true;
-            this.CheckBoxChartPeak.CheckedChanged += new System.EventHandler(this.CheckBoxChartPeak_CheckedChanged);
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.AutoSize = true;
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.Checked = true;
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.Location = new System.Drawing.Point(363, 426);
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.Name = "CheckBox_ReceivedSignalStrength_ChartPeak";
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.Size = new System.Drawing.Size(64, 24);
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.TabIndex = 3;
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.Text = "Peak";
+            this.ToolTip1.SetToolTip(this.CheckBox_ReceivedSignalStrength_ChartPeak, "For each FFT bin, find and display the maximum power for that bin.");
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.UseVisualStyleBackColor = true;
+            this.CheckBox_ReceivedSignalStrength_ChartPeak.CheckedChanged += new System.EventHandler(this.CheckBoxChartPeak_CheckedChanged);
             // 
-            // CheckBoxChartAverage
+            // CheckBox_ReceivedSignalStrength_ChartAverage
             // 
-            this.CheckBoxChartAverage.AutoSize = true;
-            this.CheckBoxChartAverage.Checked = true;
-            this.CheckBoxChartAverage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxChartAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxChartAverage.Location = new System.Drawing.Point(191, 426);
-            this.CheckBoxChartAverage.Name = "CheckBoxChartAverage";
-            this.CheckBoxChartAverage.Size = new System.Drawing.Size(87, 24);
-            this.CheckBoxChartAverage.TabIndex = 2;
-            this.CheckBoxChartAverage.Text = "Average";
-            this.ToolTip1.SetToolTip(this.CheckBoxChartAverage, "For each FFT bin, compute and display the average power for that bin.");
-            this.CheckBoxChartAverage.UseVisualStyleBackColor = true;
-            this.CheckBoxChartAverage.CheckedChanged += new System.EventHandler(this.CheckBoxChartAverage_CheckedChanged);
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.AutoSize = true;
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.Checked = true;
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.Location = new System.Drawing.Point(191, 426);
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.Name = "CheckBox_ReceivedSignalStrength_ChartAverage";
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.Size = new System.Drawing.Size(87, 24);
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.TabIndex = 2;
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.Text = "Average";
+            this.ToolTip1.SetToolTip(this.CheckBox_ReceivedSignalStrength_ChartAverage, "For each FFT bin, compute and display the average power for that bin.");
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.UseVisualStyleBackColor = true;
+            this.CheckBox_ReceivedSignalStrength_ChartAverage.CheckedChanged += new System.EventHandler(this.CheckBoxChartAverage_CheckedChanged);
             // 
-            // CheckBoxChartAutoScale
+            // CheckBox_ReceivedSignalStrength_ChartAutoScale
             // 
-            this.CheckBoxChartAutoScale.AutoSize = true;
-            this.CheckBoxChartAutoScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxChartAutoScale.Location = new System.Drawing.Point(10, 426);
-            this.CheckBoxChartAutoScale.Name = "CheckBoxChartAutoScale";
-            this.CheckBoxChartAutoScale.Size = new System.Drawing.Size(106, 24);
-            this.CheckBoxChartAutoScale.TabIndex = 1;
-            this.CheckBoxChartAutoScale.Text = "Auto Scale";
-            this.ToolTip1.SetToolTip(this.CheckBoxChartAutoScale, "When checked, scale the plot data to fill the graph area. Unchecked will only plo" +
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.AutoSize = true;
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.Location = new System.Drawing.Point(10, 426);
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.Name = "CheckBox_ReceivedSignalStrength_ChartAutoScale";
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.Size = new System.Drawing.Size(106, 24);
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.TabIndex = 1;
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.Text = "Auto Scale";
+            this.ToolTip1.SetToolTip(this.CheckBox_ReceivedSignalStrength_ChartAutoScale, "When checked, scale the plot data to fill the graph area. Unchecked will only plo" +
         "t captured data points between -30 dBm and -110 dBm.");
-            this.CheckBoxChartAutoScale.UseVisualStyleBackColor = true;
-            this.CheckBoxChartAutoScale.CheckedChanged += new System.EventHandler(this.CheckBoxChartAutoScale_CheckedChanged);
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.UseVisualStyleBackColor = true;
+            this.CheckBox_ReceivedSignalStrength_ChartAutoScale.CheckedChanged += new System.EventHandler(this.CheckBoxChartAutoScale_CheckedChanged);
             // 
             // GroupBox_ReceivedSignalStrength
             // 
             this.GroupBox_ReceivedSignalStrength.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBoxChartAutoScale);
-            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBoxChartAverage);
-            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBoxChartPeak);
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBox_ReceivedSignalStrength_ChartAutoScale);
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBox_ReceivedSignalStrength_ChartAverage);
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBox_ReceivedSignalStrength_ChartPeak);
             this.GroupBox_ReceivedSignalStrength.Controls.Add(this.PanelChart);
             this.GroupBox_ReceivedSignalStrength.Enabled = false;
             this.GroupBox_ReceivedSignalStrength.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -548,18 +547,18 @@ namespace RFEOnSite
             this.ToolTip1.InitialDelay = 1000;
             this.ToolTip1.ReshowDelay = 1000;
             // 
-            // TextBoxCollectionLocation
+            // TextBox_CSVFileStorage_CollectionLocationDescription
             // 
-            this.TextBoxCollectionLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxCollectionLocation.Location = new System.Drawing.Point(8, 60);
-            this.TextBoxCollectionLocation.Name = "TextBoxCollectionLocation";
-            this.TextBoxCollectionLocation.Size = new System.Drawing.Size(341, 26);
-            this.TextBoxCollectionLocation.TabIndex = 2;
-            this.TextBoxCollectionLocation.Text = "Collection Location";
-            this.ToolTip1.SetToolTip(this.TextBoxCollectionLocation, "Enter a short site collection location identifier for data that is about to be co" +
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.Location = new System.Drawing.Point(8, 60);
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.Name = "TextBox_CSVFileStorage_CollectionLocationDescription";
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.Size = new System.Drawing.Size(341, 26);
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.TabIndex = 2;
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Collection Location";
+            this.ToolTip1.SetToolTip(this.TextBox_CSVFileStorage_CollectionLocationDescription, "Enter a short site collection location identifier for data that is about to be co" +
         "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
         " store collected data in CSV Files.");
-            this.TextBoxCollectionLocation.TextChanged += new System.EventHandler(this.TextBoxSweepLocation_TextChanged);
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.TextChanged += new System.EventHandler(this.TextBoxSweepLocation_TextChanged);
             // 
             // LabelRBW
             // 
@@ -575,7 +574,7 @@ namespace RFEOnSite
             // ButtonSetConfiguration
             // 
             this.ButtonSetConfiguration.Enabled = false;
-            this.ButtonSetConfiguration.Location = new System.Drawing.Point(345, 42);
+            this.ButtonSetConfiguration.Location = new System.Drawing.Point(309, 42);
             this.ButtonSetConfiguration.Name = "ButtonSetConfiguration";
             this.ButtonSetConfiguration.Size = new System.Drawing.Size(127, 51);
             this.ButtonSetConfiguration.TabIndex = 10;
@@ -586,10 +585,12 @@ namespace RFEOnSite
             // 
             // TextBoxRBW
             // 
+            this.TextBoxRBW.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TextBoxRBW.CausesValidation = false;
             this.TextBoxRBW.Location = new System.Drawing.Point(168, 101);
             this.TextBoxRBW.Name = "TextBoxRBW";
             this.TextBoxRBW.ReadOnly = true;
-            this.TextBoxRBW.Size = new System.Drawing.Size(56, 26);
+            this.TextBoxRBW.Size = new System.Drawing.Size(70, 26);
             this.TextBoxRBW.TabIndex = 17;
             this.TextBoxRBW.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ToolTip1.SetToolTip(this.TextBoxRBW, "RBW is not directly settable. It is determined by table lookup in the RF Explorer" +
@@ -616,7 +617,7 @@ namespace RFEOnSite
             // ButtonGetRfeConfiguration
             // 
             this.ButtonGetRfeConfiguration.Enabled = false;
-            this.ButtonGetRfeConfiguration.Location = new System.Drawing.Point(345, 108);
+            this.ButtonGetRfeConfiguration.Location = new System.Drawing.Point(309, 108);
             this.ButtonGetRfeConfiguration.Name = "ButtonGetRfeConfiguration";
             this.ButtonGetRfeConfiguration.Size = new System.Drawing.Size(127, 54);
             this.ButtonGetRfeConfiguration.TabIndex = 27;
@@ -649,18 +650,18 @@ namespace RFEOnSite
             this.ButtonCaptureImage.UseVisualStyleBackColor = false;
             this.ButtonCaptureImage.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
             // 
-            // ButtonPersistClear
+            // Button_CSVFileStorage_ResetAllFields
             // 
-            this.ButtonPersistClear.BackColor = System.Drawing.SystemColors.Control;
-            this.ButtonPersistClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonPersistClear.Location = new System.Drawing.Point(391, 46);
-            this.ButtonPersistClear.Name = "ButtonPersistClear";
-            this.ButtonPersistClear.Size = new System.Drawing.Size(108, 53);
-            this.ButtonPersistClear.TabIndex = 45;
-            this.ButtonPersistClear.Text = "Clear All Fields";
-            this.ToolTip1.SetToolTip(this.ButtonPersistClear, "Restores all fields to default values. Sets \"Manual\" Preset.");
-            this.ButtonPersistClear.UseVisualStyleBackColor = false;
-            this.ButtonPersistClear.Click += new System.EventHandler(this.ButtonPersistClear_Click);
+            this.Button_CSVFileStorage_ResetAllFields.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_CSVFileStorage_ResetAllFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_CSVFileStorage_ResetAllFields.Location = new System.Drawing.Point(408, 12);
+            this.Button_CSVFileStorage_ResetAllFields.Name = "Button_CSVFileStorage_ResetAllFields";
+            this.Button_CSVFileStorage_ResetAllFields.Size = new System.Drawing.Size(108, 53);
+            this.Button_CSVFileStorage_ResetAllFields.TabIndex = 45;
+            this.Button_CSVFileStorage_ResetAllFields.Text = "Reset All Fields";
+            this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_ResetAllFields, "Restores all fields to default values. Sets \"Manual\" Preset.");
+            this.Button_CSVFileStorage_ResetAllFields.UseVisualStyleBackColor = false;
+            this.Button_CSVFileStorage_ResetAllFields.Click += new System.EventHandler(this.Button_CSVFileStorage_ClearAllFields_Click);
             // 
             // Button_CSVFileStorage_CollectionFloor_Enable
             // 
@@ -679,25 +680,26 @@ namespace RFEOnSite
             // RadioButton_CSVFileStorage_FloorIncrement
             // 
             this.RadioButton_CSVFileStorage_FloorIncrement.AutoSize = true;
+            this.RadioButton_CSVFileStorage_FloorIncrement.Checked = true;
             this.RadioButton_CSVFileStorage_FloorIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioButton_CSVFileStorage_FloorIncrement.Location = new System.Drawing.Point(12, 17);
             this.RadioButton_CSVFileStorage_FloorIncrement.Name = "RadioButton_CSVFileStorage_FloorIncrement";
             this.RadioButton_CSVFileStorage_FloorIncrement.Size = new System.Drawing.Size(72, 17);
             this.RadioButton_CSVFileStorage_FloorIncrement.TabIndex = 41;
+            this.RadioButton_CSVFileStorage_FloorIncrement.TabStop = true;
             this.RadioButton_CSVFileStorage_FloorIncrement.Text = "Increment";
-            this.ToolTip1.SetToolTip(this.RadioButton_CSVFileStorage_FloorIncrement, "When Enabled, increment the floor number each time the Next Button is pressed.");
+            this.ToolTip1.SetToolTip(this.RadioButton_CSVFileStorage_FloorIncrement, "When Enabled, increment the floor number each time the Next Button is pressed. Re" +
+        "ally? Most people prefer decending floors!");
             this.RadioButton_CSVFileStorage_FloorIncrement.UseVisualStyleBackColor = true;
             // 
             // RadioButton_CSVFileStorage_FloorDecrement
             // 
             this.RadioButton_CSVFileStorage_FloorDecrement.AutoSize = true;
-            this.RadioButton_CSVFileStorage_FloorDecrement.Checked = true;
             this.RadioButton_CSVFileStorage_FloorDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioButton_CSVFileStorage_FloorDecrement.Location = new System.Drawing.Point(12, 39);
             this.RadioButton_CSVFileStorage_FloorDecrement.Name = "RadioButton_CSVFileStorage_FloorDecrement";
             this.RadioButton_CSVFileStorage_FloorDecrement.Size = new System.Drawing.Size(77, 17);
             this.RadioButton_CSVFileStorage_FloorDecrement.TabIndex = 40;
-            this.RadioButton_CSVFileStorage_FloorDecrement.TabStop = true;
             this.RadioButton_CSVFileStorage_FloorDecrement.Text = "Decrement";
             this.ToolTip1.SetToolTip(this.RadioButton_CSVFileStorage_FloorDecrement, "When Enabled, deccrement the floor number each time the Next Button is pressed.");
             this.RadioButton_CSVFileStorage_FloorDecrement.UseVisualStyleBackColor = true;
@@ -715,48 +717,6 @@ namespace RFEOnSite
         "sed.");
             this.CheckBoxAutoIncrementMarkerNumber.UseVisualStyleBackColor = true;
             this.CheckBoxAutoIncrementMarkerNumber.CheckedChanged += new System.EventHandler(this.CheckBoxAutoIncrement_CheckedChanged);
-            // 
-            // CheckBoxHoldStep
-            // 
-            this.CheckBoxHoldStep.AutoSize = true;
-            this.CheckBoxHoldStep.BackColor = System.Drawing.Color.Transparent;
-            this.CheckBoxHoldStep.Enabled = false;
-            this.CheckBoxHoldStep.Location = new System.Drawing.Point(272, 50);
-            this.CheckBoxHoldStep.Name = "CheckBoxHoldStep";
-            this.CheckBoxHoldStep.Size = new System.Drawing.Size(61, 24);
-            this.CheckBoxHoldStep.TabIndex = 30;
-            this.CheckBoxHoldStep.Text = "Hold";
-            this.ToolTip1.SetToolTip(this.CheckBoxHoldStep, "Check to hold this value constant and recalculate the other two frequency paramet" +
-        "ers.");
-            this.CheckBoxHoldStep.UseVisualStyleBackColor = false;
-            // 
-            // CheckBoxHoldStop
-            // 
-            this.CheckBoxHoldStop.AutoSize = true;
-            this.CheckBoxHoldStop.BackColor = System.Drawing.Color.Transparent;
-            this.CheckBoxHoldStop.Enabled = false;
-            this.CheckBoxHoldStop.Location = new System.Drawing.Point(272, 76);
-            this.CheckBoxHoldStop.Name = "CheckBoxHoldStop";
-            this.CheckBoxHoldStop.Size = new System.Drawing.Size(61, 24);
-            this.CheckBoxHoldStop.TabIndex = 29;
-            this.CheckBoxHoldStop.Text = "Hold";
-            this.ToolTip1.SetToolTip(this.CheckBoxHoldStop, "Check to hold this value constant and recalculate the other two frequency paramet" +
-        "ers.");
-            this.CheckBoxHoldStop.UseVisualStyleBackColor = false;
-            // 
-            // CheckBoxHoldStart
-            // 
-            this.CheckBoxHoldStart.AutoSize = true;
-            this.CheckBoxHoldStart.BackColor = System.Drawing.Color.Transparent;
-            this.CheckBoxHoldStart.Enabled = false;
-            this.CheckBoxHoldStart.Location = new System.Drawing.Point(272, 24);
-            this.CheckBoxHoldStart.Name = "CheckBoxHoldStart";
-            this.CheckBoxHoldStart.Size = new System.Drawing.Size(61, 24);
-            this.CheckBoxHoldStart.TabIndex = 28;
-            this.CheckBoxHoldStart.Text = "Hold";
-            this.ToolTip1.SetToolTip(this.CheckBoxHoldStart, "Check to hold this value constant and recalculate the other two frequency paramet" +
-        "ers.");
-            this.CheckBoxHoldStart.UseVisualStyleBackColor = false;
             // 
             // LabelStartFrequency
             // 
@@ -778,8 +738,7 @@ namespace RFEOnSite
             this.LabelFrequencyStep.Size = new System.Drawing.Size(122, 20);
             this.LabelFrequencyStep.TabIndex = 8;
             this.LabelFrequencyStep.Text = "Frequency Step";
-            this.ToolTip1.SetToolTip(this.LabelFrequencyStep, "Frequency sample step size/interval. The RF Explorer will always divide into 112 " +
-        "bins.");
+            this.ToolTip1.SetToolTip(this.LabelFrequencyStep, "Frequency sample step size returned by approximation or by the RF Explorer.");
             // 
             // TabControlMain
             // 
@@ -885,26 +844,23 @@ namespace RFEOnSite
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.ComboBoxPreset);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRBW);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxRBW);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.CheckBoxHoldStep);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.CheckBoxHoldStop);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.CheckBoxHoldStart);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.ButtonGetRfeConfiguration);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelPresets);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRightAntennaGainUnit);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxRightAntennaGain);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRightAntennaGain);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelLeftAntennaGainUnit);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxLeftAntennaGain);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelLeftAntennaGain);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxStepFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.Label_CurrentConfiguration_RightAntennaGaindB);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBox_CurrentConfiguration_RightAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.Label_CurrentConfiguration_RightAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.Label_CurrentConfiguration_LeftAntennaGaindB);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBox_CurrentConfiguration_LeftAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.Label_CurrentConfiguration_LeftAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBox_CurrentConfiguration_StepFrequency);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStopFrequencyUnit);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStartFrequencyUnit);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.ButtonSetConfiguration);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelFrequencyStepUnit);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStartFrequency);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelFrequencyStep);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxStartFrequency);
-            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxStopFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBox_CurrentConfiguration_StartFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBox_CurrentConfiguration_StopFrequency);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStopFrequency);
             this.GroupBox_OmniDirectional_CurrentConfiguration.Enabled = false;
             this.GroupBox_OmniDirectional_CurrentConfiguration.Location = new System.Drawing.Point(16, 21);
@@ -918,7 +874,7 @@ namespace RFEOnSite
             // 
             this.LabelRBWUnit.AutoSize = true;
             this.LabelRBWUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelRBWUnit.Location = new System.Drawing.Point(224, 104);
+            this.LabelRBWUnit.Location = new System.Drawing.Point(244, 104);
             this.LabelRBWUnit.Name = "LabelRBWUnit";
             this.LabelRBWUnit.Size = new System.Drawing.Size(39, 20);
             this.LabelRBWUnit.TabIndex = 6;
@@ -935,86 +891,90 @@ namespace RFEOnSite
             this.LabelPresets.TabIndex = 26;
             this.LabelPresets.Text = "Presets";
             // 
-            // LabelRightAntennaGainUnit
+            // Label_CurrentConfiguration_RightAntennaGaindB
             // 
-            this.LabelRightAntennaGainUnit.AutoSize = true;
-            this.LabelRightAntennaGainUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelRightAntennaGainUnit.Enabled = false;
-            this.LabelRightAntennaGainUnit.Location = new System.Drawing.Point(224, 170);
-            this.LabelRightAntennaGainUnit.Name = "LabelRightAntennaGainUnit";
-            this.LabelRightAntennaGainUnit.Size = new System.Drawing.Size(29, 20);
-            this.LabelRightAntennaGainUnit.TabIndex = 24;
-            this.LabelRightAntennaGainUnit.Text = "dB";
+            this.Label_CurrentConfiguration_RightAntennaGaindB.AutoSize = true;
+            this.Label_CurrentConfiguration_RightAntennaGaindB.BackColor = System.Drawing.Color.Transparent;
+            this.Label_CurrentConfiguration_RightAntennaGaindB.Enabled = false;
+            this.Label_CurrentConfiguration_RightAntennaGaindB.Location = new System.Drawing.Point(224, 170);
+            this.Label_CurrentConfiguration_RightAntennaGaindB.Name = "Label_CurrentConfiguration_RightAntennaGaindB";
+            this.Label_CurrentConfiguration_RightAntennaGaindB.Size = new System.Drawing.Size(29, 20);
+            this.Label_CurrentConfiguration_RightAntennaGaindB.TabIndex = 24;
+            this.Label_CurrentConfiguration_RightAntennaGaindB.Text = "dB";
             // 
-            // TextBoxRightAntennaGain
+            // TextBox_CurrentConfiguration_RightAntennaGain
             // 
-            this.TextBoxRightAntennaGain.Enabled = false;
-            this.TextBoxRightAntennaGain.Location = new System.Drawing.Point(168, 167);
-            this.TextBoxRightAntennaGain.Name = "TextBoxRightAntennaGain";
-            this.TextBoxRightAntennaGain.Size = new System.Drawing.Size(56, 26);
-            this.TextBoxRightAntennaGain.TabIndex = 23;
-            this.TextBoxRightAntennaGain.Text = "0";
-            this.TextBoxRightAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TextBoxRightAntennaGain.TextChanged += new System.EventHandler(this.TextBoxRightAntennaGain_TextChanged);
+            this.TextBox_CurrentConfiguration_RightAntennaGain.AllowDrop = true;
+            this.TextBox_CurrentConfiguration_RightAntennaGain.Enabled = false;
+            this.TextBox_CurrentConfiguration_RightAntennaGain.Location = new System.Drawing.Point(168, 167);
+            this.TextBox_CurrentConfiguration_RightAntennaGain.Name = "TextBox_CurrentConfiguration_RightAntennaGain";
+            this.TextBox_CurrentConfiguration_RightAntennaGain.Size = new System.Drawing.Size(56, 26);
+            this.TextBox_CurrentConfiguration_RightAntennaGain.TabIndex = 23;
+            this.TextBox_CurrentConfiguration_RightAntennaGain.Text = "0";
+            this.TextBox_CurrentConfiguration_RightAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBox_CurrentConfiguration_RightAntennaGain.TextChanged += new System.EventHandler(this.TextBoxRightAntennaGain_TextChanged);
             // 
-            // LabelRightAntennaGain
+            // Label_CurrentConfiguration_RightAntennaGain
             // 
-            this.LabelRightAntennaGain.AutoSize = true;
-            this.LabelRightAntennaGain.BackColor = System.Drawing.Color.Transparent;
-            this.LabelRightAntennaGain.Enabled = false;
-            this.LabelRightAntennaGain.Location = new System.Drawing.Point(18, 170);
-            this.LabelRightAntennaGain.Name = "LabelRightAntennaGain";
-            this.LabelRightAntennaGain.Size = new System.Drawing.Size(150, 20);
-            this.LabelRightAntennaGain.TabIndex = 22;
-            this.LabelRightAntennaGain.Text = "Right Antenna Gain";
+            this.Label_CurrentConfiguration_RightAntennaGain.AutoSize = true;
+            this.Label_CurrentConfiguration_RightAntennaGain.BackColor = System.Drawing.Color.Transparent;
+            this.Label_CurrentConfiguration_RightAntennaGain.Location = new System.Drawing.Point(18, 170);
+            this.Label_CurrentConfiguration_RightAntennaGain.Name = "Label_CurrentConfiguration_RightAntennaGain";
+            this.Label_CurrentConfiguration_RightAntennaGain.Size = new System.Drawing.Size(150, 20);
+            this.Label_CurrentConfiguration_RightAntennaGain.TabIndex = 22;
+            this.Label_CurrentConfiguration_RightAntennaGain.Text = "Right Antenna Gain";
             // 
-            // LabelLeftAntennaGainUnit
+            // Label_CurrentConfiguration_LeftAntennaGaindB
             // 
-            this.LabelLeftAntennaGainUnit.AutoSize = true;
-            this.LabelLeftAntennaGainUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelLeftAntennaGainUnit.Enabled = false;
-            this.LabelLeftAntennaGainUnit.Location = new System.Drawing.Point(224, 144);
-            this.LabelLeftAntennaGainUnit.Name = "LabelLeftAntennaGainUnit";
-            this.LabelLeftAntennaGainUnit.Size = new System.Drawing.Size(29, 20);
-            this.LabelLeftAntennaGainUnit.TabIndex = 21;
-            this.LabelLeftAntennaGainUnit.Text = "dB";
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.AutoSize = true;
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.BackColor = System.Drawing.Color.Transparent;
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.Enabled = false;
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.Location = new System.Drawing.Point(224, 144);
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.Name = "Label_CurrentConfiguration_LeftAntennaGaindB";
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.Size = new System.Drawing.Size(29, 20);
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.TabIndex = 21;
+            this.Label_CurrentConfiguration_LeftAntennaGaindB.Text = "dB";
             // 
-            // TextBoxLeftAntennaGain
+            // TextBox_CurrentConfiguration_LeftAntennaGain
             // 
-            this.TextBoxLeftAntennaGain.Enabled = false;
-            this.TextBoxLeftAntennaGain.Location = new System.Drawing.Point(168, 141);
-            this.TextBoxLeftAntennaGain.Name = "TextBoxLeftAntennaGain";
-            this.TextBoxLeftAntennaGain.Size = new System.Drawing.Size(56, 26);
-            this.TextBoxLeftAntennaGain.TabIndex = 20;
-            this.TextBoxLeftAntennaGain.Text = "0";
-            this.TextBoxLeftAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TextBoxLeftAntennaGain.TextChanged += new System.EventHandler(this.TextBoxLeftAntennaGain_TextChanged);
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.AllowDrop = true;
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.Enabled = false;
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.Location = new System.Drawing.Point(168, 141);
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.Name = "TextBox_CurrentConfiguration_LeftAntennaGain";
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.Size = new System.Drawing.Size(56, 26);
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.TabIndex = 20;
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.Text = "0";
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBox_CurrentConfiguration_LeftAntennaGain.TextChanged += new System.EventHandler(this.TextBoxLeftAntennaGain_TextChanged);
             // 
-            // LabelLeftAntennaGain
+            // Label_CurrentConfiguration_LeftAntennaGain
             // 
-            this.LabelLeftAntennaGain.AutoSize = true;
-            this.LabelLeftAntennaGain.BackColor = System.Drawing.Color.Transparent;
-            this.LabelLeftAntennaGain.Enabled = false;
-            this.LabelLeftAntennaGain.Location = new System.Drawing.Point(28, 144);
-            this.LabelLeftAntennaGain.Name = "LabelLeftAntennaGain";
-            this.LabelLeftAntennaGain.Size = new System.Drawing.Size(140, 20);
-            this.LabelLeftAntennaGain.TabIndex = 19;
-            this.LabelLeftAntennaGain.Text = "Left Antenna Gain";
+            this.Label_CurrentConfiguration_LeftAntennaGain.AutoSize = true;
+            this.Label_CurrentConfiguration_LeftAntennaGain.BackColor = System.Drawing.Color.Transparent;
+            this.Label_CurrentConfiguration_LeftAntennaGain.Location = new System.Drawing.Point(28, 144);
+            this.Label_CurrentConfiguration_LeftAntennaGain.Name = "Label_CurrentConfiguration_LeftAntennaGain";
+            this.Label_CurrentConfiguration_LeftAntennaGain.Size = new System.Drawing.Size(140, 20);
+            this.Label_CurrentConfiguration_LeftAntennaGain.TabIndex = 19;
+            this.Label_CurrentConfiguration_LeftAntennaGain.Text = "Left Antenna Gain";
             // 
-            // TextBoxStepFrequency
+            // TextBox_CurrentConfiguration_StepFrequency
             // 
-            this.TextBoxStepFrequency.Enabled = false;
-            this.TextBoxStepFrequency.Location = new System.Drawing.Point(168, 49);
-            this.TextBoxStepFrequency.Name = "TextBoxStepFrequency";
-            this.TextBoxStepFrequency.Size = new System.Drawing.Size(56, 26);
-            this.TextBoxStepFrequency.TabIndex = 18;
-            this.TextBoxStepFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBox_CurrentConfiguration_StepFrequency.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TextBox_CurrentConfiguration_StepFrequency.CausesValidation = false;
+            this.TextBox_CurrentConfiguration_StepFrequency.Location = new System.Drawing.Point(168, 49);
+            this.TextBox_CurrentConfiguration_StepFrequency.Name = "TextBox_CurrentConfiguration_StepFrequency";
+            this.TextBox_CurrentConfiguration_StepFrequency.ReadOnly = true;
+            this.TextBox_CurrentConfiguration_StepFrequency.Size = new System.Drawing.Size(70, 26);
+            this.TextBox_CurrentConfiguration_StepFrequency.TabIndex = 18;
+            this.TextBox_CurrentConfiguration_StepFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip1.SetToolTip(this.TextBox_CurrentConfiguration_StepFrequency, "The RF Explorer has a minumum 1 KHz step size. Stop to Start is divded into 112 e" +
+        "qual steps.");
             // 
             // LabelStopFrequencyUnit
             // 
             this.LabelStopFrequencyUnit.AutoSize = true;
             this.LabelStopFrequencyUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStopFrequencyUnit.Location = new System.Drawing.Point(224, 78);
+            this.LabelStopFrequencyUnit.Location = new System.Drawing.Point(244, 78);
             this.LabelStopFrequencyUnit.Name = "LabelStopFrequencyUnit";
             this.LabelStopFrequencyUnit.Size = new System.Drawing.Size(42, 20);
             this.LabelStopFrequencyUnit.TabIndex = 16;
@@ -1024,7 +984,7 @@ namespace RFEOnSite
             // 
             this.LabelStartFrequencyUnit.AutoSize = true;
             this.LabelStartFrequencyUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStartFrequencyUnit.Location = new System.Drawing.Point(224, 26);
+            this.LabelStartFrequencyUnit.Location = new System.Drawing.Point(244, 26);
             this.LabelStartFrequencyUnit.Name = "LabelStartFrequencyUnit";
             this.LabelStartFrequencyUnit.Size = new System.Drawing.Size(42, 20);
             this.LabelStartFrequencyUnit.TabIndex = 15;
@@ -1034,31 +994,33 @@ namespace RFEOnSite
             // 
             this.LabelFrequencyStepUnit.AutoSize = true;
             this.LabelFrequencyStepUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelFrequencyStepUnit.Location = new System.Drawing.Point(224, 52);
+            this.LabelFrequencyStepUnit.Location = new System.Drawing.Point(244, 52);
             this.LabelFrequencyStepUnit.Name = "LabelFrequencyStepUnit";
             this.LabelFrequencyStepUnit.Size = new System.Drawing.Size(39, 20);
             this.LabelFrequencyStepUnit.TabIndex = 9;
             this.LabelFrequencyStepUnit.Text = "KHz";
             // 
-            // TextBoxStartFrequency
+            // TextBox_CurrentConfiguration_StartFrequency
             // 
-            this.TextBoxStartFrequency.Enabled = false;
-            this.TextBoxStartFrequency.Location = new System.Drawing.Point(168, 23);
-            this.TextBoxStartFrequency.Name = "TextBoxStartFrequency";
-            this.TextBoxStartFrequency.Size = new System.Drawing.Size(56, 26);
-            this.TextBoxStartFrequency.TabIndex = 3;
-            this.TextBoxStartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TextBoxStartFrequency.TextChanged += new System.EventHandler(this.TextBoxStartFrequency_TextChanged);
+            this.TextBox_CurrentConfiguration_StartFrequency.Enabled = false;
+            this.TextBox_CurrentConfiguration_StartFrequency.Location = new System.Drawing.Point(168, 23);
+            this.TextBox_CurrentConfiguration_StartFrequency.Name = "TextBox_CurrentConfiguration_StartFrequency";
+            this.TextBox_CurrentConfiguration_StartFrequency.Size = new System.Drawing.Size(70, 26);
+            this.TextBox_CurrentConfiguration_StartFrequency.TabIndex = 3;
+            this.TextBox_CurrentConfiguration_StartFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip1.SetToolTip(this.TextBox_CurrentConfiguration_StartFrequency, "First set Start Frequency then set Stop Frequency. If Step size is too large, adj" +
+        "ust Step Size.");
+            this.TextBox_CurrentConfiguration_StartFrequency.TextChanged += new System.EventHandler(this.TextBoxStartFrequency_TextChanged);
             // 
-            // TextBoxStopFrequency
+            // TextBox_CurrentConfiguration_StopFrequency
             // 
-            this.TextBoxStopFrequency.Enabled = false;
-            this.TextBoxStopFrequency.Location = new System.Drawing.Point(168, 75);
-            this.TextBoxStopFrequency.Name = "TextBoxStopFrequency";
-            this.TextBoxStopFrequency.Size = new System.Drawing.Size(56, 26);
-            this.TextBoxStopFrequency.TabIndex = 7;
-            this.TextBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.TextBoxStopFrequency.TextChanged += new System.EventHandler(this.TextBoxStopFrequency_TextChanged);
+            this.TextBox_CurrentConfiguration_StopFrequency.Enabled = false;
+            this.TextBox_CurrentConfiguration_StopFrequency.Location = new System.Drawing.Point(168, 75);
+            this.TextBox_CurrentConfiguration_StopFrequency.Name = "TextBox_CurrentConfiguration_StopFrequency";
+            this.TextBox_CurrentConfiguration_StopFrequency.Size = new System.Drawing.Size(70, 26);
+            this.TextBox_CurrentConfiguration_StopFrequency.TabIndex = 7;
+            this.TextBox_CurrentConfiguration_StopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TextBox_CurrentConfiguration_StopFrequency.TextChanged += new System.EventHandler(this.TextBoxStopFrequency_TextChanged);
             // 
             // TabControlMainRadial
             // 
@@ -1241,7 +1203,9 @@ namespace RFEOnSite
             // GroupBox_CSVFileStorage
             // 
             this.GroupBox_CSVFileStorage.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.GroupBox_CSVFileStorage.Controls.Add(this.CheckBoxSaveCsvFiles);
+            this.GroupBox_CSVFileStorage.Controls.Add(this.Button_CSVFileStorage_ResetFloorAndMarkers);
+            this.GroupBox_CSVFileStorage.Controls.Add(this.Button_CSVFileStorage_ResetAllFields);
+            this.GroupBox_CSVFileStorage.Controls.Add(this.CheckBox_CSVFileStorage_SaveCsvFiles);
             this.GroupBox_CSVFileStorage.Controls.Add(this.GroupBoxCsvInformation);
             this.GroupBox_CSVFileStorage.Enabled = false;
             this.GroupBox_CSVFileStorage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -1253,12 +1217,23 @@ namespace RFEOnSite
             this.GroupBox_CSVFileStorage.TabStop = false;
             this.GroupBox_CSVFileStorage.Text = "CSV File Storage";
             // 
+            // Button_CSVFileStorage_ResetFloorAndMarkers
+            // 
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Location = new System.Drawing.Point(289, 4);
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Name = "Button_CSVFileStorage_ResetFloorAndMarkers";
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Size = new System.Drawing.Size(113, 68);
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.TabIndex = 46;
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Text = "Reset Floor and Markers";
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.UseVisualStyleBackColor = false;
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // GroupBoxCsvInformation
             // 
             this.GroupBoxCsvInformation.Controls.Add(this.GroupBox_CSVFileStorage_AutoNext);
-            this.GroupBoxCsvInformation.Controls.Add(this.ButtonPersistClear);
-            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxClientId);
-            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxFloorId);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBox_CSVFileStorage_ClientInformation);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBox_CSVFileStorage_CollectionFloor);
             this.GroupBoxCsvInformation.Controls.Add(this.GroupBox_CSVFileStorage_CollectionMarker);
             this.GroupBoxCsvInformation.Enabled = false;
             this.GroupBoxCsvInformation.Location = new System.Drawing.Point(8, 51);
@@ -1279,39 +1254,39 @@ namespace RFEOnSite
             this.GroupBox_CSVFileStorage_AutoNext.TabIndex = 0;
             this.GroupBox_CSVFileStorage_AutoNext.TabStop = false;
             // 
-            // GroupBoxClientId
+            // GroupBox_CSVFileStorage_ClientInformation
             // 
-            this.GroupBoxClientId.Controls.Add(this.TextBoxClient);
-            this.GroupBoxClientId.Controls.Add(this.TextBoxCollectionLocation);
-            this.GroupBoxClientId.Location = new System.Drawing.Point(20, 16);
-            this.GroupBoxClientId.Name = "GroupBoxClientId";
-            this.GroupBoxClientId.Size = new System.Drawing.Size(358, 98);
-            this.GroupBoxClientId.TabIndex = 43;
-            this.GroupBoxClientId.TabStop = false;
-            this.GroupBoxClientId.Text = "Client Information";
+            this.GroupBox_CSVFileStorage_ClientInformation.Controls.Add(this.TextBox_CSVFileStorage_Client);
+            this.GroupBox_CSVFileStorage_ClientInformation.Controls.Add(this.TextBox_CSVFileStorage_CollectionLocationDescription);
+            this.GroupBox_CSVFileStorage_ClientInformation.Location = new System.Drawing.Point(20, 16);
+            this.GroupBox_CSVFileStorage_ClientInformation.Name = "GroupBox_CSVFileStorage_ClientInformation";
+            this.GroupBox_CSVFileStorage_ClientInformation.Size = new System.Drawing.Size(358, 98);
+            this.GroupBox_CSVFileStorage_ClientInformation.TabIndex = 43;
+            this.GroupBox_CSVFileStorage_ClientInformation.TabStop = false;
+            this.GroupBox_CSVFileStorage_ClientInformation.Text = "Client Information";
             // 
-            // TextBoxClient
+            // TextBox_CSVFileStorage_Client
             // 
-            this.TextBoxClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxClient.Location = new System.Drawing.Point(8, 27);
-            this.TextBoxClient.Name = "TextBoxClient";
-            this.TextBoxClient.Size = new System.Drawing.Size(341, 26);
-            this.TextBoxClient.TabIndex = 20;
-            this.TextBoxClient.Text = "Client";
-            this.TextBoxClient.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
+            this.TextBox_CSVFileStorage_Client.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBox_CSVFileStorage_Client.Location = new System.Drawing.Point(8, 27);
+            this.TextBox_CSVFileStorage_Client.Name = "TextBox_CSVFileStorage_Client";
+            this.TextBox_CSVFileStorage_Client.Size = new System.Drawing.Size(341, 26);
+            this.TextBox_CSVFileStorage_Client.TabIndex = 20;
+            this.TextBox_CSVFileStorage_Client.Text = "Client";
+            this.TextBox_CSVFileStorage_Client.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
             // 
-            // GroupBoxFloorId
+            // GroupBox_CSVFileStorage_CollectionFloor
             // 
-            this.GroupBoxFloorId.Controls.Add(this.Button_CSVFileStorage_CollectionFloor_Enable);
-            this.GroupBoxFloorId.Controls.Add(this.NumericUpDown_CSVFileStorage_FloorNumber);
-            this.GroupBoxFloorId.Controls.Add(this.TextBox_CSVFileStorage_CollectionFloorName);
-            this.GroupBoxFloorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxFloorId.Location = new System.Drawing.Point(20, 121);
-            this.GroupBoxFloorId.Name = "GroupBoxFloorId";
-            this.GroupBoxFloorId.Size = new System.Drawing.Size(308, 63);
-            this.GroupBoxFloorId.TabIndex = 42;
-            this.GroupBoxFloorId.TabStop = false;
-            this.GroupBoxFloorId.Text = "Collection Floor";
+            this.GroupBox_CSVFileStorage_CollectionFloor.Controls.Add(this.Button_CSVFileStorage_CollectionFloor_Enable);
+            this.GroupBox_CSVFileStorage_CollectionFloor.Controls.Add(this.NumericUpDown_CSVFileStorage_FloorNumber);
+            this.GroupBox_CSVFileStorage_CollectionFloor.Controls.Add(this.TextBox_CSVFileStorage_CollectionFloorName);
+            this.GroupBox_CSVFileStorage_CollectionFloor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox_CSVFileStorage_CollectionFloor.Location = new System.Drawing.Point(20, 121);
+            this.GroupBox_CSVFileStorage_CollectionFloor.Name = "GroupBox_CSVFileStorage_CollectionFloor";
+            this.GroupBox_CSVFileStorage_CollectionFloor.Size = new System.Drawing.Size(308, 63);
+            this.GroupBox_CSVFileStorage_CollectionFloor.TabIndex = 42;
+            this.GroupBox_CSVFileStorage_CollectionFloor.TabStop = false;
+            this.GroupBox_CSVFileStorage_CollectionFloor.Text = "Collection Floor";
             // 
             // NumericUpDown_CSVFileStorage_FloorNumber
             // 
@@ -1343,7 +1318,7 @@ namespace RFEOnSite
             this.TextBox_CSVFileStorage_CollectionFloorName.Name = "TextBox_CSVFileStorage_CollectionFloorName";
             this.TextBox_CSVFileStorage_CollectionFloorName.Size = new System.Drawing.Size(132, 26);
             this.TextBox_CSVFileStorage_CollectionFloorName.TabIndex = 37;
-            this.TextBox_CSVFileStorage_CollectionFloorName.Text = "z";
+            this.TextBox_CSVFileStorage_CollectionFloorName.Text = "Floor";
             this.TextBox_CSVFileStorage_CollectionFloorName.TextChanged += new System.EventHandler(this.TextBoxFloorLabel_TextChanged);
             // 
             // GroupBox_CSVFileStorage_CollectionMarker
@@ -1414,7 +1389,8 @@ namespace RFEOnSite
             // MenuStripMenuItemFile
             // 
             this.MenuStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuStripMenuItemPreset});
+            this.MenuStripMenuItemPreset,
+            this.aboutToolStripMenuItem});
             this.MenuStripMenuItemFile.Name = "MenuStripMenuItemFile";
             this.MenuStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
             this.MenuStripMenuItemFile.Text = "File";
@@ -1422,9 +1398,16 @@ namespace RFEOnSite
             // MenuStripMenuItemPreset
             // 
             this.MenuStripMenuItemPreset.Name = "MenuStripMenuItemPreset";
-            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(93, 22);
+            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(107, 22);
             this.MenuStripMenuItemPreset.Text = "Exit";
             this.MenuStripMenuItemPreset.Click += new System.EventHandler(this.MenuStripMenuItemPreset_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // uSBSettingsToolStripMenuItem
             // 
@@ -1499,7 +1482,7 @@ namespace RFEOnSite
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "RFE OnSite";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_SweepControl_Sweeps)).EndInit();
             this.GroupBox_SweepControl.ResumeLayout(false);
             this.GroupBox_SweepControl.PerformLayout();
             this.GroupBox_ReceivedSignalStrength.ResumeLayout(false);
@@ -1525,10 +1508,10 @@ namespace RFEOnSite
             this.GroupBoxCsvInformation.ResumeLayout(false);
             this.GroupBox_CSVFileStorage_AutoNext.ResumeLayout(false);
             this.GroupBox_CSVFileStorage_AutoNext.PerformLayout();
-            this.GroupBoxClientId.ResumeLayout(false);
-            this.GroupBoxClientId.PerformLayout();
-            this.GroupBoxFloorId.ResumeLayout(false);
-            this.GroupBoxFloorId.PerformLayout();
+            this.GroupBox_CSVFileStorage_ClientInformation.ResumeLayout(false);
+            this.GroupBox_CSVFileStorage_ClientInformation.PerformLayout();
+            this.GroupBox_CSVFileStorage_CollectionFloor.ResumeLayout(false);
+            this.GroupBox_CSVFileStorage_CollectionFloor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_FloorNumber)).EndInit();
             this.GroupBox_CSVFileStorage_CollectionMarker.ResumeLayout(false);
             this.GroupBox_CSVFileStorage_CollectionMarker.PerformLayout();
@@ -1555,18 +1538,18 @@ namespace RFEOnSite
         private Label Label_FirmwareValue;
         private Label Label_ComPortValue;
         private Label LabelStartSweeps;
-        private NumericUpDown NumericUpDownSweeps;
+        private NumericUpDown NumericUpDown_SweepControl_Sweeps;
         private ProgressBar TaskProgressBar;
-        private CheckBox CheckBoxSaveCsvFiles;
-        private CheckBox CheckBoxChartPeak;
-        private CheckBox CheckBoxChartAverage;
-        private CheckBox CheckBoxChartAutoScale;
+        private CheckBox CheckBox_CSVFileStorage_SaveCsvFiles;
+        private CheckBox CheckBox_ReceivedSignalStrength_ChartPeak;
+        private CheckBox CheckBox_ReceivedSignalStrength_ChartAverage;
+        private CheckBox CheckBox_ReceivedSignalStrength_ChartAutoScale;
         private Label Label_Device;
         private Label Label_Model;
         private ToolTip ToolTip1;
         private GroupBox GroupBox_CSVFileStorage;
         private TextBox TextBoxCsvFileName;
-        private TextBox TextBoxCollectionLocation;
+        private TextBox TextBox_CSVFileStorage_CollectionLocationDescription;
         private RadioButton RadioButton_SignalGenerator;
         private RadioButton RadioButton_SpectrumAnalyzer;
         private Label LabelProgressWriteCsvFile;
@@ -1579,18 +1562,18 @@ namespace RFEOnSite
         private NumericUpDown NumericUpDown_CSVFileStorage_MarkerNumber;
         private TextBox TextBox_CSVFileStorage_CollectionMarkerName;
         private CheckBox CheckBoxAutoIncrementMarkerNumber;
-        private TextBox TextBoxClient;
+        private TextBox TextBox_CSVFileStorage_Client;
         private GroupBox GroupBox_OmniDirectional_CurrentConfiguration;
         private Button ButtonGetRfeConfiguration;
         private Label LabelPresets;
         private ComboBox ComboBoxPreset;
-        private Label LabelRightAntennaGainUnit;
-        private TextBox TextBoxRightAntennaGain;
-        private Label LabelRightAntennaGain;
-        private Label LabelLeftAntennaGainUnit;
-        private TextBox TextBoxLeftAntennaGain;
-        private Label LabelLeftAntennaGain;
-        private TextBox TextBoxStepFrequency;
+        private Label Label_CurrentConfiguration_RightAntennaGaindB;
+        private TextBox TextBox_CurrentConfiguration_RightAntennaGain;
+        private Label Label_CurrentConfiguration_RightAntennaGain;
+        private Label Label_CurrentConfiguration_LeftAntennaGaindB;
+        private TextBox TextBox_CurrentConfiguration_LeftAntennaGain;
+        private Label Label_CurrentConfiguration_LeftAntennaGain;
+        private TextBox TextBox_CurrentConfiguration_StepFrequency;
         private TextBox TextBoxRBW;
         private Label LabelStopFrequencyUnit;
         private Label LabelStartFrequencyUnit;
@@ -1598,8 +1581,8 @@ namespace RFEOnSite
         private Label LabelFrequencyStepUnit;
         private Label LabelStartFrequency;
         private Label LabelFrequencyStep;
-        private TextBox TextBoxStartFrequency;
-        private TextBox TextBoxStopFrequency;
+        private TextBox TextBox_CurrentConfiguration_StartFrequency;
+        private TextBox TextBox_CurrentConfiguration_StopFrequency;
         private Label LabelStopFrequency;
         private Label LabelRBWUnit;
         private Label LabelRBW;
@@ -1609,11 +1592,8 @@ namespace RFEOnSite
         private MenuStrip MenuStripMainForm;
         private ToolStripMenuItem MenuStripMenuItemFile;
         private ToolStripMenuItem MenuStripMenuItemPreset;
-        private CheckBox CheckBoxHoldStep;
-        private CheckBox CheckBoxHoldStop;
-        private CheckBox CheckBoxHoldStart;
         private TextBox TextBox_CSVFileStorage_CollectionFloorName;
-        private GroupBox GroupBoxFloorId;
+        private GroupBox GroupBox_CSVFileStorage_CollectionFloor;
         private RadioButton RadioButton_CSVFileStorage_FloorIncrement;
         private RadioButton RadioButton_CSVFileStorage_FloorDecrement;
         private NumericUpDown NumericUpDown_CSVFileStorage_FloorNumber;
@@ -1624,13 +1604,13 @@ namespace RFEOnSite
         private TabPage TabControlMainRadial;
         private Label LabelTrueNorthText;
         private Label Label_ComPortText;
-        private GroupBox GroupBoxClientId;
+        private GroupBox GroupBox_CSVFileStorage_ClientInformation;
         private Button Button_CSVFileStorage_CollectionFloor_Enable;
         private Button ButtonCaptureImage;
         private TabPage TabControlSiteImage;
         private PictureBox PictureBox;
         private Label LabelCaptured;
-        private Button ButtonPersistClear;
+        private Button Button_CSVFileStorage_ResetAllFields;
         private StatusStrip StripStatusMainForm;
         private GroupBox GroupBoxCsvInformation;
         private GroupBox GroupBox_ReceivedSignalStrength;
@@ -1654,6 +1634,8 @@ namespace RFEOnSite
         private Button Button_CSVFileStorage_Next;
         private GroupBox GroupBox_CSVFileStorage_AutoNext;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private Button Button_CSVFileStorage_ResetFloorAndMarkers;
     }
 }
 

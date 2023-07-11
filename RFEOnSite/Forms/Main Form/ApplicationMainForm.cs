@@ -14,6 +14,7 @@ using System.Threading;
 using System.Media;
 using RFE_OnSite.Properties;
 using Emgu.CV.Structure;
+using System.Deployment.Application;
 
 namespace RFEOnSite
 {
@@ -22,9 +23,21 @@ namespace RFEOnSite
         public GlobalData gRFEOnSite;
         private VideoCapture mCapture;
         private Mat mMat;
-  
+
         public MainForm()
         {
+            // Version Number
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
+                Version version = ad.CurrentVersion;
+                Text = "RF Explorer OnSite - Version: " + version.ToString();
+            }
+            else
+            {
+                Text = "RF Explorer OnSite - - Version: " + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd - h:mm tt");
+            }
+
             gRFEOnSite = new GlobalData();
 
             InitializeComponent();
@@ -97,14 +110,14 @@ namespace RFEOnSite
             // This builds a dummy chart on the GUI and adds a dummy point to draw and not show white space
             // Prolly not the correct way of initializing
 
-            if (TextBoxStartFrequency.Text.Length > 0)
+            if (TextBox_CurrentConfiguration_StartFrequency.Text.Length > 0)
             {
-                gRFEOnSite.Graph.MinX = Convert.ToInt32(TextBoxStartFrequency.Text);
+                gRFEOnSite.Graph.MinX = Convert.ToInt32(TextBox_CurrentConfiguration_StartFrequency.Text);
             }
 
-            if (TextBoxStopFrequency.Text.Length > 0)
+            if (TextBox_CurrentConfiguration_StopFrequency.Text.Length > 0)
             {
-                gRFEOnSite.Graph.MaxX = Convert.ToInt32(TextBoxStopFrequency.Text);
+                gRFEOnSite.Graph.MaxX = Convert.ToInt32(TextBox_CurrentConfiguration_StopFrequency.Text);
             }
 
             gRFEOnSite.Graph.ChartTitle = "Range: " + gRFEOnSite.Graph.MinX.ToString() + " to " + gRFEOnSite.Graph.MaxX + " MHz";
@@ -140,10 +153,10 @@ namespace RFEOnSite
 
         void SaveUiPersistanceStatesInternal()
         {
-            Settings.Default.Persist_SaveCsvCheckedState = CheckBoxSaveCsvFiles.Checked;
+            Settings.Default.Persist_SaveCsvCheckedState = CheckBox_CSVFileStorage_SaveCsvFiles.Checked;
 
-            Settings.Default.Persist_ClientTextState = TextBoxClient.Text;
-            Settings.Default.Persist_LocationTextState = TextBoxCollectionLocation.Text;
+            Settings.Default.Persist_ClientTextState = TextBox_CSVFileStorage_Client.Text;
+            Settings.Default.Persist_LocationTextState = TextBox_CSVFileStorage_CollectionLocationDescription.Text;
 
             Settings.Default.Persist_FloorTextState = TextBox_CSVFileStorage_CollectionFloorName.Text;
             Settings.Default.Persist_FloorNumberState = NumericUpDown_CSVFileStorage_FloorNumber.Value;
@@ -152,13 +165,14 @@ namespace RFEOnSite
 
             Settings.Default.Persist_MarkerTextState = TextBox_CSVFileStorage_CollectionMarkerName.Text;
             Settings.Default.Persist_MarkerNumberState = NumericUpDown_CSVFileStorage_MarkerNumber.Value;
+            Settings.Default.Persist_AutoNext = Button_CSVFileStorage_CollectionFloor_Enable.Text;
             Settings.Default.Persist_MarkerIncrementState = CheckBoxAutoIncrementMarkerNumber.Checked;
 
 
-            Settings.Default.Persist_AutoScaleState = CheckBoxChartAutoScale.Checked;
-            Settings.Default.Persist_AverageState = CheckBoxChartAverage.Checked;
-            Settings.Default.Persist_PeakState = CheckBoxChartPeak.Checked;
-            Settings.Default.Persist_SweepsCountState = NumericUpDownSweeps.Value;
+            Settings.Default.Persist_AutoScaleState = CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked;
+            Settings.Default.Persist_AverageState = CheckBox_ReceivedSignalStrength_ChartAverage.Checked;
+            Settings.Default.Persist_PeakState = CheckBox_ReceivedSignalStrength_ChartPeak.Checked;
+            Settings.Default.Persist_SweepsCountState = NumericUpDown_SweepControl_Sweeps.Value;
 
             Settings.Default.Persist_Preset = ComboBoxPreset.SelectedItem.ToString();
             Settings.Default.Persist_2400State = force2400BaudToolStripMenuItem.Checked;
@@ -166,8 +180,8 @@ namespace RFEOnSite
 
         void RecallUiPersistanceStates()
         {
-            CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
-            if (CheckBoxSaveCsvFiles.Checked)
+            CheckBox_CSVFileStorage_SaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 GroupBoxCsvInformation.Enabled = true;
             }
@@ -176,8 +190,8 @@ namespace RFEOnSite
                 GroupBoxCsvInformation.Enabled = false;
             }
 
-            TextBoxClient.Text = Settings.Default.Persist_ClientTextState;
-            TextBoxCollectionLocation.Text = Settings.Default.Persist_LocationTextState;
+            TextBox_CSVFileStorage_Client.Text = Settings.Default.Persist_ClientTextState;
+            TextBox_CSVFileStorage_CollectionLocationDescription.Text = Settings.Default.Persist_LocationTextState;
 
             TextBox_CSVFileStorage_CollectionFloorName.Text = Settings.Default.Persist_FloorTextState;
             NumericUpDown_CSVFileStorage_FloorNumber.Value = Settings.Default.Persist_FloorNumberState;
@@ -189,10 +203,10 @@ namespace RFEOnSite
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = Settings.Default.Persist_MarkerNumberState;
             CheckBoxAutoIncrementMarkerNumber.Checked = Settings.Default.Persist_MarkerIncrementState;
 
-            CheckBoxChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
-            CheckBoxChartAverage.Checked = Settings.Default.Persist_AverageState;
-            CheckBoxChartPeak.Checked = Settings.Default.Persist_PeakState;
-            NumericUpDownSweeps.Value = Settings.Default.Persist_SweepsCountState;
+            CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
+            CheckBox_ReceivedSignalStrength_ChartAverage.Checked = Settings.Default.Persist_AverageState;
+            CheckBox_ReceivedSignalStrength_ChartPeak.Checked = Settings.Default.Persist_PeakState;
+            NumericUpDown_SweepControl_Sweeps.Value = Settings.Default.Persist_SweepsCountState;
             force2400BaudToolStripMenuItem.Checked = Settings.Default.Persist_2400State;
 
             //this.ComboBoxPreset.SelectedItem = Settings.Default.Persist_Preset;
@@ -207,13 +221,13 @@ namespace RFEOnSite
             // ***********************************************************************************
 
             double startMHz = fromSerialThread.StartMHz;
-            TextBoxStartFrequency.Text = startMHz.ToString();
+            TextBox_CurrentConfiguration_StartFrequency.Text = startMHz.ToString();
             double stopMHz = (fromSerialThread.StepMHz * 112.0) + fromSerialThread.StartMHz;
-            TextBoxStopFrequency.Text = Math.Round(stopMHz, 2).ToString();
+            TextBox_CurrentConfiguration_StopFrequency.Text = Math.Round(stopMHz, 2).ToString();
 
             TextBoxRBW.Text = Math.Round(fromSerialThread.RBWKHz, 2).ToString();
             //TextBoxStepFrequency.Text = Math.Round(fromSerialThread.StepMHz * 1000.0, 2).ToString();
-            TextBoxStepFrequency.Text = (fromSerialThread.StepMHz * 1000.0).ToString("F2");
+            TextBox_CurrentConfiguration_StepFrequency.Text = (fromSerialThread.StepMHz * 1000.0).ToString("F2");
 
             Label_DeviceValue.Text = fromSerialThread.mMainModel.ToString();
             Label_ModelValue.Text = fromSerialThread.mExpansionModel.ToString();
@@ -222,7 +236,7 @@ namespace RFEOnSite
             gRFEOnSite.SerialNumebr = fromSerialThread.mSerialNumber;
 
 
-            if (TextBoxStartFrequency.Text == TextBoxStopFrequency.Text)
+            if (TextBox_CurrentConfiguration_StartFrequency.Text == TextBox_CurrentConfiguration_StopFrequency.Text)
             {
                 string caption = "Unexpected RF Explorer Configuration Returned";
                 string message = "The returned starting and stopping frequencies are identical.\n\nEasy Fix:\n\t1. Disconnect the RF Explorer USB Cable.\n\t2. Cycle RF Explorer Power.\n\t3. Reconnect and try again.";
@@ -291,7 +305,7 @@ namespace RFEOnSite
             // This really does appear to clear the thread mReceivedSweeps list 
             sweepsFromExplorer.Clear();
 
-            if (CheckBoxSaveCsvFiles.Checked)
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
 
                 string fileName;
@@ -301,7 +315,7 @@ namespace RFEOnSite
                 }
                 else
                 {
-                    fileName = TextBoxCollectionLocation.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
+                    fileName = TextBox_CSVFileStorage_CollectionLocationDescription.Text + "-" + gRFEOnSite.FileOps.FileCounter.ToString("D2") + " ";
                 }
                 string dateString = gRFEOnSite.FileOps.RunStartTime.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo) + " ";
 
@@ -311,23 +325,23 @@ namespace RFEOnSite
                 string rangeString1;
                 string rangeString2;
 
-                if (TextBoxStartFrequency.Text.Contains("."))
+                if (TextBox_CurrentConfiguration_StartFrequency.Text.Contains("."))
                 {
-                    rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
+                    rangeString1 = Convert.ToInt64(TextBox_CurrentConfiguration_StartFrequency.Text.Replace(".", "")).ToString("D5") + "to";
                 }
                 else
                 {
-                    rangeString1 = Convert.ToInt64(TextBoxStartFrequency.Text).ToString("D4") + "0to";
+                    rangeString1 = Convert.ToInt64(TextBox_CurrentConfiguration_StartFrequency.Text).ToString("D4") + "0to";
                 }
 
 
-                if (TextBoxStopFrequency.Text.Contains("."))
+                if (TextBox_CurrentConfiguration_StopFrequency.Text.Contains("."))
                 {
-                    rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text.Replace(".", "")).ToString("D5");
+                    rangeString2 = Convert.ToInt64(TextBox_CurrentConfiguration_StopFrequency.Text.Replace(".", "")).ToString("D5");
                 }
                 else
                 {
-                    rangeString2 = Convert.ToInt64(TextBoxStopFrequency.Text).ToString("D4") + "0";
+                    rangeString2 = Convert.ToInt64(TextBox_CurrentConfiguration_StopFrequency.Text).ToString("D4") + "0";
                 }
 
 
@@ -336,7 +350,7 @@ namespace RFEOnSite
                 // This is a BAD way of fixing the file name
 
                 double tempStopMhz = Convert.ToDouble(rangeString2);
-                double tempStepSize = Convert.ToDouble(TextBoxStepFrequency.Text);
+                double tempStepSize = Convert.ToDouble(TextBox_CurrentConfiguration_StepFrequency.Text);
                 string tempRangeString2 = (tempStopMhz - (tempStepSize / 100.0)).ToString();
                 rangeString2 = Convert.ToInt64(tempRangeString2.Replace(".", "")).ToString("D5");
 
@@ -346,12 +360,12 @@ namespace RFEOnSite
                 if (gRFEOnSite.RadialSurvey)
                 {
                     TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" +
-                        NumericUpDownSweeps.Text + " at " + gRFEOnSite.RadialDegrees.ToString("D3") + " .csv";
+                        NumericUpDown_SweepControl_Sweeps.Text + " at " + gRFEOnSite.RadialDegrees.ToString("D3") + " .csv";
                 }
                 else
                 {
                     TextBoxCsvFileName.Text = fileName + dateString + rangeString1 + rangeString2 + "-" +
-                        NumericUpDownSweeps.Text + " at Omni.csv";
+                        NumericUpDown_SweepControl_Sweeps.Text + " at Omni.csv";
                 }
 
                 gRFEOnSite.FileOps.Path = TextBoxCsvFileName.Text;
@@ -383,7 +397,7 @@ namespace RFEOnSite
 
                     Thread.Sleep(100);
 
-                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDown_SweepControl_Sweeps.Value;
 
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -423,7 +437,7 @@ namespace RFEOnSite
 
                     Thread.Sleep(100);
 
-                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+                    gRFEOnSite.Explorer.SweepCount = (int)NumericUpDown_SweepControl_Sweeps.Value;
 
                     TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                     TaskProgressBar.Step = 1;
@@ -460,7 +474,7 @@ namespace RFEOnSite
                 ButtonStartSweeps.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBoxSaveCsvFiles.Checked)
+                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                 {
                     NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
                 }
@@ -468,7 +482,7 @@ namespace RFEOnSite
                 TabControlMain.Enabled = true;
                 GroupBox_CSVFileStorage.Enabled = true;
                 GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
-                NumericUpDownSweeps.Enabled = true;
+                NumericUpDown_SweepControl_Sweeps.Enabled = true;
             }
 
 
@@ -479,7 +493,7 @@ namespace RFEOnSite
                 ButtonStartSweeps.Enabled = true;
                 //ButtonCancelSweeps.Enabled = false;
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBoxSaveCsvFiles.Checked)
+                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                 {
                     NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
                 }
@@ -487,13 +501,13 @@ namespace RFEOnSite
                 TabControlMain.Enabled = true;
                 GroupBox_CSVFileStorage.Enabled = true;
                 GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
-                NumericUpDownSweeps.Enabled = true;
+                NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
 
 
                 Thread.Sleep(100);
 
-                gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+                gRFEOnSite.Explorer.SweepCount = (int)NumericUpDown_SweepControl_Sweeps.Value;
 
                 TaskProgressBar.Maximum = gRFEOnSite.Explorer.SweepCount;
                 TaskProgressBar.Step = 1;
@@ -516,7 +530,7 @@ namespace RFEOnSite
                 }
 
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBoxSaveCsvFiles.Checked)
+                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                 {
                     if (ButtonCancelSweeps.Enabled)
                     {
@@ -529,11 +543,11 @@ namespace RFEOnSite
                 TabControlMain.Enabled = true;
                 GroupBox_CSVFileStorage.Enabled = true;
                 GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
-                NumericUpDownSweeps.Enabled = true;
+                NumericUpDown_SweepControl_Sweeps.Enabled = true;
             }
 
 
-            if (CheckBoxSaveCsvFiles.Checked)
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 TabControlMain.SelectedTab.Enabled = true;
                 gRFEOnSite.CsvDirectoryValid = true;
@@ -634,17 +648,17 @@ namespace RFEOnSite
             bool bValidField;
 
 
-            bValidField = Double.TryParse(TextBoxStartFrequency.Text, out double startMHz);
-            bValidField &= Double.TryParse(TextBoxStopFrequency.Text, out double stopMHz);
-            bValidField &= Double.TryParse(TextBoxStepFrequency.Text, out double stepKHz);
+            bValidField = Double.TryParse(TextBox_CurrentConfiguration_StartFrequency.Text, out double startMHz);
+            bValidField &= Double.TryParse(TextBox_CurrentConfiguration_StopFrequency.Text, out double stopMHz);
+            bValidField &= Double.TryParse(TextBox_CurrentConfiguration_StepFrequency.Text, out double stepKHz);
 
             if (bValidField)
             {
-                if (stopMHz - startMHz < 0.2990)
+                if (stopMHz - startMHz < 0.112)
                 {
                     string message;
-                    string caption = "Bogus RF Explorer Configuration Requested";
-                    message = "The entered starting and stopping frequencies are identical, negative or too close together.\n\nChoose a stoping frequency that is at least 300 KHz larger that the starting frequency.";
+                    string caption = "Impossible RF Explorer Configuration Requested";
+                    message = "The entered starting and stopping frequencies are identical, negative or too close together.\n\nChoose a stopping frequency that is at least 112 KHz larger that the starting frequency.\nThe RF Explorer requires 112 bins.";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
 
@@ -671,29 +685,29 @@ namespace RFEOnSite
             int floorNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString());
             int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
-            if (CheckBoxSaveCsvFiles.Checked)
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 gRFEOnSite.FileOps.PopToDirectory(1);
                 gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
-                gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxClient.Text);
-                gRFEOnSite.FileOps.CreateEnterDirectory(TextBoxCollectionLocation.Text);
+                gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_Client.Text);
+                gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionLocationDescription.Text);
                 if (CheckBoxAutoIncrementMarkerNumber.Checked)
                 {
-                    if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Next")
+                    if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Disable")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionFloorName.Text + "-" + floorNumber.ToString("D2") + " " + TextBox_CSVFileStorage_CollectionMarkerName.Text + "-" +
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionFloorName.Text + floorNumber.ToString("D2") + "//" + TextBox_CSVFileStorage_CollectionMarkerName.Text + "-" +
                             markerNumber.ToString("D2"));
                     }
                     else
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionMarkerName.Text + "-" + markerNumber.ToString("D2"));
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionMarkerName.Text + markerNumber.ToString("D2"));
                     }
                 }
                 else
                 {
-                    if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Next")
+                    if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Disable")
                     {
-                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionFloorName.Text + "-" + floorNumber.ToString("D2") + " " + TextBox_CSVFileStorage_CollectionMarkerName.Text);
+                        gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionFloorName.Text + floorNumber.ToString("D2") + "//" + TextBox_CSVFileStorage_CollectionMarkerName.Text);
                     }
                     else
                     {
@@ -704,7 +718,7 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.CreateEnterDirectory(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo));
             }
 
-            gRFEOnSite.Explorer.SweepCount = (int)NumericUpDownSweeps.Value;
+            gRFEOnSite.Explorer.SweepCount = (int)NumericUpDown_SweepControl_Sweeps.Value;
 
             if (gRFEOnSite.PresetActive)
             {
@@ -765,7 +779,7 @@ namespace RFEOnSite
 
         private void CheckBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBoxSaveCsvFiles.Checked)
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 GroupBoxCsvInformation.Enabled = true;
             }
@@ -789,30 +803,30 @@ namespace RFEOnSite
 
         private void CheckBoxChartAutoScale_CheckedChanged(object sender, EventArgs e)
         {
-            gRFEOnSite.Graph.AutoScale = CheckBoxChartAutoScale.Checked;
+            gRFEOnSite.Graph.AutoScale = CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked;
         }
 
         private void TextBoxLeftAntennaGain_TextChanged(object sender, EventArgs e)
         {
-            if (Double.TryParse(TextBoxLeftAntennaGain.Text, out double gain))
+            if (Double.TryParse(TextBox_CurrentConfiguration_LeftAntennaGain.Text, out double gain))
             {
                 gRFEOnSite.LeftAntennaGain = gain;
             }
             else
             {
-                TextBoxLeftAntennaGain.Text = "";
+                TextBox_CurrentConfiguration_LeftAntennaGain.Text = "";
             }
         }
 
         private void TextBoxRightAntennaGain_TextChanged(object sender, EventArgs e)
         {
-            if (Double.TryParse(TextBoxRightAntennaGain.Text, out double gain))
+            if (Double.TryParse(TextBox_CurrentConfiguration_RightAntennaGain.Text, out double gain))
             {
                 gRFEOnSite.RightAntennaGain = gain;
             }
             else
             {
-                TextBoxRightAntennaGain.Text = "";
+                TextBox_CurrentConfiguration_RightAntennaGain.Text = "";
             }
         }
 
@@ -829,7 +843,7 @@ namespace RFEOnSite
             {
                 gRFEOnSite.PresetType = ePreset.eContinuous;
 
-                CheckBoxSaveCsvFiles.Checked = false;
+                CheckBox_CSVFileStorage_SaveCsvFiles.Checked = false;
                 GroupBox_CSVFileStorage.Enabled = false;
             }
 
@@ -839,15 +853,12 @@ namespace RFEOnSite
 
                 gRFEOnSite.PresetActive = false;
 
-                TextBoxStartFrequency.Enabled = true;
-                TextBoxStopFrequency.Enabled = true;
+                TextBox_CurrentConfiguration_StartFrequency.Enabled = true;
+                TextBox_CurrentConfiguration_StopFrequency.Enabled = true;
                 TextBoxRBW.Enabled = true;
-                TextBoxStepFrequency.Enabled = true;
+                TextBox_CurrentConfiguration_StepFrequency.Enabled = true;
                 ButtonSetConfiguration.Enabled = true;
                 ButtonGetRfeConfiguration.Enabled = true;
-                CheckBoxHoldStart.Enabled = true;
-                CheckBoxHoldStep.Enabled = true;
-                CheckBoxHoldStop.Enabled = true;
             }
 
 
@@ -855,32 +866,28 @@ namespace RFEOnSite
             {
                 gRFEOnSite.PresetType = ePreset.eCP4Downlink;
 
-                TextBoxStartFrequency.Enabled = false;
-                TextBoxStopFrequency.Enabled = false;
+                TextBox_CurrentConfiguration_StartFrequency.Enabled = false;
+                TextBox_CurrentConfiguration_StopFrequency.Enabled = false;
                 TextBoxRBW.Enabled = false;
-                TextBoxStepFrequency.Enabled = false;
+                TextBox_CurrentConfiguration_StepFrequency.Enabled = false;
                 ButtonSetConfiguration.Enabled = false;
                 ButtonGetRfeConfiguration.Enabled = false;
                 GroupBox_SweepControl.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
-
-                CheckBoxHoldStart.Enabled = false;
-                CheckBoxHoldStep.Enabled = false;
-                CheckBoxHoldStop.Enabled = false;
 
                 gRFEOnSite.PresetActive = true;
 
                 if (gRFEOnSite.PresetActive)
                 {
                     ButtonStartSweeps.Enabled = true;
-                    CheckBoxSaveCsvFiles.Checked = true;
+                    CheckBox_CSVFileStorage_SaveCsvFiles.Checked = true;
                 }
                 else
                 {
-                    TextBoxStartFrequency.Enabled = true;
-                    TextBoxStopFrequency.Enabled = true;
+                    TextBox_CurrentConfiguration_StartFrequency.Enabled = true;
+                    TextBox_CurrentConfiguration_StopFrequency.Enabled = true;
                     TextBoxRBW.Enabled = true;
-                    TextBoxStepFrequency.Enabled = true;
+                    TextBox_CurrentConfiguration_StepFrequency.Enabled = true;
                     ButtonSetConfiguration.Enabled = true;
                 }
             }
@@ -890,31 +897,27 @@ namespace RFEOnSite
             {
                 gRFEOnSite.PresetType = ePreset.eFullDownlink;
 
-                TextBoxStartFrequency.Enabled = false;
-                TextBoxStopFrequency.Enabled = false;
+                TextBox_CurrentConfiguration_StartFrequency.Enabled = false;
+                TextBox_CurrentConfiguration_StopFrequency.Enabled = false;
                 TextBoxRBW.Enabled = false;
-                TextBoxStepFrequency.Enabled = false;
+                TextBox_CurrentConfiguration_StepFrequency.Enabled = false;
                 ButtonSetConfiguration.Enabled = false;
                 ButtonGetRfeConfiguration.Enabled = false;
                 GroupBox_SweepControl.Enabled = true;
-
-                CheckBoxHoldStart.Enabled = false;
-                CheckBoxHoldStep.Enabled = false;
-                CheckBoxHoldStop.Enabled = false;
 
                 gRFEOnSite.PresetActive = true;
 
                 if (gRFEOnSite.PresetActive)
                 {
                     ButtonStartSweeps.Enabled = true;
-                    CheckBoxSaveCsvFiles.Checked = true;
+                    CheckBox_CSVFileStorage_SaveCsvFiles.Checked = true;
                 }
                 else
                 {
-                    TextBoxStartFrequency.Enabled = true;
-                    TextBoxStopFrequency.Enabled = true;
+                    TextBox_CurrentConfiguration_StartFrequency.Enabled = true;
+                    TextBox_CurrentConfiguration_StopFrequency.Enabled = true;
                     TextBoxRBW.Enabled = true;
-                    TextBoxStepFrequency.Enabled = true;
+                    TextBox_CurrentConfiguration_StepFrequency.Enabled = true;
                     ButtonSetConfiguration.Enabled = true;
                 }
             }
@@ -956,21 +959,21 @@ namespace RFEOnSite
 
         private void CheckBoxChartPeak_CheckedChanged(object sender, EventArgs e)
         {
-            gRFEOnSite.Graph.GraphPeak = CheckBoxChartPeak.Checked;
+            gRFEOnSite.Graph.GraphPeak = CheckBox_ReceivedSignalStrength_ChartPeak.Checked;
             if (gRFEOnSite.Graph.GraphAverage == false && gRFEOnSite.Graph.GraphPeak == false)
             {
-                CheckBoxChartAverage.Checked = true;
+                CheckBox_ReceivedSignalStrength_ChartAverage.Checked = true;
                 gRFEOnSite.Graph.GraphAverage = true;
             }
         }
 
         private void CheckBoxChartAverage_CheckedChanged(object sender, EventArgs e)
         {
-            gRFEOnSite.Graph.GraphAverage = CheckBoxChartAverage.Checked;
+            gRFEOnSite.Graph.GraphAverage = CheckBox_ReceivedSignalStrength_ChartAverage.Checked;
 
             if (gRFEOnSite.Graph.GraphAverage == false && gRFEOnSite.Graph.GraphPeak == false)
             {
-                CheckBoxChartPeak.Checked = true;
+                CheckBox_ReceivedSignalStrength_ChartPeak.Checked = true;
                 gRFEOnSite.Graph.GraphPeak = true;
             }
         }
@@ -985,43 +988,48 @@ namespace RFEOnSite
             double stepSize;
             bool bStatus;
 
-            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out double start);
-            Double.TryParse(TextBoxStopFrequency.Text, out double stop);
+            bStatus = Double.TryParse(TextBox_CurrentConfiguration_StartFrequency.Text, out double start);
+            Double.TryParse(TextBox_CurrentConfiguration_StopFrequency.Text, out double stop);
 
             if (bStatus)
             {
-                if (stop > start)
+                if (stop > (start + .111) && (stop < 6000.0))
                 {
-                    stepSize = (stop - start) / .1120;
-                    TextBoxStepFrequency.Text = stepSize.ToString("F0");
+                    stepSize = (stop - start) / 0.1120;
+                    TextBox_CurrentConfiguration_StepFrequency.Text = stepSize.ToString("F3");
+                    TextBoxRBW.Text = "";
                 }
             }
             else
             {
-                TextBoxStartFrequency.Text = "";
+                TextBox_CurrentConfiguration_StepFrequency.Text = (0.112).ToString("F3");
+                TextBox_CurrentConfiguration_StopFrequency.Text = (start + .112).ToString("F3");
             }
         }
-
+ 
         private void TextBoxStopFrequency_TextChanged(object sender, EventArgs e)
         {
             double stepSize;
             bool bStatus;
 
-            bStatus = Double.TryParse(TextBoxStartFrequency.Text, out double start); // **** stop
-            Double.TryParse(TextBoxStopFrequency.Text, out double stop);
+            bStatus = Double.TryParse(TextBox_CurrentConfiguration_StartFrequency.Text, out double start); // **** stop
+            Double.TryParse(TextBox_CurrentConfiguration_StopFrequency.Text, out double stop);
 
             if (bStatus)
             {
                 if (stop > start)
                 {
-                    stepSize = (stop - start) / .1120;
-                    TextBoxStepFrequency.Text = stepSize.ToString("F0");
+                    stepSize = (stop - start) / 0.1120;
+                    TextBox_CurrentConfiguration_StepFrequency.Text = stepSize.ToString("F3");
+                    TextBoxRBW.Text = "";
                 }
             }
+            /*
             else
             {
-                TextBoxStopFrequency.Text = "";
+                TextBox_CurrentConfiguration_StopFrequency.Text = "";
             }
+            */
         }
 
         private void RadioButtonAnalyzer_CheckedChanged(object sender, EventArgs e)
@@ -1041,9 +1049,9 @@ namespace RFEOnSite
 
             gRFEOnSite.Explorer.SweepCount = 1;
             gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetCP4DownlinkTable.Count();
-            NumericUpDownSweeps.Enabled = true;
+            NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
-            if (CheckBoxSaveCsvFiles.Checked && CheckBoxAutoIncrementMarkerNumber.Checked && !gRFEOnSite.PresetActive)
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked && CheckBoxAutoIncrementMarkerNumber.Checked && !gRFEOnSite.PresetActive)
             {
                 if (NumericUpDown_CSVFileStorage_MarkerNumber.Value > 1)
                 {
@@ -1059,7 +1067,7 @@ namespace RFEOnSite
             TabControlMain.Enabled = true;
             GroupBox_CSVFileStorage.Enabled = true;
             GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
-            NumericUpDownSweeps.Enabled = true;
+            NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
 
         }
@@ -1096,6 +1104,12 @@ namespace RFEOnSite
             RefreshUI();
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            NumericUpDown_CSVFileStorage_FloorNumber.Value = 1;
+            NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
+            RefreshUI();
+        }
         private void NumericUpDownLocation_ValueChanged(object sender, EventArgs e)
         {
             RefreshUI();
@@ -1123,10 +1137,10 @@ namespace RFEOnSite
                 Button_ConnectRFExplorer.BackColor = Color.Red;
                 Button_ConnectRFExplorer.Text = "Connect RF Explorer";
 
-                TextBoxStartFrequency.Text = "";
-                TextBoxStopFrequency.Text = "";
+                TextBox_CurrentConfiguration_StartFrequency.Text = "";
+                TextBox_CurrentConfiguration_StopFrequency.Text = "";
                 TextBoxRBW.Text = "";
-                TextBoxStepFrequency.Text = "";
+                TextBox_CurrentConfiguration_StepFrequency.Text = "";
             }
         }
 
@@ -1157,12 +1171,13 @@ namespace RFEOnSite
                 return;
             }
 
+            NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
+
             if (RadioButton_CSVFileStorage_FloorDecrement.Checked == true)
             {
                 if (NumericUpDown_CSVFileStorage_FloorNumber.Value == 1)
                 {
-                    DialogResult diag = MessageBox.Show(@"Trying to decrement Floor while Floor value is '1'. Enter different Floor or ID text or change the count such that it's value stays greater than one.", "Floor/ID Error", MessageBoxButtons.OK);
-                    return;
+                     return;
                 }
 
                 NumericUpDown_CSVFileStorage_FloorNumber.Value = NumericUpDown_CSVFileStorage_FloorNumber.Value - 1;
@@ -1183,7 +1198,7 @@ namespace RFEOnSite
 
         private void RefreshUI()
         {
-            if (!CheckBoxSaveCsvFiles.Checked)
+            if (!CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 StripStatusLabelDivision1.Text = "";
                 StripStatusLabelCsvDirectory.Text = "";
@@ -1197,21 +1212,20 @@ namespace RFEOnSite
                 TextBox_CSVFileStorage_CollectionFloorName.Enabled = true;
                 NumericUpDown_CSVFileStorage_FloorNumber.Enabled = true;
                 GroupBox_CSVFileStorage_AutoNext.Enabled = true;
-               
+
                 int floorNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString());
                 int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
                 StripStatusLabelCsvDirectory.Text =
-                    "CSV Directory: Desktop\\SurveyData\\" +
-                    TextBoxClient.Text +
+                    "Next CSV Capture Directory: Desktop\\SurveyData\\" +
+                    TextBox_CSVFileStorage_Client.Text +
                     "\\" +
-                    TextBoxCollectionLocation.Text +
+                    TextBox_CSVFileStorage_CollectionLocationDescription.Text +
                     "\\" +
                     TextBox_CSVFileStorage_CollectionFloorName.Text +
                     floorNumber.ToString("D2") +
                     "\\" +
                     TextBox_CSVFileStorage_CollectionMarkerName.Text +
-                    "-" +
                     markerNumber.ToString("D2");
             }
             else
@@ -1223,18 +1237,17 @@ namespace RFEOnSite
                 int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
                 StripStatusLabelCsvDirectory.Text =
-                    "CSV Directory: Desktop\\SurveyData\\" +
-                    TextBoxClient.Text +
+                    "Next CSV Capture Directory: Desktop\\SurveyData\\" +
+                    TextBox_CSVFileStorage_Client.Text +
                     "\\" +
-                    TextBoxCollectionLocation.Text +
+                    TextBox_CSVFileStorage_CollectionLocationDescription.Text +
                     "\\" +
                     TextBox_CSVFileStorage_CollectionMarkerName.Text +
-                    "-" +
                      markerNumber.ToString("D2");
             }
         }
 
-        
+
 
         private void ButtonCaptureImage_Click(object sender, EventArgs e)
         {
@@ -1324,11 +1337,11 @@ namespace RFEOnSite
             }
         }
 
-        private void ButtonPersistClear_Click(object sender, EventArgs e)
+        private void Button_CSVFileStorage_ClearAllFields_Click(object sender, EventArgs e)
         {
             //this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
-            TextBoxClient.Text = "Client";
-            TextBoxCollectionLocation.Text = "Collection Location";
+            TextBox_CSVFileStorage_Client.Text = "Client";
+            TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Collection Location";
 
             TextBox_CSVFileStorage_CollectionFloorName.Text = "Floor";
             NumericUpDown_CSVFileStorage_FloorNumber.Value = 1;
@@ -1338,13 +1351,13 @@ namespace RFEOnSite
 
             TextBox_CSVFileStorage_CollectionMarkerName.Text = "M";
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
-            //this.CheckBoxAutoIncrementMarkerNumber.Checked = false;
+            this.CheckBoxAutoIncrementMarkerNumber.Checked = true;
 
 
-            CheckBoxChartAutoScale.Checked = false;
-            CheckBoxChartAverage.Checked = true;
-            CheckBoxChartPeak.Checked = true;
-            NumericUpDownSweeps.Value = 100;
+            CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked = false;
+            CheckBox_ReceivedSignalStrength_ChartAverage.Checked = true;
+            CheckBox_ReceivedSignalStrength_ChartPeak.Checked = true;
+            NumericUpDown_SweepControl_Sweeps.Value = 100;
 
             //this.ComboBoxPreset.SelectedItem = "Manual";
 
@@ -1395,7 +1408,7 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
                 GroupBox_CSVFileStorage.Enabled = false;
                 GroupBox_OmniDirectional_CurrentConfiguration.Enabled = false;
-                NumericUpDownSweeps.Enabled = false;
+                NumericUpDown_SweepControl_Sweeps.Enabled = false;
                 TabControlMain.Enabled = false;
                 LabelActualSweeps.Text = "";
 
@@ -1404,7 +1417,7 @@ namespace RFEOnSite
 
                 gRFEOnSite.FileOps.CreateEnterDirectory(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo));
 
-                gRFEOnSite.Explorer.SweepCount = Convert.ToInt32(NumericUpDownSweeps.Value);
+                gRFEOnSite.Explorer.SweepCount = Convert.ToInt32(NumericUpDown_SweepControl_Sweeps.Value);
 
                 if (gRFEOnSite.PresetActive)
                 {
@@ -1482,11 +1495,9 @@ namespace RFEOnSite
                     gRFEOnSite.CaptureImage = false;
                     ButtonCaptureImage.BackColor = Color.Gray;
                     ButtonCaptureImage.Refresh();
-
-
                     GroupBox_CSVFileStorage.Enabled = false;
                     GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
-                    NumericUpDownSweeps.Enabled = true;
+                    NumericUpDown_SweepControl_Sweeps.Enabled = true;
                     TabControlMain.Enabled = false;
                     LabelActualSweeps.Text = "";
                     break;
@@ -1500,14 +1511,12 @@ namespace RFEOnSite
                     gRFEOnSite.CaptureImage = false;
                     ButtonCaptureImage.BackColor = Color.Gray;
                     ButtonCaptureImage.Refresh();
-
-
                     gRFEOnSite.FileOps.FileCounter = 1;
                     gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
                     gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
                     GroupBox_CSVFileStorage.Enabled = false;
                     GroupBox_OmniDirectional_CurrentConfiguration.Enabled = false;
-                    NumericUpDownSweeps.Enabled = false;
+                    NumericUpDown_SweepControl_Sweeps.Enabled = false;
                     TabControlMain.Enabled = false;
                     LabelActualSweeps.Text = "";
                     break;
@@ -1521,14 +1530,12 @@ namespace RFEOnSite
                     gRFEOnSite.CaptureImage = false;
                     ButtonCaptureImage.BackColor = Color.Gray;
                     ButtonCaptureImage.Refresh();
-
-
                     gRFEOnSite.FileOps.FileCounter = 1;
                     gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
                     gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
                     GroupBox_CSVFileStorage.Enabled = false;
                     GroupBox_OmniDirectional_CurrentConfiguration.Enabled = false;
-                    NumericUpDownSweeps.Enabled = false;
+                    NumericUpDown_SweepControl_Sweeps.Enabled = false;
                     TabControlMain.Enabled = false;
                     LabelActualSweeps.Text = "";
                     break;
@@ -1542,14 +1549,12 @@ namespace RFEOnSite
                     gRFEOnSite.CaptureImage = false;
                     ButtonCaptureImage.BackColor = Color.Gray;
                     ButtonCaptureImage.Refresh();
-
-
                     gRFEOnSite.FileOps.FileCounter = 1;
                     gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
                     gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
                     GroupBox_CSVFileStorage.Enabled = false;
                     GroupBox_OmniDirectional_CurrentConfiguration.Enabled = false;
-                    NumericUpDownSweeps.Enabled = false;
+                    NumericUpDown_SweepControl_Sweeps.Enabled = false;
                     TabControlMain.Enabled = false;
                     LabelActualSweeps.Text = "";
                     break;
@@ -1559,6 +1564,12 @@ namespace RFEOnSite
         private void ButtonPauseResume_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form dlg1 = new Form();
+            dlg1.ShowDialog();
         }
     }
 }

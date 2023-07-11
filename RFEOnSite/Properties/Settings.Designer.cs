@@ -193,7 +193,7 @@ namespace RFE_OnSite.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Single")]
         public string Persist_Preset {
             get {
                 return ((string)(this["Persist_Preset"]));
@@ -212,6 +212,18 @@ namespace RFE_OnSite.Properties {
             }
             set {
                 this["Persist_2400State"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Enable")]
+        public string Persist_AutoNext {
+            get {
+                return ((string)(this["Persist_AutoNext"]));
+            }
+            set {
+                this["Persist_AutoNext"] = value;
             }
         }
     }
