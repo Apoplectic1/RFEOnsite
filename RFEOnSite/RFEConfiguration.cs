@@ -78,7 +78,6 @@ namespace RFEOnSite
             public List<double> mFreqencyList;
             public List<string> mSweepsFromExplorer;
 
-
             public double StartMHz { get; private set; }
             public double StepMHz { get; private set; }
             public double RBWKHz { get; private set; }
@@ -105,9 +104,7 @@ namespace RFEOnSite
                 FirmwareVersion = String.Empty;
                 mFreqencyList = new List<double>();
                 mSweepsFromExplorer = new List<string>();
-
                 mConfigurationState = eConfigState.eInvalid;
-
             }
 
             public bool ParseModelAndVersion(string sLine)
@@ -115,13 +112,11 @@ namespace RFEOnSite
                 mMainModel = (eModel)Convert.ToUInt16(sLine.Substring(6, 3));
                 mExpansionModel = (eModel)Convert.ToUInt16(sLine.Substring(10, 3));
                 FirmwareVersion = sLine.Substring(14, 5);
-
                 return true;
             }
             public bool ParseSerialNumber(string sLine)
             {
                 mSerialNumber = sLine.Substring(3, 16);
-
                 return true;
             }
             public bool ParseDSPMode(string sLine)
@@ -130,7 +125,6 @@ namespace RFEOnSite
             }
             public bool ParseConfiguration(string sLine)
             {
-                
                 StartMHz = Convert.ToInt32(sLine.Substring(6, 7)) / 1000.0;
                 StepMHz = Convert.ToInt32(sLine.Substring(14, 7)) / 1000000.0;
                 mAmplitudeTopDbm = Convert.ToInt32(sLine.Substring(22, 4));
@@ -143,10 +137,7 @@ namespace RFEOnSite
                 mfMaxSpanMHz = Convert.ToInt32(sLine.Substring(59, 7)) / 1000.0;
                 RBWKHz = Convert.ToInt32(sLine.Substring(67, 5));
                 eCalculator = (eCalculator)Convert.ToUInt16(sLine.Substring(73, 3));
-
                 mConfigurationState = eConfigState.eExplorerValid;
-
-
                 return true;
             }
         }

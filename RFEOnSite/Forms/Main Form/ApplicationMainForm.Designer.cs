@@ -32,22 +32,22 @@ namespace RFEOnSite
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.ButtonFindCOMPorts = new System.Windows.Forms.Button();
-            this.LabelRFEComPort = new System.Windows.Forms.Label();
+            this.Button_ConnectRFExplorer = new System.Windows.Forms.Button();
+            this.Label_ComPortValue = new System.Windows.Forms.Label();
             this.CheckBoxRadialAzimuth = new System.Windows.Forms.CheckBox();
-            this.ButtonDocumentation = new System.Windows.Forms.Button();
-            this.RadioButtonGenerator = new System.Windows.Forms.RadioButton();
-            this.RadioButtonAnalyzer = new System.Windows.Forms.RadioButton();
-            this.LabelModel = new System.Windows.Forms.Label();
-            this.LabelDevice = new System.Windows.Forms.Label();
-            this.LabelFirmwareText = new System.Windows.Forms.Label();
-            this.LabelFirmware = new System.Windows.Forms.Label();
-            this.LabelModelText = new System.Windows.Forms.Label();
-            this.LabelDeviceText = new System.Windows.Forms.Label();
+            this.Button_REEDocumentation = new System.Windows.Forms.Button();
+            this.RadioButton_SignalGenerator = new System.Windows.Forms.RadioButton();
+            this.RadioButton_SpectrumAnalyzer = new System.Windows.Forms.RadioButton();
+            this.Label_Model = new System.Windows.Forms.Label();
+            this.Label_Device = new System.Windows.Forms.Label();
+            this.Label_FirmwareValue = new System.Windows.Forms.Label();
+            this.Label_Firmware = new System.Windows.Forms.Label();
+            this.Label_ModelValue = new System.Windows.Forms.Label();
+            this.Label_DeviceValue = new System.Windows.Forms.Label();
             this.ButtonStartSweeps = new System.Windows.Forms.Button();
             this.LabelStartSweeps = new System.Windows.Forms.Label();
             this.NumericUpDownSweeps = new System.Windows.Forms.NumericUpDown();
-            this.GroupBoxSweepConfiguration = new System.Windows.Forms.GroupBox();
+            this.GroupBox_SweepControl = new System.Windows.Forms.GroupBox();
             this.LabelActualSweeps = new System.Windows.Forms.Label();
             this.LabelTaskCount = new System.Windows.Forms.Label();
             this.LabelExecTask = new System.Windows.Forms.Label();
@@ -59,7 +59,7 @@ namespace RFEOnSite
             this.CheckBoxChartPeak = new System.Windows.Forms.CheckBox();
             this.CheckBoxChartAverage = new System.Windows.Forms.CheckBox();
             this.CheckBoxChartAutoScale = new System.Windows.Forms.CheckBox();
-            this.GroupBoxCurrentSweepChartConfiguration = new System.Windows.Forms.GroupBox();
+            this.GroupBox_ReceivedSignalStrength = new System.Windows.Forms.GroupBox();
             this.PanelChart = new System.Windows.Forms.Panel();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TextBoxCollectionLocation = new System.Windows.Forms.TextBox();
@@ -71,27 +71,24 @@ namespace RFEOnSite
             this.LabelStopFrequency = new System.Windows.Forms.Label();
             this.ButtonCaptureImage = new System.Windows.Forms.Button();
             this.ButtonPersistClear = new System.Windows.Forms.Button();
-            this.GroupBoxCsvConfiguration = new System.Windows.Forms.GroupBox();
-            this.GroupBoxCsvInformation = new System.Windows.Forms.GroupBox();
-            this.GroupBoxClientId = new System.Windows.Forms.GroupBox();
-            this.TextBoxClient = new System.Windows.Forms.TextBox();
-            this.GroupBoxFloorId = new System.Windows.Forms.GroupBox();
-            this.ButtonFloorId = new System.Windows.Forms.Button();
-            this.RadioButtonFloorIncrement = new System.Windows.Forms.RadioButton();
-            this.RadioButtonFloorDecrement = new System.Windows.Forms.RadioButton();
-            this.NumericUpDownFloorNumber = new System.Windows.Forms.NumericUpDown();
-            this.TextBoxFloorName = new System.Windows.Forms.TextBox();
-            this.GroupBoxMarkerId = new System.Windows.Forms.GroupBox();
-            this.TextBoxMarkerName = new System.Windows.Forms.TextBox();
+            this.Button_CSVFileStorage_CollectionFloor_Enable = new System.Windows.Forms.Button();
+            this.RadioButton_CSVFileStorage_FloorIncrement = new System.Windows.Forms.RadioButton();
+            this.RadioButton_CSVFileStorage_FloorDecrement = new System.Windows.Forms.RadioButton();
             this.CheckBoxAutoIncrementMarkerNumber = new System.Windows.Forms.CheckBox();
-            this.NumericUpDownMarkerNumber = new System.Windows.Forms.NumericUpDown();
-            this.LabelRadialAzimuth = new System.Windows.Forms.Label();
-            this.NumericUpDownRadialAzimuth = new System.Windows.Forms.NumericUpDown();
-            this.LabelCopyright = new System.Windows.Forms.Label();
-            this.GroupBoxConfiguration = new System.Windows.Forms.GroupBox();
             this.CheckBoxHoldStep = new System.Windows.Forms.CheckBox();
             this.CheckBoxHoldStop = new System.Windows.Forms.CheckBox();
             this.CheckBoxHoldStart = new System.Windows.Forms.CheckBox();
+            this.LabelStartFrequency = new System.Windows.Forms.Label();
+            this.LabelFrequencyStep = new System.Windows.Forms.Label();
+            this.TabControlMain = new System.Windows.Forms.TabControl();
+            this.TabControlMainConnection = new System.Windows.Forms.TabPage();
+            this.Label_ComPortText = new System.Windows.Forms.Label();
+            this.GroupBox_DocumentationAndUSBTroubleShooting = new System.Windows.Forms.GroupBox();
+            this.Button_USBTroubleShooting = new System.Windows.Forms.Button();
+            this.Button_USBDriverDownload = new System.Windows.Forms.Button();
+            this.TabControlMainOmniDirectional = new System.Windows.Forms.TabPage();
+            this.GroupBox_OmniDirectional_CurrentConfiguration = new System.Windows.Forms.GroupBox();
+            this.LabelRBWUnit = new System.Windows.Forms.Label();
             this.LabelPresets = new System.Windows.Forms.Label();
             this.LabelRightAntennaGainUnit = new System.Windows.Forms.Label();
             this.TextBoxRightAntennaGain = new System.Windows.Forms.TextBox();
@@ -103,25 +100,12 @@ namespace RFEOnSite
             this.LabelStopFrequencyUnit = new System.Windows.Forms.Label();
             this.LabelStartFrequencyUnit = new System.Windows.Forms.Label();
             this.LabelFrequencyStepUnit = new System.Windows.Forms.Label();
-            this.LabelStartFrequency = new System.Windows.Forms.Label();
-            this.LabelFrequencyStep = new System.Windows.Forms.Label();
             this.TextBoxStartFrequency = new System.Windows.Forms.TextBox();
             this.TextBoxStopFrequency = new System.Windows.Forms.TextBox();
-            this.LabelRBWUnit = new System.Windows.Forms.Label();
-            this.MenuStripMainForm = new System.Windows.Forms.MenuStrip();
-            this.MenuStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripMenuItemPreset = new System.Windows.Forms.ToolStripMenuItem();
-            this.uSBSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.force2400BaudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TabControlMain = new System.Windows.Forms.TabControl();
-            this.TabControlMainConnection = new System.Windows.Forms.TabPage();
-            this.LabelPortText = new System.Windows.Forms.Label();
-            this.GroupBoxDocumentation = new System.Windows.Forms.GroupBox();
-            this.BaudRate = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.TabControlMainOmniDirectional = new System.Windows.Forms.TabPage();
             this.TabControlMainRadial = new System.Windows.Forms.TabPage();
+            this.LabelRadialAzimuth = new System.Windows.Forms.Label();
             this.LabelTrueNorthText = new System.Windows.Forms.Label();
+            this.NumericUpDownRadialAzimuth = new System.Windows.Forms.NumericUpDown();
             this.TabControlSiteImage = new System.Windows.Forms.TabPage();
             this.ButtonPauseResume = new System.Windows.Forms.Button();
             this.LabelCaptured = new System.Windows.Forms.Label();
@@ -133,59 +117,81 @@ namespace RFEOnSite
             this.TextBoxCalibrationSourceDbm = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ButtonCalibrationStart = new System.Windows.Forms.Button();
+            this.Button_CSVFileStorage_Next = new System.Windows.Forms.Button();
+            this.GroupBox_CSVFileStorage = new System.Windows.Forms.GroupBox();
+            this.GroupBoxCsvInformation = new System.Windows.Forms.GroupBox();
+            this.GroupBox_CSVFileStorage_AutoNext = new System.Windows.Forms.GroupBox();
+            this.GroupBoxClientId = new System.Windows.Forms.GroupBox();
+            this.TextBoxClient = new System.Windows.Forms.TextBox();
+            this.GroupBoxFloorId = new System.Windows.Forms.GroupBox();
+            this.NumericUpDown_CSVFileStorage_FloorNumber = new System.Windows.Forms.NumericUpDown();
+            this.TextBox_CSVFileStorage_CollectionFloorName = new System.Windows.Forms.TextBox();
+            this.GroupBox_CSVFileStorage_CollectionMarker = new System.Windows.Forms.GroupBox();
+            this.TextBox_CSVFileStorage_CollectionMarkerName = new System.Windows.Forms.TextBox();
+            this.NumericUpDown_CSVFileStorage_MarkerNumber = new System.Windows.Forms.NumericUpDown();
+            this.LabelCopyright = new System.Windows.Forms.Label();
+            this.MenuStripMainForm = new System.Windows.Forms.MenuStrip();
+            this.MenuStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripMenuItemPreset = new System.Windows.Forms.ToolStripMenuItem();
+            this.uSBSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.force2400BaudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StripStatusMainForm = new System.Windows.Forms.StatusStrip();
             this.StripStatusLabelPreset = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelDivision1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StripStatusLabelCsvDirectory = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).BeginInit();
-            this.GroupBoxSweepConfiguration.SuspendLayout();
-            this.GroupBoxCurrentSweepChartConfiguration.SuspendLayout();
-            this.GroupBoxCsvConfiguration.SuspendLayout();
-            this.GroupBoxCsvInformation.SuspendLayout();
-            this.GroupBoxClientId.SuspendLayout();
-            this.GroupBoxFloorId.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownFloorNumber)).BeginInit();
-            this.GroupBoxMarkerId.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMarkerNumber)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).BeginInit();
-            this.GroupBoxConfiguration.SuspendLayout();
-            this.MenuStripMainForm.SuspendLayout();
+            this.GroupBox_SweepControl.SuspendLayout();
+            this.GroupBox_ReceivedSignalStrength.SuspendLayout();
             this.TabControlMain.SuspendLayout();
             this.TabControlMainConnection.SuspendLayout();
-            this.GroupBoxDocumentation.SuspendLayout();
+            this.GroupBox_DocumentationAndUSBTroubleShooting.SuspendLayout();
             this.TabControlMainOmniDirectional.SuspendLayout();
+            this.GroupBox_OmniDirectional_CurrentConfiguration.SuspendLayout();
             this.TabControlMainRadial.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).BeginInit();
             this.TabControlSiteImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.TabControlCalibration.SuspendLayout();
+            this.GroupBox_CSVFileStorage.SuspendLayout();
+            this.GroupBoxCsvInformation.SuspendLayout();
+            this.GroupBox_CSVFileStorage_AutoNext.SuspendLayout();
+            this.GroupBoxClientId.SuspendLayout();
+            this.GroupBoxFloorId.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_FloorNumber)).BeginInit();
+            this.GroupBox_CSVFileStorage_CollectionMarker.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_MarkerNumber)).BeginInit();
+            this.MenuStripMainForm.SuspendLayout();
             this.StripStatusMainForm.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ButtonFindCOMPorts
+            // Button_ConnectRFExplorer
             // 
-            this.ButtonFindCOMPorts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(197)))), ((int)(((byte)(202)))), ((int)(((byte)(31)))));
-            this.ButtonFindCOMPorts.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ButtonFindCOMPorts.FlatAppearance.BorderSize = 5;
-            this.ButtonFindCOMPorts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.ButtonFindCOMPorts.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ButtonFindCOMPorts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonFindCOMPorts.Location = new System.Drawing.Point(81, 36);
-            this.ButtonFindCOMPorts.Name = "ButtonFindCOMPorts";
-            this.ButtonFindCOMPorts.Size = new System.Drawing.Size(155, 73);
-            this.ButtonFindCOMPorts.TabIndex = 0;
-            this.ButtonFindCOMPorts.Text = "Connect RF Explorer";
-            this.ButtonFindCOMPorts.UseVisualStyleBackColor = false;
-            this.ButtonFindCOMPorts.Click += new System.EventHandler(this.ButtonFindPorts_Click);
+            this.Button_ConnectRFExplorer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(197)))), ((int)(((byte)(202)))), ((int)(((byte)(31)))));
+            this.Button_ConnectRFExplorer.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Button_ConnectRFExplorer.FlatAppearance.BorderSize = 5;
+            this.Button_ConnectRFExplorer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.Button_ConnectRFExplorer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_ConnectRFExplorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_ConnectRFExplorer.Location = new System.Drawing.Point(81, 36);
+            this.Button_ConnectRFExplorer.Name = "Button_ConnectRFExplorer";
+            this.Button_ConnectRFExplorer.Size = new System.Drawing.Size(155, 73);
+            this.Button_ConnectRFExplorer.TabIndex = 0;
+            this.Button_ConnectRFExplorer.Text = "Connect RF Explorer";
+            this.ToolTip1.SetToolTip(this.Button_ConnectRFExplorer, "Connects a USB RF Explorer/Generator to this application. Close the application t" +
+        "o disconnect.");
+            this.Button_ConnectRFExplorer.UseVisualStyleBackColor = false;
+            this.Button_ConnectRFExplorer.Click += new System.EventHandler(this.ButtonFindPorts_Click);
             // 
-            // LabelRFEComPort
+            // Label_ComPortValue
             // 
-            this.LabelRFEComPort.BackColor = System.Drawing.Color.Transparent;
-            this.LabelRFEComPort.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelRFEComPort.Location = new System.Drawing.Point(365, 33);
-            this.LabelRFEComPort.Name = "LabelRFEComPort";
-            this.LabelRFEComPort.Size = new System.Drawing.Size(124, 22);
-            this.LabelRFEComPort.TabIndex = 1;
-            this.LabelRFEComPort.Text = "Not Connected";
+            this.Label_ComPortValue.BackColor = System.Drawing.Color.Transparent;
+            this.Label_ComPortValue.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_ComPortValue.Location = new System.Drawing.Point(365, 33);
+            this.Label_ComPortValue.Name = "Label_ComPortValue";
+            this.Label_ComPortValue.Size = new System.Drawing.Size(124, 22);
+            this.Label_ComPortValue.TabIndex = 1;
+            this.Label_ComPortValue.Text = "Not Connected";
             // 
             // CheckBoxRadialAzimuth
             // 
@@ -201,109 +207,112 @@ namespace RFEOnSite
             this.CheckBoxRadialAzimuth.UseVisualStyleBackColor = true;
             this.CheckBoxRadialAzimuth.CheckedChanged += new System.EventHandler(this.CheckBoxRadial_CheckedChanged);
             // 
-            // ButtonDocumentation
+            // Button_REEDocumentation
             // 
-            this.ButtonDocumentation.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ButtonDocumentation.Location = new System.Drawing.Point(35, 29);
-            this.ButtonDocumentation.Name = "ButtonDocumentation";
-            this.ButtonDocumentation.Size = new System.Drawing.Size(179, 51);
-            this.ButtonDocumentation.TabIndex = 16;
-            this.ButtonDocumentation.Text = "RF Explorer Documentation";
-            this.ButtonDocumentation.UseVisualStyleBackColor = true;
-            this.ButtonDocumentation.Click += new System.EventHandler(this.ButtonDocumentation_Click);
+            this.Button_REEDocumentation.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_REEDocumentation.Location = new System.Drawing.Point(35, 29);
+            this.Button_REEDocumentation.Name = "Button_REEDocumentation";
+            this.Button_REEDocumentation.Size = new System.Drawing.Size(179, 51);
+            this.Button_REEDocumentation.TabIndex = 16;
+            this.Button_REEDocumentation.Text = "RF Explorer Documentation";
+            this.Button_REEDocumentation.UseVisualStyleBackColor = true;
+            this.Button_REEDocumentation.Click += new System.EventHandler(this.ButtonDocumentation_Click);
             // 
-            // RadioButtonGenerator
+            // RadioButton_SignalGenerator
             // 
-            this.RadioButtonGenerator.AutoSize = true;
-            this.RadioButtonGenerator.BackColor = System.Drawing.Color.Transparent;
-            this.RadioButtonGenerator.Location = new System.Drawing.Point(247, 56);
-            this.RadioButtonGenerator.Name = "RadioButtonGenerator";
-            this.RadioButtonGenerator.Size = new System.Drawing.Size(148, 24);
-            this.RadioButtonGenerator.TabIndex = 15;
-            this.RadioButtonGenerator.Text = "Signal Generator";
-            this.RadioButtonGenerator.UseVisualStyleBackColor = false;
-            this.RadioButtonGenerator.CheckedChanged += new System.EventHandler(this.RadioButtonGenerator_CheckedChanged);
+            this.RadioButton_SignalGenerator.AutoSize = true;
+            this.RadioButton_SignalGenerator.BackColor = System.Drawing.Color.Transparent;
+            this.RadioButton_SignalGenerator.Location = new System.Drawing.Point(247, 56);
+            this.RadioButton_SignalGenerator.Name = "RadioButton_SignalGenerator";
+            this.RadioButton_SignalGenerator.Size = new System.Drawing.Size(148, 24);
+            this.RadioButton_SignalGenerator.TabIndex = 15;
+            this.RadioButton_SignalGenerator.Text = "Signal Generator";
+            this.RadioButton_SignalGenerator.UseVisualStyleBackColor = false;
+            this.RadioButton_SignalGenerator.CheckedChanged += new System.EventHandler(this.RadioButtonGenerator_CheckedChanged);
             // 
-            // RadioButtonAnalyzer
+            // RadioButton_SpectrumAnalyzer
             // 
-            this.RadioButtonAnalyzer.AutoSize = true;
-            this.RadioButtonAnalyzer.BackColor = System.Drawing.Color.Transparent;
-            this.RadioButtonAnalyzer.Checked = true;
-            this.RadioButtonAnalyzer.Location = new System.Drawing.Point(247, 29);
-            this.RadioButtonAnalyzer.Name = "RadioButtonAnalyzer";
-            this.RadioButtonAnalyzer.Size = new System.Drawing.Size(161, 24);
-            this.RadioButtonAnalyzer.TabIndex = 14;
-            this.RadioButtonAnalyzer.TabStop = true;
-            this.RadioButtonAnalyzer.Text = "Spectrum Analyzer";
-            this.RadioButtonAnalyzer.UseVisualStyleBackColor = false;
-            this.RadioButtonAnalyzer.CheckedChanged += new System.EventHandler(this.RadioButtonAnalyzer_CheckedChanged);
+            this.RadioButton_SpectrumAnalyzer.AutoSize = true;
+            this.RadioButton_SpectrumAnalyzer.BackColor = System.Drawing.Color.Transparent;
+            this.RadioButton_SpectrumAnalyzer.Checked = true;
+            this.RadioButton_SpectrumAnalyzer.Location = new System.Drawing.Point(247, 29);
+            this.RadioButton_SpectrumAnalyzer.Name = "RadioButton_SpectrumAnalyzer";
+            this.RadioButton_SpectrumAnalyzer.Size = new System.Drawing.Size(161, 24);
+            this.RadioButton_SpectrumAnalyzer.TabIndex = 14;
+            this.RadioButton_SpectrumAnalyzer.TabStop = true;
+            this.RadioButton_SpectrumAnalyzer.Text = "Spectrum Analyzer";
+            this.RadioButton_SpectrumAnalyzer.UseVisualStyleBackColor = false;
+            this.RadioButton_SpectrumAnalyzer.CheckedChanged += new System.EventHandler(this.RadioButtonAnalyzer_CheckedChanged);
             // 
-            // LabelModel
+            // Label_Model
             // 
-            this.LabelModel.AutoSize = true;
-            this.LabelModel.BackColor = System.Drawing.Color.Transparent;
-            this.LabelModel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelModel.Location = new System.Drawing.Point(301, 91);
-            this.LabelModel.Name = "LabelModel";
-            this.LabelModel.Size = new System.Drawing.Size(56, 20);
-            this.LabelModel.TabIndex = 13;
-            this.LabelModel.Text = "Model:";
+            this.Label_Model.AutoSize = true;
+            this.Label_Model.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Model.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_Model.Location = new System.Drawing.Point(301, 91);
+            this.Label_Model.Name = "Label_Model";
+            this.Label_Model.Size = new System.Drawing.Size(56, 20);
+            this.Label_Model.TabIndex = 13;
+            this.Label_Model.Text = "Model:";
+            this.ToolTip1.SetToolTip(this.Label_Model, "This RF Explorer Model ID.");
             // 
-            // LabelDevice
+            // Label_Device
             // 
-            this.LabelDevice.AutoSize = true;
-            this.LabelDevice.BackColor = System.Drawing.Color.Transparent;
-            this.LabelDevice.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelDevice.Location = new System.Drawing.Point(298, 72);
-            this.LabelDevice.Name = "LabelDevice";
-            this.LabelDevice.Size = new System.Drawing.Size(61, 20);
-            this.LabelDevice.TabIndex = 12;
-            this.LabelDevice.Text = "Device:";
+            this.Label_Device.AutoSize = true;
+            this.Label_Device.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Device.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_Device.Location = new System.Drawing.Point(298, 72);
+            this.Label_Device.Name = "Label_Device";
+            this.Label_Device.Size = new System.Drawing.Size(61, 20);
+            this.Label_Device.TabIndex = 12;
+            this.Label_Device.Text = "Device:";
+            this.ToolTip1.SetToolTip(this.Label_Device, "This RF Explorer Device ID.");
             // 
-            // LabelFirmwareText
+            // Label_FirmwareValue
             // 
-            this.LabelFirmwareText.AutoSize = true;
-            this.LabelFirmwareText.BackColor = System.Drawing.Color.Transparent;
-            this.LabelFirmwareText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelFirmwareText.Location = new System.Drawing.Point(365, 53);
-            this.LabelFirmwareText.Name = "LabelFirmwareText";
-            this.LabelFirmwareText.Size = new System.Drawing.Size(35, 20);
-            this.LabelFirmwareText.TabIndex = 5;
-            this.LabelFirmwareText.Text = "N/A";
-            this.LabelFirmwareText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Label_FirmwareValue.AutoSize = true;
+            this.Label_FirmwareValue.BackColor = System.Drawing.Color.Transparent;
+            this.Label_FirmwareValue.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_FirmwareValue.Location = new System.Drawing.Point(365, 53);
+            this.Label_FirmwareValue.Name = "Label_FirmwareValue";
+            this.Label_FirmwareValue.Size = new System.Drawing.Size(35, 20);
+            this.Label_FirmwareValue.TabIndex = 5;
+            this.Label_FirmwareValue.Text = "N/A";
+            this.Label_FirmwareValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // LabelFirmware
+            // Label_Firmware
             // 
-            this.LabelFirmware.AutoSize = true;
-            this.LabelFirmware.BackColor = System.Drawing.Color.Transparent;
-            this.LabelFirmware.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelFirmware.Location = new System.Drawing.Point(279, 53);
-            this.LabelFirmware.Name = "LabelFirmware";
-            this.LabelFirmware.Size = new System.Drawing.Size(78, 20);
-            this.LabelFirmware.TabIndex = 4;
-            this.LabelFirmware.Text = "Firmware:";
+            this.Label_Firmware.AutoSize = true;
+            this.Label_Firmware.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Firmware.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_Firmware.Location = new System.Drawing.Point(279, 53);
+            this.Label_Firmware.Name = "Label_Firmware";
+            this.Label_Firmware.Size = new System.Drawing.Size(78, 20);
+            this.Label_Firmware.TabIndex = 4;
+            this.Label_Firmware.Text = "Firmware:";
+            this.ToolTip1.SetToolTip(this.Label_Firmware, "This RF Explorer firmware version.");
             // 
-            // LabelModelText
+            // Label_ModelValue
             // 
-            this.LabelModelText.AutoSize = true;
-            this.LabelModelText.BackColor = System.Drawing.Color.Transparent;
-            this.LabelModelText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelModelText.Location = new System.Drawing.Point(365, 91);
-            this.LabelModelText.Name = "LabelModelText";
-            this.LabelModelText.Size = new System.Drawing.Size(35, 20);
-            this.LabelModelText.TabIndex = 3;
-            this.LabelModelText.Text = "N/A";
+            this.Label_ModelValue.AutoSize = true;
+            this.Label_ModelValue.BackColor = System.Drawing.Color.Transparent;
+            this.Label_ModelValue.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_ModelValue.Location = new System.Drawing.Point(365, 91);
+            this.Label_ModelValue.Name = "Label_ModelValue";
+            this.Label_ModelValue.Size = new System.Drawing.Size(35, 20);
+            this.Label_ModelValue.TabIndex = 3;
+            this.Label_ModelValue.Text = "N/A";
             // 
-            // LabelDeviceText
+            // Label_DeviceValue
             // 
-            this.LabelDeviceText.AutoSize = true;
-            this.LabelDeviceText.BackColor = System.Drawing.Color.Transparent;
-            this.LabelDeviceText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelDeviceText.Location = new System.Drawing.Point(365, 72);
-            this.LabelDeviceText.Name = "LabelDeviceText";
-            this.LabelDeviceText.Size = new System.Drawing.Size(35, 20);
-            this.LabelDeviceText.TabIndex = 2;
-            this.LabelDeviceText.Text = "N/A";
+            this.Label_DeviceValue.AutoSize = true;
+            this.Label_DeviceValue.BackColor = System.Drawing.Color.Transparent;
+            this.Label_DeviceValue.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_DeviceValue.Location = new System.Drawing.Point(365, 72);
+            this.Label_DeviceValue.Name = "Label_DeviceValue";
+            this.Label_DeviceValue.Size = new System.Drawing.Size(35, 20);
+            this.Label_DeviceValue.TabIndex = 2;
+            this.Label_DeviceValue.Text = "N/A";
             // 
             // ButtonStartSweeps
             // 
@@ -357,27 +366,27 @@ namespace RFEOnSite
             0,
             0});
             // 
-            // GroupBoxSweepConfiguration
+            // GroupBox_SweepControl
             // 
-            this.GroupBoxSweepConfiguration.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.GroupBoxSweepConfiguration.Controls.Add(this.LabelActualSweeps);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.LabelTaskCount);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.LabelExecTask);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.ButtonCancelSweeps);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.LabelProgressWriteCsvFile);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.TaskProgressBar);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.LabelStartSweeps);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.ButtonStartSweeps);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.NumericUpDownSweeps);
-            this.GroupBoxSweepConfiguration.Controls.Add(this.TextBoxCsvFileName);
-            this.GroupBoxSweepConfiguration.Enabled = false;
-            this.GroupBoxSweepConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxSweepConfiguration.Location = new System.Drawing.Point(550, 490);
-            this.GroupBoxSweepConfiguration.Name = "GroupBoxSweepConfiguration";
-            this.GroupBoxSweepConfiguration.Size = new System.Drawing.Size(437, 215);
-            this.GroupBoxSweepConfiguration.TabIndex = 16;
-            this.GroupBoxSweepConfiguration.TabStop = false;
-            this.GroupBoxSweepConfiguration.Text = "Sweep Control";
+            this.GroupBox_SweepControl.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.GroupBox_SweepControl.Controls.Add(this.LabelActualSweeps);
+            this.GroupBox_SweepControl.Controls.Add(this.LabelTaskCount);
+            this.GroupBox_SweepControl.Controls.Add(this.LabelExecTask);
+            this.GroupBox_SweepControl.Controls.Add(this.ButtonCancelSweeps);
+            this.GroupBox_SweepControl.Controls.Add(this.LabelProgressWriteCsvFile);
+            this.GroupBox_SweepControl.Controls.Add(this.TaskProgressBar);
+            this.GroupBox_SweepControl.Controls.Add(this.LabelStartSweeps);
+            this.GroupBox_SweepControl.Controls.Add(this.ButtonStartSweeps);
+            this.GroupBox_SweepControl.Controls.Add(this.NumericUpDownSweeps);
+            this.GroupBox_SweepControl.Controls.Add(this.TextBoxCsvFileName);
+            this.GroupBox_SweepControl.Enabled = false;
+            this.GroupBox_SweepControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox_SweepControl.Location = new System.Drawing.Point(550, 490);
+            this.GroupBox_SweepControl.Name = "GroupBox_SweepControl";
+            this.GroupBox_SweepControl.Size = new System.Drawing.Size(437, 215);
+            this.GroupBox_SweepControl.TabIndex = 16;
+            this.GroupBox_SweepControl.TabStop = false;
+            this.GroupBox_SweepControl.Text = "Sweep Control";
             // 
             // LabelActualSweeps
             // 
@@ -510,21 +519,21 @@ namespace RFEOnSite
             this.CheckBoxChartAutoScale.UseVisualStyleBackColor = true;
             this.CheckBoxChartAutoScale.CheckedChanged += new System.EventHandler(this.CheckBoxChartAutoScale_CheckedChanged);
             // 
-            // GroupBoxCurrentSweepChartConfiguration
+            // GroupBox_ReceivedSignalStrength
             // 
-            this.GroupBoxCurrentSweepChartConfiguration.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.GroupBoxCurrentSweepChartConfiguration.Controls.Add(this.CheckBoxChartAutoScale);
-            this.GroupBoxCurrentSweepChartConfiguration.Controls.Add(this.CheckBoxChartAverage);
-            this.GroupBoxCurrentSweepChartConfiguration.Controls.Add(this.CheckBoxChartPeak);
-            this.GroupBoxCurrentSweepChartConfiguration.Controls.Add(this.PanelChart);
-            this.GroupBoxCurrentSweepChartConfiguration.Enabled = false;
-            this.GroupBoxCurrentSweepChartConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxCurrentSweepChartConfiguration.Location = new System.Drawing.Point(550, 27);
-            this.GroupBoxCurrentSweepChartConfiguration.Name = "GroupBoxCurrentSweepChartConfiguration";
-            this.GroupBoxCurrentSweepChartConfiguration.Size = new System.Drawing.Size(437, 457);
-            this.GroupBoxCurrentSweepChartConfiguration.TabIndex = 4;
-            this.GroupBoxCurrentSweepChartConfiguration.TabStop = false;
-            this.GroupBoxCurrentSweepChartConfiguration.Text = "Received Signal Strength";
+            this.GroupBox_ReceivedSignalStrength.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBoxChartAutoScale);
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBoxChartAverage);
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.CheckBoxChartPeak);
+            this.GroupBox_ReceivedSignalStrength.Controls.Add(this.PanelChart);
+            this.GroupBox_ReceivedSignalStrength.Enabled = false;
+            this.GroupBox_ReceivedSignalStrength.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox_ReceivedSignalStrength.Location = new System.Drawing.Point(550, 27);
+            this.GroupBox_ReceivedSignalStrength.Name = "GroupBox_ReceivedSignalStrength";
+            this.GroupBox_ReceivedSignalStrength.Size = new System.Drawing.Size(437, 457);
+            this.GroupBox_ReceivedSignalStrength.TabIndex = 4;
+            this.GroupBox_ReceivedSignalStrength.TabStop = false;
+            this.GroupBox_ReceivedSignalStrength.Text = "Received Signal Strength";
             // 
             // PanelChart
             // 
@@ -556,7 +565,7 @@ namespace RFEOnSite
             // 
             this.LabelRBW.AutoSize = true;
             this.LabelRBW.BackColor = System.Drawing.Color.Transparent;
-            this.LabelRBW.Location = new System.Drawing.Point(4, 75);
+            this.LabelRBW.Location = new System.Drawing.Point(4, 104);
             this.LabelRBW.Name = "LabelRBW";
             this.LabelRBW.Size = new System.Drawing.Size(164, 20);
             this.LabelRBW.TabIndex = 5;
@@ -566,7 +575,7 @@ namespace RFEOnSite
             // ButtonSetConfiguration
             // 
             this.ButtonSetConfiguration.Enabled = false;
-            this.ButtonSetConfiguration.Location = new System.Drawing.Point(338, 23);
+            this.ButtonSetConfiguration.Location = new System.Drawing.Point(345, 42);
             this.ButtonSetConfiguration.Name = "ButtonSetConfiguration";
             this.ButtonSetConfiguration.Size = new System.Drawing.Size(127, 51);
             this.ButtonSetConfiguration.TabIndex = 10;
@@ -577,7 +586,7 @@ namespace RFEOnSite
             // 
             // TextBoxRBW
             // 
-            this.TextBoxRBW.Location = new System.Drawing.Point(168, 71);
+            this.TextBoxRBW.Location = new System.Drawing.Point(168, 101);
             this.TextBoxRBW.Name = "TextBoxRBW";
             this.TextBoxRBW.ReadOnly = true;
             this.TextBoxRBW.Size = new System.Drawing.Size(56, 26);
@@ -607,7 +616,7 @@ namespace RFEOnSite
             // ButtonGetRfeConfiguration
             // 
             this.ButtonGetRfeConfiguration.Enabled = false;
-            this.ButtonGetRfeConfiguration.Location = new System.Drawing.Point(338, 89);
+            this.ButtonGetRfeConfiguration.Location = new System.Drawing.Point(345, 108);
             this.ButtonGetRfeConfiguration.Name = "ButtonGetRfeConfiguration";
             this.ButtonGetRfeConfiguration.Size = new System.Drawing.Size(127, 54);
             this.ButtonGetRfeConfiguration.TabIndex = 27;
@@ -620,13 +629,12 @@ namespace RFEOnSite
             // 
             this.LabelStopFrequency.AutoSize = true;
             this.LabelStopFrequency.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStopFrequency.Location = new System.Drawing.Point(46, 51);
+            this.LabelStopFrequency.Location = new System.Drawing.Point(46, 78);
             this.LabelStopFrequency.Name = "LabelStopFrequency";
             this.LabelStopFrequency.Size = new System.Drawing.Size(122, 20);
             this.LabelStopFrequency.TabIndex = 4;
             this.LabelStopFrequency.Text = "Stop Frequency";
-            this.ToolTip1.SetToolTip(this.LabelStopFrequency, "The frequency at which to stop sampling - plus one bin. The RF Explorer always sa" +
-        "mples using 112 bins. Each Bin ");
+            this.ToolTip1.SetToolTip(this.LabelStopFrequency, "End measurments at this frequency.");
             // 
             // ButtonCaptureImage
             // 
@@ -654,282 +662,72 @@ namespace RFEOnSite
             this.ButtonPersistClear.UseVisualStyleBackColor = false;
             this.ButtonPersistClear.Click += new System.EventHandler(this.ButtonPersistClear_Click);
             // 
-            // GroupBoxCsvConfiguration
+            // Button_CSVFileStorage_CollectionFloor_Enable
             // 
-            this.GroupBoxCsvConfiguration.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.GroupBoxCsvConfiguration.Controls.Add(this.CheckBoxSaveCsvFiles);
-            this.GroupBoxCsvConfiguration.Controls.Add(this.GroupBoxCsvInformation);
-            this.GroupBoxCsvConfiguration.Enabled = false;
-            this.GroupBoxCsvConfiguration.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GroupBoxCsvConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxCsvConfiguration.Location = new System.Drawing.Point(14, 379);
-            this.GroupBoxCsvConfiguration.Name = "GroupBoxCsvConfiguration";
-            this.GroupBoxCsvConfiguration.Size = new System.Drawing.Size(526, 326);
-            this.GroupBoxCsvConfiguration.TabIndex = 23;
-            this.GroupBoxCsvConfiguration.TabStop = false;
-            this.GroupBoxCsvConfiguration.Text = "CSV File Storage";
+            this.Button_CSVFileStorage_CollectionFloor_Enable.BackColor = System.Drawing.Color.Olive;
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Location = new System.Drawing.Point(223, 22);
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Name = "Button_CSVFileStorage_CollectionFloor_Enable";
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Size = new System.Drawing.Size(79, 29);
+            this.Button_CSVFileStorage_CollectionFloor_Enable.TabIndex = 42;
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Text = "Enable";
+            this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_CollectionFloor_Enable, "Include a Floor indentifier in the CSV file name.  Also enables the increment and" +
+        " decrement mode.");
+            this.Button_CSVFileStorage_CollectionFloor_Enable.UseVisualStyleBackColor = false;
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Click += new System.EventHandler(this.Button_CSVFileStorage_CollectionFloor_Enable_Click);
             // 
-            // GroupBoxCsvInformation
+            // RadioButton_CSVFileStorage_FloorIncrement
             // 
-            this.GroupBoxCsvInformation.Controls.Add(this.ButtonPersistClear);
-            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxClientId);
-            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxFloorId);
-            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxMarkerId);
-            this.GroupBoxCsvInformation.Enabled = false;
-            this.GroupBoxCsvInformation.Location = new System.Drawing.Point(8, 51);
-            this.GroupBoxCsvInformation.Name = "GroupBoxCsvInformation";
-            this.GroupBoxCsvInformation.Size = new System.Drawing.Size(512, 262);
-            this.GroupBoxCsvInformation.TabIndex = 46;
-            this.GroupBoxCsvInformation.TabStop = false;
+            this.RadioButton_CSVFileStorage_FloorIncrement.AutoSize = true;
+            this.RadioButton_CSVFileStorage_FloorIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioButton_CSVFileStorage_FloorIncrement.Location = new System.Drawing.Point(12, 17);
+            this.RadioButton_CSVFileStorage_FloorIncrement.Name = "RadioButton_CSVFileStorage_FloorIncrement";
+            this.RadioButton_CSVFileStorage_FloorIncrement.Size = new System.Drawing.Size(72, 17);
+            this.RadioButton_CSVFileStorage_FloorIncrement.TabIndex = 41;
+            this.RadioButton_CSVFileStorage_FloorIncrement.Text = "Increment";
+            this.ToolTip1.SetToolTip(this.RadioButton_CSVFileStorage_FloorIncrement, "When Enabled, increment the floor number each time the Next Button is pressed.");
+            this.RadioButton_CSVFileStorage_FloorIncrement.UseVisualStyleBackColor = true;
             // 
-            // GroupBoxClientId
+            // RadioButton_CSVFileStorage_FloorDecrement
             // 
-            this.GroupBoxClientId.Controls.Add(this.TextBoxClient);
-            this.GroupBoxClientId.Controls.Add(this.TextBoxCollectionLocation);
-            this.GroupBoxClientId.Location = new System.Drawing.Point(20, 16);
-            this.GroupBoxClientId.Name = "GroupBoxClientId";
-            this.GroupBoxClientId.Size = new System.Drawing.Size(358, 98);
-            this.GroupBoxClientId.TabIndex = 43;
-            this.GroupBoxClientId.TabStop = false;
-            this.GroupBoxClientId.Text = "Client Information";
-            // 
-            // TextBoxClient
-            // 
-            this.TextBoxClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxClient.Location = new System.Drawing.Point(8, 27);
-            this.TextBoxClient.Name = "TextBoxClient";
-            this.TextBoxClient.Size = new System.Drawing.Size(341, 26);
-            this.TextBoxClient.TabIndex = 20;
-            this.TextBoxClient.Text = "Client";
-            this.TextBoxClient.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
-            // 
-            // GroupBoxFloorId
-            // 
-            this.GroupBoxFloorId.Controls.Add(this.ButtonFloorId);
-            this.GroupBoxFloorId.Controls.Add(this.RadioButtonFloorIncrement);
-            this.GroupBoxFloorId.Controls.Add(this.RadioButtonFloorDecrement);
-            this.GroupBoxFloorId.Controls.Add(this.NumericUpDownFloorNumber);
-            this.GroupBoxFloorId.Controls.Add(this.TextBoxFloorName);
-            this.GroupBoxFloorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxFloorId.Location = new System.Drawing.Point(20, 121);
-            this.GroupBoxFloorId.Name = "GroupBoxFloorId";
-            this.GroupBoxFloorId.Size = new System.Drawing.Size(358, 63);
-            this.GroupBoxFloorId.TabIndex = 42;
-            this.GroupBoxFloorId.TabStop = false;
-            this.GroupBoxFloorId.Text = "Collection Floor";
-            // 
-            // ButtonFloorId
-            // 
-            this.ButtonFloorId.BackColor = System.Drawing.Color.Olive;
-            this.ButtonFloorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonFloorId.Location = new System.Drawing.Point(192, 22);
-            this.ButtonFloorId.Name = "ButtonFloorId";
-            this.ButtonFloorId.Size = new System.Drawing.Size(75, 29);
-            this.ButtonFloorId.TabIndex = 42;
-            this.ButtonFloorId.Text = "Enable";
-            this.ButtonFloorId.UseVisualStyleBackColor = false;
-            this.ButtonFloorId.Click += new System.EventHandler(this.ButtonFloorId_Click);
-            // 
-            // RadioButtonFloorIncrement
-            // 
-            this.RadioButtonFloorIncrement.AutoSize = true;
-            this.RadioButtonFloorIncrement.Checked = true;
-            this.RadioButtonFloorIncrement.Enabled = false;
-            this.RadioButtonFloorIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioButtonFloorIncrement.Location = new System.Drawing.Point(277, 38);
-            this.RadioButtonFloorIncrement.Name = "RadioButtonFloorIncrement";
-            this.RadioButtonFloorIncrement.Size = new System.Drawing.Size(72, 17);
-            this.RadioButtonFloorIncrement.TabIndex = 41;
-            this.RadioButtonFloorIncrement.TabStop = true;
-            this.RadioButtonFloorIncrement.Text = "Increment";
-            this.RadioButtonFloorIncrement.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonFloorDecrement
-            // 
-            this.RadioButtonFloorDecrement.AutoSize = true;
-            this.RadioButtonFloorDecrement.Enabled = false;
-            this.RadioButtonFloorDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioButtonFloorDecrement.Location = new System.Drawing.Point(277, 21);
-            this.RadioButtonFloorDecrement.Name = "RadioButtonFloorDecrement";
-            this.RadioButtonFloorDecrement.Size = new System.Drawing.Size(77, 17);
-            this.RadioButtonFloorDecrement.TabIndex = 40;
-            this.RadioButtonFloorDecrement.Text = "Decrement";
-            this.RadioButtonFloorDecrement.UseVisualStyleBackColor = true;
-            // 
-            // NumericUpDownFloorNumber
-            // 
-            this.NumericUpDownFloorNumber.Cursor = System.Windows.Forms.Cursors.Default;
-            this.NumericUpDownFloorNumber.Enabled = false;
-            this.NumericUpDownFloorNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumericUpDownFloorNumber.Location = new System.Drawing.Point(142, 21);
-            this.NumericUpDownFloorNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumericUpDownFloorNumber.Name = "NumericUpDownFloorNumber";
-            this.NumericUpDownFloorNumber.Size = new System.Drawing.Size(46, 31);
-            this.NumericUpDownFloorNumber.TabIndex = 39;
-            this.NumericUpDownFloorNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.NumericUpDownFloorNumber.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumericUpDownFloorNumber.ValueChanged += new System.EventHandler(this.NumericUpDownAutoText_ValueChanged);
-            // 
-            // TextBoxFloorName
-            // 
-            this.TextBoxFloorName.Enabled = false;
-            this.TextBoxFloorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxFloorName.Location = new System.Drawing.Point(6, 23);
-            this.TextBoxFloorName.Name = "TextBoxFloorName";
-            this.TextBoxFloorName.Size = new System.Drawing.Size(132, 26);
-            this.TextBoxFloorName.TabIndex = 37;
-            this.TextBoxFloorName.Text = "Floor";
-            this.TextBoxFloorName.TextChanged += new System.EventHandler(this.TextBoxFloorLabel_TextChanged);
-            // 
-            // GroupBoxMarkerId
-            // 
-            this.GroupBoxMarkerId.Controls.Add(this.TextBoxMarkerName);
-            this.GroupBoxMarkerId.Controls.Add(this.CheckBoxAutoIncrementMarkerNumber);
-            this.GroupBoxMarkerId.Controls.Add(this.NumericUpDownMarkerNumber);
-            this.GroupBoxMarkerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBoxMarkerId.Location = new System.Drawing.Point(20, 191);
-            this.GroupBoxMarkerId.Name = "GroupBoxMarkerId";
-            this.GroupBoxMarkerId.Size = new System.Drawing.Size(358, 63);
-            this.GroupBoxMarkerId.TabIndex = 37;
-            this.GroupBoxMarkerId.TabStop = false;
-            this.GroupBoxMarkerId.Text = "Collection Site Marker";
-            // 
-            // TextBoxMarkerName
-            // 
-            this.TextBoxMarkerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxMarkerName.Location = new System.Drawing.Point(6, 27);
-            this.TextBoxMarkerName.Name = "TextBoxMarkerName";
-            this.TextBoxMarkerName.Size = new System.Drawing.Size(132, 26);
-            this.TextBoxMarkerName.TabIndex = 30;
-            this.TextBoxMarkerName.Text = "M";
-            this.TextBoxMarkerName.TextChanged += new System.EventHandler(this.TextBoxCollectionSite_TextChanged);
+            this.RadioButton_CSVFileStorage_FloorDecrement.AutoSize = true;
+            this.RadioButton_CSVFileStorage_FloorDecrement.Checked = true;
+            this.RadioButton_CSVFileStorage_FloorDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioButton_CSVFileStorage_FloorDecrement.Location = new System.Drawing.Point(12, 39);
+            this.RadioButton_CSVFileStorage_FloorDecrement.Name = "RadioButton_CSVFileStorage_FloorDecrement";
+            this.RadioButton_CSVFileStorage_FloorDecrement.Size = new System.Drawing.Size(77, 17);
+            this.RadioButton_CSVFileStorage_FloorDecrement.TabIndex = 40;
+            this.RadioButton_CSVFileStorage_FloorDecrement.TabStop = true;
+            this.RadioButton_CSVFileStorage_FloorDecrement.Text = "Decrement";
+            this.ToolTip1.SetToolTip(this.RadioButton_CSVFileStorage_FloorDecrement, "When Enabled, deccrement the floor number each time the Next Button is pressed.");
+            this.RadioButton_CSVFileStorage_FloorDecrement.UseVisualStyleBackColor = true;
             // 
             // CheckBoxAutoIncrementMarkerNumber
             // 
             this.CheckBoxAutoIncrementMarkerNumber.AutoSize = true;
             this.CheckBoxAutoIncrementMarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxAutoIncrementMarkerNumber.Location = new System.Drawing.Point(224, 32);
+            this.CheckBoxAutoIncrementMarkerNumber.Location = new System.Drawing.Point(223, 32);
             this.CheckBoxAutoIncrementMarkerNumber.Name = "CheckBoxAutoIncrementMarkerNumber";
             this.CheckBoxAutoIncrementMarkerNumber.Size = new System.Drawing.Size(101, 17);
             this.CheckBoxAutoIncrementMarkerNumber.TabIndex = 29;
             this.CheckBoxAutoIncrementMarkerNumber.Text = "Auto Increment ";
+            this.ToolTip1.SetToolTip(this.CheckBoxAutoIncrementMarkerNumber, "Auto Increment the Collection Site Marker Number after the Capture Button is pres" +
+        "sed.");
             this.CheckBoxAutoIncrementMarkerNumber.UseVisualStyleBackColor = true;
             this.CheckBoxAutoIncrementMarkerNumber.CheckedChanged += new System.EventHandler(this.CheckBoxAutoIncrement_CheckedChanged);
-            // 
-            // NumericUpDownMarkerNumber
-            // 
-            this.NumericUpDownMarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumericUpDownMarkerNumber.Location = new System.Drawing.Point(142, 25);
-            this.NumericUpDownMarkerNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumericUpDownMarkerNumber.Name = "NumericUpDownMarkerNumber";
-            this.NumericUpDownMarkerNumber.Size = new System.Drawing.Size(46, 31);
-            this.NumericUpDownMarkerNumber.TabIndex = 18;
-            this.NumericUpDownMarkerNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.NumericUpDownMarkerNumber.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumericUpDownMarkerNumber.ValueChanged += new System.EventHandler(this.NumericUpDownLocation_ValueChanged);
-            // 
-            // LabelRadialAzimuth
-            // 
-            this.LabelRadialAzimuth.AutoSize = true;
-            this.LabelRadialAzimuth.BackColor = System.Drawing.Color.White;
-            this.LabelRadialAzimuth.Enabled = false;
-            this.LabelRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelRadialAzimuth.ForeColor = System.Drawing.Color.Black;
-            this.LabelRadialAzimuth.Location = new System.Drawing.Point(128, 103);
-            this.LabelRadialAzimuth.Name = "LabelRadialAzimuth";
-            this.LabelRadialAzimuth.Size = new System.Drawing.Size(262, 37);
-            this.LabelRadialAzimuth.TabIndex = 35;
-            this.LabelRadialAzimuth.Text = "Azimuth Degrees";
-            this.LabelRadialAzimuth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // NumericUpDownRadialAzimuth
-            // 
-            this.NumericUpDownRadialAzimuth.Enabled = false;
-            this.NumericUpDownRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumericUpDownRadialAzimuth.Location = new System.Drawing.Point(155, 174);
-            this.NumericUpDownRadialAzimuth.Maximum = new decimal(new int[] {
-            359,
-            0,
-            0,
-            0});
-            this.NumericUpDownRadialAzimuth.Name = "NumericUpDownRadialAzimuth";
-            this.NumericUpDownRadialAzimuth.Size = new System.Drawing.Size(204, 49);
-            this.NumericUpDownRadialAzimuth.TabIndex = 34;
-            this.NumericUpDownRadialAzimuth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // LabelCopyright
-            // 
-            this.LabelCopyright.AutoSize = true;
-            this.LabelCopyright.BackColor = System.Drawing.SystemColors.Control;
-            this.LabelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LabelCopyright.Location = new System.Drawing.Point(771, 717);
-            this.LabelCopyright.Name = "LabelCopyright";
-            this.LabelCopyright.Size = new System.Drawing.Size(209, 13);
-            this.LabelCopyright.TabIndex = 25;
-            this.LabelCopyright.Text = "Copyright 2021 - Integra Network Solutions";
-            // 
-            // GroupBoxConfiguration
-            // 
-            this.GroupBoxConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(11)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
-            this.GroupBoxConfiguration.Controls.Add(this.ComboBoxPreset);
-            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxHoldStep);
-            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxHoldStop);
-            this.GroupBoxConfiguration.Controls.Add(this.CheckBoxHoldStart);
-            this.GroupBoxConfiguration.Controls.Add(this.ButtonGetRfeConfiguration);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelPresets);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelRightAntennaGainUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxRightAntennaGain);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelRightAntennaGain);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAntennaGainUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxLeftAntennaGain);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelLeftAntennaGain);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStepFrequency);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxRBW);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelStopFrequencyUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelStartFrequencyUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.ButtonSetConfiguration);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelFrequencyStepUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelStartFrequency);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelFrequencyStep);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStartFrequency);
-            this.GroupBoxConfiguration.Controls.Add(this.TextBoxStopFrequency);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelStopFrequency);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelRBWUnit);
-            this.GroupBoxConfiguration.Controls.Add(this.LabelRBW);
-            this.GroupBoxConfiguration.Enabled = false;
-            this.GroupBoxConfiguration.Location = new System.Drawing.Point(16, 21);
-            this.GroupBoxConfiguration.Name = "GroupBoxConfiguration";
-            this.GroupBoxConfiguration.Size = new System.Drawing.Size(490, 274);
-            this.GroupBoxConfiguration.TabIndex = 10;
-            this.GroupBoxConfiguration.TabStop = false;
-            this.GroupBoxConfiguration.Text = "Current Configuration";
             // 
             // CheckBoxHoldStep
             // 
             this.CheckBoxHoldStep.AutoSize = true;
             this.CheckBoxHoldStep.BackColor = System.Drawing.Color.Transparent;
             this.CheckBoxHoldStep.Enabled = false;
-            this.CheckBoxHoldStep.Location = new System.Drawing.Point(272, 97);
+            this.CheckBoxHoldStep.Location = new System.Drawing.Point(272, 50);
             this.CheckBoxHoldStep.Name = "CheckBoxHoldStep";
             this.CheckBoxHoldStep.Size = new System.Drawing.Size(61, 24);
             this.CheckBoxHoldStep.TabIndex = 30;
             this.CheckBoxHoldStep.Text = "Hold";
+            this.ToolTip1.SetToolTip(this.CheckBoxHoldStep, "Check to hold this value constant and recalculate the other two frequency paramet" +
+        "ers.");
             this.CheckBoxHoldStep.UseVisualStyleBackColor = false;
             // 
             // CheckBoxHoldStop
@@ -937,11 +735,13 @@ namespace RFEOnSite
             this.CheckBoxHoldStop.AutoSize = true;
             this.CheckBoxHoldStop.BackColor = System.Drawing.Color.Transparent;
             this.CheckBoxHoldStop.Enabled = false;
-            this.CheckBoxHoldStop.Location = new System.Drawing.Point(272, 49);
+            this.CheckBoxHoldStop.Location = new System.Drawing.Point(272, 76);
             this.CheckBoxHoldStop.Name = "CheckBoxHoldStop";
             this.CheckBoxHoldStop.Size = new System.Drawing.Size(61, 24);
             this.CheckBoxHoldStop.TabIndex = 29;
             this.CheckBoxHoldStop.Text = "Hold";
+            this.ToolTip1.SetToolTip(this.CheckBoxHoldStop, "Check to hold this value constant and recalculate the other two frequency paramet" +
+        "ers.");
             this.CheckBoxHoldStop.UseVisualStyleBackColor = false;
             // 
             // CheckBoxHoldStart
@@ -949,12 +749,180 @@ namespace RFEOnSite
             this.CheckBoxHoldStart.AutoSize = true;
             this.CheckBoxHoldStart.BackColor = System.Drawing.Color.Transparent;
             this.CheckBoxHoldStart.Enabled = false;
-            this.CheckBoxHoldStart.Location = new System.Drawing.Point(272, 25);
+            this.CheckBoxHoldStart.Location = new System.Drawing.Point(272, 24);
             this.CheckBoxHoldStart.Name = "CheckBoxHoldStart";
             this.CheckBoxHoldStart.Size = new System.Drawing.Size(61, 24);
             this.CheckBoxHoldStart.TabIndex = 28;
             this.CheckBoxHoldStart.Text = "Hold";
+            this.ToolTip1.SetToolTip(this.CheckBoxHoldStart, "Check to hold this value constant and recalculate the other two frequency paramet" +
+        "ers.");
             this.CheckBoxHoldStart.UseVisualStyleBackColor = false;
+            // 
+            // LabelStartFrequency
+            // 
+            this.LabelStartFrequency.AutoSize = true;
+            this.LabelStartFrequency.BackColor = System.Drawing.Color.Transparent;
+            this.LabelStartFrequency.Location = new System.Drawing.Point(45, 26);
+            this.LabelStartFrequency.Name = "LabelStartFrequency";
+            this.LabelStartFrequency.Size = new System.Drawing.Size(123, 20);
+            this.LabelStartFrequency.TabIndex = 2;
+            this.LabelStartFrequency.Text = "Start Frequency";
+            this.ToolTip1.SetToolTip(this.LabelStartFrequency, "Begin measurments at this frequency.");
+            // 
+            // LabelFrequencyStep
+            // 
+            this.LabelFrequencyStep.AutoSize = true;
+            this.LabelFrequencyStep.BackColor = System.Drawing.Color.Transparent;
+            this.LabelFrequencyStep.Location = new System.Drawing.Point(46, 52);
+            this.LabelFrequencyStep.Name = "LabelFrequencyStep";
+            this.LabelFrequencyStep.Size = new System.Drawing.Size(122, 20);
+            this.LabelFrequencyStep.TabIndex = 8;
+            this.LabelFrequencyStep.Text = "Frequency Step";
+            this.ToolTip1.SetToolTip(this.LabelFrequencyStep, "Frequency sample step size/interval. The RF Explorer will always divide into 112 " +
+        "bins.");
+            // 
+            // TabControlMain
+            // 
+            this.TabControlMain.Controls.Add(this.TabControlMainConnection);
+            this.TabControlMain.Controls.Add(this.TabControlMainOmniDirectional);
+            this.TabControlMain.Controls.Add(this.TabControlMainRadial);
+            this.TabControlMain.Controls.Add(this.TabControlSiteImage);
+            this.TabControlMain.Controls.Add(this.TabControlCalibration);
+            this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.TabControlMain.Location = new System.Drawing.Point(12, 27);
+            this.TabControlMain.Name = "TabControlMain";
+            this.TabControlMain.SelectedIndex = 0;
+            this.TabControlMain.Size = new System.Drawing.Size(532, 346);
+            this.TabControlMain.TabIndex = 37;
+            this.ToolTip1.SetToolTip(this.TabControlMain, "Connect the RF Explorer to this COM Port.");
+            this.TabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
+            // 
+            // TabControlMainConnection
+            // 
+            this.TabControlMainConnection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.TabControlMainConnection.Controls.Add(this.Label_ComPortText);
+            this.TabControlMainConnection.Controls.Add(this.Label_Model);
+            this.TabControlMainConnection.Controls.Add(this.Label_Device);
+            this.TabControlMainConnection.Controls.Add(this.Button_ConnectRFExplorer);
+            this.TabControlMainConnection.Controls.Add(this.Label_FirmwareValue);
+            this.TabControlMainConnection.Controls.Add(this.Label_ComPortValue);
+            this.TabControlMainConnection.Controls.Add(this.Label_Firmware);
+            this.TabControlMainConnection.Controls.Add(this.Label_DeviceValue);
+            this.TabControlMainConnection.Controls.Add(this.Label_ModelValue);
+            this.TabControlMainConnection.Controls.Add(this.GroupBox_DocumentationAndUSBTroubleShooting);
+            this.TabControlMainConnection.Location = new System.Drawing.Point(4, 29);
+            this.TabControlMainConnection.Name = "TabControlMainConnection";
+            this.TabControlMainConnection.Padding = new System.Windows.Forms.Padding(3);
+            this.TabControlMainConnection.Size = new System.Drawing.Size(524, 313);
+            this.TabControlMainConnection.TabIndex = 0;
+            this.TabControlMainConnection.Text = "Connection";
+            // 
+            // Label_ComPortText
+            // 
+            this.Label_ComPortText.AutoSize = true;
+            this.Label_ComPortText.BackColor = System.Drawing.Color.Transparent;
+            this.Label_ComPortText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_ComPortText.Location = new System.Drawing.Point(275, 33);
+            this.Label_ComPortText.Name = "Label_ComPortText";
+            this.Label_ComPortText.Size = new System.Drawing.Size(82, 20);
+            this.Label_ComPortText.TabIndex = 18;
+            this.Label_ComPortText.Text = "COM Port:";
+            this.ToolTip1.SetToolTip(this.Label_ComPortText, "This RF Explorer COM Port connection.");
+            // 
+            // GroupBox_DocumentationAndUSBTroubleShooting
+            // 
+            this.GroupBox_DocumentationAndUSBTroubleShooting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Controls.Add(this.Button_USBTroubleShooting);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Controls.Add(this.Button_REEDocumentation);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Controls.Add(this.Button_USBDriverDownload);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Controls.Add(this.RadioButton_SignalGenerator);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Controls.Add(this.RadioButton_SpectrumAnalyzer);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Location = new System.Drawing.Point(35, 132);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Name = "GroupBox_DocumentationAndUSBTroubleShooting";
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Size = new System.Drawing.Size(455, 169);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.TabIndex = 21;
+            this.GroupBox_DocumentationAndUSBTroubleShooting.TabStop = false;
+            this.GroupBox_DocumentationAndUSBTroubleShooting.Text = "Documentation and USB Trouble Shooting";
+            // 
+            // Button_USBTroubleShooting
+            // 
+            this.Button_USBTroubleShooting.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_USBTroubleShooting.Location = new System.Drawing.Point(35, 98);
+            this.Button_USBTroubleShooting.Name = "Button_USBTroubleShooting";
+            this.Button_USBTroubleShooting.Size = new System.Drawing.Size(179, 51);
+            this.Button_USBTroubleShooting.TabIndex = 19;
+            this.Button_USBTroubleShooting.Text = "USB Trouble Shooting";
+            this.Button_USBTroubleShooting.UseVisualStyleBackColor = true;
+            this.Button_USBTroubleShooting.Click += new System.EventHandler(this.BaudRate_Click);
+            // 
+            // Button_USBDriverDownload
+            // 
+            this.Button_USBDriverDownload.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_USBDriverDownload.Location = new System.Drawing.Point(247, 98);
+            this.Button_USBDriverDownload.Name = "Button_USBDriverDownload";
+            this.Button_USBDriverDownload.Size = new System.Drawing.Size(179, 51);
+            this.Button_USBDriverDownload.TabIndex = 20;
+            this.Button_USBDriverDownload.Text = "USB 6.7.5 Driver Download";
+            this.Button_USBDriverDownload.UseVisualStyleBackColor = true;
+            this.Button_USBDriverDownload.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // TabControlMainOmniDirectional
+            // 
+            this.TabControlMainOmniDirectional.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.TabControlMainOmniDirectional.Controls.Add(this.GroupBox_OmniDirectional_CurrentConfiguration);
+            this.TabControlMainOmniDirectional.Location = new System.Drawing.Point(4, 29);
+            this.TabControlMainOmniDirectional.Name = "TabControlMainOmniDirectional";
+            this.TabControlMainOmniDirectional.Padding = new System.Windows.Forms.Padding(3);
+            this.TabControlMainOmniDirectional.Size = new System.Drawing.Size(524, 313);
+            this.TabControlMainOmniDirectional.TabIndex = 1;
+            this.TabControlMainOmniDirectional.Text = "OmniDirectional";
+            // 
+            // GroupBox_OmniDirectional_CurrentConfiguration
+            // 
+            this.GroupBox_OmniDirectional_CurrentConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(11)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRBWUnit);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.ComboBoxPreset);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRBW);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxRBW);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.CheckBoxHoldStep);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.CheckBoxHoldStop);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.CheckBoxHoldStart);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.ButtonGetRfeConfiguration);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelPresets);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRightAntennaGainUnit);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxRightAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelRightAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelLeftAntennaGainUnit);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxLeftAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelLeftAntennaGain);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxStepFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStopFrequencyUnit);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStartFrequencyUnit);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.ButtonSetConfiguration);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelFrequencyStepUnit);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStartFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelFrequencyStep);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxStartFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.TextBoxStopFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Controls.Add(this.LabelStopFrequency);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Enabled = false;
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Location = new System.Drawing.Point(16, 21);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Name = "GroupBox_OmniDirectional_CurrentConfiguration";
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Size = new System.Drawing.Size(490, 274);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.TabIndex = 10;
+            this.GroupBox_OmniDirectional_CurrentConfiguration.TabStop = false;
+            this.GroupBox_OmniDirectional_CurrentConfiguration.Text = "Current Configuration";
+            // 
+            // LabelRBWUnit
+            // 
+            this.LabelRBWUnit.AutoSize = true;
+            this.LabelRBWUnit.BackColor = System.Drawing.Color.Transparent;
+            this.LabelRBWUnit.Location = new System.Drawing.Point(224, 104);
+            this.LabelRBWUnit.Name = "LabelRBWUnit";
+            this.LabelRBWUnit.Size = new System.Drawing.Size(39, 20);
+            this.LabelRBWUnit.TabIndex = 6;
+            this.LabelRBWUnit.Text = "KHz";
             // 
             // LabelPresets
             // 
@@ -972,7 +940,7 @@ namespace RFEOnSite
             this.LabelRightAntennaGainUnit.AutoSize = true;
             this.LabelRightAntennaGainUnit.BackColor = System.Drawing.Color.Transparent;
             this.LabelRightAntennaGainUnit.Enabled = false;
-            this.LabelRightAntennaGainUnit.Location = new System.Drawing.Point(224, 161);
+            this.LabelRightAntennaGainUnit.Location = new System.Drawing.Point(224, 170);
             this.LabelRightAntennaGainUnit.Name = "LabelRightAntennaGainUnit";
             this.LabelRightAntennaGainUnit.Size = new System.Drawing.Size(29, 20);
             this.LabelRightAntennaGainUnit.TabIndex = 24;
@@ -981,7 +949,7 @@ namespace RFEOnSite
             // TextBoxRightAntennaGain
             // 
             this.TextBoxRightAntennaGain.Enabled = false;
-            this.TextBoxRightAntennaGain.Location = new System.Drawing.Point(168, 157);
+            this.TextBoxRightAntennaGain.Location = new System.Drawing.Point(168, 167);
             this.TextBoxRightAntennaGain.Name = "TextBoxRightAntennaGain";
             this.TextBoxRightAntennaGain.Size = new System.Drawing.Size(56, 26);
             this.TextBoxRightAntennaGain.TabIndex = 23;
@@ -994,7 +962,7 @@ namespace RFEOnSite
             this.LabelRightAntennaGain.AutoSize = true;
             this.LabelRightAntennaGain.BackColor = System.Drawing.Color.Transparent;
             this.LabelRightAntennaGain.Enabled = false;
-            this.LabelRightAntennaGain.Location = new System.Drawing.Point(18, 161);
+            this.LabelRightAntennaGain.Location = new System.Drawing.Point(18, 170);
             this.LabelRightAntennaGain.Name = "LabelRightAntennaGain";
             this.LabelRightAntennaGain.Size = new System.Drawing.Size(150, 20);
             this.LabelRightAntennaGain.TabIndex = 22;
@@ -1005,7 +973,7 @@ namespace RFEOnSite
             this.LabelLeftAntennaGainUnit.AutoSize = true;
             this.LabelLeftAntennaGainUnit.BackColor = System.Drawing.Color.Transparent;
             this.LabelLeftAntennaGainUnit.Enabled = false;
-            this.LabelLeftAntennaGainUnit.Location = new System.Drawing.Point(224, 135);
+            this.LabelLeftAntennaGainUnit.Location = new System.Drawing.Point(224, 144);
             this.LabelLeftAntennaGainUnit.Name = "LabelLeftAntennaGainUnit";
             this.LabelLeftAntennaGainUnit.Size = new System.Drawing.Size(29, 20);
             this.LabelLeftAntennaGainUnit.TabIndex = 21;
@@ -1014,7 +982,7 @@ namespace RFEOnSite
             // TextBoxLeftAntennaGain
             // 
             this.TextBoxLeftAntennaGain.Enabled = false;
-            this.TextBoxLeftAntennaGain.Location = new System.Drawing.Point(168, 131);
+            this.TextBoxLeftAntennaGain.Location = new System.Drawing.Point(168, 141);
             this.TextBoxLeftAntennaGain.Name = "TextBoxLeftAntennaGain";
             this.TextBoxLeftAntennaGain.Size = new System.Drawing.Size(56, 26);
             this.TextBoxLeftAntennaGain.TabIndex = 20;
@@ -1027,7 +995,7 @@ namespace RFEOnSite
             this.LabelLeftAntennaGain.AutoSize = true;
             this.LabelLeftAntennaGain.BackColor = System.Drawing.Color.Transparent;
             this.LabelLeftAntennaGain.Enabled = false;
-            this.LabelLeftAntennaGain.Location = new System.Drawing.Point(28, 135);
+            this.LabelLeftAntennaGain.Location = new System.Drawing.Point(28, 144);
             this.LabelLeftAntennaGain.Name = "LabelLeftAntennaGain";
             this.LabelLeftAntennaGain.Size = new System.Drawing.Size(140, 20);
             this.LabelLeftAntennaGain.TabIndex = 19;
@@ -1036,7 +1004,7 @@ namespace RFEOnSite
             // TextBoxStepFrequency
             // 
             this.TextBoxStepFrequency.Enabled = false;
-            this.TextBoxStepFrequency.Location = new System.Drawing.Point(168, 95);
+            this.TextBoxStepFrequency.Location = new System.Drawing.Point(168, 49);
             this.TextBoxStepFrequency.Name = "TextBoxStepFrequency";
             this.TextBoxStepFrequency.Size = new System.Drawing.Size(56, 26);
             this.TextBoxStepFrequency.TabIndex = 18;
@@ -1046,7 +1014,7 @@ namespace RFEOnSite
             // 
             this.LabelStopFrequencyUnit.AutoSize = true;
             this.LabelStopFrequencyUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStopFrequencyUnit.Location = new System.Drawing.Point(224, 51);
+            this.LabelStopFrequencyUnit.Location = new System.Drawing.Point(224, 78);
             this.LabelStopFrequencyUnit.Name = "LabelStopFrequencyUnit";
             this.LabelStopFrequencyUnit.Size = new System.Drawing.Size(42, 20);
             this.LabelStopFrequencyUnit.TabIndex = 16;
@@ -1056,7 +1024,7 @@ namespace RFEOnSite
             // 
             this.LabelStartFrequencyUnit.AutoSize = true;
             this.LabelStartFrequencyUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStartFrequencyUnit.Location = new System.Drawing.Point(224, 27);
+            this.LabelStartFrequencyUnit.Location = new System.Drawing.Point(224, 26);
             this.LabelStartFrequencyUnit.Name = "LabelStartFrequencyUnit";
             this.LabelStartFrequencyUnit.Size = new System.Drawing.Size(42, 20);
             this.LabelStartFrequencyUnit.TabIndex = 15;
@@ -1066,31 +1034,11 @@ namespace RFEOnSite
             // 
             this.LabelFrequencyStepUnit.AutoSize = true;
             this.LabelFrequencyStepUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelFrequencyStepUnit.Location = new System.Drawing.Point(224, 99);
+            this.LabelFrequencyStepUnit.Location = new System.Drawing.Point(224, 52);
             this.LabelFrequencyStepUnit.Name = "LabelFrequencyStepUnit";
             this.LabelFrequencyStepUnit.Size = new System.Drawing.Size(39, 20);
             this.LabelFrequencyStepUnit.TabIndex = 9;
             this.LabelFrequencyStepUnit.Text = "KHz";
-            // 
-            // LabelStartFrequency
-            // 
-            this.LabelStartFrequency.AutoSize = true;
-            this.LabelStartFrequency.BackColor = System.Drawing.Color.Transparent;
-            this.LabelStartFrequency.Location = new System.Drawing.Point(45, 27);
-            this.LabelStartFrequency.Name = "LabelStartFrequency";
-            this.LabelStartFrequency.Size = new System.Drawing.Size(123, 20);
-            this.LabelStartFrequency.TabIndex = 2;
-            this.LabelStartFrequency.Text = "Start Frequency";
-            // 
-            // LabelFrequencyStep
-            // 
-            this.LabelFrequencyStep.AutoSize = true;
-            this.LabelFrequencyStep.BackColor = System.Drawing.Color.Transparent;
-            this.LabelFrequencyStep.Location = new System.Drawing.Point(46, 99);
-            this.LabelFrequencyStep.Name = "LabelFrequencyStep";
-            this.LabelFrequencyStep.Size = new System.Drawing.Size(122, 20);
-            this.LabelFrequencyStep.TabIndex = 8;
-            this.LabelFrequencyStep.Text = "Frequency Step";
             // 
             // TextBoxStartFrequency
             // 
@@ -1105,163 +1053,12 @@ namespace RFEOnSite
             // TextBoxStopFrequency
             // 
             this.TextBoxStopFrequency.Enabled = false;
-            this.TextBoxStopFrequency.Location = new System.Drawing.Point(168, 47);
+            this.TextBoxStopFrequency.Location = new System.Drawing.Point(168, 75);
             this.TextBoxStopFrequency.Name = "TextBoxStopFrequency";
             this.TextBoxStopFrequency.Size = new System.Drawing.Size(56, 26);
             this.TextBoxStopFrequency.TabIndex = 7;
             this.TextBoxStopFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TextBoxStopFrequency.TextChanged += new System.EventHandler(this.TextBoxStopFrequency_TextChanged);
-            // 
-            // LabelRBWUnit
-            // 
-            this.LabelRBWUnit.AutoSize = true;
-            this.LabelRBWUnit.BackColor = System.Drawing.Color.Transparent;
-            this.LabelRBWUnit.Location = new System.Drawing.Point(224, 75);
-            this.LabelRBWUnit.Name = "LabelRBWUnit";
-            this.LabelRBWUnit.Size = new System.Drawing.Size(39, 20);
-            this.LabelRBWUnit.TabIndex = 6;
-            this.LabelRBWUnit.Text = "KHz";
-            // 
-            // MenuStripMainForm
-            // 
-            this.MenuStripMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuStripMenuItemFile,
-            this.uSBSettingsToolStripMenuItem});
-            this.MenuStripMainForm.Location = new System.Drawing.Point(0, 0);
-            this.MenuStripMainForm.Name = "MenuStripMainForm";
-            this.MenuStripMainForm.Size = new System.Drawing.Size(1001, 24);
-            this.MenuStripMainForm.TabIndex = 26;
-            this.MenuStripMainForm.Text = "menuStrip1";
-            // 
-            // MenuStripMenuItemFile
-            // 
-            this.MenuStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuStripMenuItemPreset});
-            this.MenuStripMenuItemFile.Name = "MenuStripMenuItemFile";
-            this.MenuStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
-            this.MenuStripMenuItemFile.Text = "File";
-            // 
-            // MenuStripMenuItemPreset
-            // 
-            this.MenuStripMenuItemPreset.Name = "MenuStripMenuItemPreset";
-            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(93, 22);
-            this.MenuStripMenuItemPreset.Text = "Exit";
-            this.MenuStripMenuItemPreset.Click += new System.EventHandler(this.MenuStripMenuItemPreset_Click);
-            // 
-            // uSBSettingsToolStripMenuItem
-            // 
-            this.uSBSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.force2400BaudToolStripMenuItem});
-            this.uSBSettingsToolStripMenuItem.Name = "uSBSettingsToolStripMenuItem";
-            this.uSBSettingsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.uSBSettingsToolStripMenuItem.Text = "USB Settings";
-            // 
-            // force2400BaudToolStripMenuItem
-            // 
-            this.force2400BaudToolStripMenuItem.AutoToolTip = true;
-            this.force2400BaudToolStripMenuItem.BackColor = System.Drawing.Color.Yellow;
-            this.force2400BaudToolStripMenuItem.CheckOnClick = true;
-            this.force2400BaudToolStripMenuItem.Name = "force2400BaudToolStripMenuItem";
-            this.force2400BaudToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.force2400BaudToolStripMenuItem.Text = "Force 2400 Baud";
-            this.force2400BaudToolStripMenuItem.ToolTipText = "Use as a last resort. This will result in very slow scans. \n\nYou must also manual" +
-    "ly set 2.4 kbps in the RF Explorer USB Baud configuration menu.\n\nNote that this " +
-    "setting is PERSISTED.";
-            // 
-            // TabControlMain
-            // 
-            this.TabControlMain.Controls.Add(this.TabControlMainConnection);
-            this.TabControlMain.Controls.Add(this.TabControlMainOmniDirectional);
-            this.TabControlMain.Controls.Add(this.TabControlMainRadial);
-            this.TabControlMain.Controls.Add(this.TabControlSiteImage);
-            this.TabControlMain.Controls.Add(this.TabControlCalibration);
-            this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.TabControlMain.Location = new System.Drawing.Point(12, 27);
-            this.TabControlMain.Name = "TabControlMain";
-            this.TabControlMain.SelectedIndex = 0;
-            this.TabControlMain.Size = new System.Drawing.Size(532, 346);
-            this.TabControlMain.TabIndex = 37;
-            this.TabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
-            // 
-            // TabControlMainConnection
-            // 
-            this.TabControlMainConnection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.TabControlMainConnection.Controls.Add(this.LabelPortText);
-            this.TabControlMainConnection.Controls.Add(this.LabelModel);
-            this.TabControlMainConnection.Controls.Add(this.LabelDevice);
-            this.TabControlMainConnection.Controls.Add(this.ButtonFindCOMPorts);
-            this.TabControlMainConnection.Controls.Add(this.LabelFirmwareText);
-            this.TabControlMainConnection.Controls.Add(this.LabelRFEComPort);
-            this.TabControlMainConnection.Controls.Add(this.LabelFirmware);
-            this.TabControlMainConnection.Controls.Add(this.LabelDeviceText);
-            this.TabControlMainConnection.Controls.Add(this.LabelModelText);
-            this.TabControlMainConnection.Controls.Add(this.GroupBoxDocumentation);
-            this.TabControlMainConnection.Location = new System.Drawing.Point(4, 29);
-            this.TabControlMainConnection.Name = "TabControlMainConnection";
-            this.TabControlMainConnection.Padding = new System.Windows.Forms.Padding(3);
-            this.TabControlMainConnection.Size = new System.Drawing.Size(524, 313);
-            this.TabControlMainConnection.TabIndex = 0;
-            this.TabControlMainConnection.Text = "Connection";
-            // 
-            // LabelPortText
-            // 
-            this.LabelPortText.AutoSize = true;
-            this.LabelPortText.BackColor = System.Drawing.Color.Transparent;
-            this.LabelPortText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelPortText.Location = new System.Drawing.Point(275, 33);
-            this.LabelPortText.Name = "LabelPortText";
-            this.LabelPortText.Size = new System.Drawing.Size(82, 20);
-            this.LabelPortText.TabIndex = 18;
-            this.LabelPortText.Text = "COM Port:";
-            // 
-            // GroupBoxDocumentation
-            // 
-            this.GroupBoxDocumentation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.GroupBoxDocumentation.Controls.Add(this.BaudRate);
-            this.GroupBoxDocumentation.Controls.Add(this.ButtonDocumentation);
-            this.GroupBoxDocumentation.Controls.Add(this.button1);
-            this.GroupBoxDocumentation.Controls.Add(this.RadioButtonGenerator);
-            this.GroupBoxDocumentation.Controls.Add(this.RadioButtonAnalyzer);
-            this.GroupBoxDocumentation.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.GroupBoxDocumentation.Location = new System.Drawing.Point(35, 132);
-            this.GroupBoxDocumentation.Name = "GroupBoxDocumentation";
-            this.GroupBoxDocumentation.Size = new System.Drawing.Size(455, 169);
-            this.GroupBoxDocumentation.TabIndex = 21;
-            this.GroupBoxDocumentation.TabStop = false;
-            this.GroupBoxDocumentation.Text = "Documentation and USB Trouble Shooting";
-            // 
-            // BaudRate
-            // 
-            this.BaudRate.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BaudRate.Location = new System.Drawing.Point(35, 98);
-            this.BaudRate.Name = "BaudRate";
-            this.BaudRate.Size = new System.Drawing.Size(179, 51);
-            this.BaudRate.TabIndex = 19;
-            this.BaudRate.Text = "USB Trouble Shooting";
-            this.BaudRate.UseVisualStyleBackColor = true;
-            this.BaudRate.Click += new System.EventHandler(this.BaudRate_Click);
-            // 
-            // button1
-            // 
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(247, 98);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(179, 51);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "USB 6.7.5 Driver Download";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // TabControlMainOmniDirectional
-            // 
-            this.TabControlMainOmniDirectional.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.TabControlMainOmniDirectional.Controls.Add(this.GroupBoxConfiguration);
-            this.TabControlMainOmniDirectional.Location = new System.Drawing.Point(4, 29);
-            this.TabControlMainOmniDirectional.Name = "TabControlMainOmniDirectional";
-            this.TabControlMainOmniDirectional.Padding = new System.Windows.Forms.Padding(3);
-            this.TabControlMainOmniDirectional.Size = new System.Drawing.Size(524, 313);
-            this.TabControlMainOmniDirectional.TabIndex = 1;
-            this.TabControlMainOmniDirectional.Text = "OmniDirectional";
             // 
             // TabControlMainRadial
             // 
@@ -1276,6 +1073,20 @@ namespace RFEOnSite
             this.TabControlMainRadial.TabIndex = 2;
             this.TabControlMainRadial.Text = "Radial";
             // 
+            // LabelRadialAzimuth
+            // 
+            this.LabelRadialAzimuth.AutoSize = true;
+            this.LabelRadialAzimuth.BackColor = System.Drawing.Color.White;
+            this.LabelRadialAzimuth.Enabled = false;
+            this.LabelRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelRadialAzimuth.ForeColor = System.Drawing.Color.Black;
+            this.LabelRadialAzimuth.Location = new System.Drawing.Point(128, 103);
+            this.LabelRadialAzimuth.Name = "LabelRadialAzimuth";
+            this.LabelRadialAzimuth.Size = new System.Drawing.Size(262, 37);
+            this.LabelRadialAzimuth.TabIndex = 35;
+            this.LabelRadialAzimuth.Text = "Azimuth Degrees";
+            this.LabelRadialAzimuth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // LabelTrueNorthText
             // 
             this.LabelTrueNorthText.AutoSize = true;
@@ -1284,6 +1095,21 @@ namespace RFEOnSite
             this.LabelTrueNorthText.Size = new System.Drawing.Size(84, 20);
             this.LabelTrueNorthText.TabIndex = 36;
             this.LabelTrueNorthText.Text = "True North";
+            // 
+            // NumericUpDownRadialAzimuth
+            // 
+            this.NumericUpDownRadialAzimuth.Enabled = false;
+            this.NumericUpDownRadialAzimuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDownRadialAzimuth.Location = new System.Drawing.Point(155, 174);
+            this.NumericUpDownRadialAzimuth.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+            this.NumericUpDownRadialAzimuth.Name = "NumericUpDownRadialAzimuth";
+            this.NumericUpDownRadialAzimuth.Size = new System.Drawing.Size(204, 49);
+            this.NumericUpDownRadialAzimuth.TabIndex = 34;
+            this.NumericUpDownRadialAzimuth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TabControlSiteImage
             // 
@@ -1399,12 +1225,234 @@ namespace RFEOnSite
             this.ButtonCalibrationStart.UseVisualStyleBackColor = true;
             this.ButtonCalibrationStart.Click += new System.EventHandler(this.ButtonCalibrationStart_Click);
             // 
+            // Button_CSVFileStorage_Next
+            // 
+            this.Button_CSVFileStorage_Next.BackColor = System.Drawing.Color.Olive;
+            this.Button_CSVFileStorage_Next.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_CSVFileStorage_Next.Location = new System.Drawing.Point(95, 22);
+            this.Button_CSVFileStorage_Next.Name = "Button_CSVFileStorage_Next";
+            this.Button_CSVFileStorage_Next.Size = new System.Drawing.Size(75, 29);
+            this.Button_CSVFileStorage_Next.TabIndex = 43;
+            this.Button_CSVFileStorage_Next.Text = "Next";
+            this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_Next, "Decrement or Increment the Collection Floor Number.");
+            this.Button_CSVFileStorage_Next.UseVisualStyleBackColor = false;
+            this.Button_CSVFileStorage_Next.Click += new System.EventHandler(this.Button_CSVFileStorage_CollectionFloor_AutoNext_Click);
+            // 
+            // GroupBox_CSVFileStorage
+            // 
+            this.GroupBox_CSVFileStorage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.GroupBox_CSVFileStorage.Controls.Add(this.CheckBoxSaveCsvFiles);
+            this.GroupBox_CSVFileStorage.Controls.Add(this.GroupBoxCsvInformation);
+            this.GroupBox_CSVFileStorage.Enabled = false;
+            this.GroupBox_CSVFileStorage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.GroupBox_CSVFileStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox_CSVFileStorage.Location = new System.Drawing.Point(14, 379);
+            this.GroupBox_CSVFileStorage.Name = "GroupBox_CSVFileStorage";
+            this.GroupBox_CSVFileStorage.Size = new System.Drawing.Size(526, 326);
+            this.GroupBox_CSVFileStorage.TabIndex = 23;
+            this.GroupBox_CSVFileStorage.TabStop = false;
+            this.GroupBox_CSVFileStorage.Text = "CSV File Storage";
+            // 
+            // GroupBoxCsvInformation
+            // 
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBox_CSVFileStorage_AutoNext);
+            this.GroupBoxCsvInformation.Controls.Add(this.ButtonPersistClear);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxClientId);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBoxFloorId);
+            this.GroupBoxCsvInformation.Controls.Add(this.GroupBox_CSVFileStorage_CollectionMarker);
+            this.GroupBoxCsvInformation.Enabled = false;
+            this.GroupBoxCsvInformation.Location = new System.Drawing.Point(8, 51);
+            this.GroupBoxCsvInformation.Name = "GroupBoxCsvInformation";
+            this.GroupBoxCsvInformation.Size = new System.Drawing.Size(512, 262);
+            this.GroupBoxCsvInformation.TabIndex = 46;
+            this.GroupBoxCsvInformation.TabStop = false;
+            // 
+            // GroupBox_CSVFileStorage_AutoNext
+            // 
+            this.GroupBox_CSVFileStorage_AutoNext.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.GroupBox_CSVFileStorage_AutoNext.Controls.Add(this.Button_CSVFileStorage_Next);
+            this.GroupBox_CSVFileStorage_AutoNext.Controls.Add(this.RadioButton_CSVFileStorage_FloorIncrement);
+            this.GroupBox_CSVFileStorage_AutoNext.Controls.Add(this.RadioButton_CSVFileStorage_FloorDecrement);
+            this.GroupBox_CSVFileStorage_AutoNext.Location = new System.Drawing.Point(332, 121);
+            this.GroupBox_CSVFileStorage_AutoNext.Name = "GroupBox_CSVFileStorage_AutoNext";
+            this.GroupBox_CSVFileStorage_AutoNext.Size = new System.Drawing.Size(176, 63);
+            this.GroupBox_CSVFileStorage_AutoNext.TabIndex = 0;
+            this.GroupBox_CSVFileStorage_AutoNext.TabStop = false;
+            // 
+            // GroupBoxClientId
+            // 
+            this.GroupBoxClientId.Controls.Add(this.TextBoxClient);
+            this.GroupBoxClientId.Controls.Add(this.TextBoxCollectionLocation);
+            this.GroupBoxClientId.Location = new System.Drawing.Point(20, 16);
+            this.GroupBoxClientId.Name = "GroupBoxClientId";
+            this.GroupBoxClientId.Size = new System.Drawing.Size(358, 98);
+            this.GroupBoxClientId.TabIndex = 43;
+            this.GroupBoxClientId.TabStop = false;
+            this.GroupBoxClientId.Text = "Client Information";
+            // 
+            // TextBoxClient
+            // 
+            this.TextBoxClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxClient.Location = new System.Drawing.Point(8, 27);
+            this.TextBoxClient.Name = "TextBoxClient";
+            this.TextBoxClient.Size = new System.Drawing.Size(341, 26);
+            this.TextBoxClient.TabIndex = 20;
+            this.TextBoxClient.Text = "Client";
+            this.TextBoxClient.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
+            // 
+            // GroupBoxFloorId
+            // 
+            this.GroupBoxFloorId.Controls.Add(this.Button_CSVFileStorage_CollectionFloor_Enable);
+            this.GroupBoxFloorId.Controls.Add(this.NumericUpDown_CSVFileStorage_FloorNumber);
+            this.GroupBoxFloorId.Controls.Add(this.TextBox_CSVFileStorage_CollectionFloorName);
+            this.GroupBoxFloorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBoxFloorId.Location = new System.Drawing.Point(20, 121);
+            this.GroupBoxFloorId.Name = "GroupBoxFloorId";
+            this.GroupBoxFloorId.Size = new System.Drawing.Size(308, 63);
+            this.GroupBoxFloorId.TabIndex = 42;
+            this.GroupBoxFloorId.TabStop = false;
+            this.GroupBoxFloorId.Text = "Collection Floor";
+            // 
+            // NumericUpDown_CSVFileStorage_FloorNumber
+            // 
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Cursor = System.Windows.Forms.Cursors.Default;
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Enabled = false;
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Location = new System.Drawing.Point(151, 21);
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Name = "NumericUpDown_CSVFileStorage_FloorNumber";
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Size = new System.Drawing.Size(59, 31);
+            this.NumericUpDown_CSVFileStorage_FloorNumber.TabIndex = 39;
+            this.NumericUpDown_CSVFileStorage_FloorNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.NumericUpDown_CSVFileStorage_FloorNumber.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_CSVFileStorage_FloorNumber.ValueChanged += new System.EventHandler(this.NumericUpDownAutoText_ValueChanged);
+            // 
+            // TextBox_CSVFileStorage_CollectionFloorName
+            // 
+            this.TextBox_CSVFileStorage_CollectionFloorName.Enabled = false;
+            this.TextBox_CSVFileStorage_CollectionFloorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBox_CSVFileStorage_CollectionFloorName.Location = new System.Drawing.Point(6, 23);
+            this.TextBox_CSVFileStorage_CollectionFloorName.Name = "TextBox_CSVFileStorage_CollectionFloorName";
+            this.TextBox_CSVFileStorage_CollectionFloorName.Size = new System.Drawing.Size(132, 26);
+            this.TextBox_CSVFileStorage_CollectionFloorName.TabIndex = 37;
+            this.TextBox_CSVFileStorage_CollectionFloorName.Text = "z";
+            this.TextBox_CSVFileStorage_CollectionFloorName.TextChanged += new System.EventHandler(this.TextBoxFloorLabel_TextChanged);
+            // 
+            // GroupBox_CSVFileStorage_CollectionMarker
+            // 
+            this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.TextBox_CSVFileStorage_CollectionMarkerName);
+            this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.CheckBoxAutoIncrementMarkerNumber);
+            this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.NumericUpDown_CSVFileStorage_MarkerNumber);
+            this.GroupBox_CSVFileStorage_CollectionMarker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupBox_CSVFileStorage_CollectionMarker.Location = new System.Drawing.Point(20, 191);
+            this.GroupBox_CSVFileStorage_CollectionMarker.Name = "GroupBox_CSVFileStorage_CollectionMarker";
+            this.GroupBox_CSVFileStorage_CollectionMarker.Size = new System.Drawing.Size(358, 63);
+            this.GroupBox_CSVFileStorage_CollectionMarker.TabIndex = 37;
+            this.GroupBox_CSVFileStorage_CollectionMarker.TabStop = false;
+            this.GroupBox_CSVFileStorage_CollectionMarker.Text = "Collection Marker";
+            // 
+            // TextBox_CSVFileStorage_CollectionMarkerName
+            // 
+            this.TextBox_CSVFileStorage_CollectionMarkerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBox_CSVFileStorage_CollectionMarkerName.Location = new System.Drawing.Point(6, 27);
+            this.TextBox_CSVFileStorage_CollectionMarkerName.Name = "TextBox_CSVFileStorage_CollectionMarkerName";
+            this.TextBox_CSVFileStorage_CollectionMarkerName.Size = new System.Drawing.Size(132, 26);
+            this.TextBox_CSVFileStorage_CollectionMarkerName.TabIndex = 30;
+            this.TextBox_CSVFileStorage_CollectionMarkerName.Text = "M";
+            this.TextBox_CSVFileStorage_CollectionMarkerName.TextChanged += new System.EventHandler(this.TextBoxCollectionSite_TextChanged);
+            // 
+            // NumericUpDown_CSVFileStorage_MarkerNumber
+            // 
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.Location = new System.Drawing.Point(151, 25);
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.Name = "NumericUpDown_CSVFileStorage_MarkerNumber";
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.Size = new System.Drawing.Size(59, 31);
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.TabIndex = 18;
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_CSVFileStorage_MarkerNumber.ValueChanged += new System.EventHandler(this.NumericUpDownLocation_ValueChanged);
+            // 
+            // LabelCopyright
+            // 
+            this.LabelCopyright.AutoSize = true;
+            this.LabelCopyright.BackColor = System.Drawing.SystemColors.Control;
+            this.LabelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LabelCopyright.Location = new System.Drawing.Point(808, 717);
+            this.LabelCopyright.Name = "LabelCopyright";
+            this.LabelCopyright.Size = new System.Drawing.Size(172, 13);
+            this.LabelCopyright.TabIndex = 25;
+            this.LabelCopyright.Text = "Copyright 2023 - Neve Group, LTD";
+            // 
+            // MenuStripMainForm
+            // 
+            this.MenuStripMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStripMenuItemFile,
+            this.uSBSettingsToolStripMenuItem});
+            this.MenuStripMainForm.Location = new System.Drawing.Point(0, 0);
+            this.MenuStripMainForm.Name = "MenuStripMainForm";
+            this.MenuStripMainForm.Size = new System.Drawing.Size(1001, 24);
+            this.MenuStripMainForm.TabIndex = 26;
+            this.MenuStripMainForm.Text = "menuStrip1";
+            // 
+            // MenuStripMenuItemFile
+            // 
+            this.MenuStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStripMenuItemPreset});
+            this.MenuStripMenuItemFile.Name = "MenuStripMenuItemFile";
+            this.MenuStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
+            this.MenuStripMenuItemFile.Text = "File";
+            // 
+            // MenuStripMenuItemPreset
+            // 
+            this.MenuStripMenuItemPreset.Name = "MenuStripMenuItemPreset";
+            this.MenuStripMenuItemPreset.Size = new System.Drawing.Size(93, 22);
+            this.MenuStripMenuItemPreset.Text = "Exit";
+            this.MenuStripMenuItemPreset.Click += new System.EventHandler(this.MenuStripMenuItemPreset_Click);
+            // 
+            // uSBSettingsToolStripMenuItem
+            // 
+            this.uSBSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.force2400BaudToolStripMenuItem});
+            this.uSBSettingsToolStripMenuItem.Name = "uSBSettingsToolStripMenuItem";
+            this.uSBSettingsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.uSBSettingsToolStripMenuItem.Text = "USB Settings";
+            // 
+            // force2400BaudToolStripMenuItem
+            // 
+            this.force2400BaudToolStripMenuItem.AutoToolTip = true;
+            this.force2400BaudToolStripMenuItem.BackColor = System.Drawing.Color.Yellow;
+            this.force2400BaudToolStripMenuItem.CheckOnClick = true;
+            this.force2400BaudToolStripMenuItem.Name = "force2400BaudToolStripMenuItem";
+            this.force2400BaudToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.force2400BaudToolStripMenuItem.Text = "Force 2400 Baud";
+            this.force2400BaudToolStripMenuItem.ToolTipText = "Use as a last resort. This will result in very slow scans. \n\nYou must also manual" +
+    "ly set 2.4 kbps in the RF Explorer USB Baud configuration menu.\n\nNote that this " +
+    "setting is PERSISTED.";
+            // 
             // StripStatusMainForm
             // 
             this.StripStatusMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StripStatusLabelPreset,
             this.StripStatusLabelDivision1,
-            this.StripStatusLabelCsvDirectory});
+            this.StripStatusLabelCsvDirectory,
+            this.toolStripStatusLabel1});
             this.StripStatusMainForm.Location = new System.Drawing.Point(0, 712);
             this.StripStatusMainForm.Name = "StripStatusMainForm";
             this.StripStatusMainForm.Size = new System.Drawing.Size(1001, 22);
@@ -1427,6 +1475,11 @@ namespace RFEOnSite
             this.StripStatusLabelCsvDirectory.Name = "StripStatusLabelCsvDirectory";
             this.StripStatusLabelCsvDirectory.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1436,47 +1489,52 @@ namespace RFEOnSite
             this.Controls.Add(this.LabelCopyright);
             this.Controls.Add(this.StripStatusMainForm);
             this.Controls.Add(this.TabControlMain);
-            this.Controls.Add(this.GroupBoxCurrentSweepChartConfiguration);
-            this.Controls.Add(this.GroupBoxSweepConfiguration);
-            this.Controls.Add(this.GroupBoxCsvConfiguration);
+            this.Controls.Add(this.GroupBox_ReceivedSignalStrength);
+            this.Controls.Add(this.GroupBox_SweepControl);
+            this.Controls.Add(this.GroupBox_CSVFileStorage);
             this.Controls.Add(this.MenuStripMainForm);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.MenuStripMainForm;
             this.Name = "MainForm";
-            this.Text = "OnSite";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Text = "RFE OnSite";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownSweeps)).EndInit();
-            this.GroupBoxSweepConfiguration.ResumeLayout(false);
-            this.GroupBoxSweepConfiguration.PerformLayout();
-            this.GroupBoxCurrentSweepChartConfiguration.ResumeLayout(false);
-            this.GroupBoxCurrentSweepChartConfiguration.PerformLayout();
-            this.GroupBoxCsvConfiguration.ResumeLayout(false);
-            this.GroupBoxCsvConfiguration.PerformLayout();
-            this.GroupBoxCsvInformation.ResumeLayout(false);
-            this.GroupBoxClientId.ResumeLayout(false);
-            this.GroupBoxClientId.PerformLayout();
-            this.GroupBoxFloorId.ResumeLayout(false);
-            this.GroupBoxFloorId.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownFloorNumber)).EndInit();
-            this.GroupBoxMarkerId.ResumeLayout(false);
-            this.GroupBoxMarkerId.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownMarkerNumber)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).EndInit();
-            this.GroupBoxConfiguration.ResumeLayout(false);
-            this.GroupBoxConfiguration.PerformLayout();
-            this.MenuStripMainForm.ResumeLayout(false);
-            this.MenuStripMainForm.PerformLayout();
+            this.GroupBox_SweepControl.ResumeLayout(false);
+            this.GroupBox_SweepControl.PerformLayout();
+            this.GroupBox_ReceivedSignalStrength.ResumeLayout(false);
+            this.GroupBox_ReceivedSignalStrength.PerformLayout();
             this.TabControlMain.ResumeLayout(false);
             this.TabControlMainConnection.ResumeLayout(false);
             this.TabControlMainConnection.PerformLayout();
-            this.GroupBoxDocumentation.ResumeLayout(false);
-            this.GroupBoxDocumentation.PerformLayout();
+            this.GroupBox_DocumentationAndUSBTroubleShooting.ResumeLayout(false);
+            this.GroupBox_DocumentationAndUSBTroubleShooting.PerformLayout();
             this.TabControlMainOmniDirectional.ResumeLayout(false);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.ResumeLayout(false);
+            this.GroupBox_OmniDirectional_CurrentConfiguration.PerformLayout();
             this.TabControlMainRadial.ResumeLayout(false);
             this.TabControlMainRadial.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).EndInit();
             this.TabControlSiteImage.ResumeLayout(false);
             this.TabControlSiteImage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.TabControlCalibration.ResumeLayout(false);
             this.TabControlCalibration.PerformLayout();
+            this.GroupBox_CSVFileStorage.ResumeLayout(false);
+            this.GroupBox_CSVFileStorage.PerformLayout();
+            this.GroupBoxCsvInformation.ResumeLayout(false);
+            this.GroupBox_CSVFileStorage_AutoNext.ResumeLayout(false);
+            this.GroupBox_CSVFileStorage_AutoNext.PerformLayout();
+            this.GroupBoxClientId.ResumeLayout(false);
+            this.GroupBoxClientId.PerformLayout();
+            this.GroupBoxFloorId.ResumeLayout(false);
+            this.GroupBoxFloorId.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_FloorNumber)).EndInit();
+            this.GroupBox_CSVFileStorage_CollectionMarker.ResumeLayout(false);
+            this.GroupBox_CSVFileStorage_CollectionMarker.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_CSVFileStorage_MarkerNumber)).EndInit();
+            this.MenuStripMainForm.ResumeLayout(false);
+            this.MenuStripMainForm.PerformLayout();
             this.StripStatusMainForm.ResumeLayout(false);
             this.StripStatusMainForm.PerformLayout();
             this.ResumeLayout(false);
@@ -1488,14 +1546,14 @@ namespace RFEOnSite
 
          
 
-        private Button ButtonFindCOMPorts;
+        private Button Button_ConnectRFExplorer;
         private Button ButtonStartSweeps;
-        private GroupBox GroupBoxSweepConfiguration;
-        private Label LabelDeviceText;
-        private Label LabelModelText;
-        private Label LabelFirmware;
-        private Label LabelFirmwareText;
-        private Label LabelRFEComPort;
+        private GroupBox GroupBox_SweepControl;
+        private Label Label_DeviceValue;
+        private Label Label_ModelValue;
+        private Label Label_Firmware;
+        private Label Label_FirmwareValue;
+        private Label Label_ComPortValue;
         private Label LabelStartSweeps;
         private NumericUpDown NumericUpDownSweeps;
         private ProgressBar TaskProgressBar;
@@ -1503,26 +1561,26 @@ namespace RFEOnSite
         private CheckBox CheckBoxChartPeak;
         private CheckBox CheckBoxChartAverage;
         private CheckBox CheckBoxChartAutoScale;
-        private Label LabelDevice;
-        private Label LabelModel;
+        private Label Label_Device;
+        private Label Label_Model;
         private ToolTip ToolTip1;
-        private GroupBox GroupBoxCsvConfiguration;
+        private GroupBox GroupBox_CSVFileStorage;
         private TextBox TextBoxCsvFileName;
         private TextBox TextBoxCollectionLocation;
-        private RadioButton RadioButtonGenerator;
-        private RadioButton RadioButtonAnalyzer;
+        private RadioButton RadioButton_SignalGenerator;
+        private RadioButton RadioButton_SpectrumAnalyzer;
         private Label LabelProgressWriteCsvFile;
-        private Button ButtonDocumentation;
+        private Button Button_REEDocumentation;
         private Label LabelCopyright;
         private Button ButtonCancelSweeps;
         private Label LabelTaskCount;
         private Label LabelExecTask;
         private CheckBox CheckBoxRadialAzimuth;
-        private NumericUpDown NumericUpDownMarkerNumber;
-        private TextBox TextBoxMarkerName;
+        private NumericUpDown NumericUpDown_CSVFileStorage_MarkerNumber;
+        private TextBox TextBox_CSVFileStorage_CollectionMarkerName;
         private CheckBox CheckBoxAutoIncrementMarkerNumber;
         private TextBox TextBoxClient;
-        private GroupBox GroupBoxConfiguration;
+        private GroupBox GroupBox_OmniDirectional_CurrentConfiguration;
         private Button ButtonGetRfeConfiguration;
         private Label LabelPresets;
         private ComboBox ComboBoxPreset;
@@ -1554,20 +1612,20 @@ namespace RFEOnSite
         private CheckBox CheckBoxHoldStep;
         private CheckBox CheckBoxHoldStop;
         private CheckBox CheckBoxHoldStart;
-        private TextBox TextBoxFloorName;
+        private TextBox TextBox_CSVFileStorage_CollectionFloorName;
         private GroupBox GroupBoxFloorId;
-        private RadioButton RadioButtonFloorIncrement;
-        private RadioButton RadioButtonFloorDecrement;
-        private NumericUpDown NumericUpDownFloorNumber;
-        private GroupBox GroupBoxMarkerId;
+        private RadioButton RadioButton_CSVFileStorage_FloorIncrement;
+        private RadioButton RadioButton_CSVFileStorage_FloorDecrement;
+        private NumericUpDown NumericUpDown_CSVFileStorage_FloorNumber;
+        private GroupBox GroupBox_CSVFileStorage_CollectionMarker;
         private TabControl TabControlMain;
         private TabPage TabControlMainConnection;
         private TabPage TabControlMainOmniDirectional;
         private TabPage TabControlMainRadial;
         private Label LabelTrueNorthText;
-        private Label LabelPortText;
+        private Label Label_ComPortText;
         private GroupBox GroupBoxClientId;
-        private Button ButtonFloorId;
+        private Button Button_CSVFileStorage_CollectionFloor_Enable;
         private Button ButtonCaptureImage;
         private TabPage TabControlSiteImage;
         private PictureBox PictureBox;
@@ -1575,14 +1633,14 @@ namespace RFEOnSite
         private Button ButtonPersistClear;
         private StatusStrip StripStatusMainForm;
         private GroupBox GroupBoxCsvInformation;
-        private GroupBox GroupBoxCurrentSweepChartConfiguration;
+        private GroupBox GroupBox_ReceivedSignalStrength;
         private Panel PanelChart;
         private ToolStripStatusLabel StripStatusLabelPreset;
         private ToolStripStatusLabel StripStatusLabelCsvDirectory;
         private ToolStripStatusLabel StripStatusLabelDivision1;
-        private Button BaudRate;
-        private Button button1;
-        private GroupBox GroupBoxDocumentation;
+        private Button Button_USBTroubleShooting;
+        private Button Button_USBDriverDownload;
+        private GroupBox GroupBox_DocumentationAndUSBTroubleShooting;
         private ToolStripMenuItem uSBSettingsToolStripMenuItem;
         private ToolStripMenuItem force2400BaudToolStripMenuItem;
         private TabPage TabControlCalibration;
@@ -1593,6 +1651,9 @@ namespace RFEOnSite
         private TextBox TextBoxCalibrationSourceDbm;
         private Label label1;
         private Button ButtonPauseResume;
+        private Button Button_CSVFileStorage_Next;
+        private GroupBox GroupBox_CSVFileStorage_AutoNext;
+        private ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
