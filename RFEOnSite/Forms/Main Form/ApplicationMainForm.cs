@@ -106,7 +106,6 @@ namespace RFEOnSite
 
         void MainForm_Load(object sender, EventArgs e)
         {
-
             // This builds a dummy chart on the GUI and adds a dummy point to draw and not show white space
             // Prolly not the correct way of initializing
 
@@ -585,7 +584,15 @@ namespace RFEOnSite
             // A reference to the right hand side object (from the UI Thread) is passed to the thread through the left hand side IProcess object
             IProgress<RFEConfiguration> UpdateUIControls = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configuration(RFE));
             IProgress<List<string>> UpdateUISweepData = new Progress<List<string>>(SWEEPS => UIUpdateCallback_SweepData(SWEEPS));
-            IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
+
+            IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s); 
+            /*
+            IProgress<int> UpdateUIProgressBar = new Progress<int>(s =>
+            {
+                TaskProgressBar.Value = s;
+                TaskProgressBar.Maximum = s;
+            });
+            */
 
             await Task.Factory.StartNew(() => gRFEOnSite.Explorer.CreateReceiveDataThread(
                                     UpdateUIControls,
@@ -658,7 +665,7 @@ namespace RFEOnSite
                 {
                     string message;
                     string caption = "Impossible RF Explorer Configuration Requested";
-                    message = "The entered starting and stopping frequencies are identical, negative or too close together.\n\nChoose a stopping frequency that is at least 112 KHz larger that the starting frequency.\nThe RF Explorer requires 112 bins.";
+                    message = "The entered starting and stopping frequencies are too close together.\n\nChoose a stopping frequency that is at least 112 KHz larger that the starting frequency.\nThe RF Explorer requires 112 bins.";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
 
@@ -1340,8 +1347,8 @@ namespace RFEOnSite
         private void Button_CSVFileStorage_ClearAllFields_Click(object sender, EventArgs e)
         {
             //this.CheckBoxSaveCsvFiles.Checked = Settings.Default.Persist_SaveCsvCheckedState;
-            TextBox_CSVFileStorage_Client.Text = "Client";
-            TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Collection Location";
+            TextBox_CSVFileStorage_Client.Text = "Client Name";
+            TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Client Location";
 
             TextBox_CSVFileStorage_CollectionFloorName.Text = "Floor";
             NumericUpDown_CSVFileStorage_FloorNumber.Value = 1;

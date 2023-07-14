@@ -115,12 +115,12 @@ namespace RFEOnSite
             this.label1 = new System.Windows.Forms.Label();
             this.ButtonCalibrationStart = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_Next = new System.Windows.Forms.Button();
-            this.GroupBox_CSVFileStorage = new System.Windows.Forms.GroupBox();
             this.Button_CSVFileStorage_ResetFloorAndMarkers = new System.Windows.Forms.Button();
+            this.TextBox_CSVFileStorage_Client = new System.Windows.Forms.TextBox();
+            this.GroupBox_CSVFileStorage = new System.Windows.Forms.GroupBox();
             this.GroupBoxCsvInformation = new System.Windows.Forms.GroupBox();
             this.GroupBox_CSVFileStorage_AutoNext = new System.Windows.Forms.GroupBox();
             this.GroupBox_CSVFileStorage_ClientInformation = new System.Windows.Forms.GroupBox();
-            this.TextBox_CSVFileStorage_Client = new System.Windows.Forms.TextBox();
             this.GroupBox_CSVFileStorage_CollectionFloor = new System.Windows.Forms.GroupBox();
             this.NumericUpDown_CSVFileStorage_FloorNumber = new System.Windows.Forms.NumericUpDown();
             this.TextBox_CSVFileStorage_CollectionFloorName = new System.Windows.Forms.TextBox();
@@ -469,8 +469,8 @@ namespace RFEOnSite
             this.CheckBox_CSVFileStorage_SaveCsvFiles.Size = new System.Drawing.Size(265, 24);
             this.CheckBox_CSVFileStorage_SaveCsvFiles.TabIndex = 17;
             this.CheckBox_CSVFileStorage_SaveCsvFiles.Text = "Save Collected Data to CSV Files";
-            this.ToolTip1.SetToolTip(this.CheckBox_CSVFileStorage_SaveCsvFiles, "Checking this box will cause CSV files to be saved in a selected sub-folder on th" +
-        "e user\'s Desktop.");
+            this.ToolTip1.SetToolTip(this.CheckBox_CSVFileStorage_SaveCsvFiles, "Creates a SurveyData directory on the user\'s Desktop to store collection CSV file" +
+        "s.");
             this.CheckBox_CSVFileStorage_SaveCsvFiles.UseVisualStyleBackColor = true;
             this.CheckBox_CSVFileStorage_SaveCsvFiles.CheckedChanged += new System.EventHandler(this.CheckBoxSaveCsvFiles_CheckedChanged);
             // 
@@ -554,10 +554,9 @@ namespace RFEOnSite
             this.TextBox_CSVFileStorage_CollectionLocationDescription.Name = "TextBox_CSVFileStorage_CollectionLocationDescription";
             this.TextBox_CSVFileStorage_CollectionLocationDescription.Size = new System.Drawing.Size(341, 26);
             this.TextBox_CSVFileStorage_CollectionLocationDescription.TabIndex = 2;
-            this.TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Collection Location";
-            this.ToolTip1.SetToolTip(this.TextBox_CSVFileStorage_CollectionLocationDescription, "Enter a short site collection location identifier for data that is about to be co" +
-        "llected.\nThis identifier will be used to create or enter a Desktop sub-folder to" +
-        " store collected data in CSV Files.");
+            this.TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Client Location";
+            this.ToolTip1.SetToolTip(this.TextBox_CSVFileStorage_CollectionLocationDescription, "Enter a short client location description. This text will create a CSV file subdi" +
+        "rectory  under the Desktop/SurveyData/Client directory.");
             this.TextBox_CSVFileStorage_CollectionLocationDescription.TextChanged += new System.EventHandler(this.TextBoxSweepLocation_TextChanged);
             // 
             // LabelRBW
@@ -579,7 +578,9 @@ namespace RFEOnSite
             this.ButtonSetConfiguration.Size = new System.Drawing.Size(127, 51);
             this.ButtonSetConfiguration.TabIndex = 10;
             this.ButtonSetConfiguration.Text = "Set Explorer Configuration";
-            this.ToolTip1.SetToolTip(this.ButtonSetConfiguration, resources.GetString("ButtonSetConfiguration.ToolTip"));
+            this.ToolTip1.SetToolTip(this.ButtonSetConfiguration, "Program the connected RF Explorer with the entered frequency range (Left).\r\n\r\nNot" +
+        "e that the RF Explorer may return slightly different values based on it\'s fixed " +
+        "binning and resolution bandwidth.");
             this.ButtonSetConfiguration.UseVisualStyleBackColor = true;
             this.ButtonSetConfiguration.Click += new System.EventHandler(this.ButtonSetConfiguration_Click);
             // 
@@ -635,7 +636,8 @@ namespace RFEOnSite
             this.LabelStopFrequency.Size = new System.Drawing.Size(122, 20);
             this.LabelStopFrequency.TabIndex = 4;
             this.LabelStopFrequency.Text = "Stop Frequency";
-            this.ToolTip1.SetToolTip(this.LabelStopFrequency, "End measurments at this frequency.");
+            this.ToolTip1.SetToolTip(this.LabelStopFrequency, "End measurments at this frequency.\r\n\r\nClick \"Set Explorer Configuration\" to progr" +
+        "am the connected RF Explorer");
             // 
             // ButtonCaptureImage
             // 
@@ -654,12 +656,12 @@ namespace RFEOnSite
             // 
             this.Button_CSVFileStorage_ResetAllFields.BackColor = System.Drawing.SystemColors.Control;
             this.Button_CSVFileStorage_ResetAllFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button_CSVFileStorage_ResetAllFields.Location = new System.Drawing.Point(408, 12);
+            this.Button_CSVFileStorage_ResetAllFields.Location = new System.Drawing.Point(293, 12);
             this.Button_CSVFileStorage_ResetAllFields.Name = "Button_CSVFileStorage_ResetAllFields";
             this.Button_CSVFileStorage_ResetAllFields.Size = new System.Drawing.Size(108, 53);
             this.Button_CSVFileStorage_ResetAllFields.TabIndex = 45;
             this.Button_CSVFileStorage_ResetAllFields.Text = "Reset All Fields";
-            this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_ResetAllFields, "Restores all fields to default values. Sets \"Manual\" Preset.");
+            this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_ResetAllFields, "Restores all fields to default values. Sets \"Single\" Preset.");
             this.Button_CSVFileStorage_ResetAllFields.UseVisualStyleBackColor = false;
             this.Button_CSVFileStorage_ResetAllFields.Click += new System.EventHandler(this.Button_CSVFileStorage_ClearAllFields_Click);
             // 
@@ -727,7 +729,8 @@ namespace RFEOnSite
             this.LabelStartFrequency.Size = new System.Drawing.Size(123, 20);
             this.LabelStartFrequency.TabIndex = 2;
             this.LabelStartFrequency.Text = "Start Frequency";
-            this.ToolTip1.SetToolTip(this.LabelStartFrequency, "Begin measurments at this frequency.");
+            this.ToolTip1.SetToolTip(this.LabelStartFrequency, "Begin measurments at this frequency.\r\n\r\nClick \"Set Explorer Configuration\" to pro" +
+        "gram the connected RF Explorer.");
             // 
             // LabelFrequencyStep
             // 
@@ -1200,6 +1203,31 @@ namespace RFEOnSite
             this.Button_CSVFileStorage_Next.UseVisualStyleBackColor = false;
             this.Button_CSVFileStorage_Next.Click += new System.EventHandler(this.Button_CSVFileStorage_CollectionFloor_AutoNext_Click);
             // 
+            // Button_CSVFileStorage_ResetFloorAndMarkers
+            // 
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Location = new System.Drawing.Point(407, 4);
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Name = "Button_CSVFileStorage_ResetFloorAndMarkers";
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Size = new System.Drawing.Size(113, 68);
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.TabIndex = 46;
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Text = "Reset Floor and Markers";
+            this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_ResetFloorAndMarkers, "Resets only the Collection Floor and Collection Marker fields to 1.");
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.UseVisualStyleBackColor = false;
+            this.Button_CSVFileStorage_ResetFloorAndMarkers.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // TextBox_CSVFileStorage_Client
+            // 
+            this.TextBox_CSVFileStorage_Client.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBox_CSVFileStorage_Client.Location = new System.Drawing.Point(8, 27);
+            this.TextBox_CSVFileStorage_Client.Name = "TextBox_CSVFileStorage_Client";
+            this.TextBox_CSVFileStorage_Client.Size = new System.Drawing.Size(341, 26);
+            this.TextBox_CSVFileStorage_Client.TabIndex = 20;
+            this.TextBox_CSVFileStorage_Client.Text = "Client Name";
+            this.ToolTip1.SetToolTip(this.TextBox_CSVFileStorage_Client, "Enter a short client description. This text will create a CSV file subdirectory  " +
+        "under the user\'s Desktop/SurveyData directory.");
+            this.TextBox_CSVFileStorage_Client.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
+            // 
             // GroupBox_CSVFileStorage
             // 
             this.GroupBox_CSVFileStorage.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -1216,18 +1244,6 @@ namespace RFEOnSite
             this.GroupBox_CSVFileStorage.TabIndex = 23;
             this.GroupBox_CSVFileStorage.TabStop = false;
             this.GroupBox_CSVFileStorage.Text = "CSV File Storage";
-            // 
-            // Button_CSVFileStorage_ResetFloorAndMarkers
-            // 
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.BackColor = System.Drawing.SystemColors.Control;
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.Location = new System.Drawing.Point(289, 4);
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.Name = "Button_CSVFileStorage_ResetFloorAndMarkers";
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.Size = new System.Drawing.Size(113, 68);
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.TabIndex = 46;
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.Text = "Reset Floor and Markers";
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.UseVisualStyleBackColor = false;
-            this.Button_CSVFileStorage_ResetFloorAndMarkers.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // GroupBoxCsvInformation
             // 
@@ -1264,16 +1280,6 @@ namespace RFEOnSite
             this.GroupBox_CSVFileStorage_ClientInformation.TabIndex = 43;
             this.GroupBox_CSVFileStorage_ClientInformation.TabStop = false;
             this.GroupBox_CSVFileStorage_ClientInformation.Text = "Client Information";
-            // 
-            // TextBox_CSVFileStorage_Client
-            // 
-            this.TextBox_CSVFileStorage_Client.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBox_CSVFileStorage_Client.Location = new System.Drawing.Point(8, 27);
-            this.TextBox_CSVFileStorage_Client.Name = "TextBox_CSVFileStorage_Client";
-            this.TextBox_CSVFileStorage_Client.Size = new System.Drawing.Size(341, 26);
-            this.TextBox_CSVFileStorage_Client.TabIndex = 20;
-            this.TextBox_CSVFileStorage_Client.Text = "Client";
-            this.TextBox_CSVFileStorage_Client.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
             // 
             // GroupBox_CSVFileStorage_CollectionFloor
             // 
@@ -1369,11 +1375,11 @@ namespace RFEOnSite
             this.LabelCopyright.AutoSize = true;
             this.LabelCopyright.BackColor = System.Drawing.SystemColors.Control;
             this.LabelCopyright.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LabelCopyright.Location = new System.Drawing.Point(808, 717);
+            this.LabelCopyright.Location = new System.Drawing.Point(839, 717);
             this.LabelCopyright.Name = "LabelCopyright";
-            this.LabelCopyright.Size = new System.Drawing.Size(172, 13);
+            this.LabelCopyright.Size = new System.Drawing.Size(145, 13);
             this.LabelCopyright.TabIndex = 25;
-            this.LabelCopyright.Text = "Copyright 2023 - Neve Group, LTD";
+            this.LabelCopyright.Text = "Copyright 2023 - Redevi, Inc.";
             // 
             // MenuStripMainForm
             // 
