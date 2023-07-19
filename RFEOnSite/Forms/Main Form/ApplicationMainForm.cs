@@ -15,6 +15,7 @@ using System.Media;
 using RFE_OnSite.Properties;
 using Emgu.CV.Structure;
 using System.Deployment.Application;
+using System.Text.RegularExpressions;
 
 namespace RFEOnSite
 {
@@ -67,8 +68,8 @@ namespace RFEOnSite
             gRFEOnSite.FileOps.FolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
             gRFEOnSite.FileOps.SetCurrentDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
-            // Navigate to, Create if needed, and Enter SurveyData Desktop/SurveyData
-            //gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
+            // Navigate to, Create if needed, and Enter Desktop/RFEOnSite Data
+            //gRFEOnSite.FileOps.CreateEnterDirectory("RFEOnSite Data");
 
             ButtonSetConfiguration.Enabled = false;
             //NumericUpDownMarkerNumber.Enabled = false;
@@ -554,6 +555,10 @@ namespace RFEOnSite
                 ButtonCaptureImage.BackColor = SystemColors.Highlight;
                 gRFEOnSite.FileOps.PopDirectory(); // For Image Capture
             }
+            else
+            {
+                //gRFEOnSite.CaptureImage = false;
+            }
             /*
             else
             {
@@ -585,7 +590,7 @@ namespace RFEOnSite
             IProgress<RFEConfiguration> UpdateUIControls = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configuration(RFE));
             IProgress<List<string>> UpdateUISweepData = new Progress<List<string>>(SWEEPS => UIUpdateCallback_SweepData(SWEEPS));
 
-            IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s); 
+            IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
             /*
             IProgress<int> UpdateUIProgressBar = new Progress<int>(s =>
             {
@@ -646,8 +651,6 @@ namespace RFEOnSite
             }
 
             TabControlMain.SelectedTab = TabControlMainOmniDirectional;
-
-            gRFEOnSite.Explorer.Capture = true;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
@@ -695,7 +698,7 @@ namespace RFEOnSite
             if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 gRFEOnSite.FileOps.PopToDirectory(1);
-                gRFEOnSite.FileOps.CreateEnterDirectory("SurveyData");
+                gRFEOnSite.FileOps.CreateEnterDirectory("RFEOnSite Data");
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_Client.Text);
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionLocationDescription.Text);
                 if (CheckBoxAutoIncrementMarkerNumber.Checked)
@@ -1013,7 +1016,7 @@ namespace RFEOnSite
                 TextBox_CurrentConfiguration_StopFrequency.Text = (start + .112).ToString("F3");
             }
         }
- 
+
         private void TextBoxStopFrequency_TextChanged(object sender, EventArgs e)
         {
             double stepSize;
@@ -1155,7 +1158,6 @@ namespace RFEOnSite
         {
             if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Enable")
             {
-                NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
                 Button_CSVFileStorage_CollectionFloor_Enable.Text = "Disable";
                 GroupBox_CSVFileStorage_AutoNext.Enabled = true;
                 RefreshUI();
@@ -1184,7 +1186,7 @@ namespace RFEOnSite
             {
                 if (NumericUpDown_CSVFileStorage_FloorNumber.Value == 1)
                 {
-                     return;
+                    return;
                 }
 
                 NumericUpDown_CSVFileStorage_FloorNumber.Value = NumericUpDown_CSVFileStorage_FloorNumber.Value - 1;
@@ -1216,6 +1218,7 @@ namespace RFEOnSite
 
             if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Disable")
             {
+                // Button is displaying "Disable" so Floor collection is enabled
                 TextBox_CSVFileStorage_CollectionFloorName.Enabled = true;
                 NumericUpDown_CSVFileStorage_FloorNumber.Enabled = true;
                 GroupBox_CSVFileStorage_AutoNext.Enabled = true;
@@ -1224,7 +1227,7 @@ namespace RFEOnSite
                 int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
                 StripStatusLabelCsvDirectory.Text =
-                    "Next CSV Capture Directory: Desktop\\SurveyData\\" +
+                    "Next CSV Capture Directory: Desktop\\RFEOnSite Data\\" +
                     TextBox_CSVFileStorage_Client.Text +
                     "\\" +
                     TextBox_CSVFileStorage_CollectionLocationDescription.Text +
@@ -1237,6 +1240,7 @@ namespace RFEOnSite
             }
             else
             {
+                // Button is displaying "Enable" so Floor collection is disabled
                 TextBox_CSVFileStorage_CollectionFloorName.Enabled = false;
                 NumericUpDown_CSVFileStorage_FloorNumber.Enabled = false;
                 GroupBox_CSVFileStorage_AutoNext.Enabled = false;
@@ -1244,7 +1248,7 @@ namespace RFEOnSite
                 int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
                 StripStatusLabelCsvDirectory.Text =
-                    "Next CSV Capture Directory: Desktop\\SurveyData\\" +
+                    "Next CSV Capture Directory: Desktop\\RFEOnSite Data\\" +
                     TextBox_CSVFileStorage_Client.Text +
                     "\\" +
                     TextBox_CSVFileStorage_CollectionLocationDescription.Text +
@@ -1263,23 +1267,24 @@ namespace RFEOnSite
                 return;
             }
 
+            Bitmap image = mCapture.QueryFrame().ToBitmap();
+            Bitmap resized = new Bitmap(image, new Size(image.Width * 4, image.Height * 4));
+            resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            resized.Dispose();
+            image.Dispose();
+
+            ButtonPauseResume.Text = "Resume";
+            gRFEOnSite.CaptureImage = false;
+
             ButtonCaptureImage.BackColor = Color.Green;
-            LabelCaptured.Text = "Captured";
-            LabelCaptured.Refresh();
+            ButtonCaptureImage.Enabled = false;
+            ButtonCaptureImage.Text = "Captured";
             ButtonCaptureImage.Refresh();
 
             SystemSounds.Asterisk.Play();
-            mMat = new Mat();
-
-            Thread.Sleep(500);
-
-            Bitmap resized = new Bitmap(mMat.Width, mMat.Height);
-
-            //Bitmap resized = new Bitmap(mMat.Bitmap, new Size(mMat.Bitmap.Width * 4, mMat.Bitmap.Height * 4));
-            resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", ImageFormat.Jpeg);
-
-            LabelCaptured.Text = "";
-            ButtonCaptureImage.BackColor = SystemColors.Highlight;
+            
+            //ButtonCaptureImage.BackColor = SystemColors.Highlight;
         }
 
         private void ProcessVideoFrame(object sender, EventArgs e)
@@ -1352,7 +1357,7 @@ namespace RFEOnSite
 
             TextBox_CSVFileStorage_CollectionFloorName.Text = "Floor";
             NumericUpDown_CSVFileStorage_FloorNumber.Value = 1;
-            Button_CSVFileStorage_CollectionFloor_Enable.Text = "Enable";
+            Button_CSVFileStorage_CollectionFloor_Enable.Text = "Disable";
             RadioButton_CSVFileStorage_FloorDecrement.Checked = false;
             RadioButton_CSVFileStorage_FloorIncrement.Checked = true;
 
@@ -1570,7 +1575,24 @@ namespace RFEOnSite
 
         private void ButtonPauseResume_Click(object sender, EventArgs e)
         {
+            if (ButtonPauseResume.Text == "Resume")
+            {
+                ButtonCaptureImage.BackColor = SystemColors.Highlight;
+                ButtonCaptureImage.Enabled = true;
+                ButtonCaptureImage.Text = "Capture Frame";
 
+                ButtonPauseResume.Text = "Pause";
+                gRFEOnSite.CaptureImage = true;
+            }
+            else if (ButtonPauseResume.Text == "Pause")
+            {
+                ButtonCaptureImage.BackColor = SystemColors.ControlLight;
+                ButtonCaptureImage.Enabled = false;
+                ButtonCaptureImage.Text = "Pasued";
+
+                ButtonPauseResume.Text = "Resume";
+                gRFEOnSite.CaptureImage = false;
+            }
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)

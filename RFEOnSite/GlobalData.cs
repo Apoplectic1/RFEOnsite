@@ -43,7 +43,7 @@ namespace RFEOnSite
             ApplicationInitialized = false;
             CancelActive = false;
             CaptureImage = false;
-            Client = "Client";
+            Client = "Client Name";
             CsvDirectoryValid = false;
             Data = new Decibels();
             Explorer = new RFExplorer();
@@ -52,7 +52,7 @@ namespace RFEOnSite
             FileOps = new FileOps();
             Graph = new Charts();
             LeftAntennaGain = 5;
-            Location = "Location";
+            Location = "Client Location";
             PresetActive = false;
             PresetDownlinkTable = new DownlinkTable();
             PresetTableIndex = 0;

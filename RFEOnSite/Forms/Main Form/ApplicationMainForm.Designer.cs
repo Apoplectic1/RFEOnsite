@@ -105,7 +105,6 @@ namespace RFEOnSite
             this.NumericUpDownRadialAzimuth = new System.Windows.Forms.NumericUpDown();
             this.TabControlSiteImage = new System.Windows.Forms.TabPage();
             this.ButtonPauseResume = new System.Windows.Forms.Button();
-            this.LabelCaptured = new System.Windows.Forms.Label();
             this.PictureBox = new System.Windows.Forms.PictureBox();
             this.TabControlCalibration = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
@@ -469,8 +468,8 @@ namespace RFEOnSite
             this.CheckBox_CSVFileStorage_SaveCsvFiles.Size = new System.Drawing.Size(265, 24);
             this.CheckBox_CSVFileStorage_SaveCsvFiles.TabIndex = 17;
             this.CheckBox_CSVFileStorage_SaveCsvFiles.Text = "Save Collected Data to CSV Files";
-            this.ToolTip1.SetToolTip(this.CheckBox_CSVFileStorage_SaveCsvFiles, "Creates a SurveyData directory on the user\'s Desktop to store collection CSV file" +
-        "s.");
+            this.ToolTip1.SetToolTip(this.CheckBox_CSVFileStorage_SaveCsvFiles, "Creates a \'RFEOnSite Data\' directory on the user\'s Desktop to store collection CS" +
+        "V files.");
             this.CheckBox_CSVFileStorage_SaveCsvFiles.UseVisualStyleBackColor = true;
             this.CheckBox_CSVFileStorage_SaveCsvFiles.CheckedChanged += new System.EventHandler(this.CheckBoxSaveCsvFiles_CheckedChanged);
             // 
@@ -556,7 +555,7 @@ namespace RFEOnSite
             this.TextBox_CSVFileStorage_CollectionLocationDescription.TabIndex = 2;
             this.TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Client Location";
             this.ToolTip1.SetToolTip(this.TextBox_CSVFileStorage_CollectionLocationDescription, "Enter a short client location description. This text will create a CSV file subdi" +
-        "rectory  under the Desktop/SurveyData/Client directory.");
+        "rectory  under the Desktop/RFEOnSite Data/Client directory.");
             this.TextBox_CSVFileStorage_CollectionLocationDescription.TextChanged += new System.EventHandler(this.TextBoxSweepLocation_TextChanged);
             // 
             // LabelRBW
@@ -673,7 +672,7 @@ namespace RFEOnSite
             this.Button_CSVFileStorage_CollectionFloor_Enable.Name = "Button_CSVFileStorage_CollectionFloor_Enable";
             this.Button_CSVFileStorage_CollectionFloor_Enable.Size = new System.Drawing.Size(79, 29);
             this.Button_CSVFileStorage_CollectionFloor_Enable.TabIndex = 42;
-            this.Button_CSVFileStorage_CollectionFloor_Enable.Text = "Enable";
+            this.Button_CSVFileStorage_CollectionFloor_Enable.Text = "Disable";
             this.ToolTip1.SetToolTip(this.Button_CSVFileStorage_CollectionFloor_Enable, "Include a Floor indentifier in the CSV file name.  Also enables the increment and" +
         " decrement mode.");
             this.Button_CSVFileStorage_CollectionFloor_Enable.UseVisualStyleBackColor = false;
@@ -1079,7 +1078,6 @@ namespace RFEOnSite
             // TabControlSiteImage
             // 
             this.TabControlSiteImage.Controls.Add(this.ButtonPauseResume);
-            this.TabControlSiteImage.Controls.Add(this.LabelCaptured);
             this.TabControlSiteImage.Controls.Add(this.ButtonCaptureImage);
             this.TabControlSiteImage.Controls.Add(this.PictureBox);
             this.TabControlSiteImage.Location = new System.Drawing.Point(4, 29);
@@ -1099,15 +1097,6 @@ namespace RFEOnSite
             this.ButtonPauseResume.Text = "Pause";
             this.ButtonPauseResume.UseVisualStyleBackColor = true;
             this.ButtonPauseResume.Click += new System.EventHandler(this.ButtonPauseResume_Click);
-            // 
-            // LabelCaptured
-            // 
-            this.LabelCaptured.AutoSize = true;
-            this.LabelCaptured.Location = new System.Drawing.Point(42, 161);
-            this.LabelCaptured.Name = "LabelCaptured";
-            this.LabelCaptured.Size = new System.Drawing.Size(0, 20);
-            this.LabelCaptured.TabIndex = 48;
-            this.LabelCaptured.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PictureBox
             // 
@@ -1225,7 +1214,7 @@ namespace RFEOnSite
             this.TextBox_CSVFileStorage_Client.TabIndex = 20;
             this.TextBox_CSVFileStorage_Client.Text = "Client Name";
             this.ToolTip1.SetToolTip(this.TextBox_CSVFileStorage_Client, "Enter a short client description. This text will create a CSV file subdirectory  " +
-        "under the user\'s Desktop/SurveyData directory.");
+        "under the user\'s \'Desktop/RFEOnSite Data\' directory.");
             this.TextBox_CSVFileStorage_Client.TextChanged += new System.EventHandler(this.TextBoxClient_TextChanged);
             // 
             // GroupBox_CSVFileStorage
@@ -1297,7 +1286,6 @@ namespace RFEOnSite
             // NumericUpDown_CSVFileStorage_FloorNumber
             // 
             this.NumericUpDown_CSVFileStorage_FloorNumber.Cursor = System.Windows.Forms.Cursors.Default;
-            this.NumericUpDown_CSVFileStorage_FloorNumber.Enabled = false;
             this.NumericUpDown_CSVFileStorage_FloorNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumericUpDown_CSVFileStorage_FloorNumber.Location = new System.Drawing.Point(151, 21);
             this.NumericUpDown_CSVFileStorage_FloorNumber.Minimum = new decimal(new int[] {
@@ -1318,7 +1306,6 @@ namespace RFEOnSite
             // 
             // TextBox_CSVFileStorage_CollectionFloorName
             // 
-            this.TextBox_CSVFileStorage_CollectionFloorName.Enabled = false;
             this.TextBox_CSVFileStorage_CollectionFloorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBox_CSVFileStorage_CollectionFloorName.Location = new System.Drawing.Point(6, 23);
             this.TextBox_CSVFileStorage_CollectionFloorName.Name = "TextBox_CSVFileStorage_CollectionFloorName";
@@ -1505,7 +1492,6 @@ namespace RFEOnSite
             this.TabControlMainRadial.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).EndInit();
             this.TabControlSiteImage.ResumeLayout(false);
-            this.TabControlSiteImage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.TabControlCalibration.ResumeLayout(false);
             this.TabControlCalibration.PerformLayout();
@@ -1615,7 +1601,6 @@ namespace RFEOnSite
         private Button ButtonCaptureImage;
         private TabPage TabControlSiteImage;
         private PictureBox PictureBox;
-        private Label LabelCaptured;
         private Button Button_CSVFileStorage_ResetAllFields;
         private StatusStrip StripStatusMainForm;
         private GroupBox GroupBoxCsvInformation;

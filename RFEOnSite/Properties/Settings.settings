@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Client</Value>
     </Setting>
     <Setting Name="Persist_LocationTextState" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Collection Location</Value>
+      <Value Profile="(Default)">Client Location</Value>
     </Setting>
     <Setting Name="Persist_FloorTextState" Type="System.String" Scope="User">
       <Value Profile="(Default)">Floor</Value>

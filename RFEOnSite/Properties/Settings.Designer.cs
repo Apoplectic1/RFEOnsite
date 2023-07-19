@@ -37,7 +37,7 @@ namespace RFE_OnSite.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Collection Location")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Client Location")]
         public string Persist_LocationTextState {
             get {
                 return ((string)(this["Persist_LocationTextState"]));
