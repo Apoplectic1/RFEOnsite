@@ -120,6 +120,9 @@
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="CheckBoxRadialAzimuth.ToolTip" xml:space="preserve">
     <value>When checked, the survey is directional.\n\nA radial survey will use a different (specific) directory structure to store .csv files and uses a different location naming convention than an Omni directional survey.</value>
   </data>
@@ -137,7 +140,7 @@ File names for any saved CSV files will appear in the 'CSV File:' text area belo
 RBW is determined internally by table lookup using the current Span (stop MHz minus start MHz) as the RBW table index. 
 The RBW table is limited and the RF Explorer will automaticlly choose the 'best' value.</value>
   </data>
-  <data name="ComboBoxPreset.ToolTip" xml:space="preserve">
+  <data name="ComboBox_CurrentConfiguration_Preset.ToolTip" xml:space="preserve">
     <value>Choose a Preset to sweep manually or sweep using a predefined set of frequency range(s).
 
 Manual Configuration
