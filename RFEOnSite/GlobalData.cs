@@ -15,7 +15,7 @@ namespace RFEOnSite
         public CP4Table PresetCP4DownlinkTable { get; }
         public bool ApplicationInitialized { get; set; }
         public bool CancelActive { get; set; }
-        public bool CaptureImage { get; set; }
+        public bool VideoCapture { get; set; }
         public bool CsvDirectoryValid { get; set; }
         public bool PresetActive { get; set; }
         public bool RadialSurvey { get; set; }
@@ -42,7 +42,7 @@ namespace RFEOnSite
         {
             ApplicationInitialized = false;
             CancelActive = false;
-            CaptureImage = false;
+            VideoCapture = false;
             Client = "Client Name";
             CsvDirectoryValid = false;
             Data = new Decibels();

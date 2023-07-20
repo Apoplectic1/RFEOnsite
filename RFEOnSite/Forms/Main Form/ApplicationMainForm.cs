@@ -16,6 +16,7 @@ using RFE_OnSite.Properties;
 using Emgu.CV.Structure;
 using System.Deployment.Application;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Media3D;
 
 namespace RFEOnSite
 {
@@ -24,6 +25,8 @@ namespace RFEOnSite
         public GlobalData gRFEOnSite;
         private VideoCapture mCapture;
         private Mat mMat;
+
+        public enum eFrameType { NEW, ACTIVE, CAPTURED, IDLE }
 
         public MainForm()
         {
@@ -63,6 +66,9 @@ namespace RFEOnSite
 
             InitializeChartUI();
 
+            mCapture = new VideoCapture();
+            mMat = new Mat();
+
             // Navigate to and set User's Desktop as current working Directory
             // Force Dialog to Desktop ONLY
             gRFEOnSite.FileOps.FolderDialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
@@ -77,15 +83,14 @@ namespace RFEOnSite
 
             TabControlSiteImage.Enabled = false;
 
-            Application.Idle += ProcessVideoFrame;
+            Application.Idle += DisplayVideoFrames;
             gRFEOnSite.CsvDirectoryValid = false;
-            PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            PictureBox_LocationCamera.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
 
         private void InitializeChartUI()
         {
-
             components = new Container();
 
             ((ISupportInitialize)(gRFEOnSite.Graph.Chart)).BeginInit();
@@ -464,10 +469,7 @@ namespace RFEOnSite
                     LabelTaskCount.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
                     return;
                 }
-
             }
-
-
             if (gRFEOnSite.PresetType == ePreset.eSingle)
             {
                 LabelTaskCount.Text = "Done";
@@ -520,15 +522,12 @@ namespace RFEOnSite
             // The only way we get here is by walking through every table entry - we have to be done
             if (gRFEOnSite.PresetActive)
             {
-
                 LabelTaskCount.Text = "Done";
-
 
                 if (gRFEOnSite.CalibrationActive)
                 {
                     ButtonCalibrationStart.Text = "Start";
                 }
-
 
                 if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                 {
@@ -546,27 +545,12 @@ namespace RFEOnSite
                 NumericUpDown_SweepControl_Sweeps.Enabled = true;
             }
 
-
             if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 TabControlMain.SelectedTab.Enabled = true;
                 gRFEOnSite.CsvDirectoryValid = true;
-                gRFEOnSite.CaptureImage = true;
-                ButtonCaptureImage.BackColor = SystemColors.Highlight;
                 gRFEOnSite.FileOps.PopDirectory(); // For Image Capture
             }
-            else
-            {
-                //gRFEOnSite.CaptureImage = false;
-            }
-            /*
-            else
-            {
-                TabControlMain.SelectedTab.Enabled = false;
-                ButtonCaptureImage.BackColor = Color.Gray;
-                ButtonCaptureImage.Refresh();
-            }
-            */
         }
 
         private async void ButtonFindPorts_Click(object sender, EventArgs e)
@@ -580,24 +564,15 @@ namespace RFEOnSite
             IProgress<string> UIComPortLabel = new Progress<string>(s => Label_ComPortValue.Text = s);
             await Task.Factory.StartNew(() => gRFEOnSite.Explorer.InitializeSerialConnection(UIComPortLabel));
 
-
             Button_ConnectRFExplorer.Text = "Connected";
             Button_ConnectRFExplorer.Enabled = false;
             Button_ConnectRFExplorer.BackColor = Color.Green;
-
 
             // A reference to the right hand side object (from the UI Thread) is passed to the thread through the left hand side IProcess object
             IProgress<RFEConfiguration> UpdateUIControls = new Progress<RFEConfiguration>(RFE => UIUpdateCallback_RFE_Configuration(RFE));
             IProgress<List<string>> UpdateUISweepData = new Progress<List<string>>(SWEEPS => UIUpdateCallback_SweepData(SWEEPS));
 
             IProgress<int> UpdateUIProgressBar = new Progress<int>(s => TaskProgressBar.Value = s);
-            /*
-            IProgress<int> UpdateUIProgressBar = new Progress<int>(s =>
-            {
-                TaskProgressBar.Value = s;
-                TaskProgressBar.Maximum = s;
-            });
-            */
 
             await Task.Factory.StartNew(() => gRFEOnSite.Explorer.CreateReceiveDataThread(
                                     UpdateUIControls,
@@ -650,13 +625,12 @@ namespace RFEOnSite
                 }
             }
 
-            TabControlMain.SelectedTab = TabControlMainOmniDirectional;
+            //TabControlMain.SelectedTab = TabControlMainOmniDirectional;
         }
 
         private void ButtonSetConfiguration_Click(object sender, EventArgs e)
         {
             bool bValidField;
-
 
             bValidField = Double.TryParse(TextBox_CurrentConfiguration_StartFrequency.Text, out double startMHz);
             bValidField &= Double.TryParse(TextBox_CurrentConfiguration_StopFrequency.Text, out double stopMHz);
@@ -677,7 +651,6 @@ namespace RFEOnSite
                     return;
                 }
 
-
                 ButtonStartSweeps.Enabled = false;
                 ButtonCancelSweeps.Enabled = false;
                 GroupBox_SweepControl.Enabled = false;
@@ -690,7 +663,6 @@ namespace RFEOnSite
         private void ButtonStartSweeps_Click(object sender, EventArgs e)
         {
             SetUIItemsEnabledState();
-
 
             int floorNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString());
             int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
@@ -726,7 +698,12 @@ namespace RFEOnSite
                 }
 
                 gRFEOnSite.FileOps.CreateEnterDirectory(DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", System.Globalization.DateTimeFormatInfo.InvariantInfo));
+
+                SetLocationCameraState(eFrameType.ACTIVE);
+                SetLocationCameraState(eFrameType.IDLE);
             }
+            else
+                SetLocationCameraState(eFrameType.NEW);
 
             gRFEOnSite.Explorer.SweepCount = (int)NumericUpDown_SweepControl_Sweeps.Value;
 
@@ -789,20 +766,10 @@ namespace RFEOnSite
 
         private void CheckBoxSaveCsvFiles_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
-            {
-                GroupBoxCsvInformation.Enabled = true;
-            }
-            else
-            {
-                GroupBoxCsvInformation.Enabled = false;
-            }
+            GroupBoxCsvInformation.Enabled = CheckBox_CSVFileStorage_SaveCsvFiles.Checked;
 
             RefreshUI();
         }
-
-
-
 
         private void TextBoxSweepLocation_TextChanged(object sender, EventArgs e)
         {
@@ -819,25 +786,17 @@ namespace RFEOnSite
         private void TextBoxLeftAntennaGain_TextChanged(object sender, EventArgs e)
         {
             if (Double.TryParse(TextBox_CurrentConfiguration_LeftAntennaGain.Text, out double gain))
-            {
                 gRFEOnSite.LeftAntennaGain = gain;
-            }
             else
-            {
                 TextBox_CurrentConfiguration_LeftAntennaGain.Text = "";
-            }
         }
 
         private void TextBoxRightAntennaGain_TextChanged(object sender, EventArgs e)
         {
             if (Double.TryParse(TextBox_CurrentConfiguration_RightAntennaGain.Text, out double gain))
-            {
                 gRFEOnSite.RightAntennaGain = gain;
-            }
             else
-            {
                 TextBox_CurrentConfiguration_RightAntennaGain.Text = "";
-            }
         }
 
         private void ComboBoxPreset_IndexChanged(object sender, EventArgs e)
@@ -871,7 +830,6 @@ namespace RFEOnSite
                 ButtonGetRfeConfiguration.Enabled = true;
             }
 
-
             if (item == "CP4 Downlink")
             {
                 gRFEOnSite.PresetType = ePreset.eCP4Downlink;
@@ -901,7 +859,6 @@ namespace RFEOnSite
                     ButtonSetConfiguration.Enabled = true;
                 }
             }
-
 
             if (item == "Full Downlink")
             {
@@ -938,19 +895,13 @@ namespace RFEOnSite
             try
             {
                 if (RadioButton_SpectrumAnalyzer.Checked)
-                {
                     System.Diagnostics.Process.Start("https://j3.rf-explorer.com/download/docs/RF%20Explorer%20Spectrum%20Analyzer%20User%20Manual.pdf");
-                }
                 else
                 {
                     if (RadioButton_SignalGenerator.Checked)
-                    {
                         System.Diagnostics.Process.Start("https://j3.rf-explorer.com/download/docs/RF%20Explorer%20Signal%20Generator%20User%20Manual.pdf");
-                    }
                     else
-                    {
                         System.Diagnostics.Process.Start("https://j3.rf-explorer.com/download/docs/RF%20Explorer%20Spectrum%20Analyzer%20User%20Manual.pdf");
-                    }
                 }
             }
 
@@ -1034,12 +985,6 @@ namespace RFEOnSite
                     TextBoxRBW.Text = "";
                 }
             }
-            /*
-            else
-            {
-                TextBox_CurrentConfiguration_StopFrequency.Text = "";
-            }
-            */
         }
 
         private void RadioButtonAnalyzer_CheckedChanged(object sender, EventArgs e)
@@ -1078,8 +1023,6 @@ namespace RFEOnSite
             GroupBox_CSVFileStorage.Enabled = true;
             GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
             NumericUpDown_SweepControl_Sweeps.Enabled = true;
-
-
         }
 
         private void CheckBoxRadial_CheckedChanged(object sender, EventArgs e)
@@ -1090,13 +1033,9 @@ namespace RFEOnSite
         private void CheckBoxAutoIncrement_CheckedChanged(object sender, EventArgs e)
         {
             if (CheckBoxAutoIncrementMarkerNumber.Checked)
-            {
                 NumericUpDown_CSVFileStorage_MarkerNumber.Enabled = true;
-            }
             else
-            {
                 NumericUpDown_CSVFileStorage_MarkerNumber.Enabled = false;
-            }
 
             RefreshUI();
         }
@@ -1104,7 +1043,6 @@ namespace RFEOnSite
         private void TextBoxCollectionSite_TextChanged(object sender, EventArgs e)
         {
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
-
             RefreshUI();
         }
 
@@ -1151,6 +1089,7 @@ namespace RFEOnSite
                 TextBox_CurrentConfiguration_StopFrequency.Text = "";
                 TextBoxRBW.Text = "";
                 TextBox_CurrentConfiguration_StepFrequency.Text = "";
+                SetLocationCameraState(eFrameType.NEW);
             }
         }
 
@@ -1161,43 +1100,33 @@ namespace RFEOnSite
                 Button_CSVFileStorage_CollectionFloor_Enable.Text = "Disable";
                 GroupBox_CSVFileStorage_AutoNext.Enabled = true;
                 RefreshUI();
-                return;
             }
             else
             {
                 Button_CSVFileStorage_CollectionFloor_Enable.Text = "Enable";
                 GroupBox_CSVFileStorage_AutoNext.Enabled = false;
                 RefreshUI();
-                return;
             }
         }
 
         private void Button_CSVFileStorage_CollectionFloor_AutoNext_Click(object sender, EventArgs e)
         {
-
             if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Enable")
-            {
                 return;
-            }
 
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
 
             if (RadioButton_CSVFileStorage_FloorDecrement.Checked == true)
             {
                 if (NumericUpDown_CSVFileStorage_FloorNumber.Value == 1)
-                {
                     return;
-                }
 
                 NumericUpDown_CSVFileStorage_FloorNumber.Value = NumericUpDown_CSVFileStorage_FloorNumber.Value - 1;
             }
             else
-            {
                 NumericUpDown_CSVFileStorage_FloorNumber.Value = NumericUpDown_CSVFileStorage_FloorNumber.Value + 1;
-            }
 
             RefreshUI();
-
         }
 
         private void NumericUpDownAutoText_ValueChanged(object sender, EventArgs e)
@@ -1258,95 +1187,72 @@ namespace RFEOnSite
             }
         }
 
-
-
         private void ButtonCaptureImage_Click(object sender, EventArgs e)
         {
             if (!gRFEOnSite.CsvDirectoryValid)
-            {
                 return;
+
+            try
+            {
+                Bitmap image = mCapture.QueryFrame().ToBitmap();
+                if (image == null)
+                {
+                    SetLocationCameraState(eFrameType.NEW);
+                    return;
+                }
+
+                Bitmap resized = new Bitmap(image, new Size(image.Width * 4, image.Height * 4));
+                resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                resized.Dispose();
+                image.Dispose();
+
+                SetLocationCameraState(eFrameType.CAPTURED);
+
+                SystemSounds.Asterisk.Play();
             }
-
-            Bitmap image = mCapture.QueryFrame().ToBitmap();
-            Bitmap resized = new Bitmap(image, new Size(image.Width * 4, image.Height * 4));
-            resized.Save(DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            resized.Dispose();
-            image.Dispose();
-
-            ButtonPauseResume.Text = "Resume";
-            gRFEOnSite.CaptureImage = false;
-
-            ButtonCaptureImage.BackColor = Color.Green;
-            ButtonCaptureImage.Enabled = false;
-            ButtonCaptureImage.Text = "Captured";
-            ButtonCaptureImage.Refresh();
-
-            SystemSounds.Asterisk.Play();
-            
-            //ButtonCaptureImage.BackColor = SystemColors.Highlight;
+            catch (Exception ex)
+            {
+                SetLocationCameraState(eFrameType.NEW);
+            }
         }
 
-        private void ProcessVideoFrame(object sender, EventArgs e)
+        private void DisplayVideoFrames(object sender, EventArgs e)
         {
-            if (!gRFEOnSite.CaptureImage)
-            {
+            if (!gRFEOnSite.VideoCapture)
                 return;
-            }
 
             try
             {
                 if (mCapture != null)
                 {
                     mMat = mCapture.QueryFrame();
-                    PictureBox.Image = mMat.ToBitmap();
+                    PictureBox_LocationCamera.Image = mMat.ToBitmap();
                 }
             }
             catch
             {
-                if (mCapture != null) mCapture.Dispose();
-                mCapture = null;
-                if (mMat != null) mMat.Dispose();
-                mMat = null;
-            }
+                if (mCapture != null)
+                    mCapture.Dispose();
+                mCapture = new VideoCapture();
 
+                if (mMat != null)
+                    mMat.Dispose();
+                mMat = new Mat();
+            }
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedTab.Text == "Location Camera") //specific tabname
             {
-                if (mCapture == null)
-                {
-                    mCapture = new VideoCapture();
-                }
-
-                if (mMat == null)
-                {
-                    mMat = new Mat();
-                }
-
-                if (gRFEOnSite.CsvDirectoryValid)
-                {
-                    gRFEOnSite.CaptureImage = true;
-                    TabControlMain.SelectedTab.Enabled = true;
-                    ButtonCaptureImage.BackColor = SystemColors.Highlight;
-                }
+                if (gRFEOnSite.CsvDirectoryValid && Button_LocationCamera_CaptureFrame.Text != "Wait for Capture")
+                    SetLocationCameraState(eFrameType.ACTIVE);
                 else
-                {
-                    gRFEOnSite.CaptureImage = false;
-                    TabControlMain.SelectedTab.Enabled = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
-                    return;
-                }
+                    SetLocationCameraState(eFrameType.NEW);
             }
             else
-            {
-                gRFEOnSite.CaptureImage = false;
-                ButtonCaptureImage.BackColor = Color.Gray;
-                PictureBox.BackColor = Color.Gray;
-            }
+                SetLocationCameraState(eFrameType.IDLE);
         }
 
         private void Button_CSVFileStorage_ClearAllFields_Click(object sender, EventArgs e)
@@ -1371,12 +1277,8 @@ namespace RFEOnSite
             CheckBox_ReceivedSignalStrength_ChartPeak.Checked = true;
             NumericUpDown_SweepControl_Sweeps.Value = 100;
 
-            //this.ComboBoxPreset.SelectedItem = "Manual";
-
-            TabControlMain.SelectedTab = TabControlMainOmniDirectional;
-
+            SetLocationCameraState(eFrameType.NEW);
             RefreshUI();
-
         }
 
         private void MenuStripMenuItemPreset_Click(object sender, EventArgs e)
@@ -1411,9 +1313,7 @@ namespace RFEOnSite
                 ButtonStartSweeps.Enabled = false;
                 ButtonCancelSweeps.Enabled = true;
                 gRFEOnSite.CsvDirectoryValid = false;
-                gRFEOnSite.CaptureImage = false;
-                ButtonCaptureImage.BackColor = Color.Gray;
-                ButtonCaptureImage.Refresh();
+                SetLocationCameraState(eFrameType.NEW);
 
                 gRFEOnSite.FileOps.FileCounter = 1;
                 gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
@@ -1503,10 +1403,7 @@ namespace RFEOnSite
                     ButtonStartSweeps.Text = "Start";
                     ButtonCancelSweeps.Enabled = true;
                     ButtonCancelSweeps.Text = "Stop";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
+                    gRFEOnSite.CsvDirectoryValid = CheckBox_CSVFileStorage_SaveCsvFiles.Checked;
                     GroupBox_CSVFileStorage.Enabled = false;
                     GroupBox_OmniDirectional_CurrentConfiguration.Enabled = true;
                     NumericUpDown_SweepControl_Sweeps.Enabled = true;
@@ -1519,10 +1416,7 @@ namespace RFEOnSite
                     ButtonStartSweeps.Text = "Capture";
                     ButtonCancelSweeps.Enabled = true;
                     ButtonCancelSweeps.Text = "Cancel";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
+                    gRFEOnSite.CsvDirectoryValid = CheckBox_CSVFileStorage_SaveCsvFiles.Checked;
                     gRFEOnSite.FileOps.FileCounter = 1;
                     gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
                     gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
@@ -1538,10 +1432,7 @@ namespace RFEOnSite
                     ButtonStartSweeps.Text = "Capture";
                     ButtonCancelSweeps.Enabled = true;
                     ButtonCancelSweeps.Text = "Cancel";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
+                    gRFEOnSite.CsvDirectoryValid = CheckBox_CSVFileStorage_SaveCsvFiles.Checked;
                     gRFEOnSite.FileOps.FileCounter = 1;
                     gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
                     gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
@@ -1557,10 +1448,7 @@ namespace RFEOnSite
                     ButtonStartSweeps.Text = "Capture";
                     ButtonCancelSweeps.Enabled = true;
                     ButtonCancelSweeps.Text = "Cancel";
-                    gRFEOnSite.CsvDirectoryValid = false;
-                    gRFEOnSite.CaptureImage = false;
-                    ButtonCaptureImage.BackColor = Color.Gray;
-                    ButtonCaptureImage.Refresh();
+                    gRFEOnSite.CsvDirectoryValid = CheckBox_CSVFileStorage_SaveCsvFiles.Checked;
                     gRFEOnSite.FileOps.FileCounter = 1;
                     gRFEOnSite.FileOps.RunStartTime = DateTime.Now;
                     gRFEOnSite.FileOps.FolderDialog.SelectedPath = string.Empty;
@@ -1575,30 +1463,102 @@ namespace RFEOnSite
 
         private void ButtonPauseResume_Click(object sender, EventArgs e)
         {
-            if (ButtonPauseResume.Text == "Resume")
-            {
-                ButtonCaptureImage.BackColor = SystemColors.Highlight;
-                ButtonCaptureImage.Enabled = true;
-                ButtonCaptureImage.Text = "Capture Frame";
-
-                ButtonPauseResume.Text = "Pause";
-                gRFEOnSite.CaptureImage = true;
-            }
-            else if (ButtonPauseResume.Text == "Pause")
-            {
-                ButtonCaptureImage.BackColor = SystemColors.ControlLight;
-                ButtonCaptureImage.Enabled = false;
-                ButtonCaptureImage.Text = "Pasued";
-
-                ButtonPauseResume.Text = "Resume";
-                gRFEOnSite.CaptureImage = false;
-            }
+            if (Button_LocationCamera_PauseResume.Text == "Resume")
+                SetLocationCameraState(eFrameType.ACTIVE);
+            else
+                SetLocationCameraState(eFrameType.IDLE);
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form dlg1 = new Form();
             dlg1.ShowDialog();
+        }
+
+        private void SetLocationCameraState(eFrameType nextState = eFrameType.NEW)
+        {
+            // Changes LocationCamera TAB to a new state based on current state
+
+            switch (nextState)
+            {
+                case eFrameType.NEW:
+                    //Display an uninitalized PictureBox
+                    Bitmap grayBitmap = new Bitmap(PictureBox_LocationCamera.Width, PictureBox_LocationCamera.Height);
+
+                    // Set the entire bitmap to a solid gray color
+                    Color grayColor = Color.Gray;
+                    using (Graphics graphics = Graphics.FromImage(grayBitmap))
+                    {
+                        using (Brush brush = new SolidBrush(grayColor))
+                        {
+                            graphics.FillRectangle(brush, 0, 0, PictureBox_LocationCamera.Width, PictureBox_LocationCamera.Height);
+                        }
+                    }
+
+                    // Update the PictureBox with the solid gray image
+                    PictureBox_LocationCamera.Image = grayBitmap;
+                    PictureBox_LocationCamera.Refresh();
+
+                    Button_LocationCamera_CaptureFrame.Text = "Wait for Capture";
+                    Button_LocationCamera_CaptureFrame.BackColor = Color.Gray;
+                    Button_LocationCamera_CaptureFrame.Enabled = false;
+                    Button_LocationCamera_CaptureFrame.Refresh();
+
+                    Button_LocationCamera_PauseResume.Text = "Waiting";
+                    Button_LocationCamera_PauseResume.BackColor = Color.Gray;
+                    Button_LocationCamera_PauseResume.Enabled = false;
+                    Button_LocationCamera_PauseResume.Refresh();
+
+                    gRFEOnSite.VideoCapture = false;
+                    break;
+
+                case eFrameType.ACTIVE:
+                    // Start Camera displaying video frames
+                    Button_LocationCamera_CaptureFrame.Text = "Capture Frame";
+                    Button_LocationCamera_CaptureFrame.BackColor = SystemColors.Highlight;
+                    Button_LocationCamera_CaptureFrame.Enabled = true;
+                    Button_LocationCamera_CaptureFrame.Refresh();
+
+                    Button_LocationCamera_PauseResume.Text = "Pause";
+                    Button_LocationCamera_PauseResume.BackColor = SystemColors.Control;
+                    Button_LocationCamera_PauseResume.Enabled = true;
+                    Button_LocationCamera_PauseResume.Refresh();
+
+                    gRFEOnSite.VideoCapture = true;
+                    break;
+
+                case eFrameType.CAPTURED:
+                    // Continure to display captured video frame and pause
+                    Button_LocationCamera_CaptureFrame.Text = "Captured";
+                    Button_LocationCamera_CaptureFrame.BackColor = Color.Green;
+                    Button_LocationCamera_CaptureFrame.Enabled = false;
+                    Button_LocationCamera_CaptureFrame.Refresh();
+
+                    Button_LocationCamera_PauseResume.Text = "Resume";
+                    Button_LocationCamera_PauseResume.BackColor = SystemColors.Control;
+                    Button_LocationCamera_PauseResume.Enabled = true;
+                    Button_LocationCamera_PauseResume.Refresh();
+
+                    gRFEOnSite.VideoCapture = false;
+                    break;
+
+                case eFrameType.IDLE:
+                    //We are initialized 
+                    PictureBox_LocationCamera.BackColor = SystemColors.ControlLight;
+
+                    Button_LocationCamera_CaptureFrame.Text = "Paused";
+                    Button_LocationCamera_CaptureFrame.BackColor = SystemColors.ControlLight;
+                    Button_LocationCamera_CaptureFrame.Enabled = false;
+                    Button_LocationCamera_CaptureFrame.Refresh();
+
+                    Button_LocationCamera_PauseResume.Text = "Resume";
+                    Button_LocationCamera_PauseResume.BackColor = SystemColors.Control;
+                    Button_LocationCamera_PauseResume.Enabled = true;
+                    Button_LocationCamera_PauseResume.Refresh();
+
+                    gRFEOnSite.VideoCapture = false;
+                    break;
+            }
         }
     }
 }

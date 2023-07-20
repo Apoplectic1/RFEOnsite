@@ -149,6 +149,14 @@ This preset will automatically sweep all of the downlink frequencies that CP4's 
 Full Downlink
 Sweeps all Cellular Downlink Frequencies.</value>
   </data>
+  <data name="Button_LocationCamera_CaptureFrame.ToolTip" xml:space="preserve">
+    <value>Captures current video frame and stores it in the current sweep marker directory. After reviewing the captured frame, click "Resume" to capture additional photos. 
+
+Camera captures need to taken AFTER you Sweep the current Collection Location because actually doing a Sweep is what creates the Marker's data collection directory. 
+
+The camera will automatically pause when not displayed to save power and processing resources.
+</value>
+  </data>
   <metadata name="MenuStripMainForm.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>116, 17</value>
   </metadata>

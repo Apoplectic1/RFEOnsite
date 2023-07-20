@@ -15,17 +15,17 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>E:\publish\RFEOnSite\</PublishUrl>
+    <PublishUrl>ftp://www.skyhawkconsultinginc.com/Qweb/SkyhawkConsulting/ProjectDeploy/RFEOnSite/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://integra-ns.com/Apps/RFEOnSite/</InstallUrl>
+    <InstallUrl>http://www.skyhawkconsultinginc.com/Qweb/SkyhawkConsulting/ProjectDeploy/RFEOnSite/</InstallUrl>
     <TargetCulture>en-US</TargetCulture>
     <ProductName>RF Explorer OnSite</ProductName>
     <PublisherName>Integra Network Solutions</PublisherName>
@@ -33,7 +33,7 @@
     <MinimumRequiredVersion>1.3.2.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

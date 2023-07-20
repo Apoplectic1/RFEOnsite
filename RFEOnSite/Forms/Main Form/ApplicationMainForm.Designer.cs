@@ -69,7 +69,7 @@ namespace RFEOnSite
             this.ComboBoxPreset = new System.Windows.Forms.ComboBox();
             this.ButtonGetRfeConfiguration = new System.Windows.Forms.Button();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
-            this.ButtonCaptureImage = new System.Windows.Forms.Button();
+            this.Button_LocationCamera_CaptureFrame = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_ResetAllFields = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_CollectionFloor_Enable = new System.Windows.Forms.Button();
             this.RadioButton_CSVFileStorage_FloorIncrement = new System.Windows.Forms.RadioButton();
@@ -104,8 +104,8 @@ namespace RFEOnSite
             this.LabelTrueNorthText = new System.Windows.Forms.Label();
             this.NumericUpDownRadialAzimuth = new System.Windows.Forms.NumericUpDown();
             this.TabControlSiteImage = new System.Windows.Forms.TabPage();
-            this.ButtonPauseResume = new System.Windows.Forms.Button();
-            this.PictureBox = new System.Windows.Forms.PictureBox();
+            this.Button_LocationCamera_PauseResume = new System.Windows.Forms.Button();
+            this.PictureBox_LocationCamera = new System.Windows.Forms.PictureBox();
             this.TabControlCalibration = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.TextBoxCalibrationPointsPerSweepInterval = new System.Windows.Forms.TextBox();
@@ -149,7 +149,7 @@ namespace RFEOnSite
             this.TabControlMainRadial.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).BeginInit();
             this.TabControlSiteImage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_LocationCamera)).BeginInit();
             this.TabControlCalibration.SuspendLayout();
             this.GroupBox_CSVFileStorage.SuspendLayout();
             this.GroupBoxCsvInformation.SuspendLayout();
@@ -638,18 +638,18 @@ namespace RFEOnSite
             this.ToolTip1.SetToolTip(this.LabelStopFrequency, "End measurments at this frequency.\r\n\r\nClick \"Set Explorer Configuration\" to progr" +
         "am the connected RF Explorer");
             // 
-            // ButtonCaptureImage
+            // Button_LocationCamera_CaptureFrame
             // 
-            this.ButtonCaptureImage.BackColor = System.Drawing.Color.Gray;
-            this.ButtonCaptureImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonCaptureImage.Location = new System.Drawing.Point(9, 108);
-            this.ButtonCaptureImage.Name = "ButtonCaptureImage";
-            this.ButtonCaptureImage.Size = new System.Drawing.Size(141, 50);
-            this.ButtonCaptureImage.TabIndex = 44;
-            this.ButtonCaptureImage.Text = "Capture Frame";
-            this.ToolTip1.SetToolTip(this.ButtonCaptureImage, "Captures an image and stores it with the current location sweep data.");
-            this.ButtonCaptureImage.UseVisualStyleBackColor = false;
-            this.ButtonCaptureImage.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
+            this.Button_LocationCamera_CaptureFrame.BackColor = System.Drawing.Color.Gray;
+            this.Button_LocationCamera_CaptureFrame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_LocationCamera_CaptureFrame.Location = new System.Drawing.Point(9, 108);
+            this.Button_LocationCamera_CaptureFrame.Name = "Button_LocationCamera_CaptureFrame";
+            this.Button_LocationCamera_CaptureFrame.Size = new System.Drawing.Size(141, 50);
+            this.Button_LocationCamera_CaptureFrame.TabIndex = 44;
+            this.Button_LocationCamera_CaptureFrame.Text = "Capture Frame";
+            this.ToolTip1.SetToolTip(this.Button_LocationCamera_CaptureFrame, resources.GetString("Button_LocationCamera_CaptureFrame.ToolTip"));
+            this.Button_LocationCamera_CaptureFrame.UseVisualStyleBackColor = false;
+            this.Button_LocationCamera_CaptureFrame.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
             // 
             // Button_CSVFileStorage_ResetAllFields
             // 
@@ -1077,9 +1077,9 @@ namespace RFEOnSite
             // 
             // TabControlSiteImage
             // 
-            this.TabControlSiteImage.Controls.Add(this.ButtonPauseResume);
-            this.TabControlSiteImage.Controls.Add(this.ButtonCaptureImage);
-            this.TabControlSiteImage.Controls.Add(this.PictureBox);
+            this.TabControlSiteImage.Controls.Add(this.Button_LocationCamera_PauseResume);
+            this.TabControlSiteImage.Controls.Add(this.Button_LocationCamera_CaptureFrame);
+            this.TabControlSiteImage.Controls.Add(this.PictureBox_LocationCamera);
             this.TabControlSiteImage.Location = new System.Drawing.Point(4, 29);
             this.TabControlSiteImage.Name = "TabControlSiteImage";
             this.TabControlSiteImage.Padding = new System.Windows.Forms.Padding(3);
@@ -1088,23 +1088,23 @@ namespace RFEOnSite
             this.TabControlSiteImage.Text = "Location Camera";
             this.TabControlSiteImage.UseVisualStyleBackColor = true;
             // 
-            // ButtonPauseResume
+            // Button_LocationCamera_PauseResume
             // 
-            this.ButtonPauseResume.Location = new System.Drawing.Point(34, 211);
-            this.ButtonPauseResume.Name = "ButtonPauseResume";
-            this.ButtonPauseResume.Size = new System.Drawing.Size(91, 32);
-            this.ButtonPauseResume.TabIndex = 49;
-            this.ButtonPauseResume.Text = "Pause";
-            this.ButtonPauseResume.UseVisualStyleBackColor = true;
-            this.ButtonPauseResume.Click += new System.EventHandler(this.ButtonPauseResume_Click);
+            this.Button_LocationCamera_PauseResume.Location = new System.Drawing.Point(34, 211);
+            this.Button_LocationCamera_PauseResume.Name = "Button_LocationCamera_PauseResume";
+            this.Button_LocationCamera_PauseResume.Size = new System.Drawing.Size(91, 32);
+            this.Button_LocationCamera_PauseResume.TabIndex = 49;
+            this.Button_LocationCamera_PauseResume.Text = "Pause";
+            this.Button_LocationCamera_PauseResume.UseVisualStyleBackColor = true;
+            this.Button_LocationCamera_PauseResume.Click += new System.EventHandler(this.ButtonPauseResume_Click);
             // 
-            // PictureBox
+            // PictureBox_LocationCamera
             // 
-            this.PictureBox.Location = new System.Drawing.Point(157, 6);
-            this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(361, 301);
-            this.PictureBox.TabIndex = 45;
-            this.PictureBox.TabStop = false;
+            this.PictureBox_LocationCamera.Location = new System.Drawing.Point(157, 6);
+            this.PictureBox_LocationCamera.Name = "PictureBox_LocationCamera";
+            this.PictureBox_LocationCamera.Size = new System.Drawing.Size(361, 301);
+            this.PictureBox_LocationCamera.TabIndex = 45;
+            this.PictureBox_LocationCamera.TabStop = false;
             // 
             // TabControlCalibration
             // 
@@ -1492,7 +1492,7 @@ namespace RFEOnSite
             this.TabControlMainRadial.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRadialAzimuth)).EndInit();
             this.TabControlSiteImage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_LocationCamera)).EndInit();
             this.TabControlCalibration.ResumeLayout(false);
             this.TabControlCalibration.PerformLayout();
             this.GroupBox_CSVFileStorage.ResumeLayout(false);
@@ -1598,9 +1598,9 @@ namespace RFEOnSite
         private Label Label_ComPortText;
         private GroupBox GroupBox_CSVFileStorage_ClientInformation;
         private Button Button_CSVFileStorage_CollectionFloor_Enable;
-        private Button ButtonCaptureImage;
+        private Button Button_LocationCamera_CaptureFrame;
         private TabPage TabControlSiteImage;
-        private PictureBox PictureBox;
+        private PictureBox PictureBox_LocationCamera;
         private Button Button_CSVFileStorage_ResetAllFields;
         private StatusStrip StripStatusMainForm;
         private GroupBox GroupBoxCsvInformation;
@@ -1621,7 +1621,7 @@ namespace RFEOnSite
         private Label label2;
         private TextBox TextBoxCalibrationSourceDbm;
         private Label label1;
-        private Button ButtonPauseResume;
+        private Button Button_LocationCamera_PauseResume;
         private Button Button_CSVFileStorage_Next;
         private GroupBox GroupBox_CSVFileStorage_AutoNext;
         private ToolStripStatusLabel toolStripStatusLabel1;
