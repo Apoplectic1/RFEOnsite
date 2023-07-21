@@ -69,12 +69,11 @@ namespace RFEOnSite
             this.ComboBox_CurrentConfiguration_Preset = new System.Windows.Forms.ComboBox();
             this.Button_CurrentConfiguration_GetRfeConfiguration = new System.Windows.Forms.Button();
             this.LabelStopFrequency = new System.Windows.Forms.Label();
-            this.Button_LocationCamera_CaptureFrame = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_ResetAllFields = new System.Windows.Forms.Button();
             this.Button_CSVFileStorage_CollectionFloor_Enable = new System.Windows.Forms.Button();
             this.RadioButton_CSVFileStorage_FloorIncrement = new System.Windows.Forms.RadioButton();
             this.RadioButton_CSVFileStorage_FloorDecrement = new System.Windows.Forms.RadioButton();
-            this.CheckBoxAutoIncrementMarkerNumber = new System.Windows.Forms.CheckBox();
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber = new System.Windows.Forms.CheckBox();
             this.LabelStartFrequency = new System.Windows.Forms.Label();
             this.LabelFrequencyStep = new System.Windows.Forms.Label();
             this.TabControl_Main = new System.Windows.Forms.TabControl();
@@ -104,7 +103,10 @@ namespace RFEOnSite
             this.LabelTrueNorthText = new System.Windows.Forms.Label();
             this.NumericUpDownRadialAzimuth = new System.Windows.Forms.NumericUpDown();
             this.TabControl_Main_LocationCamera = new System.Windows.Forms.TabPage();
+            this.Label_LocationCamera_Marker = new System.Windows.Forms.Label();
+            this.Label_LocationCamera_Floor = new System.Windows.Forms.Label();
             this.Button_LocationCamera_PauseResume = new System.Windows.Forms.Button();
+            this.Button_LocationCamera_CaptureFrame = new System.Windows.Forms.Button();
             this.PictureBox_LocationCamera = new System.Windows.Forms.PictureBox();
             this.TabControl_Main_Calibration = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
@@ -638,19 +640,6 @@ namespace RFEOnSite
             this.ToolTip1.SetToolTip(this.LabelStopFrequency, "End measurments at this frequency.\r\n\r\nClick \"Set Explorer Configuration\" to progr" +
         "am the connected RF Explorer");
             // 
-            // Button_LocationCamera_CaptureFrame
-            // 
-            this.Button_LocationCamera_CaptureFrame.BackColor = System.Drawing.Color.Gray;
-            this.Button_LocationCamera_CaptureFrame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button_LocationCamera_CaptureFrame.Location = new System.Drawing.Point(9, 108);
-            this.Button_LocationCamera_CaptureFrame.Name = "Button_LocationCamera_CaptureFrame";
-            this.Button_LocationCamera_CaptureFrame.Size = new System.Drawing.Size(141, 50);
-            this.Button_LocationCamera_CaptureFrame.TabIndex = 44;
-            this.Button_LocationCamera_CaptureFrame.Text = "Capture Frame";
-            this.ToolTip1.SetToolTip(this.Button_LocationCamera_CaptureFrame, resources.GetString("Button_LocationCamera_CaptureFrame.ToolTip"));
-            this.Button_LocationCamera_CaptureFrame.UseVisualStyleBackColor = false;
-            this.Button_LocationCamera_CaptureFrame.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
-            // 
             // Button_CSVFileStorage_ResetAllFields
             // 
             this.Button_CSVFileStorage_ResetAllFields.BackColor = System.Drawing.SystemColors.Control;
@@ -705,19 +694,19 @@ namespace RFEOnSite
             this.ToolTip1.SetToolTip(this.RadioButton_CSVFileStorage_FloorDecrement, "When Enabled, deccrement the floor number each time the Next Button is pressed.");
             this.RadioButton_CSVFileStorage_FloorDecrement.UseVisualStyleBackColor = true;
             // 
-            // CheckBoxAutoIncrementMarkerNumber
+            // CheckBox_CSVFileStorage_AutoIncrementMarkerNumber
             // 
-            this.CheckBoxAutoIncrementMarkerNumber.AutoSize = true;
-            this.CheckBoxAutoIncrementMarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxAutoIncrementMarkerNumber.Location = new System.Drawing.Point(223, 32);
-            this.CheckBoxAutoIncrementMarkerNumber.Name = "CheckBoxAutoIncrementMarkerNumber";
-            this.CheckBoxAutoIncrementMarkerNumber.Size = new System.Drawing.Size(101, 17);
-            this.CheckBoxAutoIncrementMarkerNumber.TabIndex = 29;
-            this.CheckBoxAutoIncrementMarkerNumber.Text = "Auto Increment ";
-            this.ToolTip1.SetToolTip(this.CheckBoxAutoIncrementMarkerNumber, "Auto Increment the Collection Site Marker Number after the Capture Button is pres" +
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.AutoSize = true;
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Location = new System.Drawing.Point(223, 32);
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Name = "CheckBox_CSVFileStorage_AutoIncrementMarkerNumber";
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Size = new System.Drawing.Size(101, 17);
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.TabIndex = 29;
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Text = "Auto Increment ";
+            this.ToolTip1.SetToolTip(this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber, "Auto Increment the Collection Site Marker Number after the Capture Button is pres" +
         "sed.");
-            this.CheckBoxAutoIncrementMarkerNumber.UseVisualStyleBackColor = true;
-            this.CheckBoxAutoIncrementMarkerNumber.CheckedChanged += new System.EventHandler(this.CheckBoxAutoIncrement_CheckedChanged);
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.UseVisualStyleBackColor = true;
+            this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.CheckedChanged += new System.EventHandler(this.CheckBoxAutoIncrement_CheckedChanged);
             // 
             // LabelStartFrequency
             // 
@@ -1076,6 +1065,8 @@ namespace RFEOnSite
             // 
             // TabControl_Main_LocationCamera
             // 
+            this.TabControl_Main_LocationCamera.Controls.Add(this.Label_LocationCamera_Marker);
+            this.TabControl_Main_LocationCamera.Controls.Add(this.Label_LocationCamera_Floor);
             this.TabControl_Main_LocationCamera.Controls.Add(this.Button_LocationCamera_PauseResume);
             this.TabControl_Main_LocationCamera.Controls.Add(this.Button_LocationCamera_CaptureFrame);
             this.TabControl_Main_LocationCamera.Controls.Add(this.PictureBox_LocationCamera);
@@ -1087,15 +1078,46 @@ namespace RFEOnSite
             this.TabControl_Main_LocationCamera.Text = "Location Camera";
             this.TabControl_Main_LocationCamera.UseVisualStyleBackColor = true;
             // 
+            // Label_LocationCamera_Marker
+            // 
+            this.Label_LocationCamera_Marker.Location = new System.Drawing.Point(4, 111);
+            this.Label_LocationCamera_Marker.Name = "Label_LocationCamera_Marker";
+            this.Label_LocationCamera_Marker.Size = new System.Drawing.Size(148, 20);
+            this.Label_LocationCamera_Marker.TabIndex = 52;
+            this.Label_LocationCamera_Marker.Text = "Marker ID";
+            this.Label_LocationCamera_Marker.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Label_LocationCamera_Floor
+            // 
+            this.Label_LocationCamera_Floor.Location = new System.Drawing.Point(4, 89);
+            this.Label_LocationCamera_Floor.Name = "Label_LocationCamera_Floor";
+            this.Label_LocationCamera_Floor.Size = new System.Drawing.Size(148, 20);
+            this.Label_LocationCamera_Floor.TabIndex = 51;
+            this.Label_LocationCamera_Floor.Text = "Floor ID";
+            this.Label_LocationCamera_Floor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Button_LocationCamera_PauseResume
             // 
-            this.Button_LocationCamera_PauseResume.Location = new System.Drawing.Point(34, 211);
+            this.Button_LocationCamera_PauseResume.Location = new System.Drawing.Point(33, 191);
             this.Button_LocationCamera_PauseResume.Name = "Button_LocationCamera_PauseResume";
             this.Button_LocationCamera_PauseResume.Size = new System.Drawing.Size(91, 32);
             this.Button_LocationCamera_PauseResume.TabIndex = 49;
-            this.Button_LocationCamera_PauseResume.Text = "Pause";
+            this.Button_LocationCamera_PauseResume.Text = "Capture Marker Image";
             this.Button_LocationCamera_PauseResume.UseVisualStyleBackColor = true;
             this.Button_LocationCamera_PauseResume.Click += new System.EventHandler(this.ButtonPauseResume_Click);
+            // 
+            // Button_LocationCamera_CaptureFrame
+            // 
+            this.Button_LocationCamera_CaptureFrame.BackColor = System.Drawing.Color.Gray;
+            this.Button_LocationCamera_CaptureFrame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_LocationCamera_CaptureFrame.Location = new System.Drawing.Point(8, 135);
+            this.Button_LocationCamera_CaptureFrame.Name = "Button_LocationCamera_CaptureFrame";
+            this.Button_LocationCamera_CaptureFrame.Size = new System.Drawing.Size(141, 50);
+            this.Button_LocationCamera_CaptureFrame.TabIndex = 44;
+            this.Button_LocationCamera_CaptureFrame.Text = "Capture Marker Image";
+            this.ToolTip1.SetToolTip(this.Button_LocationCamera_CaptureFrame, resources.GetString("Button_LocationCamera_CaptureFrame.ToolTip"));
+            this.Button_LocationCamera_CaptureFrame.UseVisualStyleBackColor = false;
+            this.Button_LocationCamera_CaptureFrame.Click += new System.EventHandler(this.ButtonCaptureImage_Click);
             // 
             // PictureBox_LocationCamera
             // 
@@ -1316,7 +1338,7 @@ namespace RFEOnSite
             // GroupBox_CSVFileStorage_CollectionMarker
             // 
             this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.TextBox_CSVFileStorage_CollectionMarkerName);
-            this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.CheckBoxAutoIncrementMarkerNumber);
+            this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.CheckBox_CSVFileStorage_AutoIncrementMarkerNumber);
             this.GroupBox_CSVFileStorage_CollectionMarker.Controls.Add(this.NumericUpDown_CSVFileStorage_MarkerNumber);
             this.GroupBox_CSVFileStorage_CollectionMarker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GroupBox_CSVFileStorage_CollectionMarker.Location = new System.Drawing.Point(20, 191);
@@ -1552,7 +1574,7 @@ namespace RFEOnSite
         private CheckBox CheckBoxRadialAzimuth;
         private NumericUpDown NumericUpDown_CSVFileStorage_MarkerNumber;
         private TextBox TextBox_CSVFileStorage_CollectionMarkerName;
-        private CheckBox CheckBoxAutoIncrementMarkerNumber;
+        private CheckBox CheckBox_CSVFileStorage_AutoIncrementMarkerNumber;
         private TextBox TextBox_CSVFileStorage_Client;
         private GroupBox GroupBox_OmniDirectional_CurrentConfiguration;
         private Button Button_CurrentConfiguration_GetRfeConfiguration;
@@ -1597,7 +1619,6 @@ namespace RFEOnSite
         private Label Label_Connection_ComPortText;
         private GroupBox GroupBox_CSVFileStorage_ClientInformation;
         private Button Button_CSVFileStorage_CollectionFloor_Enable;
-        private Button Button_LocationCamera_CaptureFrame;
         private TabPage TabControl_Main_LocationCamera;
         private PictureBox PictureBox_LocationCamera;
         private Button Button_CSVFileStorage_ResetAllFields;
@@ -1626,6 +1647,9 @@ namespace RFEOnSite
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private Button Button_CSVFileStorage_ResetFloorAndMarkers;
+        private Label Label_LocationCamera_Marker;
+        private Label Label_LocationCamera_Floor;
+        private Button Button_LocationCamera_CaptureFrame;
     }
 }
 

@@ -9,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RF Explorer OnSite")]
 [assembly: AssemblyDescription("Site survey application to collect cellular dBm data for subsequent post-processing")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Integra Network Solutions")]
+[assembly: AssemblyCompany("Skyhawk Consulting Inc.")]
 [assembly: AssemblyProduct("RFEOnSite")]
-[assembly: AssemblyCopyright("SkyhawkConsulting, Inc. ©  2017")]
+[assembly: AssemblyCopyright("SkyhawkConsulting, Inc. ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

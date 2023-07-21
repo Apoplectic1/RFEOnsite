@@ -8,32 +8,31 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>RFE_OnSite</RootNamespace>
     <AssemblyName>RFEOnSite</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>ftp://www.skyhawkconsultinginc.com/Qweb/SkyhawkConsulting/ProjectDeploy/RFEOnSite/</PublishUrl>
+    <PublishUrl>E:\Online Storage\Dropbox\Shares\Friends\Phil\RFEOnSite\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://www.skyhawkconsultinginc.com/Qweb/SkyhawkConsulting/ProjectDeploy/RFEOnSite/</InstallUrl>
+    <UpdateUrl>http://localhost/RFEOnSite/</UpdateUrl>
     <TargetCulture>en-US</TargetCulture>
     <ProductName>RF Explorer OnSite</ProductName>
-    <PublisherName>Integra Network Solutions</PublisherName>
-    <SuiteName>Integra Network RFEOnSite</SuiteName>
+    <PublisherName>Skyhawk Consulting Inc.</PublisherName>
+    <SuiteName>RFEOnSite</SuiteName>
     <MinimumRequiredVersion>1.3.2.0</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -196,9 +195,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -171,7 +171,7 @@ namespace RFEOnSite
             Settings.Default.Persist_MarkerTextState = TextBox_CSVFileStorage_CollectionMarkerName.Text;
             Settings.Default.Persist_MarkerNumberState = NumericUpDown_CSVFileStorage_MarkerNumber.Value;
             Settings.Default.Persist_AutoNext = Button_CSVFileStorage_CollectionFloor_Enable.Text;
-            Settings.Default.Persist_MarkerIncrementState = CheckBoxAutoIncrementMarkerNumber.Checked;
+            Settings.Default.Persist_MarkerIncrementState = CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked;
 
 
             Settings.Default.Persist_AutoScaleState = CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked;
@@ -208,7 +208,7 @@ namespace RFEOnSite
 
             TextBox_CSVFileStorage_CollectionMarkerName.Text = Settings.Default.Persist_MarkerTextState;
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = Settings.Default.Persist_MarkerNumberState;
-            CheckBoxAutoIncrementMarkerNumber.Checked = Settings.Default.Persist_MarkerIncrementState;
+            CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked = Settings.Default.Persist_MarkerIncrementState;
 
             CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked = Settings.Default.Persist_AutoScaleState;
             CheckBox_ReceivedSignalStrength_ChartAverage.Checked = Settings.Default.Persist_AverageState;
@@ -407,8 +407,12 @@ namespace RFEOnSite
                     }
 
                     LabelExecutingTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetCP4DownlinkTable.Count();
+
                     return;
                 }
+
+                TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
+                SetCameraState(eFrameType.ACTIVE);
             }
 
             if (gRFEOnSite.PresetType == ePreset.eFullDownlink)
@@ -442,8 +446,12 @@ namespace RFEOnSite
                     }
 
                     LabelExecutingTask.Text = gRFEOnSite.PresetTableIndex.ToString() + " of " + gRFEOnSite.PresetDownlinkTable.Count();
+
                     return;
                 }
+
+                TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
+                SetCameraState(eFrameType.ACTIVE);
             }
 
             if (gRFEOnSite.PresetType == ePreset.eSingle)
@@ -452,7 +460,7 @@ namespace RFEOnSite
                 ButtonStartSweeps.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
+                if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                     NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
 
                 TabControl_Main.Enabled = true;
@@ -465,7 +473,7 @@ namespace RFEOnSite
                 ButtonStartSweeps.Enabled = true;
                 //ButtonCancelSweeps.Enabled = false;
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
+                if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                     NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
 
                 TabControl_Main.Enabled = true;
@@ -491,7 +499,7 @@ namespace RFEOnSite
                 if (gRFEOnSite.CalibrationActive)
                     ButtonCalibrationStart.Text = "Start";
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
+                if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                     if (ButtonCancelSweeps.Enabled)
                         NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
 
@@ -507,8 +515,6 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.PopDirectory(); // For Image Capture
             }
 
-            TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
-            SetCameraState(eFrameType.ACTIVE);
             SystemSounds.Hand.Play();
         }
 
@@ -665,6 +671,15 @@ namespace RFEOnSite
             int floorNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString());
             int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
+            if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Disable")
+                Label_LocationCamera_Floor.Text = (TextBox_CSVFileStorage_CollectionFloorName.Text + " " + NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString()).Trim();
+            else
+                Label_LocationCamera_Floor.Text = "";
+
+            Label_LocationCamera_Marker.Text = (TextBox_CSVFileStorage_CollectionMarkerName.Text + " " + NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString()).Trim();
+
+            RefreshCSVFileStorage(true);
+
             if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
                 gRFEOnSite.FileOps.PopToDirectory(1);
@@ -672,7 +687,7 @@ namespace RFEOnSite
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_Client.Text);
                 gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionLocationDescription.Text);
 
-                if (CheckBoxAutoIncrementMarkerNumber.Checked)
+                if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked)
                 {
                     if (Button_CSVFileStorage_CollectionFloor_Enable.Text == "Disable")
                         gRFEOnSite.FileOps.CreateEnterDirectory(TextBox_CSVFileStorage_CollectionFloorName.Text + floorNumber.ToString("D2") + "//" + TextBox_CSVFileStorage_CollectionMarkerName.Text + "-" + markerNumber.ToString("D2"));
@@ -963,7 +978,7 @@ namespace RFEOnSite
             gRFEOnSite.PresetTableIndex = gRFEOnSite.PresetCP4DownlinkTable.Count();
             NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
-            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked && CheckBoxAutoIncrementMarkerNumber.Checked && !gRFEOnSite.PresetActive)
+            if (CheckBox_CSVFileStorage_SaveCsvFiles.Checked && CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && !gRFEOnSite.PresetActive)
             {
                 if (NumericUpDown_CSVFileStorage_MarkerNumber.Value > 1)
                 {
@@ -986,7 +1001,7 @@ namespace RFEOnSite
 
         private void CheckBoxAutoIncrement_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBoxAutoIncrementMarkerNumber.Checked)
+            if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked)
                 NumericUpDown_CSVFileStorage_MarkerNumber.Enabled = true;
             else
                 NumericUpDown_CSVFileStorage_MarkerNumber.Enabled = false;
@@ -1008,6 +1023,9 @@ namespace RFEOnSite
 
         private void Button_CSVFileStorage_ResetFloorAndMarkers_Click(object sender, EventArgs e)
         {
+            Label_LocationCamera_Floor.Text = "Floor ID";
+            Label_LocationCamera_Marker.Text = "Marker ID";
+
             NumericUpDown_CSVFileStorage_FloorNumber.Value = 1;
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
             SetCameraState(eFrameType.NEW);
@@ -1055,14 +1073,18 @@ namespace RFEOnSite
             {
                 Button_CSVFileStorage_CollectionFloor_Enable.Text = "Disable";
                 GroupBox_CSVFileStorage_AutoNext.Enabled = true;
+                Label_LocationCamera_Floor.Text = (TextBox_CSVFileStorage_CollectionFloorName.Text + " " + NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString()).Trim();
                 RefreshCSVFileStorage();
             }
             else
             {
                 Button_CSVFileStorage_CollectionFloor_Enable.Text = "Enable";
                 GroupBox_CSVFileStorage_AutoNext.Enabled = false;
+                Label_LocationCamera_Floor.Text = "";
                 RefreshCSVFileStorage();
             }
+
+            Label_LocationCamera_Marker.Text = (TextBox_CSVFileStorage_CollectionMarkerName.Text + " " + (NumericUpDown_CSVFileStorage_MarkerNumber.Value - 1).ToString()).Trim();
         }
 
         private void Button_CSVFileStorage_CollectionFloor_AutoNext_Click(object sender, EventArgs e)
@@ -1090,7 +1112,7 @@ namespace RFEOnSite
             RefreshCSVFileStorage();
         }
 
-        private void RefreshCSVFileStorage()
+        private void RefreshCSVFileStorage(bool bSweeping = false)
         {
             if (!CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
             {
@@ -1111,7 +1133,17 @@ namespace RFEOnSite
                 int floorNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_FloorNumber.Value.ToString());
                 int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
-                StripStatusLabelCsvDirectory.Text =
+                if (bSweeping)
+                    StripStatusLabelCsvDirectory.Text =
+                        "Collecting CSV Capture Directory: Desktop\\RFEOnSite Data\\" +
+                        TextBox_CSVFileStorage_Client.Text + "\\" +
+                        TextBox_CSVFileStorage_CollectionLocationDescription.Text + "\\" +
+                        TextBox_CSVFileStorage_CollectionFloorName.Text +
+                        floorNumber.ToString("D2") + "\\" +
+                        TextBox_CSVFileStorage_CollectionMarkerName.Text +
+                        markerNumber.ToString("D2");
+                else
+                    StripStatusLabelCsvDirectory.Text =
                     "Next CSV Capture Directory: Desktop\\RFEOnSite Data\\" +
                     TextBox_CSVFileStorage_Client.Text + "\\" +
                     TextBox_CSVFileStorage_CollectionLocationDescription.Text + "\\" +
@@ -1129,7 +1161,15 @@ namespace RFEOnSite
 
                 int markerNumber = Convert.ToInt32(NumericUpDown_CSVFileStorage_MarkerNumber.Value.ToString());
 
-                StripStatusLabelCsvDirectory.Text =
+                if (bSweeping)
+                    StripStatusLabelCsvDirectory.Text =
+                        "Collecting CSV Capture Directory: Desktop\\RFEOnSite Data\\" +
+                        TextBox_CSVFileStorage_Client.Text + "\\" +
+                        TextBox_CSVFileStorage_CollectionLocationDescription.Text + "\\" +
+                        TextBox_CSVFileStorage_CollectionMarkerName.Text +
+                        markerNumber.ToString("D2");
+                else
+                    StripStatusLabelCsvDirectory.Text =
                     "Next CSV Capture Directory: Desktop\\RFEOnSite Data\\" +
                     TextBox_CSVFileStorage_Client.Text + "\\" +
                     TextBox_CSVFileStorage_CollectionLocationDescription.Text + "\\" +
@@ -1222,6 +1262,9 @@ namespace RFEOnSite
             TextBox_CSVFileStorage_Client.Text = "Client Name";
             TextBox_CSVFileStorage_CollectionLocationDescription.Text = "Client Location";
 
+            Label_LocationCamera_Floor.Text = "Floor ID";
+            Label_LocationCamera_Marker.Text = "Marker ID";
+
             TextBox_CSVFileStorage_CollectionFloorName.Text = "Floor";
             NumericUpDown_CSVFileStorage_FloorNumber.Value = 1;
             Button_CSVFileStorage_CollectionFloor_Enable.Text = "Disable";
@@ -1230,7 +1273,7 @@ namespace RFEOnSite
 
             TextBox_CSVFileStorage_CollectionMarkerName.Text = "M";
             NumericUpDown_CSVFileStorage_MarkerNumber.Value = 1;
-            this.CheckBoxAutoIncrementMarkerNumber.Checked = true;
+            CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked = true;
 
 
             CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked = false;
