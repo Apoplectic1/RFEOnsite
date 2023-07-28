@@ -29,10 +29,10 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>RF Explorer OnSite</ProductName>
     <PublisherName>Skyhawk Consulting Inc.</PublisherName>
-    <SuiteName>RFEOnSite</SuiteName>
+    <SuiteName>RF Explorer Suite</SuiteName>
     <MinimumRequiredVersion>1.3.2.0</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>30</ApplicationRevision>
+    <ApplicationRevision>31</ApplicationRevision>
     <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

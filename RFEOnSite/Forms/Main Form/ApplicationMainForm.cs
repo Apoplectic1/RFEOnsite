@@ -411,8 +411,11 @@ namespace RFEOnSite
                     return;
                 }
 
-                TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
-                SetCameraState(eFrameType.ACTIVE);
+                if (mCapture.IsOpened == true)
+                {
+                    TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
+                    SetCameraState(eFrameType.ACTIVE);
+                }
             }
 
             if (gRFEOnSite.PresetType == ePreset.eFullDownlink)
@@ -450,8 +453,11 @@ namespace RFEOnSite
                     return;
                 }
 
-                TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
-                SetCameraState(eFrameType.ACTIVE);
+                if (mCapture.IsOpened == true)
+                {
+                    TabControl_Main.SelectedTab = TabControl_Main_LocationCamera;
+                    SetCameraState(eFrameType.ACTIVE);
+                }
             }
 
             if (gRFEOnSite.PresetType == ePreset.eSingle)
@@ -459,6 +465,7 @@ namespace RFEOnSite
                 LabelExecutingTask.Text = "Done";
                 ButtonStartSweeps.Enabled = true;
                 ButtonCancelSweeps.Enabled = false;
+                NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
                 if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                     NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
@@ -471,7 +478,8 @@ namespace RFEOnSite
             {
                 LabelExecutingTask.Text = "Done";
                 ButtonStartSweeps.Enabled = true;
-                //ButtonCancelSweeps.Enabled = false;
+                ButtonCancelSweeps.Enabled = false;
+                NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
                 if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
                     NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
@@ -495,16 +503,16 @@ namespace RFEOnSite
             if (gRFEOnSite.PresetActive)
             {
                 LabelExecutingTask.Text = "Done";
+                ButtonStartSweeps.Enabled = true;
+                ButtonCancelSweeps.Enabled = false;
+                NumericUpDown_SweepControl_Sweeps.Enabled = true;
 
                 if (gRFEOnSite.CalibrationActive)
                     ButtonCalibrationStart.Text = "Start";
 
                 if (CheckBox_CSVFileStorage_AutoIncrementMarkerNumber.Checked && CheckBox_CSVFileStorage_SaveCsvFiles.Checked)
-                    if (ButtonCancelSweeps.Enabled)
-                        NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
+                    NumericUpDown_CSVFileStorage_MarkerNumber.Value += 1;
 
-                ButtonStartSweeps.Enabled = true;
-                ButtonCancelSweeps.Enabled = false;
                 TabControl_Main.Enabled = true;
                 GroupBox_CSVFileStorage.Enabled = true;
             }
@@ -1185,6 +1193,9 @@ namespace RFEOnSite
 
             try
             {
+                if (mCapture.IsOpened == false)
+                    return;
+
                 Bitmap image = mCapture.QueryFrame().ToBitmap();
                 if (image == null)
                 {
@@ -1223,7 +1234,7 @@ namespace RFEOnSite
 
             try
             {
-                if (mCapture != null)
+                if (mCapture.IsOpened == true)
                 {
                     mMat = mCapture.QueryFrame();
                     PictureBox_LocationCamera.Image = mMat.ToBitmap();
@@ -1231,13 +1242,7 @@ namespace RFEOnSite
             }
             catch
             {
-                if (mCapture != null)
-                    mCapture.Dispose();
-                mCapture = new VideoCapture();
-
-                if (mMat != null)
-                    mMat.Dispose();
-                mMat = new Mat();
+                gRFEOnSite.VideoCapture = false;
             }
         }
 
@@ -1245,12 +1250,20 @@ namespace RFEOnSite
         {
             if (TabControl_Main.SelectedTab.Text == "Location Camera")
             {
-                TabControl_Main_LocationCamera.Enabled = true;
-                if (gRFEOnSite.CsvDirectoryValid && Button_LocationCamera_CaptureFrame.Text != "Wait for Capture")
-                    SetCameraState(eFrameType.ACTIVE);
+                if (mCapture.IsOpened)
+                {
+                    TabControl_Main_LocationCamera.Enabled = true;
+                    if (gRFEOnSite.CsvDirectoryValid && Button_LocationCamera_CaptureFrame.Text != "Wait for Capture")
+                        SetCameraState(eFrameType.ACTIVE);
+                    else
+                     if (Button_LocationCamera_CaptureFrame.Text != "Wait for Capture")
+                        SetCameraState(eFrameType.IDLE);
+                }
                 else
-                 if (Button_LocationCamera_CaptureFrame.Text != "Wait for Capture")
+                {
                     SetCameraState(eFrameType.IDLE);
+                    Button_LocationCamera_CaptureFrame.Text = "No Camera Present";
+                }
             }
             else
                 SetCameraState(eFrameType.IDLE);
