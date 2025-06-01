@@ -1,5 +1,4 @@
-﻿using RFESnapShot.AutoSweep;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -17,17 +16,10 @@ namespace RFEOnSite
         private bool mSecondReturnedConfiguration; // For synchornization
         private bool mFirstRetunedConfiguration;  // For synchornization
 
-        public StabilityChecker AutoSweep { get; set; }
-
-
-
         public int SweepCount { get; set; }
         public bool Capture { get; set; }
-        public List<string> SweepData { get { return mReceivedSweep; } }
         public bool WaitingForConfigurationCallBack { get; set; }
-
         public bool SweepValueStable { get; set; } = false;
-
         public bool Force2400Baud { get; set; } = false;
 
         public RFExplorer()
@@ -41,7 +33,6 @@ namespace RFEOnSite
             mSecondReturnedConfiguration = false;
             mFirstRetunedConfiguration = false;
             WaitingForConfigurationCallBack = true;
-            AutoSweep = new StabilityChecker();
         }
 
         //Background Thread to find and connect to serial port. Main Thread Awaits completion
@@ -49,22 +40,19 @@ namespace RFEOnSite
         {
             mSerialPort.FindSerialPorts();
             if (Force2400Baud)
-            {
                 mSerialPort.BaudRate = 2400;
-            }
             else
-            {
                 mSerialPort.BaudRate = 500000;
-            }
+
             mSerialPort.ConnectPort();
 
             UpdateUIComPortText.Report(mSerialPort.ConnectedPortName);
         }
 
-        public void CreateReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<List<string>> sweepData, IProgress<int> nProgress)
+        public void CreateReceiveDataThread(IProgress<RFEConfiguration> configurationData, IProgress<List<string>> sweepData, IProgress<string> sweepChartData, IProgress<int> nProgress)
         {
             //Start listening to data from the RF Explorer
-            mReceiveThread = new Thread(() => ReceiveThread(configurationData, sweepData, nProgress));
+            mReceiveThread = new Thread(() => ReceiveThread(configurationData, sweepData, sweepChartData, nProgress));
             mReceiveThread.Start();
 
             mSecondReturnedConfiguration = false;
@@ -78,12 +66,10 @@ namespace RFEOnSite
             mReceivedSweep.Clear();
 
             if (mReceiveThread != null)
-            {
                 mReceiveThread.Abort();
-            }
         }
 
-        public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = -30, int amplitudeBottom = -110)
+        public void SendConfiguration(double startMHz, double stopMHz, int amplitudeTop = -50, int amplitudeBottom = -110)
         {
             string start;
             string stop;
@@ -140,7 +126,8 @@ namespace RFEOnSite
         }
 
         private void ReceiveThread(IProgress<RFEConfiguration> configurationProgress,
-                                    IProgress<List<string>> sweepData,
+                                    IProgress<List<string>> sweepDataList,
+                                    IProgress<string> sweepData,
                                     IProgress<int> progressBarProgress)
 
         {
@@ -191,9 +178,10 @@ namespace RFEOnSite
                             if (sNewLine.Length == 115)
                             {
                                 if (SweepCount > 0)
-                                {   
+                                {
                                     //Sweep until count is zero
                                     progressBarProgress.Report(SweepCount);
+                                    sweepData.Report(sNewLine);
                                     mReceivedSweep.Add(sNewLine);
                                     SweepCount--;
 
@@ -202,7 +190,7 @@ namespace RFEOnSite
                                         Capture = false;
                                         sReceived = "";
                                         sNewText = "";
-                                        sweepData.Report(mReceivedSweep);
+                                        sweepDataList.Report(mReceivedSweep);
                                         progressBarProgress.Report(0);
                                     }
                                 }

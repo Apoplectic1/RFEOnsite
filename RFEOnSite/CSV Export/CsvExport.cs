@@ -25,8 +25,8 @@ namespace RFEOnSite
     //   string myCsv = myExport.Export();
     //   myExport.ExportToFile("Somefile.csv");
     //   byte[] myCsvData = myExport.ExportToBytes();
-    
-   	public class CsvExport
+
+    public class CsvExport
     {
         private List<string> mFields = new List<string>();
         private List<Dictionary<string, object>> mRows = new List<Dictionary<string, object>>();
@@ -34,14 +34,14 @@ namespace RFEOnSite
         private readonly bool mIncludeColumnSeparatorDefinitionPreamble;
 
         private Dictionary<string, object> CurrentRow { get { return mRows[mRows.Count - 1]; } }
- 
+
 
         public CsvExport(string columnSeparator = ",", bool includeColumnSeparatorDefinitionPreamble = false)
         {
             mColumnSeparator = columnSeparator;
-            mIncludeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;  
+            mIncludeColumnSeparatorDefinitionPreamble = includeColumnSeparatorDefinitionPreamble;
         }
-        
+
         public object this[string field]
         {
             set
@@ -51,12 +51,12 @@ namespace RFEOnSite
                 CurrentRow[field] = value;
             }
         }
-       
+
         public void AddRow()
         {
             mRows.Add(new Dictionary<string, object>());
         }
-        
+
         public void AddRows<T>(IEnumerable<T> list)
         {
             if (list.Any())
@@ -131,7 +131,7 @@ namespace RFEOnSite
 
             return sb.ToString();
         }
-        
+
         public void ExportToFile(string path)
         {
             // Creates a new file, writes a collection of strings to the file, and then closes the file.

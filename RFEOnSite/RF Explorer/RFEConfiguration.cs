@@ -46,15 +46,15 @@ namespace RFEOnSite
         public enum eModel
         {
             MODEL_433 = 0,
-            MODEL_868 = 1,          
-            MODEL_915 = 2,          
-            MODEL_WSUB1G = 3,       
-            MODEL_2400 = 4,         
-            MODEL_WSUB3G = 5,       
+            MODEL_868 = 1,
+            MODEL_915 = 2,
+            MODEL_WSUB1G = 3,
+            MODEL_2400 = 4,
+            MODEL_WSUB3G = 5,
             MODEL_6G = 6,
             MODEL_6G_PLUS = 10,
-            MODEL_RFGEN = 60,   
-            None = 0xFF         
+            MODEL_RFGEN = 60,
+            None = 0xFF
         };
 
         public enum eConfigState { eInvalid, eUiValid, eUIUpdate, eExplorerUpdate, eExplorerValid };

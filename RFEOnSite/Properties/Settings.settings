@@ -2,68 +2,77 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RFE_OnSite.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Persist_ClientTextState" Type="System.String" Scope="User">
+    <Setting Name="Persist_ClientText" Type="System.String" Scope="User">
       <Value Profile="(Default)">Client</Value>
     </Setting>
-    <Setting Name="Persist_LocationTextState" Type="System.String" Scope="User">
+    <Setting Name="Persist_LocationText" Type="System.String" Scope="User">
       <Value Profile="(Default)">Client Location</Value>
     </Setting>
-    <Setting Name="Persist_FloorTextState" Type="System.String" Scope="User">
+    <Setting Name="Persist_FloorText" Type="System.String" Scope="User">
       <Value Profile="(Default)">Floor</Value>
     </Setting>
-    <Setting Name="Persist_FloorNumberState" Type="System.Decimal" Scope="User">
+    <Setting Name="Persist_FloorNumber" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="Persist_MarkerTextState" Type="System.String" Scope="User">
+    <Setting Name="Persist_MarkerText" Type="System.String" Scope="User">
       <Value Profile="(Default)">M</Value>
     </Setting>
-    <Setting Name="Persist_MarkerNumberState" Type="System.Decimal" Scope="User">
+    <Setting Name="Persist_MarkerNumber" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="Persist_MarkerIncrementState" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_MarkerIncrement" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Persist_FloorEnableState" Type="System.String" Scope="User">
+    <Setting Name="Persist_FloorEnable" Type="System.String" Scope="User">
       <Value Profile="(Default)">Enable</Value>
     </Setting>
-    <Setting Name="Persist_FloorDecrementState" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_FloorDecrement" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Persist_SweepsCountState" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">300</Value>
+    <Setting Name="Persist_MinimumStableSweeps" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">500</Value>
     </Setting>
-    <Setting Name="Persist_AutoScaleState" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_AutoScale" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Persist_SaveCsvCheckedState" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_SaveCsvChecked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Persist_Preset" Type="System.String" Scope="User">
       <Value Profile="(Default)">Full Downlink</Value>
     </Setting>
-    <Setting Name="Persist_2400State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_2400Buad" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Persist_AutoNext" Type="System.String" Scope="User">
       <Value Profile="(Default)">Enable</Value>
     </Setting>
-    <Setting Name="Persist_CheckBox_Band_600_State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_CheckBox_Band_600" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Persist_CheckBox_Band_700_State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_CheckBox_Band_700" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Persist_CheckBox_Band_CEL_State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_CheckBox_Band_CEL" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Persist_CheckBox_Band_PCS_State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_CheckBox_Band_PCS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Persist_CheckBox_Band_AWS_State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_CheckBox_Band_AWS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Persist_CheckBox_Band_WCS_State" Type="System.Boolean" Scope="User">
+    <Setting Name="Persist_CheckBox_Band_WCS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Persist_Sweeps" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">3000</Value>
+    </Setting>
+    <Setting Name="Persist_Mad" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="ComboBox_CurrentConfiguration_Preset" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

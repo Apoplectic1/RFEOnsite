@@ -1,76 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using MathNet.Numerics.Distributions;
+using MathNet.Numerics.Statistics;
 
 namespace RFESnapShot.AutoSweep
 {
+
     public class StabilityChecker
     {
-        private bool bEnabled = false;
-        private double threshold;
-        private int requiredCount;
-        private Queue<double> taps = new Queue<double>();
-        private int exceedCount;
-        private double runningSum;
+        private bool mEnabled = false;
+        private double mTargetMadDb { get; set; }  // Maximum Median Absolute Deviation in dB
+        private int mRequiredCount;
+        private Queue<double> mTaps = new Queue<double>();
+        private double mRunningSum;
 
-        public void Initialize(bool bEnable, decimal requiredDbmVariation, decimal requiredStableCalls)
+        public void Initialize(bool bEnable, double targetMadDb, int requiredStableCalls)
         {
-            this.bEnabled = bEnable;
-            this.threshold = (double)requiredDbmVariation / 2.0;
-            this.requiredCount = (int)requiredStableCalls;
-            this.runningSum = 0;
-            this.taps.Clear();
+            mEnabled = bEnable;
+            mTargetMadDb = targetMadDb;
+            mRequiredCount = requiredStableCalls;
+            mRunningSum = 0;
+            mTaps.Clear();
         }
 
         public void Clear()
         {
-            runningSum = 0;
-            this.taps.Clear();
+            mRunningSum = 0;
+            mTaps.Clear();
         }
 
-        // Assume this is declared at the class level
-
-        public bool Stable(double currentValue)
+        public bool StableCheck(double currentValue)
         {
-            if (!bEnabled)
+            if (!mEnabled)
             {
-                taps.Clear();
-                runningSum = 0; // Reset running sum
+                mTaps.Clear();
+                mRunningSum = 0;
                 return false;
             }
 
-            // Enqueue the current value and update running sum
-            taps.Enqueue(currentValue);
-            runningSum += currentValue;
+            mTaps.Enqueue(currentValue);
 
-            // Ensure the queue does not hold more taps than needed
-            if (taps.Count > requiredCount)
+            mRunningSum += currentValue;
+
+            // We want to look at only the most recent sweeps
+            if (mTaps.Count > mRequiredCount)
             {
-                runningSum -= taps.Dequeue(); // Update running sum when dequeuing
+                mRunningSum -= mTaps.Dequeue(); // Update running sum when dequeuing
             }
 
-            // If we don't have enough taps yet, return false
-            if (taps.Count < requiredCount)
+            // If we don't have enough mTaps yet, return false
+            if (mTaps.Count < mRequiredCount)
                 return false;
 
-            double average = runningSum / taps.Count;
-            int exceedCount = 0;
-            double maxExceedCount = 0.05 * requiredCount;
+            // Calculate the mean of the array
+            double mean = mRunningSum / (double)mTaps.Count;
 
-            // Iterate directly over the queue
-            foreach (var value in taps)
+            // Update each element in the array with its absolute difference from the mean
+            double absDiffSum = 0;
+            foreach (var tap in mTaps)
             {
-                if (Math.Abs(value - average) > threshold)
-                {
-                    exceedCount++;
-                    if (exceedCount > maxExceedCount)
-                    {
-                        return false;
-                    }
-                }
+                absDiffSum += Math.Abs(tap - mean);
             }
 
-            return true;
+            return Math.Abs(absDiffSum / (double)mTaps.Count) <= mTargetMadDb;
         }
-
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -28,7 +27,7 @@ namespace RFEOnSite
             Path = string.Empty;
             mCwdQueue = new Stack();
         }
-        
+
         public string PeekCwdDirectory()
         {
             return mCwdQueue.Peek().ToString();
@@ -235,7 +234,7 @@ namespace RFEOnSite
         // ** Write CsvFiles from Swept List Data
         // *****************************************************************************************
         // *****************************************************************************************
-        public bool ExportCsvFile(double startMhz, double stopMhz, double stepSize,  List<string> data)
+        public bool ExportCsvFile(double startMhz, double stopMhz, double stepSize, List<string> data)
         {
             ExportCsv = new CsvExport();
 
