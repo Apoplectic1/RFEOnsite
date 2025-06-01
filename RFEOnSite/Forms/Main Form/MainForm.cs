@@ -222,7 +222,15 @@ namespace RFEOnSite
             Settings.Default.Persist_AutoScale = CheckBox_ReceivedSignalStrength_ChartAutoScale.Checked;
             Settings.Default.Persist_MinimumStableSweeps = NumericUpDown_SweepControl_VariationSweeps.Value;
 
-            Settings.Default.Persist_Preset = ComboBox_CurrentConfiguration_Preset.SelectedItem.ToString();
+            if (ComboBox_CurrentConfiguration_Preset.SelectedItem == null)
+            {
+                Settings.Default.Persist_Preset = "Full Downlink";
+            }
+            else
+            {
+                Settings.Default.Persist_Preset = ComboBox_CurrentConfiguration_Preset.SelectedItem.ToString();
+            }
+
             Settings.Default.Persist_2400Buad = force2400BaudToolStripMenuItem.Checked;
 
             Settings.Default.Persist_CheckBox_Band_600 = CheckBox_Band_600.Checked;
